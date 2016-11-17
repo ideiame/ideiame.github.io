@@ -1,0 +1,1406 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Ideias sobre o Rails Rumble</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Ideias sobre o Rails Rumble <small><br/>01/10/2012
+    
+      <span class="categories">
+        
+          <a  class="btn btn-primary" href=/categories.html#pense-ref>pense
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">32</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#rails-ref>rails
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">7</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#ruby-ref>ruby
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">14</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#railsrumble-ref>railsrumble
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">4</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#churumelas-ref>churumelas
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">3</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>Estou muito empolgado com a ideia de participar do <a href="http://railsrumble.com/">Rails Rumble</a>. Desde que vi o tweet de que iria ter esta competição pensei: este ano não posso perder! E hoje estou aqui a organizar minhas ideias para o projeto. </p>
+
+<h1 id="a-inspira��o">A inspiração</h1>
+
+<p>O <a href="http://www.codeschool.com/">Code School</a> sem sombra de dúvidas é minha maior inspiração. A gamificação dos povos e a modalidade de desafios oferecidas pelo codeschool realmente são minha [maior motivação]. </p>
+
+<p>Este site oferece um sistema de cursos de programação muito mais objetivo e intuitivo. Através de vídeos e exemplos na prática você precisa codificar cada etapa do seu aprendizado para testar seus conhecimentos. </p>
+
+<p>O sistema funciona como um jogo, cada etapa cumprida você ganha uma &quot;bagagem&quot; de experiência e acumula pontos. A qualidade audio visual, assim como os desafios de programação são demais. Realmente tenho me divertido noite a dentro e nos horários de folga codificando os pequenos desafios.</p>
+
+<h1 id="a-ideia">A ideia</h1>
+
+<p>Após fazer várias aulas no codeschool, descobri que minha meta é criar uma métrica para mensurar a habilidade do programador em frente ao problema real.</p>
+
+<p>Percebi que a cada lição você ganha uma quantidade de pontos e cada vez que usa os hints seu crédito é debitado, então isso quer dizer que quando o jogo termina e você já está bastante habilidoso, não perde nenhum crédito.</p>
+
+<p>O objetivo inicial vai ser criar o sistema de forma que mensuremos:</p>
+
+<ul>
+<li>tempo de leitura da questão</li>
+<li>tempo de resposta para iniciar edição</li>
+<li>tempo de resposta para acertar a questão</li>
+<li>número de tentativas com erro antes de passar os testes</li>
+</ul>
+
+<p>Em um segundo momento, utilizando aí um mapeamento javascript mais profundo a ideia também é mensurar os fatores:</p>
+
+<ul>
+<li>Experiência com atalhos do teclado</li>
+<li>Número de movimentos com teclado</li>
+<li>Número de atalhos com teclado</li>
+<li>Número de atalhos inexistentes</li>
+</ul>
+
+<p>Em um terceiro momento a ideia dá pra expandir para os aspectos de:</p>
+
+<ul>
+<li>Manutenibilidade / Refatoração</li>
+<li>Escalabilidade</li>
+<li>Experiência com o usuário</li>
+</ul>
+
+<h1 id="a-necessidade">A necessidade</h1>
+
+<p>A necessidade está ligada a contratação de desenvolvedores. De alguma forma quero criar um produto inovador na área de testar os conhecimentos e habilidades do desenvolvedor e permitir encaixá-lo em uma modalidade. O super-ego das pessoas desafia a melhoria e isto é bom. Competir faz bem. Ter um desafio faz bem. </p>
+
+<h1 id="a-competi��o">A competição</h1>
+
+<p>A competição faz com que as pessoas melhorem suas práticas e ao mesmo tempo sintam-se desafiadas a investirem nas suas habilidades plenas e em time para poderem competir melhor.</p>
+
+<p>Este evento é um exemplo de como existem pessoas que estão dispostas a passar as 48 horas do fim de semana em um desafio de programação por pura paixão. </p>
+
+<p>A comunidade Rails é a mais apaixonada por código lindo e open source que eu conheço.</p>
+
+<h1 id="as-48-horas-est�o-pr�ximas">As 48 horas estão próximas</h1>
+
+<p>Não se esqueçam dia 13 e 14 deste mês estão aí! Há vagas na equipe! Junte-se a mim para desenvolver esta ideia! </p>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Ideias sobre o Rails Rumble&url=http://ideia.me/rails-rumble-ideias&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/rails-rumble-ideias" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/rails-rumble-ideias" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/os-programadores-do-futuro" title="Os programadores do futuro">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/rails-rumble-se-foi-e-churumelas-esta-no-ar" title="Como foi a Rails Rumble 2012">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

@@ -1,0 +1,1301 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Coffeescript rocks</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Coffeescript rocks <small><br/>27/09/2015
+    
+      <span class="categories">
+        
+          <a  class="btn btn-primary" href=/categories.html#pense-ref>pense
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">32</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#linguagem-ref>linguagem
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">9</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#coffeescript-ref>coffeescript
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">2</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>Eu sou um fã de CoffeeScript e gostaria de mostrar alguns exemplos que me fazem
+lembrar que nunca mais vou escrever nenhuma linha de javascript puro.</p>
+
+<p>Primeiramente eu não gosto de ficar repetindo as coisas e coffee é tudo de bom
+pra fazer isso. No javascript tem um monte de parênteses e chaves
+arbitrários porém acabam sendo mais chatos e deixam o código um pouco mais
+denso.</p>
+
+<p>Coffeescript é uma linguagem que idealiza várias ideias que me atraem.</p>
+
+<ul>
+<li>Simplicidade</li>
+<li>Confidência</li>
+<li>Minimalismo</li>
+</ul>
+
+<p>Vou citar caso a caso as coisas que mais gosto. Todas elas são complementares e
+ajudam a manter a facilidade. Coffeescript é javascript. Logo tudo que estou
+fazendo é usar o transpilador para gerar o código final em js.</p>
+
+<p>Se você curtir, vai copiando e colando os exemplos no <a href="http://js2.coffee/">j2.coffee</a>.</p>
+
+<h2 id="fun��o">Função</h2>
+
+<p>Em javascript teríamos:</p>
+
+<pre class="prettyprint javascript">
+maisUm = function(n) { n + 1 }
+</pre>
+
+<p>Em coffeescript temos:</p>
+
+<h2 id="fun��es">funções</h2>
+
+<p>Então não precisa de <code>function</code> nem <code>{}</code>:</p>
+
+<pre class="prettyprint coffeescript">
+maisUm = (n) -> n + 1
+</pre>
+
+<h2 id="indenta��o-inteligente">Indentação inteligente</h2>
+
+<p>As chaves não são substituídas por um código indentado. Isso quer dizer que
+você vai usar espaços ao invés de chaves para todos lados.</p>
+
+<pre class="prettyprint coffeescript">
+maisUm = (n) ->
+  n + 1
+</pre>
+
+<p>Se a função for complexa a identação vai expandindo e fica fácil de entender o
+contexto.</p>
+
+<pre class="prettyprint coffeescript">
+parOuImpar = (n) ->
+  if n % 2 is 0
+    'par'
+  else
+    'impar'
+</pre>
+
+<p>Também é possível fazer <em>inline</em> com <code>then</code>.</p>
+
+<pre class="prettyprint coffeescript">
+parOuImpar = (n) -> if n % 2 is 0 then 'par' else 'impar'
+</pre>
+
+<p>Essas opções <em>inline</em> são muito interessantes para explorar pois elas podem ser
+combinadas e gerar um código bem compacto e com bastante significado.</p>
+
+<p>Por exemplo, vamos combinar a função de par ou impar para iterar sobre um array:</p>
+
+<pre class="prettyprint coffeescript">
+classificarParOuImpar = (array) ->
+  for n in array
+    if n % 2 is 0
+      'par'
+    else
+      'impar'
+</pre>
+
+<h2 id="inline">Inline</h2>
+
+<p>A função acima, irá retornar um array de strings &#39;par&#39; ou &#39;impar&#39;. Se fosse
+escrever inline seria:</p>
+
+<pre class="prettyprint coffeescript">
+classificarParOuImpar = (array) -> if n % 2 is 0 then 'par' else 'impar' for n in array
+</pre>
+
+<h2 id="multiplas-atribui��es">Multiplas atribuições</h2>
+
+<p>As múltiplas atribuições já existem no javascript e não há nada de novo nisso.
+No entando o coffeescript tem a sua própria maneira de fazer.</p>
+
+<p>Isso é muito interessante o quão simples torna as atribuções. Exemplo de
+atribuição sequencial:</p>
+
+<pre class="prettyprint coffeescript">
+a = 1
+b = 2
+</pre>
+
+<p>Então em uma linha atribuindo múltiplas variáveis ao mesmo tempo:</p>
+
+<pre class="prettyprint coffeescript">
+[a,b] = [1,2]
+</pre>
+
+<h2 id="multiplas-atribui��es-de-hashes">Multiplas atribuições de hashes</h2>
+
+<p>As atribuições também funcionam para hashes.</p>
+
+<p>Esse é um dos meus preferidos, principalmente pela simplicidade de extrair
+atributos. Imagina o seguinte código:</p>
+
+<pre class="prettyprint coffeescript">
+peso = pessoa.peso
+altura = pessoa.altura
+idade = pessoa.idade
+</pre>
+
+<p>Escrevendo em uma linha:</p>
+
+<pre class="prettyprint coffeescript">
+{peso, altura, idade} = pessoa
+</pre>
+
+<p>Agora, se você estiver super empolgado após usar as variáveis acima
+e quiser retornar um hash modificado com as medidas normalmente iria fazer:</p>
+
+<pre class="prettyprint coffeescript">
+{peso: peso, altura: altura, idade: idade}
+</pre>
+
+<p>Mas você pode simplificar ainda mais usando a seguinte sintaxe:</p>
+
+<pre class="prettyprint coffeescript">
+{peso, altura, idade}
+</pre>
+
+<p>Eu acho interessante a ideia de ter apenas uma maneira de se escrever um código
+mas gosto dessas variações que simplificam e minimizam a linguagem em si.</p>
+
+<p>Acredito que as declarações como  <code>{a: a, b: b}</code> são repetitivas e
+desnecessárias: Entendendo que <code>{a,b}</code> irá gerar exatamente isso, consigo
+manter um código mais limpo e menos verboso. Eu sinceramente gosto muito disso.</p>
+
+<h3 id="par�metros-se-transformando-em-atributo-de-acesso">Parâmetros se transformando em atributo de acesso</h3>
+
+<p>Em um exemplo simples poderia escrever:</p>
+
+<pre class="prettyprint coffeescript">
+class Pessoa
+  constructor: (nome) ->
+    @nome = nome
+</pre>
+
+<p>Eu posso simplesmente usar <code>@</code> no parâmetro e funciona da mesma maneira,
+criando o atributo interno do objeto.</p>
+
+<pre class="prettyprint coffeescript">
+class Pessoa
+  constructor: (@nome) ->
+</pre>
+
+<p>E você não está limitado a usar apenas no <code>constructor</code>, pois pode usar onde
+bem entender este tipo de método e pode ser extremamente útil.</p>
+
+<pre class="prettyprint coffeescript">
+class Pessoa
+  constructor: (@nome) ->
+  indiceMassaCorporal: (@altura, @peso) ->
+    @imc = @peso / (@altura * @altura)
+</pre>
+
+<p>Desta maneira eliminamos uma série de códigos repetitivos e verbosos.</p>
+
+<h2 id="atribui��es-condicionais"><code>||=</code> atribuições condicionais</h2>
+
+<p>Uma possível melhoria para fazer no algorítmo acima, ainda seria evitar
+recalcular o imc se já foi calculado, cacheando o imc, ou recalculando:</p>
+
+<pre class="prettyprint coffeescript">
+class Pessoa
+  constructor: (@nome) ->
+  indiceMassaCorporal: (@altura, @peso) ->
+    @imc ||= @peso / (@altura * @altura)
+</pre>
+
+<p>O exemplo é tosco mas apenas seguindo a linha de usar cache para o cálculo e
+evitar reprocessamento.</p>
+
+<h2 id="condicionais">Condicionais?</h2>
+
+<p>Estilo narrador do polishop:</p>
+
+<ul>
+<li>Transtornado com propriedades não definidas?</li>
+<li>Recebe um <code>undefined is not a function</code> a cada tentativa de rodar um novo código?</li>
+</ul>
+
+<p>Seus problemas acabaram! O super poder das condicionais no coffeescript é muito
+simples e fácil de usar! E se você comprar agora ainda pode levar inteiramente grátis
+as opções de trabalhar com condicionais encadeadas!</p>
+
+<p>Veja com seus próprios olhos essa beleza em funcionamento:</p>
+
+<pre class="prettyprint coffeescript">
+if pessoa?
+  pessoa.indiceMassaCorporal(190,112)
+</pre>
+
+<p>Também pode ser condicional <em>inline</em>.</p>
+
+<pre class="prettyprint coffeescript">
+pessoa?.indiceMassaCorporal(190,112)
+</pre>
+
+<p>E encadeado. Por exemplo, verificar se existe a função <code>indiceMassaCorporal</code>
+antes de executá-la:</p>
+
+<pre class="prettyprint coffeescript">
+imc = pessoa?.indiceMassaCorporal?(190,112)
+</pre>
+
+<p>No fim das contas detalhes como estes acabam poupando algumas linhas e o código
+fica extremamente fácil de entender.</p>
+
+<p>Além disso dá pra usar uma série de funções anônimas inline e outros detalhes
+que realmente fazem o coffeescript ter seu brilho próprio.</p>
+
+<p>Entre eles eu destaco: <strong>Tudo</strong> está sendo retornado no coffee. Então qualquer
+expressão é inline e pode ser re-utilizada.</p>
+
+<p>Cada for é um map e está retornando o array da expressão interna. Então, você
+pode declarar um código como:</p>
+
+<pre class="prettyprint coffeescript">
+imcsDeVariasPessoas = pessoa.imc for pessoa in pessoas
+</pre>
+
+<h1 id="detalhes-dif�ceis-e-cru�is">Detalhes difíceis e cruéis</h1>
+
+<p>Nem tudo são flores e você vai precisar pisar em ovos no coffee também. Uma das
+maiores enrascadas do coffeescript está no <code>@</code> e a falta de sabedoria na hora
+de usar ele.</p>
+
+<p>Um bom conselho que posso dar é: mantenha-se sempre olhando o código javascript
+gerado pois você está compilando javascript e no final não pode gerar
+incompatibilidades da linguagem.</p>
+
+<p>O <code>@</code> é o <code>this.</code> do javascript. Então, ao se referir a uma propriedade você
+naturalmente usa <code>@</code>. Supomos o exemplo:</p>
+
+<pre class="prettyprint coffeescript">
+euclidean = (p1, p2) ->
+  [a, b] = [p1.x - p2.x, p1.y - p2.y]
+  Math.sqrt Math.pow(a, 2) + Math.pow(b, 2)
+class Pessoa
+  distancia: (outro) -> euclidean(@,outro)
+  amigosProximos: (raioEsperado = 50) ->
+    proximos = []
+    @relacionamentos.filter (pessoa) ->
+      if @distancia(pessoa) < raioEsperado
+         proximos.push pessoa.nome
+    proximos
+</pre>
+
+<p>Esse é o clássico algorítmo que não funciona e você fica puto da cara com isso.</p>
+
+<p>Então é necessário entender o código gerado e você vai perceber que o
+<code>@distancia</code> não existe naquele contexto. Nesse caso, não existe pois uma
+função interna que faz o código do filter funcionar. Veja o código javascript gerado:</p>
+
+<pre class="prettyprint javascript">
+var Pessoa, eu, euclidean;
+
+euclidean = function(p1, p2) {
+  var a, b, ref;
+  ref = [p1.x - p2.x, p1.y - p2.y], a = ref[0], b = ref[1];
+  return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+};
+
+Pessoa = (function() {
+  function Pessoa() {}
+
+  Pessoa.prototype.distancia = function(outro) {
+    return euclidean(this, outro);
+  };
+
+  Pessoa.prototype.amigosProximos = function(raioEsperado) {
+    var proximos;
+    if (raioEsperado == null) {
+      raioEsperado = 50;
+    }
+    proximos = [];
+    this.relacionamentos.filter(function(pessoa) {
+      if (this.distancia(pessoa) < raioEsperado) {
+        return proximos.push(pessoa.nome);
+      }
+    });
+    return proximos;
+  };
+
+  return Pessoa;
+
+})();
+</pre>
+
+<h3 id="criando-a-refer�ncia-self">Criando a referência self</h3>
+
+<pre class="prettyprint coffeescript">
+class Pessoa
+  distancia: (outro) -> euclidean(@,outro)
+  amigosProximos: (raioEsperado = 50) ->
+    proximos = []
+    self = @
+    @relacionamentos.filter (pessoa) ->
+      if self.distancia(pessoa) < raioEsperado
+         proximos.push pessoa.nome
+    proximos
+</pre>
+
+<p>Neste caso, o mais legal é usar a solução clássica de usar <em>list comprehensions</em>
+que é uma maneira simples e padrão do que manter-se usando uma variável self.</p>
+
+<p>Mas segue de exemplo com self acima e abaixo com <em>list comprehensions</em>.</p>
+
+<pre class="prettyprint coffeescript">
+euclidean = (p1, p2) ->
+  [a, b] = [p1.x - p2.x, p1.y - p2.y]
+  Math.sqrt Math.pow(a, 2) + Math.pow(b, 2)
+class Pessoa
+  distancia: (outro) -> euclidean(@,outro)
+  amigosProximos: (raioEsperado = 50) ->
+    pessoa for pessoa in @relacionamentos when @distancia(pessoa) < raioEsperado
+</pre>
+
+<p>Então observando o exemplo final e o código gerado, escrevemos 7 linhas de coffeescript que geraram mais de 30 em javascript.</p>
+
+<p>Observe  o código final:</p>
+
+<pre class="prettyprint javascript">
+var Pessoa, euclidean;
+
+euclidean = function(p1, p2) {
+  var a, b, ref;
+  ref = [p1.x - p2.x, p1.y - p2.y], a = ref[0], b = ref[1];
+  return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2)); };
+
+Pessoa = (function() {
+  function Pessoa() {}
+
+  Pessoa.prototype.distancia = function(outro) {
+    return euclidean(this, outro);
+  };
+
+  Pessoa.prototype.amigosProximos = function(raioEsperado) {
+    var i, len, pessoa, ref, results;
+    if (raioEsperado == null) {
+      raioEsperado = 50;
+    }
+    ref = this.relacionamentos;
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      pessoa = ref[i];
+      if (self.distancia(pessoa) < raioEsperado) {
+        results.push(pessoa);
+      }
+    }
+    return results;
+  };
+
+  return Pessoa;
+
+})();
+</pre>
+
+<p>E aí gostou? <a href=http://js2.coffee/#coffee/try:euclidean%20%3D%20(p1%2C%20p2)%20-%3E%0A%20%20%5Ba%2C%20b%5D%20%3D%20%5Bp1.x%20-%20p2.x%2C%20p1.y%20-%20p2.y%5D%0A%20%20Math.sqrt%20Math.pow(a%2C%202)%20%2B%20Math.pow(b%2C%202)%0Aclass%20Pessoa%0A%20%20distancia%3A%20(outro)%20-%3E%20euclidean(%40%2Coutro)%0A%20%20amigosProximos%3A%20(raioEsperado%20%3D%2050)%20-%3E%0A%20%20%20%20pessoa.nome%20for%20pessoa%20in%20%40relacionamentos%20when%20%40distancia(pessoa)%20%3C%20raioEsperado%0Aeu%20%3D%20new%20Pessoa()%0Aeu.x%20%3D%2010%0Aeu.y%20%3D%2020%0Aeu.relacionamentos%20%3D%20%5B%0A%20%20%7B%20nome%3A%20%22maria%22%2C%20x%3A%205%2C%20y%3A%2010%20%20%20%20%7D%0A%20%20%7B%20nome%3A%20%22joao%22%2C%20%20x%3A%2020%2C%20y%3A%2040%20%20%20%7D%0A%20%20%7B%20nome%3A%20%22z%C3%A9zin%22%2C%20x%3A%20200%2C%20y%3A%20500%20%7D%0A%5D%0Aconsole.log%20eu.amigosProximos()">Tenta rodar na prática</a> esse exemplo e não deixe de comentar!</p>
+
+<p>Quais são suas principais dificuldades com coffeescript?</p>
+
+<p>Confesso que apanhei e também sofri muito pois foi a primeira vez que trabalhei com uma linguagem
+que obriga a seguir uma indentação, mas no final têm sido ótimo, valendo muito a pena.</p>
+
+<p>Sabemos que o javascript pode sofrer alterações drásticas, e a comunidade vai manter a compatibilidade.</p>
+
+<p>Então de certa forma é até mais confortável usar coffeescript do que manter adaptando e readaptando
+o código para rodar na especificação mais recente e retro-compatibilizado.</p>
+
+<p>Pense nisso! o/</p>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Coffeescript rocks&url=http://ideia.me/coffeescript-rocks&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/coffeescript-rocks" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/coffeescript-rocks" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/from-linux-to-os-x" title="Migrando do linux para o Mac OS X">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/railsrumble-2015" title="Rails Rumble 2015">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

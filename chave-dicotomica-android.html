@@ -1,0 +1,1206 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Chave Dicotômica</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Chave Dicotômica <small><br/>08/03/2012
+    
+      <span class="categories">
+        
+          <a  class="btn btn-primary" href=/categories.html#ruby-ref>ruby
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">14</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#android-ref>android
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">3</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#dsl-ref>dsl
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">2</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>Hoje, inspirado pelo <a href="/2012/03/07/pequenas-decisoes-grandes-mudancas.html">post de ontem</a> decidi começar a <a href="https://github.com/jonatas/chave-dicotomica-android">abrir alguns exemplos</a> que venho produzindo. Este primeiro trata-se de um aplicativo que estou criando com minha namorada Tânia que é bióloga para identificação de espécies de árvores. Estamos criando uma árvore de navegação apartir de um mecanismo árduo de leitura traduzido no livro que ela usava como base. O nome do mecanismo é <a href="http://pt.wikipedia.org/wiki/Chave_(biologia)">Chave Dicotômica</a>. A necessidade surgiu que o trabalho de procurar e navegar no livro é chato e lento, pois é necessário entender as especificações técnicas de cada parte da árvore e saber o que é cada particularidade de cada parte do contexto. Além de folhar várias vezes pra frente e pra trás. Veja meia página das menores chaves do livro.</p>
+
+<p><img src="../../../images/foto-livro-chave-dicotomica.jpg" alt="fotolivro"></p>
+
+<p>Estive alguns dias na floresta com ela e foi muito divertido aprender um pouco de cada detalhe para identificação de uma espécie. Tivemos poucas evoluções no código, mas já criei a parte da navegação que é o pior trabalho com o livro.</p>
+
+<p>O livro que ela usa tem 156 páginas de espécies divididas em 7 chaves principais. Já estamos na chave 4. Neste exemplo irei apenas utilizar a Chave 1 e 2 que são as mesmas da foto anterior.</p>
+
+<h2 id="o-desafio-da-linguagem-natural">O desafio da linguagem natural</h2>
+
+<p>Para chegar ao texto acima foi um caso muito pensado. Após a Tânia me explicar a ideia de como funcionava a chave, fiquei em dúvida sobre como ela iria alimentar o sistema com estas informações. Criar um cadastro de chaves? De espécies? Ou de termos? Tudo passava pela cabeça pois os conteúdos estavam a disposição e quem iria inserir os conteúdos não era eu.</p>
+
+<p>Decidi então por copiar o texto na integra e iria criar um parser com expressões regulares para criar a chave dicotômica em formato de árvore mesmo. Analisei a chave e consegui absorver todo o conteúdo nas seguintes regras:</p>
+
+<ol>
+<li>Definições de novas chaves, estão em letra maiúscula</li>
+<li>Definições de items iniciam com números que serão seus id&#39;s</li>
+<li>Items terminados com .... mais um número conectam a outro item com o mesmo id</li>
+<li>Espécies iniciam com 4 espaços</li>
+</ol>
+
+<h2 id="exemplo-do-livro">Exemplo do livro</h2>
+
+<p>Esta foi a linguagem natural mais próxima ao exemplo da foto anterior.</p>
+
+<div><pre>
+CHAVE 1 - PLANTAS DESPROVIDAS DE FOLHAS
+1. Ramos suculentos, colunares, sucados longitudinalmente, com tufos de acúleos, sem espinhos terminais
+    14.1 Cereus hildmannianus
+1. Ramos não suculentos, comprimidos lateralmente, com espinho terminal, decussados, ocasionalmente de formato triangular
+    61.1 Colletia paradoxa
+CHAVE 2 - PALMEIRAS
+1. Plantas com acúleos
+    9.1 Acrocomia aculeata
+1. Plantas sem acúleos .... 2
+2. Lâminas em forma de leque, tão largas quanto compridas
+    9.9 Trithrinax brasiliensis
+2. Lâminas não em forma de leque, mais compridas que largas .... 3
+3. Base dos pecíolos permanecendo ao longo do caule
+    9.2 Butiaca pitata
+    9.3 Butia eriospatha
+    9.4 Butia yatay
+3. Base dos pecíolos não permanecendo nos caules .... 4
+4. Segmentos da folha dispostos em mais dois planos
+    9.8 Syagros romanzoffiana
+4. Segmentos da folha dispostos em dois planos .... 5
+5. Base dos pecíolos de cor acinzentada
+    9.5 Butyagros x nabuannandii
+5. Base dos pecíolos de cor verde .... 6
+6. Bainhas foliares envolvendo completamente a porção apical do caule
+    9.6 Euterpe edulis
+6. Bainhas foliares não envolvendo completamente a porção apical do caule
+    9.7 Geonoma schottiana
+</pre></div>
+
+<h2 id="express�es-regulares-divers�o-pra-noite-toda">Expressões regulares - diversão pra noite toda</h2>
+
+<p>Agora chegamos as expressões. Absorvendo caso a caso vamos criar as expressões regulares separadas.</p>
+
+<h3 id="1-defini��es-de-novas-chaves-est�o-em-letra-mai�scula">1. Definições de novas chaves, estão em letra maiúscula</h3>
+
+<p>Essa foi fácil, sempre <em>inicia</em> com a palavra CHAVE, tém um número sequencial e um traço que divide da descrição.
+<div><pre class="prettyprint">
+CHAVE = /<sup>CHAVE</sup> (.<em>) - (.</em>)/
+</pre></div></p>
+
+<h3 id="2-defini��es-de-items-iniciam-com-n�meros-que-ser�o-seus-id-39-s">2. Definições de items iniciam com números que serão seus id&#39;s</h3>
+
+<p>Os items como &quot;1. Plantas com acúleos&quot; ou que apontam para outros como  &quot;5. Base dos pecíolos de cor verde .... 6&quot; casam nesta expressão regular. Inicia(<sup>)</sup> com número(\d+) seguido de ponto (\.) com barra invertida pois &quot;.&quot; é um caractér especial nas expressões regulares. 
+Neste caso a expressão está apenas buscando genéricamente por qualquer final, sem distinção de ter ou não o link.</p>
+
+<div><pre class="prettyprint">
+ITEM = /^(\d+)\.\s(.*)$/
+</pre></div>
+
+<h3 id="3-items-terminados-com-mais-um-n�mero-conectam-a-outro-item-com-o-mesmo-id">3. Items terminados com .... mais um número conectam a outro item com o mesmo id</h3>
+
+<p>Os items terminados com link para outros items são o segredo que mata o trabalho árduo de pesquisar no livro. A conecção está ligada com logo em seguida. Estes itens serão conectados a outros itens em um futuro próximo.</p>
+
+<div><pre class="prettyprint">
+LINK = /\s\.{4}\s(\d+)$/
+</pre></div>
+
+<h3 id="4-esp�cies-iniciam-com-4-espa�os">4. Espécies iniciam com 4 espaços</h3>
+
+<p>\s identifica um espaço e isso torna mais claro do que construir uma expressão como <code>/ {4}/</code>, e as chaves permitem adicionar o número de ocorrências.</p>
+
+<div><pre class="prettyprint">
+SPECIE = /^\s{4}(.*)/
+</pre></div>
+
+<h2 id="chave-completa">Chave completa</h2>
+
+<p>Então unindo todas estas expressões sobre o arquivo anterior, devemos criar uma árvore com nodos. Reusufruindo do mundo opensource, vamos extender a classe Tree::TreeNode da biblioteca ruby-tree.</p>
+
+<p>Para instalar a biblioteca digite:</p>
+
+<div><pre>gem install ruby-tree</pre></div>
+
+<p>A biblioteca tem uma classe principal chamada TreeNode, ela tem os attributos nome e conteúdo, sendo o nome de cada nodo único. A classe Dicotomica representa a raiz de todas as chaves dicotômicas, logo irá adicionar todas as chaves a raiz e cada item dentro de cada chave conforme as regras comentadas anteriormente.</p>
+
+<div><pre class="prettyprint">
+require "rubygems"
+require "tree"
+class Dicotomica &lt; Tree::TreeNode
+  attr_reader :last_node, :last_root
+  def initialize name = "Chave Dicotômica", content = nil, load_from = "dicotomica.txt"
+    @pending_replace = {}
+    super name,content
+
+     if load_from
+       File.readlines(load_from).each do |instruction|
+         know(instruction.chomp)
+       end
+     end
+  end
+
+  CHAVE = /^CHAVE (.*) - (.*)/
+  ITEM = /^(\d+)\.\s(.*)$/
+  LINK = /\s\.{4}\s(\d+)$/
+  SPECIE = /^\s{4}(.*)/
+  
+  def know(string)
+    if string
+      case string
+      when CHAVE 
+        add_root  [$1,$2].join(" - ")
+      when ITEM
+        if replace_node = @pending_replace[$1]
+           @last_node = replace_node &lt;&lt; Tree::TreeNode.new(string)
+        else
+           add_node string
+        end
+        if string =~ LINK
+           @pending_replace[$1] = @last_node
+        end
+      when SPECIE
+         add_specie $1
+      end
+    end
+   end
+   def add_root name
+      @last_root = self &lt;&lt; Tree::TreeNode.new(name, 'root')
+   end
+   def add_node name
+      @last_node = @last_root &lt;&lt; Tree::TreeNode.new(name, 'node')
+   end
+   def add_specie name
+      @last_node &lt;&lt; Tree::TreeNode.new(name, "specie")
+   end
+end
+</pre></div>
+
+<p>Rodando o arquivo texto com o algorítmo acima temos uma nova árvore pronta para ser desfrutada:</p>
+
+<p>O bacana de trabalhar com ruby é poder utilizar cada parte do código independente. Observe a utilização desta árvore dentro do <a href="https://github.com/jonatas/chave-dicotomica-android">fonte</a>.</p>
+
+<div><pre>
+jonatas@jonatax:~/chave-dicotomica-android/src$ irb -r dicotomica.rb 
+irb(main):001:0&gt; Dicotomica.new.print_tree;nil
+* Chave Dicotômica
+|---+ 1 - PLANTAS DESPROVIDAS DE FOLHAS
+|    |---+ 1. Ramos suculentos, colunares, sucados longitudinalmente, com tufos de acúleos, sem espinhos terminais
+|        +---&gt; 14.1 Cereus hildmannianus
+|    +---+ 1. Ramos não suculentos, comprimidos lateralmente, com espinho terminal, decussados, ocasionalmente de formato triangular
+        +--- \\&gt; 61.1 Colletia paradoxa
++---+ 2 - PALMEIRAS
+    |---+ 1. Plantas com acúleos
+|        +---&gt; 9.1 Acrocomia aculeata
+    +---+ 1. Plantas sem acúleos .... 2
+        |---+ 2. Lâminas em forma de leque, tão largas quanto compridas
+|            +---&gt; 9.9 Trithrinax brasiliensis
+        +---+ 2. Lâminas não em forma de leque, mais compridas que largas .... 3
+            |---+ 3. Base dos pecíolos permanecendo ao longo do caule
+|                |---&gt; 9.2 Butiaca pitata
+|                |---&gt; 9.3 Butia eriospatha
+|                +---&gt; 9.4 Butia yatay
+            +---+ 3. Base dos pecíolos não permanecendo nos caules .... 4
+                |---+ 4. Segmentos da folha dispostos em mais dois planos
+|                    +---&gt; 9.8 Syagros romanzoffiana
+                +---+ 4. Segmentos da folha dispostos em dois planos .... 5
+                    |---+ 5. Base dos pecíolos de cor acinzentada
+|                        +---&gt; 9.5 Butyagros x nabuannandii
+                    +---+ 5. Base dos pecíolos de cor verde .... 6
+                        |---+ 6. Bainhas foliares envolvendo completamente a porção apical do caule
+|                            +---&gt; 9.6 Euterpe edulis
+                        +---+ 6. Bainhas foliares não envolvendo completamente a porção apical do caule
+                            +---\\&gt; 9.7 Geonoma schottiana
+=&gt; nil
+irb(main):002:0&gt; 
+</pre></div>
+
+<h2 id="ruboto">Ruboto</h2>
+
+<p>Ruboto é uma gem muito legal que permite portar jruby e criar aplicativos para android usando jruby ao invés de java. É bem divertido e como sou apaixonado por ruby tive que experimentar.</p>
+
+<div><pre>
+gem install ruboto
+</pre></div>
+
+<p>Ruboto é estilo rails e tem seu próprio gerador de aplicativos e outras atividades. Para criar o aplicativo usei o seguinte comando:</p>
+
+<div><pre>
+ruboto gen app --package=me.ideia --target 1 --name ChaveDicotomicaAndroid --path /diretorio/destino
+</pre></div>
+
+<p>Use <code>ruboto gen app --help</code> para ver todas as opções. No site <a href="http://ruboto.org">ruboto</a> tem muitas coisas interessantes para se aprender e o melhor mesmo é baixar o projeto do ruboto-irb para testar no próprio aparelho.</p>
+
+<p>E aqui está o código da aplicação que é apenas uma Activity principal:</p>
+
+<div><pre class="prettyprint">
+require 'ruboto/activity'
+require 'ruboto/widget'
+require 'ruboto/menu'
+require 'ruboto/util/toast'
+require 'dicotomica'
+ruboto_import_widgets :LinearLayout, :EditText, :TextView, :ListView, :Button
+$activity.start_ruboto_activity "$dicotomica" do
+  @dicotomica = Dicotomica.new
+  def on_create(bundle)
+    start_tree
+  end
+  def start_tree
+      @node = @dicotomica
+      go_to_list 
+  end
+  def go_to_list 
+    items = @node.children.collect(&amp;:name)
+    setContentView(list_view :list => items, 
+          :on_item_long_click_listener =&gt; proc{|av, v, pos, item_id| 
+                @node = @node.children[pos]
+                help_about
+          },
+          :on_item_click_listener =&gt; proc{|av, v, pos, item_id| 
+                @node = @node.children[pos]
+                if @node and @node.hasChildren?
+                  go_to_list
+                else
+
+                  toast("Espécie encontrada")
+                end
+         }
+    )
+  end
+  def about_us
+    setContentView(Ruboto::R::layout::about)
+    true
+  end
+  def help_about
+    toast("Help about: #{@node.name}")
+  end
+  handle_create_options_menu do |menu|
+    add_menu("Chave Dicotômica") { start_tree }
+    add_menu("Sobre nós") { about_us }
+    add_menu("Exit") {finish}
+    true
+  end
+end
+</pre></div>
+
+<p>Se você tem um android <a href="https://github.com/jonatas/chave-dicotomica-android/raw/master/bin/Dicotomica.apk">baixe aqui</a> e instale no seu próprio aparelho esse exemplo.</p>
+
+<p>Abaixo seguem os printscreens do aplicativo:</p>
+
+<h2 id="tela-inicial">Tela inicial</h2>
+
+<p>A tela inicial já começa com um list view, e é indicado pelo método on_create do código anterior. O list view, por sua vez vem carregado com os filhos do primeiro nível da chave dicotômica, que neste caso são as chaves.</p>
+
+<p><img src="../../../images/cda-tela-inicial.png" alt="inicial"></p>
+
+<h2 id="tela-inicial-com-o-menu">Tela inicial com o menu</h2>
+
+<p>O menu foi criado no último bloco do arquivo anterior com handle_create_menu_options</p>
+
+<p><img src="../../../images/cda-com-menu.png" alt="inicialcommenu"></p>
+
+<h2 id="tela-sobre">Tela sobre</h2>
+
+<p>A tela de sobre é um caso diferente e que foi o mais difícil até encontrar a solução. Este caso está utilizando a interface de recursos gerados pelo android através do xml. Note que o resource <em>R</em> vem <em>dentro</em> do módulo <em>Ruboto</em>, sendo <em>Ruboto::R</em> ao invés do <em>R</em> convencional na programação android.</p>
+
+<p><img src="../../../images/cda-about.png" alt="sobre"></p>
+
+<h2 id="navegando-entre-nodos">Navegando entre nodos</h2>
+
+<p>Este print screen apenas pra mostrar que está funcionando a navegação entre nodos internos da árvore.</p>
+
+<p><img src="../../../images/cda-navegando.png" alt="navegando"></p>
+
+<h2 id="esp�cie-encontrada">Espécie encontrada</h2>
+
+<p>Exemplo do toast rodando :D</p>
+
+<p><img src="../../../images/cda-encontrou-especie.png" alt="encontrou"></p>
+
+<h2 id="conclus�es">Conclusões</h2>
+
+<p>Aparentemente é muito simples trabalhar com jRuby no Android, no entanto ainda não parece ser tão viável pela demora do jRuby para inicializar. Estou contando que as próximas versões se superem pois atualmente demora 17 segundos para inicializar o jruby no meu aparelho (Sansung Galaxy Ace). A inicialização do app é muito rápida, quando roda sobre o irb, é muito fácil de perceber que a VM é que demora pra carregar, e tirando isso é excelente. </p>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Chave Dicotômica&url=http://ideia.me/chave-dicotomica-android&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/chave-dicotomica-android" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/chave-dicotomica-android" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/pequenas-decisoes-grandes-mudancas" title="Pequenas mudanças e grandes decisões">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/camera-overlay-open-source" title="Câmera Overlay Open Source">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

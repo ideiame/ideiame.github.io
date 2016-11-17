@@ -1,0 +1,777 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Expressões Regulares + Ruby = \*maravilhas</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Expressões Regulares + Ruby = \*maravilhas <small><br/>23/02/2010
+    
+      <span class="categories">
+        
+          <a  class="btn btn-primary" href=/categories.html#ruby-ref>ruby
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">14</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#regexp-ref>regexp
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">5</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>Sempre falo, que depois que conheci as expressões regulares, minha vida mudou! Semana passada, tive que converter um backup de um banco de dados do Oracle para o PostgreSql, então, reparei algumas diferenças na sintaxe.</p>
+
+<p>A ideia para solucionar a diferença, foi criar uma método simples que conseguia manipular o código sql do Oracle e transformar no código PostgreSql. Cada um dos casos acima não passa de:</p>
+
+<div><pre class="prettyprint">
+{ /diferenca do oracle/ =&gt; "para postgresql" }
+</pre></div>
+
+<p>Ou diferenças envolvendo variáveis do contexto como:</p>
+
+<div><pre class="prettyprint">
+{ /diferenca do (\w+)/ = &gt; lambda do |nome_do_sgbd|
+      "para #{nome_do_sgbd}"
+  end }
+</pre></div>
+
+<p>Nesta idéia, foi simples de converter todos os códigos Oracle que havia diferença de sintaxe usando um Hash de casos:</p>
+
+<div><pre class="prettyprint">
+CASES = { 
+     /(ALTER TABLE .*) MODIFY +\((.*) NOT NULL ENABLE\);/im =&gt; lambda do |alter, column|
+       "#{alter} ALTER COLUMN #{column} SET NOT NULL;"
+     end,
+
+     /ALTER TABLE "(.*)" 
+       ADD PRIMARY KEY \((.*)\) ENABLE/im =&gt; lambda do |table_name, primary_keys| 
+          "ALTER TABLE \"#{table_name}\" 
+            ADD CONSTRAINT #{table_name}_PKEY 
+            PRIMARY KEY (#{primary_keys});"
+     end,
+
+     /(.*) BIGINT\((.*)\)(,)?/im =&gt; lambda do |column_name, range, comma|
+         "#{column_name} NUMERIC(#{range})#{comma}"
+     end,
+     / NUMBER/im         =&gt; lambda { " BIGINT" },
+     /DEFAULT SYSDATE/im =&gt; lambda { "DEFAULT now()" },
+     /VARCHAR2/im        =&gt; lambda { "VARCHAR" }
+}
+</pre></div>
+
+<p>Desta forma, cada caso, já está mapeado com a sua devida solução, sendo apenas necessário criar o código que manipula o arquivo do Oracle de entrada, e gera o arquivo PostgreSql de saída.</p>
+
+<p>Um exemplo simples de utilização dos casos acima, por sinal muito inspirado no <strong>cucumber</strong>, seria criar uma método que avalie os <strong>casos</strong>, e em cada <strong>expressão regular</strong>, verificaque a probabilidade de <strong>substituição</strong> pela nova sintaxe (no caso Oracle para PostgreSql).</p>
+
+<div><pre class="prettyprint">
+def convert(sql)
+  CASES.each do |regexp, replacer|
+    while match = sql.match(regexp)
+      if match.captures.empty?
+        sql.gsub!(regexp, replacer.call)
+      else
+        sql = replacer.call *match.captures
+      end
+    end
+  end
+  sql
+end
+</pre></div>
+
+<p>O método acima, avalia cada caso de expressão regular nova, e propõe uma solução apenas em string, ou faz <strong>capturas</strong> de resultados relevantes em meio a cada caso. Quando alguma captura é efetuada, é invocado um bloco de código (<strong>esperado</strong>) que manipule e devolva a nova sintaxe, manipulando os resultados.</p>
+
+<p>Este exemplo, é muito semelhante as estórias usadas no Cucumber, as quais também lançam os parâmetros capturados como variáveis do bloco. Este é um exemplo muito simples, e que pode colaborar na formulação de muitas novas sintaxes e linguagens de domínio específicos.</p>
+
+<p>Desta forma, o Hash, sempre demonstra ser a:</p>
+
+<div><pre class="prettyprint">
+  { :chave => valor }
+</pre></div>
+
+<p>Neste caso, o exemplo aborda: </p>
+
+<div><pre class="prettyprint">
+  { :sintaxe_antiga => nova_sintaxe }
+</pre></div>
+
+<p>E o mais divertido, é esta possibilidade de apontar qualquer tipo de objeto, para qualquer tipo de valor. Sem especificar o tipo, é possível esperar algo, de forma simples e objetiva, ou seja, sem muitas formalidades.</p>
+
+<p>Para ler um arquivo do <strong>Oracle</strong> e criar um novo arquivo do <strong>PostgreSql</strong>, é simples como o exemplo abaixo:</p>
+
+<div><pre class="prettyprint">
+File.open("PostgreSqlBkp.sql", "w+") do |postgresql_file|
+  File.readlines("OracleBkp.sql").each do |line|
+    postgresql_file.puts convert(line)
+  end
+end
+</pre></div>
+
+<p>O código acima, supõe que o nome do arquivo de bkp do banco Postgresql é <strong>PostgreSqlBkp.sql</strong>, e irá criar um novo arquivo <strong>OracleBkp.sql</strong>. A opção <strong>w+</strong> sobrescreve o arquivo se já existente.</p>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Expressões Regulares + Ruby = \*maravilhas&url=http://ideia.me/regexp-maravilha&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/regexp-maravilha" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/regexp-maravilha" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/sql-comentado" title="A linguagem SQL">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/inspecionando-formulas-em-ruby" title="Inspecionando fórmulas em ruby">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

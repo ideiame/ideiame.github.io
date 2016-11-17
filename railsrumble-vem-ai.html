@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Rails Rumble vem aí</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Rails Rumble vem aí <small><br/>16/10/2013
+    
+      <span class="categories">
+        
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>Já se passou um ano que eu e a <a href="http://eliegejachini.blogspot.com.br">Eliége Jachini</a> trabalhamos no <a href="http://churumelas.ideia.me">churumelas</a> e aí vamos
+nós novamente para <a href="http://railsrumble.com/entries/113-reinventto">railsrumble</a>!</p>
+
+<p>Este ano acredito que será ainda melhor pois participarei com minha equipe da <a href="http://invent.to">invent.to</a> :)</p>
+
+<p>Eu, o <a href="http://br.linkedin.com/in/marlonscalabrin">Marlon</a>, o <a href="http://jltafarel.github.io">Tafarel</a> e o <a href="https://plus.google.com/106759455468164133948">Edson Tofolo</a> formamos a equipe e estou muito empolgado em
+participar de um grupo de 4 desenvolvedores.</p>
+
+<p>Iremos trabalhar em nosso primeiro <a href="http://re.invent.to">re.invent.to</a>! Produzindo uma versão mais interessante do
+<a href="https://play.google.com/store/apps/details?id=me.ideia.cameraoverlay">CameraOverlay</a> que é um software para dispositivos móveis. Este é um projeto que estava na gaveta
+e vamos aproveitar o evento para tirar do papel. A ideia é produzir um software para reposicionamento 
+da camera focado no acompanhamento de tratamentos de pele, dentário ou qualquer outra categoria que
+envolva o resposicionamento da camera em um lapso do tempo.</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">O software ainda pode ser útil para produzir vídeos de stop motion.
+</code></pre></figure>
+<p>Logicamente este sistema que iremos desenvolver envolve alguns tipos de habilidades não tão desenvolvidas
+em nossa equipe como manipulação de imagem e manipulação da camera: ambos via javascript, então vai ser 
+muito interessante conseguirmos encaixar todas as peças em 48 horas.</p>
+
+<p>Estou feliz por que vejo que cada ano que passa as coisas estão mais interessantes para fazer com que
+possamos nos concentrar mais e mais na lógica e desafio do negócio ao invés de ficar encarando desafios
+de problemas de tecnologia.</p>
+
+<p>Toda essa mordomia é consequência do ecosistema da comunidade ruby. A forma como as pessoas contribuem
+e se referem a respeito de suas próprias bibliotecas e sistemas são semelhantes a forma comom os artistas
+referem-se as suas obras. E tudo isso é o reflexo da paixão pelo trabalho. Parte da vontade de criar coisas não
+apenas funcionais mas também belas no sentido de expressão e manipulação semântica.</p>
+
+<p><a href="http://railsrumble.com/entries/113-reinventto">Acompanhe nossa equipe</a>! e torça por nós!</p>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Rails Rumble vem aí&url=http://ideia.me/railsrumble-vem-ai&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/railsrumble-vem-ai" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/railsrumble-vem-ai" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/diversidade-e-riqueza" title="A diversidade é a riqueza">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/re-inventto-esta-no-ar" title="ReInvent.to está no ar!">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

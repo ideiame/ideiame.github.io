@@ -1,0 +1,1223 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Como foi a Rails Rumble 2012</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Como foi a Rails Rumble 2012 <small><br/>18/10/2012
+    
+      <span class="categories">
+        
+          <a  class="btn btn-primary" href=/categories.html#churumelas-ref>churumelas
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">3</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#railsrumble-ref>railsrumble
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">4</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#rails-ref>rails
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">7</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#pense-ref>pense
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">32</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>Como postei [minhas ideias sobre rails rumble] a alguns dias atrás, agora realmente podemos falar do <a href="http://churumelas.r12.railsrumble.com/">churumelas</a>, pois assim foi batizado. Após pouco tempo pensando no nome lembrei desta expressão que pra mim sempre tem um sotaque nordestino de ser.</p>
+
+<h2 id="a-prepara��o">A preparação</h2>
+
+<p>Durante vários dias fiquei meio que durmindo / sonhando que estava programando no [rails rumble] as decisões que teria que tomar nas 48 horas do <a href="http://railsrumble.com/">evento</a>. Me senti extremamente tentado a fazer os <a href="https://github.com/railsrumble/r12-team-370/">codes</a> antes de iniciar o desafio mas me senti totalmente cumplice de que queria fazer o code por inteiro e ficaram apenas para os sonhos.</p>
+
+<p>No dia das crianças foi uma maravilha pois com o feriado eu consegui dormir bem e a tarde me concentrei em me ambientar e ler todas as regras e posts sobre o rais rumble. </p>
+
+<p>A tarde me encontrei com a <a href="http://eliegejachini.blogspot.com/">Eliége Jachini</a> e começamos a pensar sobre como organizaríamos os passos e as imagens que ela criaria para montar as fases e fazer o setup do jogo. </p>
+
+<p>Foi muito divertido e gratificante poder usar o Linode e os scripts mágicos para fazer o setup do ambiente. Foi realmente rápido. Executou, criou o banco, gerou as permissões e consegui dar o cap deploy na sequência com sucesso. </p>
+
+<h2 id="a-produtividade">A produtividade</h2>
+
+<p>Pra mim a produtividade é sinônimo de foco + concentração. Quase sempre tento me desafiar a fazer uma coisa por vez. Apesar das palavras serem muito parecidas, para mim elas se complementam.</p>
+
+<p>Não acredito que pessoas que conversam ou se envolvem simultâneamente com outras coisas enquanto intensionadas em resolver problemas de programação consigam realmente ter o foco no trabalho. Sabemos o quanto o stream da mídia flui e podemos ficar o dia todo passando por coisas improdutivas e conversando com pessoas assim.</p>
+
+<p>No momento em que estive no desafio, tentei me concentrar em fazer uma tarefa por vez. 
+Estava realmente ancioso em meio a tantas coisas para fazer e como programador solo tive que várias vezes alternar entre tarefas que não estavam dando certo para dar uma relaxada e cumprir mais alguns passos.</p>
+
+<h3 id="trabalhar-cansado-vs-efetividade">trabalhar cansado vs efetividade</h3>
+
+<p>O que realmente vale pra mim neste evento é mostrar pra mim mesmo que sou capaz de produziar alguma ideia em um final de semana. Fazer uma equipe dormir apenas 4 ou 6 horas durante o período é pura perca de tempo.</p>
+
+<p>Durante toda a competição fiz sessões de no máximo 7 horas com intervalos regulares e vários alongamentos. </p>
+
+<p>Primeira sessão foi das 21:00 até as 03:35 da manhã, e neste dia as minhas principais tarefas concluídas foram:</p>
+
+<ul>
+<li>Iniciar o sistema de desafios</li>
+<li>Criar um novo game e passar de desafio</li>
+<li>Criar 2 desafios iniciais</li>
+<li>Setup Linode</li>
+<li>Setup Capistrano</li>
+</ul>
+
+<p>E sempre achei 7 horas de desenvolvimento contínuo algo realmente tenso. Paramos por aqui e demos sequência as 9:00 da manhã com um pouco de descanso merecido. </p>
+
+<h3 id="experi�ncias-novas">Experiências novas</h3>
+
+<p>Experiências são o nosso portfólio e é muito legal ver como as experiências positivas trazem confiança e produtividade. E esse rails rumble foi assim:</p>
+
+<h4 id="coffeescript-maravilha">Coffeescript maravilha</h4>
+
+<p>Apesar de pouco explorado, consegui sem muitos erros implementar todo o funcionamento do javascript em coffeescript e foi muito divertido. </p>
+
+<p>A beleza do código está na maneira como pensamos e organizamos nossas ideias. O coffeescript nos dá uma liberdade de criar uma bela semântica. Realmente tive boas experiências com o coffeescript neste projeto. Não passaram de [10 linhas] mas valeu a pena por simplesmente ter funcionado. </p>
+
+<h4 id="cap-deploy-passenger">Cap deploy + Passenger</h4>
+
+<p>Usei o script fornecido na railsrumble e simplesmente funcionou. Tive apenas que alterar o hostname e as configurações do repositório.</p>
+
+<h3 id="bateria-de-testes">Bateria de testes</h3>
+
+<p>Outro aspecto que me deixou muito revoltado foi o fato de que sempre uso rSpec em meus aplicativos, mas desta vez decidi que iria seguir com Test Unit. </p>
+
+<p>Neste momento realmente entendi por que o Rails e tanta gente não migra os seus testes para specs com rSpec. O negócio é lento demais.</p>
+
+<p>Após usar intensamente o test case do rails decidi que abandonarei o rspec para rails. Simplesmente a integração destes frameworks parece que ainda está com algum tipo de problema.</p>
+
+<p>Fiz várias tentativas com o spork e também com o guard-rspec, mas percebi que efetivamente não funcionava. Qualquer hello world do rspec com rails demora 5 segundos ou mais. Enquanto no test unit a velocidade foi muito gratificante mesmo.</p>
+
+<p>Trabalhar com testes definitivamente exige que o framework e o setup seja ágil. Segui várias indicações para rodar os specs de maneira rápida mas realmente não funcionou. Estou literalmente voltando para o Test Unit e meu motivo foi simplesmente experimentar o velho de novo :D</p>
+
+<h3 id="sprint-ly">Sprint.ly</h3>
+
+<p>O rails rumble este ano teve uma série de patrocinadores legais e um eles era o sprint.ly. Decidi usar desde o início e foi bacana. Eu e a <a href="http://eliegejachini.blogspot.com/">Eliége</a> integramos todas nossas tarefas com o github e o [sprint.ly].</p>
+
+<h4 id="integra��o-entre-o-sprint-ly-e-o-github-n�o-funcionou">Integração entre o Sprint.ly e o GitHub não funcionou</h4>
+
+<p>A única coisa que fiquei decepcionado foi conectar ambas e não conseguir criar a correlação automática de tarefas. Para mim era uma questão automática mas não funcionou. A [Eliége] seguiu fielmente relacionando praticamente todos os <a href="https://github.com/railsrumble/r12-team-370/commits/master">commits</a>  mas a ferramenta não correspondeu :(. Mesmo assim tentamos manter sempre atualizando as tarefas que estavamos trabalhando.</p>
+
+<h2 id="as-fases">As fases</h2>
+
+<p>Antes de iniciar o projeto, imaginava que iria conseguir desenvolver no mínimo uns 25 ou 30 desafios. No final das contas acabei me enrolando com alguns detalhes e ficaram apenas 6. Durante o período que pensei nas <a href="https://github.com/railsrumble/r12-team-370/tree/master/app/challenges">fases</a> estive certo que iria conseguir criar coisas simples e objetivas mas acabei passando um bom tempo <a href="https://github.com/railsrumble/r12-team-370/commit/7722fbea2a884d26ef8bc75bdb1744a94ab8109e">refatorando</a> para que fosse fácil adicionar novas. </p>
+
+<p>Inicialmente planejei, resposta exata: string contra string. Depois expressão regular, e depois validação de códigos reais.</p>
+
+<p>No fim decidi que o modelo [mais simples][game-challenge] e que cobriria todos os outros era o terceiro, pois só precisava direcionar as fases para simplesmente levantar excessões e poder consultar então o andamento do jogo.</p>
+
+<h2 id="o-sistema-de-pontua��o">O sistema de pontuação</h2>
+
+<p>O sistema de pontuação a única parte que planejei e pensei muito e na hora da pressão não consegui identificar o motivo pelo qual os pontos não funcionaram como eu esperava. Meus testes ficaram mal planejados pois nos testes a pontuação funcionou realmente. Mas acabei deixando esta funcionalidade por último de medo de que não conseguisse criar um painel de score legal a tempo. </p>
+
+<h3 id="e-agora">E agora?</h3>
+
+<p>Conforme meu hackzinho abaixo gostaria de agradecer especialmente ao: </p>
+
+<p><img src="/../../../images/hack-1.png" alt="hack-1"></p>
+
+<p>Conforme vocês podem ver, eu, meu primo Lucao, o Marlon meu compa{rsa,dre} de programação, meu irmão  e alguns outros desconhecidos fizeram o desafio alterando seu nome até a fase final. Realmente sendo coerente e utilizando os desafios.</p>
+
+<p>Se você cumpriu os desafios do <a href="http://churumelas.r12.railsrumble.com/">churumelas</a> e ainda der tempo <a href="http://railsrumble.com/entries/370-churumelas-small-challenges">vote</a> no site e deixe seu comentário /(des)?construtivo/, estou aguardando por isso!</p>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Como foi a Rails Rumble 2012&url=http://ideia.me/rails-rumble-se-foi-e-churumelas-esta-no-ar&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/rails-rumble-se-foi-e-churumelas-esta-no-ar" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/rails-rumble-se-foi-e-churumelas-esta-no-ar" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/rails-rumble-ideias" title="Ideias sobre o Rails Rumble">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/churumelas-no-ar" title="Não me venha com churumelas!">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

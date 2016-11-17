@@ -1,0 +1,364 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Programação 3D com OpenSCad</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Programação 3D com OpenSCad <small><br/>28/08/2015
+    
+      <span class="categories">
+        
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>Estou impressionado com o <a href="http://openscad.org">OpenScad</a>. Conheci essa ferramenta na Trilha de
+Impressão 3D no TDC de São Paulo esse ano. Com certeza posso dizer que foi um
+presente para mim pois até agora não havia conseguido me apegar em nenhuma
+ferramenta visual para criar objetos em 3D.</p>
+
+<p>Durante os próximos passos vou mostrar a criação do pião da imagem abaixo:</p>
+
+<iframe src="//instagram.com/p/7FmZ-mnfRw/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+
+<p>Já estou com meu syntax highlight rolando para programar em 3D no VIM e agora
+posso desenvolver minhas ideias com uma ferramenta simples e intuitiva.</p>
+
+<p>Meu site não é um agregador de tutoriais, mas estou apaixonado por essa
+ferramenta então vou mostrar os primeiros passos para programar em 3D com ela.</p>
+
+<h2 id="download">Download</h2>
+
+<p>Baixe o openscad de sua maneira favorita. A minha no Mac OSX é via <code>brew cask</code>.</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">brew cask install openscad
+</code></pre></figure>
+<p>Ou via linux</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">sudo apt-get install openscad
+</code></pre></figure>
+<p>Mas você pode entrar no <a href="http://www.openscad.org">www.openscad.org</a> e baixar o zip também.</p>
+
+<h2 id="explorando-as-formas">Explorando as formas</h2>
+
+<p>Lembra das formas básicas da geometria? cubo, esfera, cilíndro. Elas estão fácilmente disponíveis no OpenScad para serem usadas de diversas maneiras para construir seu objeto.</p>
+
+<p>Por exemplo. Para construir uma simples esfera, eu apenas preciso passar o
+tamanho do raio:</p>
+<figure class="highlight"><pre><code class="language-openscad" data-lang="openscad">sphere(r=2)
+</code></pre></figure>
+<p>O código acima cria uma esfera como a imagem abaixo exibe na prática rodando
+dentro do openscad.</p>
+
+<p><img src="/images/sphere2mm.png" alt="Esfera com raio de 2 milímetros"></p>
+
+<p>Observe nas reguas laterais estamos trabalhando com uma esfera de 1 milímetro.</p>
+
+<p>Observe a escala de definição:</p>
+
+<p><img src="/images/sphere3mm.png" alt="Esfera com raio de 3 milímetros"></p>
+
+<p>Ela não posssúi definição por isso é um objeto de poucas faces. Se aumentar o
+raio do objeto, a resolução da esfera vai ter uma qualidade maior.</p>
+
+<p><img src="/images/sphere6mm.png" alt="Esfera com raio de 6 milímetros"></p>
+
+<h2 id="navegando-no-espa�o">Navegando no espaço</h2>
+
+<p>Legal, nada de muito novo criar uma esfera. Vamos explorar o espaço.
+Se criarmos duas esferas, não poderemos ver elas pois estarão uma sobre a outra
+então é necessário &quot;transladar&quot; para outro espaço.</p>
+
+<p>A função <code>translate</code> recebe um array com <code>[x,y,z]</code> direções. No exemplo abaixo
+vamos apenas transladar em x para fazer outra esfera menor ao lado.</p>
+
+<p><img src="/images/sphere5translate5sphere3.png" alt="Transladando a segunda esfera com raio de de 3 milímetros"></p>
+
+<p>Uau! Agora imagina que você pode combinar movimentos, formas e tamanhos!?</p>
+
+<p>Tudo isso é possível usando funções incrementais. O objeto vai sendo
+transformado, transladado, escalado conforme as funções vão sendo chamadas em
+sequência enquanto não encontrar o <code>;</code>.</p>
+
+<h2 id="usando-repeti��o">Usando repetição</h2>
+
+<p>A estrutura básica do <code>for</code> é bem semelhante as linguagens convencionais e aceita um range de valores como parâmetro, ou ainda um próprio array. A sintaxe é: <code>for (indice = [comeco:fim])</code> para usar com ranges. Veja como é simples de adicionar uma estrutura de repetição aqui:</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">for (i = [5:1]){
+  translate([i*2,0,0])
+    sphere(r=i);
+}
+</code></pre></figure>
+<p><img src="/images/sphere_for_1_5.png" alt="Criando 5 esferas e transladando com um for repetitivo"></p>
+
+<p>Uau, veja que a peça acima parece uma gota, mas também lembra um pião. Então
+vamos tentar produzir um peão.</p>
+
+<h2 id="criando-meu-pi�o-de-brinquedo-em-3d">Criando meu pião de brinquedo em 3D</h2>
+
+<p>Bom para terminar o peão apenas temos que aumentar o tamanho. Penso em fazer de
+um tamanho parecido com da <a href="https://pt.wikipedia.org/wiki/Moeda_de_vinte_e_cinco_centavos_do_real">moeda de 25
+centavos</a>,
+, com 24 mm.</p>
+
+<p><img src="/images/sphere_translated_24mm.png" alt="Esfera transladando e 1 a 24 milímetros"></p>
+
+<p>Adicionando um cilíndro na ponta para poder girar o pião na mão.</p>
+
+<p><img src="/images/sphere_translated_24mm_2.png" alt="Esfera transladando e 1 a 24 milímetros com cilíndro"></p>
+
+<h2 id="usando-subtra��o-de-formas">Usando subtração de formas</h2>
+
+<p>Uma coisa extremamente explorada em desenho 3D é a subtração de fórmas, então
+no meu caso eu quero abrir um furo para passar um prego e potencializar a ponta
+do peão como é um peão de madeira. Imagina que vou usar um prego <code>17x27mm</code> então
+vamos abrir um furo de <code>2.7mm</code> de diâmetro que atravesse o peão inteiro.</p>
+
+<p>Esse furo nada mais é do que a remoção de um cilíndro de <code>2.7mm</code> de raio do
+centro.</p>
+
+<p>Então é só aplicar a função <code>difference</code> para obter o objeto com a diferença dos objetos em questão.</p>
+
+<p>A função difference aceita múltiplos objetos, então é possível construir um objeto complexo e remover algo dentro dele. Apenas a última expressão é entendida como o objeto que será removido.</p>
+
+<p><img src="/images/piao_final.png" alt="Esfera com difference abrindo um espaço para passar o prego com cilíndro"></p>
+
+<p>Bom, nosso primeiro objeto está disponível opensource. Baixe, altere, compartilhe, imprima! Crie e distribua!</p>
+
+<p><a href="https://github.com/jonatas/3d-scad">https://github.com/jonatas/3d-scad</a></p>
+
+<p>Ficou curioso?</p>
+
+<p>Acesse o <a href="https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/">manual do usuário do OpenSCad</a> que tem exemplos muito mais ricos e fantásticos do que os apresentados aqui :)</p>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Programação 3D com OpenSCad&url=http://ideia.me/tutorial-programacao-3d-openscad&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/tutorial-programacao-3d-openscad" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/tutorial-programacao-3d-openscad" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/6-meses-na-resultados-digitais" title="6 meses na Resultados Digitais">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/from-linux-to-os-x" title="Migrando do linux para o Mac OS X">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

@@ -1,0 +1,832 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Migrando do linux para o Mac OS X</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Migrando do linux para o Mac OS X <small><br/>10/09/2015
+    
+      <span class="categories">
+        
+          <a  class="btn btn-primary" href=/categories.html#mac-ref>mac
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">3</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#linux-ref>linux
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">5</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>Ontem o <a href="http://wmitrut.com">Wellington Mitrut</a> veio super empolgado para mim
+pedindo dicas do que instalar e o que vai mudar agora que ele vai comprar um Mac.</p>
+
+<p>Então aqui vai algumas dicas para quem vive no Linux e vai migrar para o OS X da Apple:</p>
+
+<h1 id="brew-apt-get">brew = apt-get</h1>
+
+<p>O Home Brew ou <a href="http://brew.sh">brew</a> funciona como o <code>apt-get</code> do linux. Vale a pena pois
+tem muitos pacotes, bibliotecas e facilidades nas receitas da comunidade.</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+</code></pre></figure>
+<p>Com o brew instalado é possível instalar as bibliotecas e coisas básicas a lá <code>apt-get</code>.</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">brew install go redis postgresql
+</code></pre></figure>
+<p>Também vale a pena instalar o brew-cask que permite instalar apps do mac mesmo
+não só bibliotecas.</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">brew install caskroom/cask/brew-cask
+</code></pre></figure>
+<p>Com o brew cask você instala coisas como:</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">brew cask install google-chrome firefox skype telegram slack openscad
+</code></pre></figure>
+<h1 id="terminal-gt-iterm2">Terminal -&gt; iTerm2</h1>
+
+<p>No OS X por default vem o <code>Terminal.app</code>. Porém aconselho a dar uma olhada no
+<a href="https://iterm2.com">iTerm2</a>.</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">brew cask install iterm2
+</code></pre></figure>
+<p>O iTerm2 é um terminal muito bom e têm uma série de pequenas melhorias que só para quem usa
+bastante o terminal vai sentir a diferença. Entre elas posso citar:</p>
+
+<p>Integração com tmux default:</p>
+
+<ul>
+<li><code>cmd-d</code> divide a tela horizontalmente em duas sessões do tmux.</li>
+<li><code>cmd-shift-d</code> divide verticalmente</li>
+<li><code>cmd-alt-&lt;arrows&gt;</code> navega entre sub-janelas da sessão</li>
+</ul>
+
+<h1 id="shell-zsh-fish-wtf">{ Shell | Zsh | Fish } wtf?</h1>
+
+<p>Outra questão é a decisão pela linguagem do terminal. Eu gosto muito do
+<a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a> que torna o terminal
+mais colorido, interativo e inteligente.</p>
+
+<p>Neste momento estou testando o <a href="http://fishshell.com/">fish</a> e é uma linguagem
+muito receptiva, interativa, umas sugestões bem mais elaboradas que o shell
+convencional. Estou gostando da experiência :)</p>
+
+<p>O shell em si é muito bom e uso o tempo todo. Um comando que substitui a pouco
+tempo é o <a href="http://geoff.greer.fm/ag/">silver light searcher</a> aka <code>ag</code>. O <code>ag</code> é
+um <code>grep</code> mais humanizado. Vale a pena dar uma testada!</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">brew install ag
+</code></pre></figure>
+<p>O ag é um mecanismo de busca então você pode encontrar facilmente arquivos no
+terminal. Então é muito semelhante a um <code>grep -rni &lt;minha busca&gt; &lt;onde&gt;</code></p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">ag &lt;minha busca&gt; &lt;onde&gt;
+</code></pre></figure>
+<h1 id="printscreen-screenshot">PrintScreen || ScreenShot</h1>
+
+<p>Sou viciado em printscreen então tiro fotos e registro meu trabalho e detalhes
+do que estou fazendo o tempo todo. Para capturar uma foto da tela em um
+determinado momento é muito fácil.</p>
+
+<h2 id="cmd-shift-3"><code>cmd+shift+3</code></h2>
+
+<p>Sim, esse atalho é super escroto mas depois de um tempo você se acostumar,
+alguns atalhos do mac parece que você tá tocando piano mesmo. <code>cmd+shift+3</code>
+é o atalho para tirar uma foto da tela toda.</p>
+
+<h2 id="cmd-shift-4"><code>cmd+shift+4</code></h2>
+
+<p>O Cmd + Shift + 4 também tira foto mas abre um momento para você selecionar um
+pedaço da tela que quer tirar o printscreen. Isso é muito útil, é só selecionar
+um pedaço da tela com o mouse, quando solta o mouse, ele tira uma foto da parte
+selecionada.</p>
+
+<h3 id="cmd-shift-4-space"><code>cmd+shift+4+space</code></h3>
+
+<p>Outra dica importante deste comando é, se você ao invés de usar o mouse para selecionar o pedaço
+da tela, usar a barra de espaço uma vez, aí vai abrir uma seleção para tirar o
+printscreen permitindo selecionar a janela que deseja ser fotografada.</p>
+
+<h2 id="pbcopy"><code>| pbcopy</code></h2>
+
+<p>O pbcopy permite você copiar um determinado output no terminal para o <code>cmd+v</code> ou <code>ctrl+v</code> antigo do linux.</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">cat arquivo.txt | pbcopy
+</code></pre></figure>
+<p>Com o arquivo acima, ele vai copiar o conteúdo do arquivo.txt para a área de
+transferência. Agora basta dar um <code>cmd+v</code> para colar. Uso muito este comando
+quando estou realizando consultas complexas no servidor então em vez de
+trabalhar diretamente no console uso o vim normalmente e uso <code>&lt;esc&gt;:!cat % | pbcopy</code>
+para copiar todo o conteúdo que estou editando para colar no ambiente que estou trabalhando.</p>
+
+<h2 id="s�-funciona-no-linux-n�o-funciona-no-mac">Só funciona no linux não funciona no mac?</h2>
+
+<p>Sem problemas! Maquinas virtuais são muito eficazes para não manter a máquina
+pesada.</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">brew install vagrant
+brew cask install virtualbox
+</code></pre></figure>
+<p>Dessa forma, se você vai instalar um projeto que usa: postgres, redis e
+n serviços, pode subir uma maquina virtual linux com todos eles e mapear as
+portas para consumir em localhost. Esse processo é muito interessante e pode
+também ser aplicado no linux. Ajuda a manter o ambiente distinto e livre de
+pequenos ruidos de incompatibilidades entre versões que podem aparecer ao longo
+do tempo.
+mac. Uma maneira bem simples de não poluir o ambiente inicializando muitos
+serviços, bancos de dados e outras aplicações no amb</p>
+
+<h2 id="cmd-space-gt-spotlight-busca-r�pida"><code>cmd+space</code> -&gt; spotlight = busca rápida</h2>
+
+<p>O spotlight é uma ferramenta fantástica de acesso a qualquer coisa do Mac. Você
+pode pesquisar no dicionário, no google, nos seus arquivos, na agenda ou
+calculadora através desta engine de busca. Ela é eficiente e rápida.</p>
+
+<p>Eu gosto muito de usar a integração do spotlight com o dicionário. Você pode
+instalar dicionários específicos dentro do spotlight e acessar documentações e
+outros documentos estáticos com rapidez.</p>
+
+<p>Fora o dicionário nativo em inglês, minhas extensões de dicionários customizados são 
+as documentações do ruby e do rails.</p>
+
+<p>Apesar de pouco atualizado são bem úteis. Você pode encontrar detalhes <a href="http://prii.it/blog/rails4-and-ruby2-dictionaries">aqui</a>.</p>
+
+<h1 id="e-a�-mac-ou-linux">E aí? Mac ou Linux?</h1>
+
+<p>E você, usa mac e migrou do linux? Não gosta de mac, só de linux? não deixe de
+colocar sua contribuição e opinião.</p>
+
+<p>Para mim não existe exatamente nada de tão apaixonante que faça eu escolher
+usar o mac no meu dia a dia. Apenas um conjunto de ferramentas mais estáveis.
+Um hardware de qualidade. Um sistema operacional estável e totalmente compatível com o hardware.
+Mas é um unix. Funciona da mesma maneira que o linux.</p>
+
+<p>Se você está pensando em comprar apenas para mostrar pros coleguinhas, por favor NÃO FAÇA ISSO.</p>
+
+<p>Tenha outros objetivos por que a máquina é boa, o sistema operacional é bom e
+basta saber usá-lo. No entanto não vai te fazer programar melhor, ser mais ágil
+ou mesmo ter mais sucesso na vida. A maior diferença é que você começa a pagar
+pelo software e antes só pagava pelo hardware.</p>
+
+<p>Não deixe de contribuir com outras ferramentas importantes que fazem parte do seu workflow de
+desenvovimento!</p>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Migrando do linux para o Mac OS X&url=http://ideia.me/from-linux-to-os-x&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/from-linux-to-os-x" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/from-linux-to-os-x" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/tutorial-programacao-3d-openscad" title="Programação 3D com OpenSCad">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/coffeescript-rocks" title="Coffeescript rocks">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

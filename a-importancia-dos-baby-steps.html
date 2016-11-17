@@ -1,0 +1,1038 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>A importância dos baby steps</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       A importância dos baby steps <small><br/>25/03/2010
+    
+      <span class="categories">
+        
+          <a  class="btn btn-primary" href=/categories.html#xp-ref>xp
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">4</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#bdd-ref>bdd
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">2</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#tdd-ref>tdd
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">2</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>Estou trabalhando em um projeto em que a interface foi construída com Flex. Estou me adaptando novamente a IDE e não consegui encontrar nenhuma ferramenta de integração entre o VIM e o Eclipse que funcionasse no mac. </p>
+
+<h2 id="o-ciclo-de-desenvolvimento">O ciclo de desenvolvimento</h2>
+
+<p>Testar um sistema em Flex, tem sido uma satisfação no ciclo de desenvolvimento orientado a testes. Cada pequena alteração no Flex, envolve uma série de tarefas como:</p>
+
+<ul>
+<li>abrir o browser</li>
+<li>logar no sistema</li>
+<li>navegar até chegar no ponto desejado</li>
+<li>preencher os campos</li>
+<li>verificar a validade da execução do serviço</li>
+<li>então o teste passou ou falhou</li>
+<li>implementação</li>
+<li>se o teste passou posso escrever um novo teste</li>
+<li>reabrir o browser e reiniciar este ciclo</li>
+</ul>
+
+<p>Existem basicamente dois passos acima que não são repetitivos, implementação e adicionar novas funcionalidades escrevendo novos testes. Os outros passos são apenas consequências destes dois. Sendo este um processo de vários passos, como desenvolvedor quero automatizar estes passos repetitivos.</p>
+
+<h2 id="abrir-o-browser">Abrir o browser</h2>
+
+<p>Para abrir o browser, e testar o aplicativo flex, estou usando Watir], com o browser Safari. Através de uma simples instância do browser é possível navegar por páginas e acessar os elementos do contexto.</p>
+
+<pre class="prettyprint">
+  @browser = Watir::Safari.new
+  @browser.goto("http://localhost:3000/")
+</pre>
+
+<p>Em conjunto com a biblioteca FunFx é possível compilar uma versão do aplicativo flex, com algumas ferramentas que permitem automação de tarefas e manipulação do aplicativo. Neste projeto estou usando as seguintes biblitecas:</p>
+
+<ul>
+<li>FunFXAdapter.swc</li>
+<li>automation.swc</li>
+<li>automation_agent.swc</li>
+<li>automation_dmv.swc</li>
+<li>funfx-0.2.2.swc</li>
+</ul>
+
+<p>Com estas bibliotecas e a gem <strong>FunFx</strong>, é possível resgatar o objeto principal do aplicativo flex, que está na página aberta anteriormente:</p>
+
+<pre class="prettyprint">
+  @flex = @browser.flex_app("flashContent", "NomeDoSWF")  
+</pre>
+
+<p>Após isso o objeto flex está disponível e pode manipular elementos por vários tipos de seletores.</p>
+
+<pre class="prettyprint">
+  @flex.text_field(:id => "username").input("jonatas")
+  @flex.tab_navigator(:automationName => "Administração").change("Usuários")
+  @flex.button(:id => "login").click
+</pre>
+
+<p>Com estes e outros métodos, é possível manipular e testar o funcionamento do aplicativo flex. AutomationName é um nome deduzido pela própria biblioteca e geralmente é representado pelo próprio label do componente.</p>
+
+<p>Através de uma ferramenta de gravação de tarefas, é possível verificar a melhor forma de maniupular os componentes de cada tela. A ferramenta grava os passos executados e transforma em código ruby, semelhante ao exemplo abordado anteriormente, apenas mais sujo e preciso. Esta sujeira, na verdade se trata de um código denso, pois ao invés de usar apenas um seletor, o gravador usa vários seletores ao mesmo tempo.
+O exemplo a seguir, trata-se da gravação de apenas um clique em um botão:</p>
+
+<pre class="prettyprint">
+@flex.panel({:id => 'users', 
+        :automationName => 'Usuarios', 
+        :automationIndex => 'index:4', 
+        :automationValue => 'Usuarios'}
+        ).button({
+           :id => 'newUserButton',
+           :automationName => 'Novo', 
+           :automationIndex => 'index:5', 
+           :automationValue => 'Novo'}).click('0')
+</pre>
+
+<p>Também é interessante olhar este exemplo, para entender as várias formas de se atingir o mesmo elemento, ou garantir que será aquele. Agora basta escolher qual é a melhor forma de acessar o elemento, retirando os seletores que apenas <strong>garantem</strong> que será aquele elemento. </p>
+
+<pre class="prettyprint">
+@flex.panel(:id => 'users').button(:id => 'newUserButton').click('0')
+</pre>
+
+<p>Para usufruir desta bela biblioteca, estou usando <strong>Cucumber</strong> para escrever as estórias e implementar os passos. </p>
+
+<p>Para não sofrer em reiniciar o ciclo todas as vezes, estou usando <strong>Autotest</strong> para reiniciar o ciclo a cada alteração efetuada. Uma prática que gostei, foi de manter uma tag @focus apenas na estória que estou executando, então na configuração do cucumber adicionei o seguinte:</p>
+
+<pre class="prettyprint">
+autotest-all: --format pretty --tags @focus
+</pre>
+
+<p>Usando estas ferramentas, tenho certeza que estou evitando muitas horas de navegação e teste manual. Além de tudo, garanto que o aplicativo está funcionando por inteiro, pois quando um teste quebrar, posso fácilmente identificar o erro e manter o sistema consistente.</p>
+
+<p>Olhando para cada pequena funcionalidade, posso desenvolver apenas pequenos fragmentos, e fazer os testes passar.</p>
+
+<p>Sem medo, cada passo acontece no seu tempo, e não gasto tempo navegando &quot;pessoalmente&quot; no sistema. Também evito aborrecimentos com grandes alterações. Uma alteração deve ser iniciada sempre com a escrita de um teste, pois quando você terminar a alteração, ela já vai estar pronta e testada.</p>
+
+<p>Cada dia que passa, tenho certeza que o desenvolvimento orientado a testes, juntamente com os outros princípios do Extremme Programming trazem muitos benefícios para:</p>
+
+<h2 id="desenvolvedor">desenvolvedor</h2>
+
+<ul>
+<li>sempre evolui suas técnicas </li>
+<li>melhora a qualidade do produto</li>
+<li>têm certeza da tarefa que está implementando</li>
+<li>mantêm o código auto documentado</li>
+<li>mantém o foco em um pequeno passo a cumprir</li>
+<li>satisfação em ver as funcionalidades implementadas</li>
+</ul>
+
+<h2 id="produto">produto</h2>
+
+<ul>
+<li>é mais preciso</li>
+<li>resolve exatamente o que o teste (a estória) propõe</li>
+</ul>
+
+<h2 id="equipe">equipe</h2>
+
+<ul>
+<li>entende fácilmente a funcionalidade </li>
+<li>adapta-se ao código</li>
+<li>levanta cenários de falhas ou estórias ainda não contadas</li>
+</ul>
+
+<h2 id="propriet�rio-do-produto">proprietário do produto</h2>
+
+<ul>
+<li>têm um documento formal em mãos que cumpre exatamente o que a estória conta ou seja, o que o aplicativo faz</li>
+<li>desenvolve uma habilidade e satisfação pelo protocolo utilizado</li>
+<li>respeita a estória e sabe que está &quot;assinando um cheque&quot; ao concordar com ela</li>
+</ul>
+
+<h1 id="conclus�es">Conclusões</h1>
+
+<p>Cada passo que tenho andado tenho certeza que tem sido para frente. Aparentemente, executar um processo automatizado torna o desenvolvimento mais lento, mas no final das contas, é mais seguro e traz uma série de boas consequências para todos aspectos do negócio.</p>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=A importância dos baby steps&url=http://ideia.me/a-importancia-dos-baby-steps&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/a-importancia-dos-baby-steps" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/a-importancia-dos-baby-steps" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/helplate" title="Helplate = Help + Template">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/gerencia-de-projetos" title="Gerência do Projetos">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

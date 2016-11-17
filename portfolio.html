@@ -1,0 +1,663 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Portfolio::Base</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Portfolio::Base <small><br/>01/02/2010
+    
+      <span class="categories">
+        
+          <a  class="btn btn-primary" href=/categories.html#portfolio-ref>portfolio
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">1</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <style>
+  #projetos_comerciais, #outros_projetos {
+    color:orange;
+  }
+  #coopnet {
+    color: 6C9C2C;
+  }
+  #agecel {
+    color: 5EC2C7;
+  } 
+  #site {
+    color: Brown;
+  } 
+  #guiamed {
+    color: 2CA8B0;
+  } 
+  #use_sms {
+    color: 6FB3FA;
+  } 
+  #tia_neta {
+    color: white;
+  } 
+  #boo_bible_object_oriented {
+    color: B1ACFE;
+  }
+  #appointme {
+    color: 3A3B98;
+  }
+  #troper {
+    color: 4183C4 ; 
+  }
+</style>
+
+<p>O meu portfólio, está ligado a todos os trabalhos que venho realizando e gostei muito da idéia de compartilhar e mante-lo aqui.</p>
+
+<h1 id="projetos-comerciais">Projetos comerciais</h1>
+
+<p>Os projetos Coopnet, Agecel, Guiamed não são de minha autoria, mas participei integralmente do desenvolvimento e por isso fazem parte do meu portfólio.</p>
+
+<h2 id="coopnet-coopnet">CoopNet  {#coopnet}</h2>
+
+<p>O <a href="http://coopnet.leosoft.com.br/coopnet">Coopnet</a> é um sistema completo, de baixo custo e que acompanha a evolução do seu negócio.
+Usa Java, acompanhado apenas por ferramentas open-source.</p>
+
+<p><img src="/../../../images/printscreen-coopnet.jpg" alt="printscreen-coopnet"></p>
+
+<hr>
+
+<h2 id="agecel-agecel">Agecel {#agecel}</h2>
+
+<p>A <a href="http://www.agecel.com">Agecel</a> é uma empresa que disponibiliza listas telefônicas comerciais de quase todas cidades brasileiras por meio do site e também no celular – por um aplicativo com enorme capacidade de compactação de dados, a Agecel viabiliza que listas telefônicas possam ser baixadas em aparelhos de telefonia móvel, ocupando espaço menor que uma foto!
+Ambos os canais (site e celular) oferecem comodidade, praticidade e bons negócios.</p>
+
+<p><img src="/../../../images/printscreen-agecel.jpg" alt="printscreen-agecel"></p>
+
+<h3 id="site">Site</h3>
+
+<p>O <a href="http://www.agecel.com">site</a> possuí mais de 2 milhões de anúncios que atingem mais de 5 mil cidades no Brasil.</p>
+
+<p><img src="/../../../images/printscreen-agecel-site.jpg" alt="printscreen-agecel-site"></p>
+
+<h3 id="sistema-interno-e-franchising">Sistema Interno e Franchising</h3>
+
+<p>O sistema interno, controla todos os dados do site, assim como relacionamento com o cliente, administração das listas do celular e serviços integrados e movimento financeiro.</p>
+
+<hr>
+
+<h2 id="guiamed-guiamed">GuiaMed {#guiamed}</h2>
+
+<p><a href="http://www.guiamed.info">GuiaMed</a> é uma solução para as empresas de saúde.</p>
+
+<p><a href="http://www.guiamed.info">Projeto</a> direcionado às Assistências Médicas e Odontológicas, além de Seguros Saúde, que possibilita que dados contidos nos Guias Médicos (livretos que apresentam todos os profissionais e serviços oferecidos nos planos de saúde comercializados) possam ser disponibilizados nos celulares dos clientes.</p>
+
+<p><img src="/../../../images/printscreen-guiamed.jpg" alt="printscreen-guiamed"></p>
+
+<hr>
+
+<h2 id="use-sms-use-sms">Use SMS {#use-sms}</h2>
+
+<p><a href="http://usesms.heroku.com">Use SMS</a> é uma solução integrada para envio de mensagens em massa. Ainda é um protótipo e logo estará disponível para enviar Sms mais barato do que o normal.</p>
+
+<p><img src="/../../../images/printscreen-prototipo-envia-sms.jpg" alt="printscreen-use-sms-prototipo"></p>
+
+<hr>
+
+<h2 id="tia-neta-tianeta">Tia Neta {#tianeta}</h2>
+
+<p>O <a href="http://github.com/jonatas/tia_neta">projeto Tia Neta</a> é uma homenagem a primeira usuária do sistema, também minha tia, que &#39;separava os pedidos&#39; todas as noites e indexava no caderno segundo algumas condições para ir para produção. Com poucas horas de esforço o problema dela foi resolvido.</p>
+
+<p><img src="/../../../images/printscreen-tia-neta.jpg" alt="printscreen-tia-neta"></p>
+
+<hr>
+
+<h1 id="outros-projetos">Outros Projetos</h1>
+
+<h2 id="boo-bible-object-oriented-boo">BOO: Bible Object Oriented {#boo}</h2>
+
+<p><a href="http://boo.rubyforge.org">Boo</a> é uma biblioteca de apenas 500 kilobytes que permite acessar o conteúdo da bíblia em inglês.</p>
+
+<p><img src="/../../../images/printscreen-boo.jpg" alt="printscreen-boo"></p>
+
+<hr>
+
+<h2 id="appointme-appointme">Appointme {#appointme}</h2>
+
+<p><a href="http://github.com/jonatas/appointme">Appointme</a> é um agendador que funciona em linguagem natural. Com ela, você pode agendar seus compromissos digitando o que e quando você irá fazer. Parecendo-se com uma conversa, é possível pedir para que o agendador te responda a respeito de seus compromissos.</p>
+
+<p><img src="/../../../images/printscreen-appointme.jpg" alt="printscreen-appointme"></p>
+
+<hr>
+
+<h2 id="troper-troper">Troper  {#troper}</h2>
+
+<p><a href="http://github.com/jonatas/troper">Troper</a> é um sistema parasita de sistemas Rails.  Esta em formato de plugin e serve para construção e execução de relatórios na web.</p>
+
+<p><img src="/../../../images/printscreen-troper.jpg" alt="printscreen-troper"></p>
+
+<h2 id="resumo-das-tecnologias-usadas-em-cada-projeto-resumo">Resumo das tecnologias usadas em cada projeto {#resumo}</h2>
+
+<table><thead>
+<tr>
+<th>projeto</th>
+<th>linguagem</th>
+<th>tempo</th>
+<th>framework mvc</th>
+<th>servidor</th>
+<th>Persistência</th>
+<th>ORM</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="#agecel">Agecel</a></td>
+<td>Ruby</td>
+<td>30 meses</td>
+<td>Rails</td>
+<td>Mongrel</td>
+<td>Postgresql</td>
+<td>ActiveRecord</td>
+</tr>
+<tr>
+<td><a href="#guiamed">GuiaMed</a></td>
+<td>Ruby</td>
+<td>3 meses</td>
+<td>Rails</td>
+<td>Mongrel</td>
+<td>Postgresql</td>
+<td>ActiveRecord</td>
+</tr>
+<tr>
+<td><a href="#tianeta">Tia Neta</a></td>
+<td>Ruby</td>
+<td>15 horas</td>
+<td>Rails</td>
+<td>WebRick</td>
+<td>Sqlite</td>
+<td>ActiveRecord</td>
+</tr>
+<tr>
+<td><a href="#boo">BOO</a></td>
+<td>Ruby</td>
+<td>5 horas</td>
+<td>----</td>
+<td></td>
+<td>Madeleine</td>
+<td>---</td>
+</tr>
+<tr>
+<td><a href="#use-sms">Envia SMS</a></td>
+<td>Ruby</td>
+<td>10 horas</td>
+<td>Sinatra</td>
+<td>Thin</td>
+<td>MongoDB</td>
+<td>MongoRecord</td>
+</tr>
+<tr>
+<td><a href="#troper">Troper</a></td>
+<td>Ruby</td>
+<td>180 horas</td>
+<td>Rails</td>
+<td>----</td>
+<td>Qualquer um</td>
+<td>ActiveRecord</td>
+</tr>
+<tr>
+<td><a href="#coopnet">Coopnet</a></td>
+<td>Java</td>
+<td>14 meses</td>
+<td>Struts 1.2</td>
+<td>JBoss</td>
+<td>Postgresql</td>
+<td>Hibernate</td>
+</tr>
+</tbody></table>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Portfolio::Base&url=http://ideia.me/portfolio&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/portfolio" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/portfolio" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/curriculo" title="Currículo">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/bom-dia-a-dia" title="Bom dia a dia do desenvolvimento">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

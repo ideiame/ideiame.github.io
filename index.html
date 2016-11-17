@@ -1,0 +1,475 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Ideia-me!</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+  <h1>Ideia-me! </h1>
+</div>
+
+<div class="row-fluid">
+  <div class="span12">
+    <p><p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p></p>
+
+<p><hr /></p>
+
+<p><h1 class="post"><a class="post" href="/one-year-cycling"> One year cycling</a></h1>
+ <p>These month I&#39;m really excited that I&#39;m completing my first year cycling after
+my adult life. I&#39;m a software developer in a lazy life </p></p>
+
+<p>I choosed the bike to avoid the traffic and instead of just be a tool, I get in
+love with cycling again.</p>
+
+<p>As on my childhood it&#39;s awesome and I can do it everyday :)</p>
+
+<p>I cycled at least 6500 KM this year and it was awesome. My body and mind are
+thankfully of that. I&#39;m feeling happier and thinking more about how many cool
+stuff I&#39;ll do cycling.</p>
+
+<p>The question is: bike is freedom.</p>
+
+<p>When you start riding and observe how many blockers you skip by byke, you start
+realizing you can use it more and more. It&#39;s more simple, cheaper and healthly.</p>
+
+<p>I crossed Floripa island multiple times and now I think I know more about the
+city than a good part of people that only commute by cars or bus.</p>
+
+<p>When you walk, run or ride, you get a slow point of view and can appreciate
+more accuratedly each pieace of land you pass. By cars or bus you just use
+the way. You&#39;re not really there, being part of the scene.</p>
+
+<iframe height='454' width='300' frameborder='0' allowtransparency='true' scrolling='no' src='https://www.strava.com/athletes/12104550/latest-rides/6639d37e2a403d4b630964616cd7d5e0bbc78d89'></iframe>
+
+<p><hr />
+<ul class="posts"></p>
+
+<p><li><span class="post_date">13 Nov 2016</span> &raquo;<a class="post" href="/one-year-cycling">One year cycling</a></li></p>
+
+<p><li><span class="post_date">13 Aug 2016</span> &raquo;<a class="post" href="/ruby-puzzle-gridlock">Gridlock game - solving with Ruby</a></li></p>
+
+<p><li><span class="post_date">27 Jul 2016</span> &raquo;<a class="post" href="/trabalhar-sozinho-ou-contribuir">Trabalhar sozinho ou contribuir?</a></li></p>
+
+<p><li><span class="post_date">05 Jun 2016</span> &raquo;<a class="post" href="/the-dev-conf-sp-2016">TDC SP 2016 here we go :)</a></li></p>
+
+<p><li><span class="post_date">22 May 2016</span> &raquo;<a class="post" href="/pessoas-codigos-comunicacao">Pessoas, códigos, comunicação</a></li></p>
+
+<p><li><span class="post_date">17 Apr 2016</span> &raquo;<a class="post" href="/introducao-linguagem-ruby">Introdução a linguagem Ruby</a></li></p>
+
+<p><li><span class="post_date">01 Apr 2016</span> &raquo;<a class="post" href="/programar-e-uma-droga">Programar é uma droga</a></li></p>
+
+<p><li><span class="post_date">25 Mar 2016</span> &raquo;<a class="post" href="/tdc-online">TDC Online! Here we go!</a></li></p>
+
+<p><li><span class="post_date">24 Mar 2016</span> &raquo;<a class="post" href="/google-cloud-platform">Google Cloud Platform</a></li></p>
+
+<p><li><span class="post_date">22 Mar 2016</span> &raquo;<a class="post" href="/automate-first">Automatize primeiro</a></li></p>
+
+<p><li><span class="post_date">19 Mar 2016</span> &raquo;<a class="post" href="/lorenzo-ideia-me-no-ar">lorenzo.ideia.me no ar!</a></li></p>
+
+<p><li><span class="post_date">16 Mar 2016</span> &raquo;<a class="post" href="/comecando-com-go-lang">Começando com GO Lang</a></li></p>
+
+<p><li><span class="post_date">15 Mar 2016</span> &raquo;<a class="post" href="/vim-basico-para-ruby">Vim básico para trabalhar com Ruby</a></li></p>
+
+<p><li><span class="post_date">14 Mar 2016</span> &raquo;<a class="post" href="/fish-shell">Fish shell</a></li></p>
+
+<p><li><span class="post_date">14 Mar 2016</span> &raquo;<a class="post" href="/buscando-com-silver-searcher-aka-ag">Buscando com silver searcher</a></li></p>
+
+<p><li><span class="post_date">22 Feb 2016</span> &raquo;<a class="post" href="/um-ano-na-resultados-digitais">Primeiro Ano na RD</a></li></p>
+
+<p><li><span class="post_date">14 Feb 2016</span> &raquo;<a class="post" href="/podcast-boa-noite-lorenzo">Podcast Boa Noite Lorenzo</a></li></p>
+
+<p><li><span class="post_date">05 Dec 2015</span> &raquo;<a class="post" href="/vida-de-bike">Vida de bike</a></li></p>
+
+<p><li><span class="post_date">15 Nov 2015</span> &raquo;<a class="post" href="/railsrumble-2015">Rails Rumble 2015</a></li></p>
+
+<p><li><span class="post_date">27 Sep 2015</span> &raquo;<a class="post" href="/coffeescript-rocks">Coffeescript rocks</a></li></p>
+
+<p><li><span class="post_date">10 Sep 2015</span> &raquo;<a class="post" href="/from-linux-to-os-x">Migrando do linux para o Mac OS X</a></li></p>
+
+<p><li><span class="post_date">28 Aug 2015</span> &raquo;<a class="post" href="/tutorial-programacao-3d-openscad">Programação 3D com OpenSCad</a></li></p>
+
+<p><li><span class="post_date">24 Aug 2015</span> &raquo;<a class="post" href="/6-meses-na-resultados-digitais">6 meses na Resultados Digitais</a></li></p>
+
+<p><li><span class="post_date">14 Jul 2015</span> &raquo;<a class="post" href="/tdc-sp-here-we-go">TDC SP here we go :)</a></li></p>
+
+<p><li><span class="post_date">01 Jun 2015</span> &raquo;<a class="post" href="/vida-de-busao">Vida de busão</a></li></p>
+
+<p><li><span class="post_date">28 May 2015</span> &raquo;<a class="post" href="/perguntas-do-meu-filho-de-3-anos">Perguntas do meu filho de 3 anos</a></li></p>
+
+<p><li><span class="post_date">26 May 2015</span> &raquo;<a class="post" href="/tres-meses-na-resultados-digitais">Três meses na Resultados Digitais</a></li></p>
+
+<p><li><span class="post_date">04 Apr 2015</span> &raquo;<a class="post" href="/produto-ou-servico">Produto ou serviço?</a></li></p>
+
+<p><li><span class="post_date">23 Mar 2015</span> &raquo;<a class="post" href="/primeiro-mes-na-resultados-digitais">Primeiro mês na Resultados Digitais</a></li></p>
+
+<p><li><span class="post_date">01 Mar 2015</span> &raquo;<a class="post" href="/primeira-semana-na-resultados-digitais">Primeira semana na Resultados Digitais</a></li></p>
+
+<p><li><span class="post_date">23 Dec 2014</span> &raquo;<a class="post" href="/retrospectiva-2014">Retrospectiva 2014</a></li></p>
+
+<p><li><span class="post_date">27 Oct 2014</span> &raquo;<a class="post" href="/blog-da-inventto">Blog da invent.to</a></li></p>
+
+<p><li><span class="post_date">22 Apr 2014</span> &raquo;<a class="post" href="/raspibian-sem-mouse">Raspibian sem mouse</a></li></p>
+
+<p><li><span class="post_date">09 Apr 2014</span> &raquo;<a class="post" href="/coisas-legais-para-fazer-com-o-rpi">Coisas legais para fazer com o Raspberry PI</a></li></p>
+
+<p><li><span class="post_date">07 Apr 2014</span> &raquo;<a class="post" href="/bone-debian-rodando-no-beaglebone-black">Bone Debian rodando no BeagleBone Black</a></li></p>
+
+<p><li><span class="post_date">03 Apr 2014</span> &raquo;<a class="post" href="/como-gerar-um-video-de-fotos-sequenciais">Como gerar um vídeo de fotos sequênciais</a></li></p>
+
+<p><li><span class="post_date">01 Apr 2014</span> &raquo;<a class="post" href="/rotative-timelapse">Timelapse girando no Raspberry PI</a></li></p>
+
+<p><li><span class="post_date">29 Jan 2014</span> &raquo;<a class="post" href="/desenvolvemos-seu-invento">Desenvolvemos seu invento!</a></li></p>
+
+<p><li><span class="post_date">23 Dec 2013</span> &raquo;<a class="post" href="/retrospectiva-2013">Retrospectiva 2013</a></li></p>
+
+<p><li><span class="post_date">21 Oct 2013</span> &raquo;<a class="post" href="/re-inventto-esta-no-ar">ReInvent.to está no ar!</a></li></p>
+
+<p><li><span class="post_date">16 Oct 2013</span> &raquo;<a class="post" href="/railsrumble-vem-ai">Rails Rumble vem aí</a></li></p>
+
+<p><li><span class="post_date">29 Jul 2013</span> &raquo;<a class="post" href="/diversidade-e-riqueza">A diversidade é a riqueza</a></li></p>
+
+<p><li><span class="post_date">27 Jul 2013</span> &raquo;<a class="post" href="/site-arteterapia-no-ar">Arteterapia no ar!</a></li></p>
+
+<p><li><span class="post_date">23 Jul 2013</span> &raquo;<a class="post" href="/o-que-tira-meu-tempo">O que tira o meu tempo?</a></li></p>
+
+<p><li><span class="post_date">28 Jun 2013</span> &raquo;<a class="post" href="/pensando-no-futuro">Pensando No Futuro</a></li></p>
+
+<p><li><span class="post_date">26 Jun 2013</span> &raquo;<a class="post" href="/bliss-ideia-me-no-ar">Bliss ideia.me está no ar!</a></li></p>
+
+<p><li><span class="post_date">10 Jun 2013</span> &raquo;<a class="post" href="/o-que-ando-ideiando">O que ando fazendo nos últimos dias</a></li></p>
+
+<p><li><span class="post_date">05 May 2013</span> &raquo;<a class="post" href="/fim-de-semana-bliss">Fim de semana bliss</a></li></p>
+
+<p><li><span class="post_date">01 May 2013</span> &raquo;<a class="post" href="/git-post-receive">Git Post Receive</a></li></p>
+
+<p><li><span class="post_date">24 Apr 2013</span> &raquo;<a class="post" href="/migrando-estilo-para-twitter-bootstrap">Jekyll e Twitter Bootstrap</a></li></p>
+
+<p><li><span class="post_date">18 Apr 2013</span> &raquo;<a class="post" href="/observando-a-memoria-ruby">Observando a memória no ruby</a></li></p>
+
+<p><li><span class="post_date">18 Apr 2013</span> &raquo;<a class="post" href="/experiencias-meteor">Experiências com o Meteor js</a></li></p>
+
+<p><li><span class="post_date">08 Apr 2013</span> &raquo;<a class="post" href="/pixel-no-ar">Pixel no ar!</a></li></p>
+
+<p><li><span class="post_date">01 Apr 2013</span> &raquo;<a class="post" href="/flu-ideia-me-no-ar">Flu.ideia.me no ar!</a></li></p>
+
+<p><li><span class="post_date">05 Mar 2013</span> &raquo;<a class="post" href="/concentracao-na-era-da-distracao">Concentração na era da distração</a></li></p>
+
+<p><li><span class="post_date">14 Dec 2012</span> &raquo;<a class="post" href="/retro-2012">Retrospectiva 2012</a></li></p>
+
+<p><li><span class="post_date">03 Dec 2012</span> &raquo;<a class="post" href="/moving-the-homeoffice">Home office de mudança</a></li></p>
+
+<p><li><span class="post_date">24 Nov 2012</span> &raquo;<a class="post" href="/efetivamente">Efetivamente....</a></li></p>
+
+<p><li><span class="post_date">11 Nov 2012</span> &raquo;<a class="post" href="/meu-filho-ja-vai-fazer-um-ano">Meu primeiro filho e seu primeiro ano</a></li></p>
+
+<p><li><span class="post_date">11 Nov 2012</span> &raquo;<a class="post" href="/arteterapia-begins">Arteterapia o início</a></li></p>
+
+<p><li><span class="post_date">08 Nov 2012</span> &raquo;<a class="post" href="/churumelas-no-ar">Não me venha com churumelas!</a></li></p>
+
+<p><li><span class="post_date">18 Oct 2012</span> &raquo;<a class="post" href="/rails-rumble-se-foi-e-churumelas-esta-no-ar">Como foi a Rails Rumble 2012</a></li></p>
+
+<p><li><span class="post_date">01 Oct 2012</span> &raquo;<a class="post" href="/rails-rumble-ideias">Ideias sobre o Rails Rumble</a></li></p>
+
+<p><li><span class="post_date">13 Sep 2012</span> &raquo;<a class="post" href="/os-programadores-do-futuro">Os programadores do futuro</a></li></p>
+
+<p><li><span class="post_date">23 May 2012</span> &raquo;<a class="post" href="/disciplina-no-home-office">Disciplina no home office</a></li></p>
+
+<p><li><span class="post_date">08 May 2012</span> &raquo;<a class="post" href="/galaxy-note-n7000">Sansung Galaxy Note N7000</a></li></p>
+
+<p><li><span class="post_date">09 Apr 2012</span> &raquo;<a class="post" href="/update-ou-upgrade-parte-2">Update ou upgrade parte 2</a></li></p>
+
+<p><li><span class="post_date">01 Apr 2012</span> &raquo;<a class="post" href="/cursando-aulas-da-stanford">Cursando aulas da Stanford University</a></li></p>
+
+<p><li><span class="post_date">30 Mar 2012</span> &raquo;<a class="post" href="/terminal-life">Vida no terminal</a></li></p>
+
+<p><li><span class="post_date">29 Mar 2012</span> &raquo;<a class="post" href="/update-ou-upgrade">Update ou upgrade</a></li></p>
+
+<p><li><span class="post_date">25 Mar 2012</span> &raquo;<a class="post" href="/usabilidade-versus-simplicidade">Usabilidade versus simplicidade</a></li></p>
+
+<p><li><span class="post_date">13 Mar 2012</span> &raquo;<a class="post" href="/camera-overlay-open-source">Câmera Overlay Open Source</a></li></p>
+
+<p><li><span class="post_date">08 Mar 2012</span> &raquo;<a class="post" href="/chave-dicotomica-android">Chave Dicotômica</a></li></p>
+
+<p><li><span class="post_date">07 Mar 2012</span> &raquo;<a class="post" href="/pequenas-decisoes-grandes-mudancas">Pequenas mudanças e grandes decisões</a></li></p>
+
+<p><li><span class="post_date">27 Feb 2012</span> &raquo;<a class="post" href="/camera-overlay">Camera Overlay</a></li></p>
+
+<p><li><span class="post_date">12 Jul 2010</span> &raquo;<a class="post" href="/sinceridade-nao-faz-mal-a-ninguem">Sinceridade não faz mal a ninguém</a></li></p>
+
+<p><li><span class="post_date">07 Jul 2010</span> &raquo;<a class="post" href="/ingles-legal">Inglês Legal</a></li></p>
+
+<p><li><span class="post_date">30 Jun 2010</span> &raquo;<a class="post" href="/problemas-no-software">Problemas no software e hardware</a></li></p>
+
+<p><li><span class="post_date">27 Jun 2010</span> &raquo;<a class="post" href="/cognitividade-da-interface">Cognitividade da Interface</a></li></p>
+
+<p><li><span class="post_date">18 Jun 2010</span> &raquo;<a class="post" href="/ipad-chegou">Meu iPad Chegou!</a></li></p>
+
+<p><li><span class="post_date">11 Jun 2010</span> &raquo;<a class="post" href="/palestra-sobre-ruby-e-rails">Palestra na Vizivali</a></li></p>
+
+<p><li><span class="post_date">30 May 2010</span> &raquo;<a class="post" href="/sh-legal">SH Legal</a></li></p>
+
+<p><li><span class="post_date">21 May 2010</span> &raquo;<a class="post" href="/sistemas-operacionais-gerencia-processador-pt1">Sistemas Operacionais - Gerência do processador - parte 1</a></li></p>
+
+<p><li><span class="post_date">19 May 2010</span> &raquo;<a class="post" href="/javascript-legal">Javascript Ninja Legal</a></li></p>
+
+<p><li><span class="post_date">18 May 2010</span> &raquo;<a class="post" href="/iteracao-legal">Iteração legal</a></li></p>
+
+<p><li><span class="post_date">16 May 2010</span> &raquo;<a class="post" href="/coffeescript-legal">Coffeescript Legal</a></li></p>
+
+<p><li><span class="post_date">13 May 2010</span> &raquo;<a class="post" href="/servicos-google-api">Google Api</a></li></p>
+
+<p><li><span class="post_date">13 May 2010</span> &raquo;<a class="post" href="/linguagens-e-o-mundo">As linguagens e o mundo</a></li></p>
+
+<p><li><span class="post_date">05 May 2010</span> &raquo;<a class="post" href="/google-legal">Nova roda mágica do google</a></li></p>
+
+<p><li><span class="post_date">03 May 2010</span> &raquo;<a class="post" href="/ruby-legal">Ruby Legal</a></li></p>
+
+<p><li><span class="post_date">03 May 2010</span> &raquo;<a class="post" href="/google-buzz-api-no-ideiame">Integrando API do Google Buzz no Ideia.me</a></li></p>
+
+<p><li><span class="post_date">29 Apr 2010</span> &raquo;<a class="post" href="/find-exec">Usufruindo do comando find do Unix</a></li></p>
+
+<p><li><span class="post_date">27 Apr 2010</span> &raquo;<a class="post" href="/curriculo-jonatas-davi-paganini">Jônatas Davi Paganini</a></li></p>
+
+<p><li><span class="post_date">21 Apr 2010</span> &raquo;<a class="post" href="/diario-de-um-feriado">Diário de um feriado</a></li></p>
+
+<p><li><span class="post_date">18 Apr 2010</span> &raquo;<a class="post" href="/novas-cores-no-site">Novas cores no site</a></li></p>
+
+<p><li><span class="post_date">31 Mar 2010</span> &raquo;<a class="post" href="/weborb-active-record">WebOrb + ActiveRecord</a></li></p>
+
+<p><li><span class="post_date">25 Mar 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">Gerência do Projetos</a></li></p>
+
+<p><li><span class="post_date">25 Mar 2010</span> &raquo;<a class="post" href="/a-importancia-dos-baby-steps">A importância dos baby steps</a></li></p>
+
+<p><li><span class="post_date">22 Mar 2010</span> &raquo;<a class="post" href="/helplate">Helplate = Help + Template</a></li></p>
+
+<p><li><span class="post_date">18 Mar 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">gtR - gerência do projeto do gtR da nissan</a></li></p>
+
+<p><li><span class="post_date">11 Mar 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">gtR - um projeto da nissan</a></li></p>
+
+<p><li><span class="post_date">04 Mar 2010</span> &raquo;<a class="post" href="/modos-so">Aula de Sistemas Operacionais - Modos do Kernel</a></li></p>
+
+<p><li><span class="post_date">04 Mar 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">Gerência de Projetos</a></li></p>
+
+<p><li><span class="post_date">02 Mar 2010</span> &raquo;<a class="post" href="/cartao-de-visitas">Cartão de visitas</a></li></p>
+
+<p><li><span class="post_date">01 Mar 2010</span> &raquo;<a class="post" href="/regexp-com-grep">Expressões Regulares com grep</a></li></p>
+
+<p><li><span class="post_date">25 Feb 2010</span> &raquo;<a class="post" href="/inspecionando-formulas-em-ruby">Inspecionando fórmulas em ruby</a></li></p>
+
+<p><li><span class="post_date">23 Feb 2010</span> &raquo;<a class="post" href="/regexp-maravilha">Expressões Regulares + Ruby = *maravilhas</a></li></p>
+
+<p><li><span class="post_date">22 Feb 2010</span> &raquo;<a class="post" href="/sql-comentado">A linguagem SQL</a></li></p>
+
+<p><li><span class="post_date">21 Feb 2010</span> &raquo;<a class="post" href="/postgresql-tricks">PostgreSql Tricks</a></li></p>
+
+<p><li><span class="post_date">18 Feb 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">Gerência de Projetos</a></li></p>
+
+<p><li><span class="post_date">16 Feb 2010</span> &raquo;<a class="post" href="/inspecionando-regexp-com-sinatra">Inspecionando expressões regulares com Sinatra!</a></li></p>
+
+<p><li><span class="post_date">14 Feb 2010</span> &raquo;<a class="post" href="/leiaute-iphone">Leiaute para iPhone no Ideia.me</a></li></p>
+
+<p><li><span class="post_date">14 Feb 2010</span> &raquo;<a class="post" href="/google-code-playground">Google code playground</a></li></p>
+
+<p><li><span class="post_date">14 Feb 2010</span> &raquo;<a class="post" href="/estorias-bonitas-vs-testes-unitarios">Estórias Bonitas vs Testes Unitários</a></li></p>
+
+<p><li><span class="post_date">13 Feb 2010</span> &raquo;<a class="post" href="/rml-resume-markup-language">RML - Resume Markup Language</a></li></p>
+
+<p><li><span class="post_date">11 Feb 2010</span> &raquo;<a class="post" href="/de-volta-ao-tex">De volta as aulas</a></li></p>
+
+<p><li><span class="post_date">03 Feb 2010</span> &raquo;<a class="post" href="/bom-dia-a-dia">Bom dia a dia do desenvolvimento</a></li></p>
+
+<p><li><span class="post_date">01 Feb 2010</span> &raquo;<a class="post" href="/portfolio">Portfolio::Base</a></li></p>
+
+<p><li><span class="post_date">01 Feb 2010</span> &raquo;<a class="post" href="/curriculo">Currículo</a></li></p>
+
+<p><li><span class="post_date">31 Jan 2010</span> &raquo;<a class="post" href="/prototipo-site">Protótipo do site</a></li></p>
+
+<p></ul></p>
+
+  </div>
+</div>
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

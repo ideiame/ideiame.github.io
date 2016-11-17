@@ -1,0 +1,1019 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Inspecionando fórmulas em ruby</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Inspecionando fórmulas em ruby <small><br/>25/02/2010
+    
+      <span class="categories">
+        
+          <a  class="btn btn-primary" href=/categories.html#ruby-ref>ruby
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">14</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#regexp-ref>regexp
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">5</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#gerencia de projetos-ref>gerencia de projetos
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">2</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <h1 id="inspecionando-f�rmulas-no-ruby">Inspecionando fórmulas no ruby</h1>
+
+<p>Em 2009, criei um projeto no github com as <a href="http://github.com/jonatas/SL-FOR-GP">fórmulas basicas</a> de &quot;gerência de projetos&quot;, o qual condecorei com o nome <a href="http://github.com/jonatas/SL-FOR-GP">Sopa de Letrinhas para gerência de projetos</a>. O objetivo deste <a href="http://github.com/jonatas/SL-FOR-GP">repositório</a> era reunir as fórmulas que me atormentavam ao serem cálculadas manualmente.</p>
+
+<p>Durante o desenvolvimento, encarei muitas dificuldades na inspeção das fórmulas. Como não estava escrevendo testes, então encontrei uma maneira de visualizar o desenvolvimento das fórmulas. O objetivo deste post, é exibir a facilidade de inspecionar um código simples. Os exemplos aqui, são apenas fragmentos do <a href="http://github.com/jonatas/SL-FOR-GP/blob/master/bac.rb">projeto original</a> aonde possui a <a href="http://github.com/jonatas/SL-FOR-GP/blob/master/bac.rb">explicação</a> de cada uma das variáveis.</p>
+
+<p>O exemplo abaixo aborda apenas a especificação dos valores necessários para o uso de cada fórmula. </p>
+
+<div><pre class="prettyprint">
+percentual = 30/100.0
+bac = 100_000_000
+ac  = 35_000
+pv  = 25_000 
+</pre></div>
+
+<p>A variável <strong>percentual</strong>, refere-se ao percentual realizado do projeto.
+Já o <strong>bac</strong> refere-se ao total orçado para o projeto. O <strong>ac</strong> refere-se ao custo gasto até o momento, e <strong>pv</strong> refere-se ao valor planejado.</p>
+
+<p>As fórmulas a seguir, referêm-se aos variáveis acima atribuídas.</p>
+
+<div><pre class="prettyprint">
+formulas = [
+  "ev = (bac*percentual)",
+  "cv = ev - ac",
+  "cpi = ev / ac",
+  "spi = ev / pv",
+  "sv = ev - pv",
+  "eac = bac / cpi",
+  "etc = bac - ev"
+]
+</pre></div>
+
+<p>A declaração acima, trata cada fórmula como uma string. O objetivo agora é substituir a string pelas variáveis reais. Para isso é necessário iterar sobre as fórmulas e executá-las através do comando <strong>eval</strong>, que é capaz de executar um código ruby, apartir de uma string.</p>
+
+<p>Como o objetivo aqui é inspecionar as fórmulas, após a execução da fórmula, será impresso a expressão da fórmula, substituindo a variável pelo seu valor.</p>
+
+<div><pre class="prettyprint">
+for formula in formulas 
+  eval formula
+  puts "#{formula}: #{formula.gsub(/\w+/){|r|eval(r).to_s}}"
+end
+</pre></div>
+
+<p>Quando as três partes de código acima descritas são executadas, nesta mesma sequência, o seguinte resultado é exibido:</p>
+
+<div><pre class="prettyprint">
+ev = (bac*percentual): 30000000.0 = (100000000*0.3)
+cv = ev - ac: 29965000.0 = 30000000.0 - 35000
+cpi = ev / ac: 857.142857142857 = 30000000.0 / 35000
+spi = ev / pv: 1200.0 = 30000000.0 / 25000
+sv = ev - pv: 29975000.0 = 30000000.0 - 25000
+eac = bac / cpi: 116666.666666667 = 100000000 / 857.142857142857
+etc = bac - ev: 70000000.0 = 100000000 - 30000000.0
+</pre></div>
+
+<p>Pronto! A parte em que realmente faz a inspeção da fórmula não passa de: </p>
+
+<div><pre class="prettyprint">
+  formula.gsub(/\w+/){|r|eval(r).to_s}
+</pre></div>
+
+<p>Ou seja, cada variável é capturada da fórmula usando <strong>\w+</strong> e resgatado o seu valor através do eval, e substituído na fórmula, mantendo apenas os operadores. </p>
+
+<p>Da mesma forma como o <strong>gsub</strong> permite usar capturar o valor de <a href="/regexp/ruby/sinatra/2010/02/16/inspecionando-regexp-com-sinatra.html">cada casamento usando <strong>\&amp;</strong></a>, também pode ser tratado como string, quando declarado um bloco de código como segundo parâmetro do gsub. </p>
+
+<p>Abaixo segue o help que gerei pensando em informar o objetivo de cada variável:</p>
+
+<div><pre class="prettyprint">
+help = {
+  "PV – Planned Value" => 
+     "É o valor estimado do trabalho planejado a realizar até uma data determinada.
+      Por exemplo, se um projeto tem um orçamento de R$ 100.000,00
+      para realizar em um prazo de 12 meses, então o mês 6 representará o 50% do trabalho do projeto, 
+      portanto, o PV para o mês 6 será de R$ 50.000,00",
+
+  "EV - Earned Value" => 
+      "É o valor planejado do trabalho realmente completado até uma data determinada.
+       Por exemplo, se um projeto tem um orçamento de R$ 100.000,00 
+       e o trabalho completado em uma data determinada representa o 25% do projeto completo, 
+       o EV será de R$ 25.000",
+
+  "AC - Actual Cost" =>
+      "É o gasto real incorrido para o trabalho realmente completado 
+       Por exemplo, se um projeto tem um orçamento de R$ 100.000,00 
+       e o gasto real até uma determinada data foi de R$ 35.000,00 
+       o AC do projeto é de R$ 35.000,00",
+        
+  "BAC - Budget at Completion" => "Orçamento total do projeto",
+
+  "ETC - Estimate to completion" => "Estimativa para terminar",
+
+  "EAC - Estimate at complete" => "Quanto espero gastar ao final do projeto. 
+       Ou seja, baseado na experiência do projeto qual será o custo final. 
+       Há várias formulas diferentes para calcular o EAC",
+
+  "SV - Scheduled Variation" => "Variação do Cronograma/Prazos
+       SV é a diferença, em termos de custos, entre o Valor Agregado (EV) 
+       e a agenda da linha de base (PV). Se SV for positiva, estará adiantado;
+       Se SV for negativa, estará atrasado;",
+
+   "SPI - Scheduled Performance Index" => "Índice de Performance do Cronograma/Prazos
+    SPI: é a divisão entre o Valor Agregado (EV) e o valor planejado na linha de base (PV).
+    Mostra a taxa de conversão do valor previsto em valor agregado. Se SPI for maior que 1,
+    o projeto está sendo realizado a uma taxa de conversão maior do que a prevista, ou seja, adiantado; 
+    Se SPI for menor que 1, o projeto está sendo realizado a uma taxa de conversão menor do que a prevista, 
+    ou seja, atrasado;"
+}
+</pre></div>
+
+<p>ps: Não sou fãn desta método de gerência de projetos, o objetivo aqui é puramente exibir as funcionalidades do <strong>eval</strong> e <strong>gsub</strong> em <strong>Ruby</strong>.</p>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Inspecionando fórmulas em ruby&url=http://ideia.me/inspecionando-formulas-em-ruby&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/inspecionando-formulas-em-ruby" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/inspecionando-formulas-em-ruby" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/regexp-maravilha" title="Expressões Regulares + Ruby = \*maravilhas">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/regexp-com-grep" title="Expressões Regulares com grep">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

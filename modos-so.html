@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Aula de Sistemas Operacionais - Modos do Kernel</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Aula de Sistemas Operacionais - Modos do Kernel <small><br/>04/03/2010
+    
+      <span class="categories">
+        
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>O sistema operacional é dividido em dois modos básicos, sendo estes o modo Kernel e o modo Usuário. Esta divisão permite que os aplicativos sejam executados com segurança.</p>
+
+<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Kernel_Layout.svg/382px-Kernel_Layout.svg.png" alt="Kernel - imagem do wikipedia"></p>
+
+<p>Em uma divisão de camadas do sistema em auto-nível seria uma sequência como:</p>
+
+<ul>
+<li>Usuário</li>
+<li>Aplicativo</li>
+<li>Kernel</li>
+<li>Hardware</li>
+</ul>
+
+<h1 id="modos-de-acesso">Modos de acesso</h1>
+
+<p>Os modos de acesso, referem-se aos privilégios de execução de um processo.</p>
+
+<h2 id="modo-usu�rio">modo usuário</h2>
+
+<p>O processador, entende um conjunto de instruções. Cada instrução pode fica no modo Kernel ou no modo Usuário. Do lado do aplicativo, é possível apenas trabalhar com o conjunto de instruções que está do modo usuário.</p>
+
+<h2 id="modo-kernel">modo Kernel</h2>
+
+<p>O modo Kernel, é composto pelo modo usuário e também por outro conjunto de comandos que são restritos apenas ao uso interno. Os processos, quando são executados, consultam o Kernel e verificam se o comando pertence ao modo usuário e não tem privilégios, comparado a um estagiário.</p>
+
+<p>A linguagem de programação Assembly, é a linguagem que interpreta uma série de comandos e envia os comandos para o processador.</p>
+
+<p>As rotinas do sistema operacional, podem fazer chamadas a respeito de x comandos.</p>
+
+<p>Veja como é <a href="http://www.linfo.org/kernel_mode.html">a definição do kernel do linux</a>.</p>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<p><ins class="adsbygoogle"
+          style="display:inline-block;width:728px;height:90px"
+               data-ad-client="ca-pub-1171230226237014"
+                    data-ad-slot="8621327102"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:600px"
+     data-ad-client="ca-pub-1171230226237014"
+     data-ad-slot="3911925903"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<h1 id="quest�es-sobre-a-arquitetura-do-sistema-operacional">Questões sobre a arquitetura do Sistema Operacional</h1>
+
+<h2 id="1-o-que-�-um-n�cleo-do-sistema-e-quais-s�o-suas-principais-fun��es">1. o que é um núcleo do sistema e quais são suas principais funções?</h2>
+
+<p>O núcleo do sistema é composto por um conjunto de rotinas, que estão disponíveis para ser usado pelo usuário e às suas aplicações. este núcleo, também recebe um outro nome: kernel, e as suas principais funções são:</p>
+
+<ul>
+<li>tratamento de interrupções e excessões</li>
+<li>criação e eliminação de processos e threads</li>
+<li>sincronização e comunicação entre processos e threads</li>
+<li>escalonamento e controle dos processos e threads</li>
+<li>gerência de memória</li>
+<li>gerência do sistema de arquivos</li>
+<li>gerência de dispositíivos de e/s</li>
+<li>suporte a redes locais e distribuídas</li>
+<li>contabilização do uso do sistema</li>
+<li>auditoria e segurança</li>
+</ul>
+
+<h2 id="2-o-que-s�o-instruc�es-privilegiadas-e-n�o-privilegiadas-qual-a-rela��o-entre-as-instru��es-e-seus-modos-de-acesso">2. o que são instrucões privilegiadas e não privilegiadas? qual a relação entre as instruções e seus modos de acesso?</h2>
+
+<p>O processador se comunica com o sistema operacional através de funções, que podem ser executadas básicamente em dois modos:  <strong>kernel</strong> e <strong>usuário</strong>. </p>
+
+<p>O modo <strong>kernel</strong> é conhecido como privilegiado por ter acesso completo ao computador, a todas as partes do hardware. Já o modo <strong>usuário</strong>, que limita as ações para garantir a segurança e não comprometer nenhuma parte do próprio sistema. neste modo, é mais difícil de um aplicativo violar a privacidade de outro.</p>
+
+<p>Este mecanismo, garante que nenhuma parte da memória será violada por outro aplicativo.</p>
+
+<h2 id="3-como-se-faz-uso-deste-mecanismo">3. como se faz uso deste mecanismo</h2>
+
+<p>O processador executa todas as operações em modo kernel, mas para isso, é necessário que as rotinas enviadas em modo usuário sejam carregadas e validadas e consideradas seguras. se algum dos passos falhar, o sistema envia uma excessão e nega a execução da operação. </p>
+
+<p>Por exemplo, se desejo salvar um arquivo, uso uma linguagem de alto-nível como java, ruby e mando salvar, o sistema, em modo usuário tenta salvar, se o arquivo comprometer a integridade do so de alguma forma, então o sistema lançara uma excessão, e não permitirá a alteração. A linguagem que programou esta execução também receberá uma excessão mapeada para linguagem, que é resultado da excessão lançada pelo modo kernel.</p>
+
+<p>Desta forma, foi enviado um comando do modo usuário, passado para o kernel, o qual se recusa a executar, e responde para a linguagem que deve tratar o erro.</p>
+
+<p>As chamadas ao sistema são chamadas de &quot;<a href="https://en.wikipedia.org/wiki/System_call">system calls</a>&quot; ou seja, chamada ao sistema.</p>
+
+<h2 id="4-como-o-kernel-do-sistema-operacional-pode-ser-protegido-pelos-mecanismos-e-modos-de-acesso">4. como o kernel do sistema operacional pode ser protegido pelos mecanismos e modos de acesso?</h2>
+
+<p>Através do modo <strong>usuário</strong>. Neste modo, todos os comandos não privilegiados podem ser executados. Todos os aplicativos são executados no modo usuário, e enviam as instruções para o modo kernel que avaliam a segurança e garantia da execução protegida de cada &quot;system call&quot;.</p>
+
+<p>Este forma de chamadas identifica se o aplicativo possúi permissão para executar o comando.</p>
+
+<h2 id="5-por-que-as-rotinas-do-sistema-operacional-possuem-instru��es-privilegiadas">5. por que as rotinas do sistema operacional possuem instruções privilegiadas?</h2>
+
+<p>Como é o sistema operacional que controla tudo, apenas ele tem o poder de dizer o que está certo ou errado. Assim ele mesmo é responsável por qualquer situação de risco para o hardware ou software. Usar o modo kernel, o sistema pode administrar a memória de forma transparente, e também deve saber a hora de cada evento acontecer. No modo kernel, ações delicadas são realizadas e é seguro ao máximo para não falhar.</p>
+
+<p>para gerenciar uma memória, liberar o espaço de memória utilizado por um aplicativo, não deve ser uma tarefa realizada pela programação do programador, mas sim pela observação do sistema operacional. operações deste tipo, são delicadas e devem ser executadas com segurança. para evitar erros e intenções maliciosas, apenas o sistema operacional consegue fazer isso, e só realmente faz se estiver seguro.</p>
+
+<h2 id="6-o-que-�-uma-system-calll-e-qual-a-sua-import�ncia-para-a-seguran�a-do-sistema">6. o que é uma system calll e qual a sua importância para a segurança do sistema?</h2>
+
+<p>system call é uma chamada do sistema, como sua própria tradução indica. em uma chamada ao sistema, o sistema operacional recebe um comando e possíveis parâmetros. como resposta, recebe um outro código, que pode indicar sucesso, falha ou até mesmo o resultado do próprio comando. </p>
+
+<p>no processo de receber o comando, o sistema identifica o aplicativo que fez a chamada e verifica a sua permissão para execução do comando. dada a permissão executa e retorna o resultado.</p>
+
+<h2 id="7-quais-das-instru��es-abaixo-devem-ser-executadas-apenas-no-modo-kernel">7. quais das instruções abaixo devem ser executadas apenas no modo kernel?</h2>
+
+<ul>
+<li>desabilitar todas as interrupções</li>
+<li>alterar a data e hora do sistema</li>
+<li>realizar um desvio para uma instrução dentro do programa e acessar diretamente posições do disco</li>
+</ul>
+
+<h2 id="8-pesquise-comandos-dispon�veis-em-linguagens-de-controle-do-sistema-operacional">8. pesquise comandos disponíveis em linguagens de controle do sistema operacional.</h2>
+
+<h3 id="unix">unix</h3>
+
+<ul>
+<li>ps: lista processos do sistema operacional</li>
+<li>ls: lista conteúdos e diretórios</li>
+<li>rm: remove algum arquivo, passando o parâmetro -r é possível remover um diretório</li>
+<li>cat: concatena e imprime arquivos</li>
+<li>&gt;: aponta a saída de um programa para outro dispositivo ou arquivo</li>
+<li>|: concatena um comando a outro</li>
+<li>touch: altera a data de modificação de um arquivo</li>
+</ul>
+
+<h3 id="ms-dos">ms-dos</h3>
+
+<ul>
+<li>md: cria uma pasta</li>
+<li>del: remove algum arquivo</li>
+</ul>
+
+<h3 id="um-pouco-mais-sobre-comandos">Um pouco mais sobre comandos</h3>
+
+<p>Sou um fã de comandos interativos. Eles são eficientes e auxiliam muito no desenvolvimento de software. Porém a interface de comandos com o linux é
+muito mais fácil e compreensível que o cmd default do windows. Para estudar e conhecer mais os comandos no linux, existe um comando chamando &quot;man&quot; que abre o <strong>manual</strong> de um determinado comando. Por exemplo: &quot;man ls&quot; vai abrir a especificação do funcionamento do comando &quot;ls&quot;.</p>
+
+<h2 id="9-explique-o-processo-de-ativa��o-do-sistema-operacional">9. explique o processo de ativação do sistema operacional:</h2>
+
+<p>Quando o computador é ligado, não existe nada na memória, então o primeiro programa a ser chamado, é chamado boot, que fica gravado na memória rom.</p>
+
+<p>Este programa chama um programa que testa a existência dos recursos mínimos para inicializar o sistema e se comunicar com o hardware. este sistema se chama post (power on self test), que identifica possíveis erros do hardware, como falta de memória, teclado etc. Se tudo estiver ok, é verificado a existência de algum sistema operacional instalado em algum dispositivo. Quando encontrado ele chama procura por um espaço chamado boot sector, que contém as informações iniciais para carregar o sistema operacional na memória.</p>
+
+<h2 id="compare-as-arquiteturas-monol�tica-e-de-camadas-quais-as-vantagens-e-desvantagens">compare as arquiteturas monolítica e de camadas. quais as vantagens e desvantagens?</h2>
+
+<p>A primeira, é composta por módulos que se comunicam livremente e a segunda é arquitetada em camadas, classificando as funções em cada uma destas camadas.</p>
+
+<p>A arquitetura monolítica funcionou muito bem até o sistema operacional se tornar complexo. Como foi evoluindo muito rápido, também se tornou complexo e de difícil manutenção. </p>
+
+<p>Em 1968 foi programado o primeiro sistema operacional em camadas implementando este conceito. E como vantagem, este sistema consegue isolar as funções do sistema operacional e cria uma hierarquia dos modos de acesso. isso é segurança.</p>
+
+<h2 id="quais-as-vantagens-do-modelo-de-m�quina-virtual">quais as vantagens do modelo de máquina virtual?</h2>
+
+<p>Permite executar uma instrução sobre um computador virtual, desta forma não prejudica o hardware real. Sendo que uma computador real pode conter várias máquinas virtuais, qualquer comando não prejudica as outras máquinas virtuais, apenas a que está em execução.</p>
+
+<h2 id="como-funciona-o-modelo-cliente-servidor-na-arquitetura-micro-kernel-quais-as-vantagens-e-desvantagens">como funciona o modelo cliente-servidor na arquitetura micro-kernel? quais as vantagens e desvantagens?</h2>
+
+<p>Funciona como um sistema de chamadas cliente-servidor. o cliente, que pode ser um usuário ou recurso do sistema, faz uma chamada e o sistema verifica a possibilidade de execução ou não do comando. </p>
+
+<p>Como vantagem, o sistema desabilita e recusa as chamadas comprometedoras e disponibiliza mais recursos para as que possuem.</p>
+
+<p>Como desvantagem, o sistema têm problemas com acesso a certas partes diretas do hardware, que seriam necessárias.</p>
+
+<h2 id="por-que-a-programa��o-orientada-a-objetos-�-o-caminho-natural-para-o-projeto-de-sistemas-operacionais">Por que a programação orientada a objetos é o caminho natural para o projeto de sistemas operacionais?</h2>
+
+<p>Por que a vida é orientada a objetos. O hardware e o software também serão. Em outras palavras, todas as coisas podem ser representadas através de objetos e suas propriedades, atributos, família, tipo, escala, recurso etc. Através deste tipo de programação é possível simplificar os módulos programaveis e reutilizar os recursos existentes.</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">ps: As aulas foram ministradas pelo professor Marcelo Riedi e as considerações são minhas usando a apostila do professor como base.
+</code></pre></figure>
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Aula de Sistemas Operacionais - Modos do Kernel&url=http://ideia.me/modos-so&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/modos-so" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/modos-so" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/gerencia-de-projetos" title="Gerência de Projetos">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/gerencia-de-projetos" title="gtR - um projeto da nissan">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

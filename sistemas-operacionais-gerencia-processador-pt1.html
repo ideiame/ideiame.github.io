@@ -1,0 +1,695 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Sistemas Operacionais - Gerência do processador - parte 1</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Sistemas Operacionais - Gerência do processador - parte 1 <small><br/>21/05/2010
+    
+      <span class="categories">
+        
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<p><ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:600px"
+     data-ad-client="ca-pub-1171230226237014"
+     data-ad-slot="3911925903"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+<h2 id="o-que-�-pol�tica-de-escalonamento-de-um-sistema-operacional">O que é política de escalonamento de um sistema operacional?</h2>
+
+<p>Trata-se da abordagem utilizada pelo sistema operacionall para gerenciar o processador e tornar possível a multiprogramação do sistema operacional.</p>
+
+<h2 id="quais-as-fun��es-do-escalonador-e-do-dispatcher">Quais as funções do escalonador e do dispatcher?</h2>
+
+<p>O escalonador deve aplicar a política de escalonamento escolhida pelo S.O.</p>
+
+<p>O dispatcher é responsável por realizar a troca de contexto.</p>
+
+<h2 id="quais-os-principais-crit�rios-utilizados-pela-pol�tica-de-escalonamento">Quais os principais critérios utilizados pela política de escalonamento?</h2>
+
+<ul>
+<li>Tempo de espera</li>
+<li>Tempo de resposta</li>
+<li>Tempo de turnaround </li>
+<li>Tempo de cpu</li>
+<li>Utilização do processador</li>
+</ul>
+
+<h2 id="diferencie-os-tempos-do-processador-espera-turnaround-e-resposta">Diferencie os tempos do processador, espera, turnaround e resposta</h2>
+
+<h3 id="espera">Espera</h3>
+
+<p>Permanece na fila</p>
+
+<h3 id="turnaround">Turnaround</h3>
+
+<p>Tempo de vida do ciclo do processo desde sua criação até o término</p>
+
+<h3 id="tempo-de-resposta">Tempo de resposta</h3>
+
+<p>Tempo entre a chamada e a resposta do CPU.</p>
+
+<h2 id="diferencie-os-escalonamentos-preemptivos-e-n�o-preemptivos">Diferencie os escalonamentos preemptivos e não-preemptivos?</h2>
+
+<p>Preemptivo permite parar a execução de um processo e iniciar outro.</p>
+
+<h2 id="qual-a-diferen�a-entre-os-escalonamentos-fifo-e-circular">Qual a diferença entre os escalonamentos FIFO e Circular?</h2>
+
+<p>O escalonamento FIFO procura primeiro terminar um processo antes de começar outro, enquanto o escalonamento circular, reserva um determinado tempo para que o processo circule compartilhando o mesmo momento com outros processos. O circular é do tipo preemptivo enquanto FIFO é First In First Out.</p>
+
+<h2 id="descreva-o-escalonamento-sjf-e-o-escalonamento-por-prioridades">Descreva o escalonamento SJF e o escalonamento por prioridades.</h2>
+
+<p>As prioridadse são baseadas no processo que tiver o menor tempo de processador e desta forma sempre serão executados nesta ordem. Esta política é preemptiva e está baseado na prioridade de execução.</p>
+
+<h2 id="qual-a-diferen�a-entre-preemp��o-por-tempo-e-preemp��o-por-prioridades">Qual a diferença entre preempção por tempo e preempção por prioridades?</h2>
+
+<p>A preempção por tempo visa iterromper os processos baseados no menor tempo de processo, enquanto quando basedo na prioridade visa processar a fila através do nível de prioridade.</p>
+
+<h2 id="o-que-�-um-mecanismo-de-escalonamento-adaptativo">O que é um mecanismo de escalonamento adaptativo?</h2>
+
+<p>Esta política busca ajustar dinamicamente qual é a ordem dos processos objetivando o balanceamento do uso do processador. </p>
+
+<h2 id="que-tipo-de-escalonamento-aplica��es-de-tempo-real-exigem">Que tipo de escalonamento aplicações de tempo real exigem?</h2>
+
+<p>Estas aplicações Exigem respostas em tempo imediato.</p>
+
+<h2 id="o-escalonamento-por-m�ltiplas-filas-com-realimenta��o-favorece-processos-cpu-bound-ou-i-o-bound-justifique">O escalonamento por múltiplas filas com realimentação favorece processos CPU-bound ou I/O-bound?Justifique</h2>
+
+<p>O processo de IO tem um tempo de espera curto e por isso podem subir para as filas com prioridade maior enquanto processos de CPU exigem mais cpu e podem ser intercaladas para favorecer o processo de IO.</p>
+
+<h2 id="considere-que-cinco-processos-sejam-criados-no-instante-de-tempo-0-p1-p2-p3-p4-e-p5-e-possuam-as-caracter�sticas-descritas-na-tabela-a-seguir">Considere que cinco processos sejam criados no instante de tempo 0 (P1, P2, P3, P4 e P5) e possuam as características descritas na tabela a seguir:</h2>
+
+<table><thead>
+<tr>
+<th>Processo</th>
+<th>Tempo de UCP</th>
+<th>Prioridade</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>P1</td>
+<td>10</td>
+<td>3</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>14</td>
+<td>4</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>7</td>
+<td>2</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>20</td>
+<td>5</td>
+</tr>
+</tbody></table>
+
+<p>Desenhe um diagrama ilustrando o escalonamento dos processos e seus respectivos tempos de turnaround, segundo as políticas específicadas a seguir. O tempo de troca de contexto deve ser desconsiderado.</p>
+
+<h3 id="fifo">FIFO</h3>
+
+<table><thead>
+<tr>
+<th>Processo</th>
+<th>Tempo de UCP</th>
+<th>Prioridade</th>
+<th>Tempo</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>P1</td>
+<td>10</td>
+<td>3</td>
+<td>10</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>14</td>
+<td>4</td>
+<td>24</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>7</td>
+<td>2</td>
+<td>31</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>20</td>
+<td>5</td>
+<td>51</td>
+</tr>
+</tbody></table>
+
+<h3 id="sjf">SJF</h3>
+
+<table><thead>
+<tr>
+<th>Processo</th>
+<th>Tempo de UCP</th>
+<th>Prioridade</th>
+<th>Tempo</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>P3</td>
+<td>7</td>
+<td>2</td>
+<td>7</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>10</td>
+<td>3</td>
+<td>17</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>14</td>
+<td>4</td>
+<td>31</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>20</td>
+<td>5</td>
+<td>51</td>
+</tr>
+</tbody></table>
+
+<h3 id="prioridade-n�mero-menor-implica-a-prioridade-maior">Prioridade (número menor implica a prioridade maior)</h3>
+
+<table><thead>
+<tr>
+<th>Processo</th>
+<th>Tempo de UCP</th>
+<th>Prioridade</th>
+<th>Tempo</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>P3</td>
+<td>7</td>
+<td>2</td>
+<td>7</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>10</td>
+<td>3</td>
+<td>17</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>14</td>
+<td>4</td>
+<td>31</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>20</td>
+<td>5</td>
+<td>51</td>
+</tr>
+</tbody></table>
+
+<h3 id="circular-com-fatia-de-tempo-igual-a-2-u-t">Circular com fatia de tempo igual a 2 u.t.</h3>
+
+<table><thead>
+<tr>
+<th>Processo</th>
+<th>Tempo de UCP</th>
+<th>Prioridade</th>
+<th>Tempo</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>P1</td>
+<td>10</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>14</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>7</td>
+<td>2</td>
+<td>6</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>20</td>
+<td>5</td>
+<td>8</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>8</td>
+<td>3</td>
+<td>10</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>12</td>
+<td>4</td>
+<td>12</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>5</td>
+<td>2</td>
+<td>14</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>18</td>
+<td>5</td>
+<td>16</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>6</td>
+<td>3</td>
+<td>18</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>10</td>
+<td>4</td>
+<td>20</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>3</td>
+<td>2</td>
+<td>22</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>16</td>
+<td>5</td>
+<td>24</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>4</td>
+<td>3</td>
+<td>26</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>8</td>
+<td>4</td>
+<td>28</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>1</td>
+<td>2</td>
+<td>30</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>14</td>
+<td>5</td>
+<td>32</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>2</td>
+<td>3</td>
+<td>34</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>6</td>
+<td>4</td>
+<td>36</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>-</td>
+<td>2</td>
+<td>37</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>12</td>
+<td>5</td>
+<td>39</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>-</td>
+<td>3</td>
+<td>41</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>4</td>
+<td>4</td>
+<td>43</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>-</td>
+<td>2</td>
+<td>-</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>10</td>
+<td>5</td>
+<td>45</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>2</td>
+<td>4</td>
+<td>47</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>8</td>
+<td>5</td>
+<td>49</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>-</td>
+<td>4</td>
+<td>51</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>6</td>
+<td>5</td>
+<td>53</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>4</td>
+<td>5</td>
+<td>55</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>2</td>
+<td>5</td>
+<td>57</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>0</td>
+<td>5</td>
+<td>59</td>
+</tr>
+</tbody></table>
+
+<p>Sendo assim os processos terminaram após os seguintes tempos:</p>
+
+<table><thead>
+<tr>
+<th>Processo</th>
+<th>Segundos</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>P1</td>
+<td>41</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>51</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>37</td>
+</tr>
+<tr>
+<td>P4</td>
+<td>59</td>
+</tr>
+</tbody></table>
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<p><ins class="adsbygoogle"
+          style="display:inline-block;width:728px;height:90px"
+               data-ad-client="ca-pub-1171230226237014"
+                    data-ad-slot="8621327102"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></p>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Sistemas Operacionais - Gerência do processador - parte 1&url=http://ideia.me/sistemas-operacionais-gerencia-processador-pt1&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/sistemas-operacionais-gerencia-processador-pt1" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/sistemas-operacionais-gerencia-processador-pt1" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/javascript-legal" title="Javascript Ninja Legal">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/sh-legal" title="SH Legal">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

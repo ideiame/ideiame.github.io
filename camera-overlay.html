@@ -1,0 +1,1021 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Camera Overlay</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Camera Overlay <small><br/>27/02/2012
+    
+      <span class="categories">
+        
+          <a  class="btn btn-primary" href=/categories.html#android-ref>android
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">3</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#camera overlay-ref>camera overlay
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">2</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+          <a  class="btn btn-primary" href=/categories.html#open-source-ref>open-source
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">1</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p><img src="/../../../images/camera-overlay-logo64.png" alt="logo"></p>
+
+<h2 id="a-ideia">A ideia</h2>
+
+<p>A ideia do <a href="https://play.google.com/store/apps/details?id=me.ideia.cameraoverlay&amp;feature=search_result#?t=W251bGwsMSwxLDEsIm1lLmlkZWlhLmNhbWVyYW92ZXJsYXkiXQ..">aplicativo</a> veio de que <a href="http://www.facebook.com/media/set/?set=a.1691903151672.87739.1660567052&amp;type=3&amp;l=6db59445b9">tiro diversas fotos da sacada do meu apartamento/home-office</a> e nunca consigo tirar exatamente no mesmo lugar. Pensando em aplicativos para dispositivos móveis, me veio esta <em>necessidade</em> de tirar fotos do mesmo lugar reposicionando imagens. Pensando a respeito do assunto, lembrei de uma vez que vi um documentário sobre como as formigas conseguiam voltar pra casa e uma das hipóteses era que ela tinha uma camada de imagem como uma foto sobreposta, que encaixava a &quot;lembrança&quot; sobre a sua própria visão dando os pontos de referência para que voltasse pra casa.</p>
+
+<p>Na época que tive a ideia (5/6/2011) enviei um email para alguns amigos programadores falando sobre o assunto, para desenvolvermos em conjunto um aplicativo que fizesse isso, como objeto de estudo do android e colocarmos um primeiro experimento no <a href="https://play.google.com/store/apps/details?id=me.ideia.cameraoverlay&amp;feature=search_result#?t=W251bGwsMSwxLDEsIm1lLmlkZWlhLmNhbWVyYW92ZXJsYXkiXQ..">android market</a>. O <a href="mailto:marlonscalabrin@gmail.com">Marlon</a> gostou da ideia e então iniciamos o desenvolvimento alguns dias atrás.</p>
+
+<h2 id="testando-o-app">Testando o app</h2>
+
+<p>Colocamos a ideia inicial para projetar uma imagem pré-definida e usamos uma foto das fotos tiradas por mim inicialmente do apartamento (veja a foto abaixo). A foto abaixo foi utilizada como base para reposicionar a camera pela primeira vez.</p>
+
+<p><img src="/../../../images/camera-overlay-foto-base.jpg" alt="foto-base"></p>
+
+<p>Logo, alteramos  a foto para ficar transparente e transpusemos o preview da camera com a foto base. Este é um screenshot enquanto estava tentando posicionar a câmera pela primeira vez.</p>
+
+<p><img src="/../../../images/camera-overlay-primeira-sobreposicao.png" alt="primeira-sobreposicao"></p>
+
+<p>Percebemos que a foto e a camera eram iguais, o que era óbvio, mas era muito mais confuso ao aproximar-se do momento ideal de tirar a foto, pois a camera e a imagem tornam-se uma e o cérebro confunde se está manipulando a camera ou a imagem. Mas conseguimos tirar boas fotos!</p>
+
+<h2 id="primeira-otimiza��o-negativo-da-imagem">Primeira Otimização - Negativo da imagem</h2>
+
+<p>Um dos maiores problemas de utilizar uma foto base parecida é confundir as cores entre a camera e a realidade, logo, se a foto for muito parecida criamos a opção para utilizar a cor inversa. Este foi o primeiro tratamento eficaz da foto base para ajudar no reposicionamento.</p>
+
+<h2 id="segunda-otimiza��o-quadriculados-e-com-cortes-verticais-e-horizontais">Segunda Otimização - Quadriculados e com cortes verticais e horizontais</h2>
+
+<p>Passado uma noite de bom sono após toda empolgação do novo app, o Marlon chega com novas ideias para ajudar no reposicionamento. Criar cortes trasparentes entre a camera e a imagem de forma que seja possível reposicionar cortes da imagem.</p>
+
+<h2 id="resultado-da-a��o-em-conjunto">Resultado da ação em conjunto</h2>
+
+<p>Veja a foto do resultado combinado entre o negativo e um quadriculado bem grande.</p>
+
+<p><img src="/../../../images/camera-overlay-negativo.png" alt="negativo"></p>
+
+<p>Nas opções de corte adicionamos quadriculado, corte vertical e horizontal. O tamanho do corte pode ser ajustado alternando entre a transparência e os tipos de corte. Este é um exemplo de corte bem grande então é praticamente um divisor da imagem. Observe que a imagem dividida abaixo não está utilizando o efeito do negativo, logo já torna um pouco mais confuso a identificação nas imagens sobrepostas. </p>
+
+<p><img src="/../../../images/camera-overlay-normal-corte-vertical.png" alt="normal-cv"></p>
+
+<p>Agora o mesmo caso sem negativo mas utilizando um quadriculado menor também dá para identificar bons pontos de referência.</p>
+
+<p><img src="/../../../images/camera-overlay-quadriculado-pequeno.png" alt="quadriculado-pequeno"></p>
+
+<h2 id="a-hist�ria-do-vaso">A história do vaso</h2>
+
+<p>Resolvemos então escolher outro cenário e tirar uma foto inicial de um vaso de tomates que plantei dias atrás aqui no apartamento para testarmos as características de uma foto com proximidade mínima. Os resultados foram totalmente diferentes e a confusão também foi diferente :D.</p>
+
+<h3 id="experi�ncia-com-foto-noturna">Experiência com foto noturna</h3>
+
+<p>Esta é a foto noturna legal e sem fundo, tirada quando chegamos após viagem e o tomateiro estava murcho.</p>
+
+<p><img src="/../../../images/camera-overlay-vaso-1.jpg" alt="vaso1"></p>
+
+<p>Duas horas depois de regado...</p>
+
+<p><img src="/../../../images/camera-overlay-vaso-2.jpg" alt="vaso2"></p>
+
+<p>Funcionou sem problemas, mas a sobreposição já não ficou boa. O caso é que o vaso é próximo da camera e como falei anteriormente, quanto mais próximo o objeto estiver da camera mais difícil se torna a sobreposição perfeita. Tem alguma coisa a ver com o <a href="http://pt.wikipedia.org/wiki/Erro_de_paralaxe">erro de paralaxe</a> do observador ;)</p>
+
+<h3 id="experi�ncia-com-foto-a-luz-do-dia">Experiência com foto a luz do dia</h3>
+
+<p>As cores intensas da árvore do fundo e as folhas da planta confundem ainda mais ao tentar a sobreposição.</p>
+
+<p><img src="/../../../images/camera-overlay-vaso-dia-1.jpg" alt="vaso3"></p>
+
+<h3 id="o-formato-e-a-cor-do-objeto-de-refer�ncia">O formato e a cor do objeto de referência</h3>
+
+<p>O meu vaso de tomates é de alumínio (na verdade era um balde de gelo :D) e foi muito difícil de utilizar o vaso como referência. As dificuldades de tirar fotos deste balde também tratam-se do ângulo da camera versus a projeção da circunferência do vaso. O alumínio é muito difícil de interpretar e a borda externa para borda interna do ponto de referência e também não dava para saber qual era a camera e qual era a foto base. O negativo não foi o suficiente para o alumínio e então resolvemos criar outros artefatos para suprir este caso.</p>
+
+<p><img src="/../../../images/camera-overlay-vaso-dia-2.jpg" alt="vaso4"></p>
+
+<p>Observando as duas fotos, aí está o vaso quadriculado com negativo.</p>
+
+<p><img src="/../../../images/camera-overlay-vaso-dia-quadriculado.png" alt="vasodiaquadriculado"></p>
+
+<h3 id="o-�ngulo-do-ponto-de-refer�ncia">O ângulo do ponto de referência</h3>
+
+<h3 id="as-cores-e-a-intensidade-das-cores-no-entrela�amento">As cores e a intensidade das cores no entrelaçamento</h3>
+
+<p>O difícil para os olhos é encontrar um ponto de referência fácil de idêntificar a imagem de fundo e se esta está ou não totalmente encaixada sobre a camera. Existem duas imagens com 2 fundos distintos, estamos usando transparência e a imagem pode ser até mutável, no meu caso o pé de tomate está em pleno vigor.</p>
+
+<h3 id="a-dist�ncia-do-ponto-de-refer�ncia">A distância do ponto de referência</h3>
+
+<p>Tirar uma foto da paisagem é realmente fácil. As fotos que você tira já tem um reposicionamento mental do lugar onde estava para tirar a foto, então é só ajustar o angulo, a altura e talvez um pouco da distância. Quando o ponto de referência está fotógrafo a precisão do movimento é muito maior, o que significa que centímetros de diferença podem causar um grande deslocamento comparando a original. Concluindo, é necessário você encaixar perfeitamente pra ficar bom.</p>
+
+<h2 id="retirando-as-cores">Retirando as cores</h2>
+
+<p>Observando o caso do vaso de flores, o Marlon deu outra ideia de tirarmos uma das cores bases da foto e assim poderíamos transpor a camera em uma foto sem transparência total, apenas seria transparente nas cores selecionadas. Ficou muito interessante o efeito e também trouxe benefícios para tirar a foto.</p>
+
+<h3 id="sem-cor-vermelho-com-negativo">Sem cor vermelho com negativo</h3>
+
+<p><img src="/../../../images/camera-overlay-sem-vermelho-negativo.png" alt="semvermelhonegativo"></p>
+
+<h2 id="outras-funcionalidades">Outras funcionalidades</h2>
+
+<p>Além dos efeitos acima mostrados, também criamos opções com alto-contraste, preto e branco, extração de bordas e mudança de cor (matiz). O efeito abaixo é com borda e transparência.</p>
+
+<p><img src="/../../../images/camera-overlay-com-bordas-transparente.png" alt="combordastransparente"></p>
+
+<h2 id="outras-ideias-e-futuro">Outras ideias e futuro</h2>
+
+<ul>
+<li>Quando tirar foto, visualiza fotos mergindo rapidamente alternando sequência de todas fotos tiradas na ordem de data.</li>
+<li>Permite continuar filmagem e selecionar última cena um vídeo.</li>
+<li>Permite escolher configurações avançadas da camera, alteranar cameras.</li>
+<li>Qualificar e selecionar sequência de fotos para gera vídeo</li>
+<li>Gerar vídeo de sequência de fotos</li>
+</ul>
+
+<h2 id="o-futuro">O futuro</h2>
+
+<p>O futuro depende de <a href="https://play.google.com/store/apps/details?id=me.ideia.cameraoverlay&amp;feature=search_result#?t=W251bGwsMSwxLDEsIm1lLmlkZWlhLmNhbWVyYW92ZXJsYXkiXQ..">quantos aplicativos</a> iremos vender e qual o feedback recebido dos usuários. Tenho sido um usuário ativo do meu aplicativo e preciso descobrir que não sou o único que irei usá-lo :)</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">O projeto camera overlay é [opensource][github] e está no [github].
+</code></pre></figure>
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Camera Overlay&url=http://ideia.me/camera-overlay&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/camera-overlay" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/camera-overlay" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/sinceridade-nao-faz-mal-a-ninguem" title="Sinceridade não faz mal a ninguém">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/pequenas-decisoes-grandes-mudancas" title="Pequenas mudanças e grandes decisões">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

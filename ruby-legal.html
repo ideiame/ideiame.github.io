@@ -1,0 +1,433 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Ruby Legal</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Ruby Legal <small><br/>03/05/2010
+    
+      <span class="categories">
+        
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>Hoje fiquei vendo um exercício de probabilidade na aula de estatística, o exercício dizia o seguinte:</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Uma moeda é lançada 10 vezes. Qual a probabilidade de:
+a) Sair 5 vezes a face &quot;cara&quot;.
+b) Sair no máximo 9 vezes a face &quot;cara&quot;.
+</code></pre></figure>
+<p>Logo imaginei uma forma de descrever esta situação para o computador. Escrevi a seguinte frase: </p>
+
+<pre class="prettyprint">
+objeto moeda
+  possui faces(cara, coroa)
+  quando jogar
+    sortear faces
+
+sortear moeda
+</pre>
+
+<p>Pensando nesta declaração, codifiquei a seguinte declaração em ruby:</p>
+
+<pre class="prettyprint">
+objeto "moeda"
+possui :faces =&gt; ["cara", "coroa"]
+quando "jogar" {
+  sortear :faces
+}
+</pre>
+
+<p>Apartir do código acima, é possível executar o seguinte código:</p>
+
+<pre class="prettyprint">
+moeda.jogar
+</pre>
+
+<p>Agora pensei, falta implementar o método, então vamos lá! Primeiro é necessário criar um método que permita eu declarar um objeto como:</p>
+
+<pre class="prettyprint">
+objeto "moeda"
+</pre>
+
+<p>E logo que eu declarar o objeto, logo posso utiliza-lo livremente em ruby. Sem um toque de metaprogramação podemos verificar a seguinte situação:</p>
+
+<pre class="prettyprint">
+[jonatas] ~ $ irb
+>> def objeto(nome) ; nome ; end
+=> nil
+>> objeto 'moeda'
+=> "moeda"
+>> moeda
+NameError: undefined local variable or method 'moeda' for main:Object
+</pre>
+
+<p>Não encontrou a variável local? E agora, como nascerá este método! Inicialmente criaremos um objeto anônimo a cada declaração de objetos. E manteremos uma lista dos objetos específicos.</p>
+
+<p>Primeiro, iremos declarar uma váriavel que conterá todos os objetos que serão descritos.</p>
+
+<pre class="prettyprint">
+$objetos = {}
+class Object
+ def objeto(nome)
+   $objeto = $objetos[nome] = Object.new 
+ end
+end
+</pre>
+
+<p>Após este passo, é necessário implementar o método &quot;method_missing&quot; que é responsável por saber a respeito das chamadas do sistema.</p>
+
+<p>Este método é invocado, quando o método não é encontrado na classe, e recebe como parâmetros, um símbolo representando o nome do método, os parâmetros e um possível bloco. </p>
+
+<p>O objetivo de implementar este método, é lidar com situações inesperadas como esta, que está buscando um método que não existe. Neste caso, iremos flexibilizar o uso da linguagem ruby, implementando uma mini-linguagem para descrever um objeto.</p>
+
+<pre class="prettyprint">
+$objetos = {}
+class Object
+ def objeto(nome)
+   $objeto = $objetos[nome] = Object.new 
+ end
+ def method_missing(nome, *args, &amp;block)
+   $objetos[nome.to_s] || super
+ end
+end
+</pre>
+
+<p>Agora já é possível digitar:</p>
+
+<pre class="prettyprint">
+objeto "moeda"
+moeda
+moeda.jogar # NoMethodError: undefined method 'jogar' 
+</pre>
+
+<p>Para descrever o método jogar, é necessário implementar a sintaxe que cria novos atributos ao objeto descrito anteriormente.</p>
+
+<pre class="prettyprint">
+def possui(atributos)
+  atributos.each do |nome, valor|
+    $objeto.instance_variable_set("@#{nome}",valor)
+  end
+end
+</pre>
+
+<p>Depois que este elemento foi declarado é possivel declarar atributos para o objeto. </p>
+
+<p>Dado que os atributos foram declarados, é necessário poder acessá-los também. Para tornar o acesso público, é necessário alterar a implementação do método  &quot;method_missing&quot; para ler os atributos do objeto também.</p>
+
+<pre class="prettyprint">
+def method_missing(nome, *args, &amp;block)
+  $objetos[nome.to_s] ||
+   $objeto.instance_variable_get("@#{nome}") ||
+    super
+end
+</pre>
+
+<p>O método acima, primeiramente verifica se existe um objeto com o nome, se não tenta buscar uma variável de instância para o objeto a seguir. Caso não encontre a variável então lança a excessão novamente.</p>
+
+<pre class="prettyprint">
+ objeto 'carro' 
+ possui 'portas' =&gt; 4
+ possui 'airbag' => 'duplo'
+ carro.portas # => 4
+ carro.dirigir # NoMethodError: undefined method 'dirigir'
+</pre>
+
+<p>Agora é necessário tomar as ações para que possa &quot;aprender&quot; a dirigir o carro ou &quot;jogar&quot; a moeda. O próximo objetivo então é implementar o método <strong>quando</strong> determinada ação acontecer, então faça... </p>
+
+<p>A deste método consiste em:</p>
+
+<pre class="prettyprint">
+def quando(acao, &amp;block)
+  $objeto.class.send(:define_method, acao, &amp;block)
+end
+</pre>
+
+<p>Agora, já é possível criar os métodos dinâmicamente para cada objeto. E através da sintaxe:</p>
+
+<pre class="prettyprint">
+quando "jogar" {
+  sortear :faces
+}
+</pre>
+
+<p>Desta forma já é possível utilizar a tão desejada sintaxe:</p>
+
+<pre class="prettyprint">
+moeda.jogar
+</pre>
+
+<p>Abaixo segue o exemplo completo do código rodando:</p>
+
+<pre class="prettyprint">
+$objetos = {}
+class Object
+ def objeto(nome)
+   $objeto = $objetos[nome] = Object.new 
+ end
+ def method_missing(nome, *args, &amp;block)
+   $objetos[nome.to_s] ||
+    $objeto.instance_variable_get("@#{nome}") ||
+     super
+ end
+ def possui(atributos)
+   atributos.each do |nome, valor|
+     $objeto.instance_variable_set("@#{nome}",valor)
+   end
+ end
+ def quando(acao, &amp;block)
+   $objeto.class.send(:define_method, acao, &amp;block)
+ end
+ def sortear(atributo)
+   atributo = $objeto.instance_variable_get("@#{atributo}")
+   p atributo[rand(atributo.size)]
+ end
+end
+
+objeto "moeda"
+possui :faces =&gt; ["cara", "coroa"]
+quando("jogar") {
+  sortear(:faces)
+}
+
+10.times { moeda.jogar }
+</pre>
+
+<p>Ruby é excepcional para trabalhar com DSL. O domínio específico da linguagem torna as tarefas mais simples e diretas. Isto se trata de expressividade, de melhorar a linguagem para estabelecer uma conversa mais direta e compreensiva. No lado da metaprogramação, torna-se simples de implementar as ideias propostas. A codificação e montagem deste post foi feito em paralelo e em um tempo satisfatório.</p>
+
+<p>ps: se você se interessa por este assunto, leia também meu artigo sobre expressividade da linguagem em <a href="http://github.com/jonatas/artigo_elep">http://github.com/jonatas/artigo_elep</a>.</p>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Ruby Legal&url=http://ideia.me/ruby-legal&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/ruby-legal" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/ruby-legal" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/google-buzz-api-no-ideiame" title="Integrando API do Google Buzz no Ideia.me">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/google-legal" title="Nova roda mágica do google">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+

@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Vida no terminal</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_black.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) { 
+      prettyPrint(); 
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       } 
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="http://github.com/jonatas">Github</a></li>
+              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
+            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
+            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
+            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Vida no terminal <small><br/>30/03/2012
+    
+      <span class="categories">
+        
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>Existe uma gama de comandos muito forte para se tornar mais ágil no linux e também no msysgit e eu me sinto feliz em compartilhar aqui meus preferidos:</p>
+
+<h2 id=">$!</h2>
+
+<p>Sempre uso este atalho para fazer mil coisas. O comando $! retorna o último parâmetro da última função utilizada. Por exemplo, eu crio e depois adiciono um determinado arquivo no meu projeto logo eu digito.</p>
+
+<pre>
+touch /my/dir/file
+git add /my/dir/file
+</pre>
+
+<p>Com a variável posso fazer:</p>
+
+<pre>
+touch /my/dir/file
+git add !$
+</pre>
+
+<h2 id="locate">locate</h2>
+
+<p>Localiza arquivos do HD rápidamente. Se o arquivo foi criado recentemente talvez você tenha que usar o comando <code>sudo updatedb</code> para encontrar o arquivo.</p>
+
+<pre>
+jonatas@jonatax:~/ideia.me$ locate rubygems.rb
+/home/jonatas/.rvm/gems/jruby-1.6.5.1/gems/rubygems-update-1.8.15/lib/gauntlet\_rubygems.rb
+/home/jonatas/.rvm/gems/jruby-1.6.5.1/gems/rubygems-update-1.8.15/lib/rubygems.rb
+/home/jonatas/.rvm/repos/rbx/lib/rubygems.rb
+/home/jonatas/.rvm/rubies/jruby-1.6.5.1/lib/ruby/site\_ruby/1.8/gauntlet\_rubygems.rb
+/home/jonatas/.rvm/rubies/jruby-1.6.5.1/lib/ruby/site\_ruby/1.8/rubygems.rb
+/home/jonatas/.rvm/rubies/ruby-1.8.7-p357/lib/ruby/site\_ruby/1.8/gauntlet\_rubygems.rb
+/home/jonatas/.rvm/rubies/ruby-1.8.7-p357/lib/ruby/site\_ruby/1.8/rubygems.rb
+/home/jonatas/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/1.9.1/rubygems.rb
+/home/jonatas/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/site\_ruby/1.9.1/gauntlet\_rubygems.rb
+/home/jonatas/.rvm/rubies/ruby-1.9.2-p290/lib/ruby/site\_ruby/1.9.1/rubygems.rb
+/home/jonatas/.rvm/rubies/ruby-1.9.2-rc2/lib/ruby/1.9.1/rubygems.rb
+/home/jonatas/.rvm/rubies/ruby-1.9.2-rc2/lib/ruby/site\_ruby/1.9.1/gauntlet\_rubygems.rb
+/home/jonatas/.rvm/rubies/ruby-1.9.2-rc2/lib/ruby/site\_ruby/1.9.1/rubygems.rb
+/home/jonatas/.rvm/src/jruby-1.6.5.1/lib/ruby/site\_ruby/1.8/gauntlet\_rubygems.rb
+/home/jonatas/.rvm/src/jruby-1.6.5.1/lib/ruby/site\_ruby/1.8/rubygems.rb
+/home/jonatas/.rvm/src/rbx-head/lib/rubygems.rb
+/home/jonatas/.rvm/src/ruby-1.9.2-p290/lib/rubygems.rb
+/home/jonatas/.rvm/src/ruby-1.9.2-rc2/lib/rubygems.rb
+/home/jonatas/.rvm/src/rubygems-1.8.15/lib/gauntlet\_rubygems.rb
+/home/jonatas/.rvm/src/rubygems-1.8.15/lib/rubygems.rb
+/usr/lib/jruby/lib/ruby/gems/1.8/gems/rubygems-update-1.8.15/lib/gauntlet\_rubygems.rb
+/usr/lib/jruby/lib/ruby/gems/1.8/gems/rubygems-update-1.8.15/lib/rubygems.rb
+/usr/lib/jruby/lib/ruby/site\_ruby/1.8/gauntlet\_rubygems.rb
+/usr/lib/jruby/lib/ruby/site\_ruby/1.8/rubygems.rb
+/usr/lib/ruby/1.8/gauntlet\_rubygems.rb
+/usr/lib/ruby/1.8/rubygems.rb
+/usr/lib/ruby/1.9.1/rubygems.rb
+jonatas@jonatax:~/ideia.me$ 
+</pre>
+
+<h2 id="grep">grep</h2>
+
+<p>Filtra por uma <a href="/ruby/sinatra/regexp/2010/02/16/inspecionando-regexp-com-sinatra.html" title="post super legal sobre expressões regulares">expressão regular</a> de diversas formas, eu geral uso <a href="/ruby/regexp/2010/02/23/regexp-maravilha.html" title="eu gosto mesmo de expressões regulares">comando</a> <code>grep -r</code> e <code>| grep</code> para duas situações distintas.
+O exemplo abaixo usa o mesmo exemplo do locate acima, mas e filtrando novamente apenas por &quot;jruby&quot;.</p>
+
+<pre>
+jonatas@jonatax:~/ideia.me$ locate rubygems.rb | grep jruby
+/home/jonatas/.rvm/gems/jruby-1.6.5.1/gems/rubygems-update-1.8.15/lib/gauntlet\_rubygems.rb
+/home/jonatas/.rvm/gems/jruby-1.6.5.1/gems/rubygems-update-1.8.15/lib/rubygems.rb
+/home/jonatas/.rvm/rubies/jruby-1.6.5.1/lib/ruby/site\_ruby/1.8/gauntlet\_rubygems.rb
+/home/jonatas/.rvm/rubies/jruby-1.6.5.1/lib/ruby/site\_ruby/1.8/rubygems.rb
+/home/jonatas/.rvm/src/jruby-1.6.5.1/lib/ruby/site\_ruby/1.8/gauntlet\_rubygems.rb
+/home/jonatas/.rvm/src/jruby-1.6.5.1/lib/ruby/site\_ruby/1.8/rubygems.rb
+/usr/lib/jruby/lib/ruby/gems/1.8/gems/rubygems-update-1.8.15/lib/gauntlet\_rubygems.rb
+/usr/lib/jruby/lib/ruby/gems/1.8/gems/rubygems-update-1.8.15/lib/rubygems.rb
+/usr/lib/jruby/lib/ruby/site\_ruby/1.8/gauntlet\_rubygems.rb
+/usr/lib/jruby/lib/ruby/site\_ruby/1.8/rubygems.rb
+</pre>
+
+<h2 id="buscando">Buscando</h2>
+
+<p>Outra maneira que utilizo bastante é para procurar por texto dentro de arquivos. Por exemplo, digamos que estou procurando pela palavra &quot;éia&quot; que vem de ideia e assembleia e que agora perdeu o acento nas novas normas. Como quero corrigir meu site preciso pesquisar por esta expressão:</p>
+
+<pre>
+jonatas@jonatax:~/ideia.me$ grep éia _posts/*
+_posts/2010-02-01-portfolio.markdown:O meu portfólio, está ligado a todos os trabalhos que venho realizando e gostei muito da idéia de compartilhar e mante-lo aqui.
+_posts/2010-02-14-estorias-bonitas-vs-testes-unitarios.markdown:Após ter saído da Leosoft, dia 11 voltei lá pela primeira vez, e foi para se reunir com o pessoal e fazermos um [coding dojo][coding-dojo] sobre TDD e BDD. Seguindo a idéia da [url anterior][coding-dojo], como exemplo para o evento, usamos um problema que implica em converter uma sintaxe de sql do Access para o padrão do Postgresql.
+_posts/2010-02-23-regexp-maravilha.markdown:Nesta idéia, foi simples de converter todos os códigos Oracle que havia diferença de sintaxe usando um Hash de casos:
+</pre>
+
+<h2 id="tail">tail</h2>
+
+<p>Exibe o final de um arquivo e é muito interessante para inspecionar logs. Gosto do tail pois é possível observar mais de um arquivo no mesmo comando, por exemplo, as vezes estou testando algo e utilizo o thin como servidor. Logo o standard output ($stdout) está configurado para receber o arquivo thin.log e estou em observação de mais de um arquivo. </p>
+
+<pre>
+tail -n 200 -f log/development.log log/thin.log
+</pre>
+
+<p>Sempre uso -n 200 para ver as últimas  200 linhas de ambos arquivos.</p>
+
+<h2 id="alias">alias</h2>
+
+<p>Sempre esqueço todos os atalhos que tenho no terminal, então o alias é um ótimo comando para retornar todos os atalhos que você tem. Eu gostaria de saber como faz pra retornar o nome das funções que criamos, se alguém souber  :D</p>
+
+<pre>
+jonatas@jonatax:~/$ alias
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias java\_change='sudo update-alternatives --config java'
+alias l='ls -CF'
+alias la='ls -A'
+alias ll='ls -alF'
+alias ls='ls --color=auto'
+alias rvm-restart='rvm\_reload\_flag=1 source '\''/home/jonatas/.rvm/scripts/rvm'\'''
+alias trab='cd ~/photon/workspace/ActiveScripts/'
+</pre>
+
+<h2 id="ou">` ` ou $()</h2>
+
+<p>Já tinha escrito outro <a href="/ruby/sinatra/regexp/2010/02/16/inspecionando-regexp-com-sinatra.html" title="post super legal sobre expressões regulares">post</a> com este comando mas é muito bacana e aqui segue a ideia. Quando preciso fazer uma combinação de comandos e preciso usar o resultado em outra expressão, logo é possível concatenar os resultados com $(). Por exemplo fiz um locate e agora quero buscar apenas dentro do meu diretório. Para pegar o diretório atual, é necessário utilizar o comando pwd, mas naturalmente utilizado após o grep ele se torna a palavra, logo um sub-terminal resolve o problema.</p>
+
+<pre>
+locate myFile | grep $(pwd)
+</pre>
+
+<p>ou
+<pre>
+locate myFile | grep <code>pwd</code>
+</pre></p>
+
+<h2 id="conclus�es">Conclusões</h2>
+
+<p>A vida no terminal é muito mais que um canivete suiço e você só consegue ter agilidade quando se acostumar com as opções e optar por utilizá-las ao invés de pegar o mouse e partir para uma ferramenta mais visuais. </p>
+
+<p>Escrevo este post inspirado em um freelancer que estamos desenvolvendo na <a href="www.leosoft.com.br" title="veja os produtos da Leosoft">Leosoft</a>, em que estamos codificando tudo diretamente em um Ubuntu Server sem interface gráfica lá da <a href="www.leosoft.com.br" title="veja os produtos da Leosoft">Leosoft</a>, e simplesmente, não senti falta de nada. Conseguimos realizar o desenvolvimento de todas as funcionalidades sem intervenção de uma interface gráfica e estamos apenas usando ssh e usando o <a href="/shell/regexp/unix/grep/rails/migrations/vim/2010/03/01/regexp-com-grep.html" title="post sobre o grep">VIM</a> como editor.</p>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Vida no terminal&url=http://ideia.me/terminal-life&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/terminal-life" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/terminal-life" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/update-ou-upgrade" title="Update ou upgrade">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next"><a href="/cursando-aulas-da-stanford" title="Cursando aulas da Stanford University">Próximo &rarr;</a></li>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+
