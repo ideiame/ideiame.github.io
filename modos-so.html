@@ -91,12 +91,10 @@
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
-            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
-            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/trybliss"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">Desenhe com pixel</a></li>
             <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
-            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
-            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="http://github.com/jonatas/torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
             <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
            </ul>
           </li>
@@ -192,7 +190,7 @@
 
 <p>Os modos de acesso, referem-se aos privilégios de execução de um processo.</p>
 
-<h2 id="modo-usu�rio">modo usuário</h2>
+<h2 id="modo-usu-rio">modo usuário</h2>
 
 <p>O processador, entende um conjunto de instruções. Cada instrução pode fica no modo Kernel ou no modo Usuário. Do lado do aplicativo, é possível apenas trabalhar com o conjunto de instruções que está do modo usuário.</p>
 
@@ -224,9 +222,9 @@
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script></p>
 
-<h1 id="quest�es-sobre-a-arquitetura-do-sistema-operacional">Questões sobre a arquitetura do Sistema Operacional</h1>
+<h1 id="quest-es-sobre-a-arquitetura-do-sistema-operacional">Questões sobre a arquitetura do Sistema Operacional</h1>
 
-<h2 id="1-o-que-�-um-n�cleo-do-sistema-e-quais-s�o-suas-principais-fun��es">1. o que é um núcleo do sistema e quais são suas principais funções?</h2>
+<h2 id="1-o-que-um-n-cleo-do-sistema-e-quais-s-o-suas-principais-fun-es">1. o que é um núcleo do sistema e quais são suas principais funções?</h2>
 
 <p>O núcleo do sistema é composto por um conjunto de rotinas, que estão disponíveis para ser usado pelo usuário e às suas aplicações. este núcleo, também recebe um outro nome: kernel, e as suas principais funções são:</p>
 
@@ -243,7 +241,7 @@
 <li>auditoria e segurança</li>
 </ul>
 
-<h2 id="2-o-que-s�o-instruc�es-privilegiadas-e-n�o-privilegiadas-qual-a-rela��o-entre-as-instru��es-e-seus-modos-de-acesso">2. o que são instrucões privilegiadas e não privilegiadas? qual a relação entre as instruções e seus modos de acesso?</h2>
+<h2 id="2-o-que-s-o-instruc-es-privilegiadas-e-n-o-privilegiadas-qual-a-rela-o-entre-as-instru-es-e-seus-modos-de-acesso">2. o que são instrucões privilegiadas e não privilegiadas? qual a relação entre as instruções e seus modos de acesso?</h2>
 
 <p>O processador se comunica com o sistema operacional através de funções, que podem ser executadas básicamente em dois modos:  <strong>kernel</strong> e <strong>usuário</strong>. </p>
 
@@ -267,19 +265,19 @@
 
 <p>Este forma de chamadas identifica se o aplicativo possúi permissão para executar o comando.</p>
 
-<h2 id="5-por-que-as-rotinas-do-sistema-operacional-possuem-instru��es-privilegiadas">5. por que as rotinas do sistema operacional possuem instruções privilegiadas?</h2>
+<h2 id="5-por-que-as-rotinas-do-sistema-operacional-possuem-instru-es-privilegiadas">5. por que as rotinas do sistema operacional possuem instruções privilegiadas?</h2>
 
 <p>Como é o sistema operacional que controla tudo, apenas ele tem o poder de dizer o que está certo ou errado. Assim ele mesmo é responsável por qualquer situação de risco para o hardware ou software. Usar o modo kernel, o sistema pode administrar a memória de forma transparente, e também deve saber a hora de cada evento acontecer. No modo kernel, ações delicadas são realizadas e é seguro ao máximo para não falhar.</p>
 
 <p>para gerenciar uma memória, liberar o espaço de memória utilizado por um aplicativo, não deve ser uma tarefa realizada pela programação do programador, mas sim pela observação do sistema operacional. operações deste tipo, são delicadas e devem ser executadas com segurança. para evitar erros e intenções maliciosas, apenas o sistema operacional consegue fazer isso, e só realmente faz se estiver seguro.</p>
 
-<h2 id="6-o-que-�-uma-system-calll-e-qual-a-sua-import�ncia-para-a-seguran�a-do-sistema">6. o que é uma system calll e qual a sua importância para a segurança do sistema?</h2>
+<h2 id="6-o-que-uma-system-calll-e-qual-a-sua-import-ncia-para-a-seguran-a-do-sistema">6. o que é uma system calll e qual a sua importância para a segurança do sistema?</h2>
 
 <p>system call é uma chamada do sistema, como sua própria tradução indica. em uma chamada ao sistema, o sistema operacional recebe um comando e possíveis parâmetros. como resposta, recebe um outro código, que pode indicar sucesso, falha ou até mesmo o resultado do próprio comando. </p>
 
 <p>no processo de receber o comando, o sistema identifica o aplicativo que fez a chamada e verifica a sua permissão para execução do comando. dada a permissão executa e retorna o resultado.</p>
 
-<h2 id="7-quais-das-instru��es-abaixo-devem-ser-executadas-apenas-no-modo-kernel">7. quais das instruções abaixo devem ser executadas apenas no modo kernel?</h2>
+<h2 id="7-quais-das-instru-es-abaixo-devem-ser-executadas-apenas-no-modo-kernel">7. quais das instruções abaixo devem ser executadas apenas no modo kernel?</h2>
 
 <ul>
 <li>desabilitar todas as interrupções</li>
@@ -287,7 +285,7 @@
 <li>realizar um desvio para uma instrução dentro do programa e acessar diretamente posições do disco</li>
 </ul>
 
-<h2 id="8-pesquise-comandos-dispon�veis-em-linguagens-de-controle-do-sistema-operacional">8. pesquise comandos disponíveis em linguagens de controle do sistema operacional.</h2>
+<h2 id="8-pesquise-comandos-dispon-veis-em-linguagens-de-controle-do-sistema-operacional">8. pesquise comandos disponíveis em linguagens de controle do sistema operacional.</h2>
 
 <h3 id="unix">unix</h3>
 
@@ -313,13 +311,13 @@
 <p>Sou um fã de comandos interativos. Eles são eficientes e auxiliam muito no desenvolvimento de software. Porém a interface de comandos com o linux é
 muito mais fácil e compreensível que o cmd default do windows. Para estudar e conhecer mais os comandos no linux, existe um comando chamando &quot;man&quot; que abre o <strong>manual</strong> de um determinado comando. Por exemplo: &quot;man ls&quot; vai abrir a especificação do funcionamento do comando &quot;ls&quot;.</p>
 
-<h2 id="9-explique-o-processo-de-ativa��o-do-sistema-operacional">9. explique o processo de ativação do sistema operacional:</h2>
+<h2 id="9-explique-o-processo-de-ativa-o-do-sistema-operacional">9. explique o processo de ativação do sistema operacional:</h2>
 
 <p>Quando o computador é ligado, não existe nada na memória, então o primeiro programa a ser chamado, é chamado boot, que fica gravado na memória rom.</p>
 
 <p>Este programa chama um programa que testa a existência dos recursos mínimos para inicializar o sistema e se comunicar com o hardware. este sistema se chama post (power on self test), que identifica possíveis erros do hardware, como falta de memória, teclado etc. Se tudo estiver ok, é verificado a existência de algum sistema operacional instalado em algum dispositivo. Quando encontrado ele chama procura por um espaço chamado boot sector, que contém as informações iniciais para carregar o sistema operacional na memória.</p>
 
-<h2 id="compare-as-arquiteturas-monol�tica-e-de-camadas-quais-as-vantagens-e-desvantagens">compare as arquiteturas monolítica e de camadas. quais as vantagens e desvantagens?</h2>
+<h2 id="compare-as-arquiteturas-monol-tica-e-de-camadas-quais-as-vantagens-e-desvantagens">compare as arquiteturas monolítica e de camadas. quais as vantagens e desvantagens?</h2>
 
 <p>A primeira, é composta por módulos que se comunicam livremente e a segunda é arquitetada em camadas, classificando as funções em cada uma destas camadas.</p>
 
@@ -327,7 +325,7 @@ muito mais fácil e compreensível que o cmd default do windows. Para estudar e 
 
 <p>Em 1968 foi programado o primeiro sistema operacional em camadas implementando este conceito. E como vantagem, este sistema consegue isolar as funções do sistema operacional e cria uma hierarquia dos modos de acesso. isso é segurança.</p>
 
-<h2 id="quais-as-vantagens-do-modelo-de-m�quina-virtual">quais as vantagens do modelo de máquina virtual?</h2>
+<h2 id="quais-as-vantagens-do-modelo-de-m-quina-virtual">quais as vantagens do modelo de máquina virtual?</h2>
 
 <p>Permite executar uma instrução sobre um computador virtual, desta forma não prejudica o hardware real. Sendo que uma computador real pode conter várias máquinas virtuais, qualquer comando não prejudica as outras máquinas virtuais, apenas a que está em execução.</p>
 
@@ -339,7 +337,7 @@ muito mais fácil e compreensível que o cmd default do windows. Para estudar e 
 
 <p>Como desvantagem, o sistema têm problemas com acesso a certas partes diretas do hardware, que seriam necessárias.</p>
 
-<h2 id="por-que-a-programa��o-orientada-a-objetos-�-o-caminho-natural-para-o-projeto-de-sistemas-operacionais">Por que a programação orientada a objetos é o caminho natural para o projeto de sistemas operacionais?</h2>
+<h2 id="por-que-a-programa-o-orientada-a-objetos-o-caminho-natural-para-o-projeto-de-sistemas-operacionais">Por que a programação orientada a objetos é o caminho natural para o projeto de sistemas operacionais?</h2>
 
 <p>Por que a vida é orientada a objetos. O hardware e o software também serão. Em outras palavras, todas as coisas podem ser representadas através de objetos e suas propriedades, atributos, família, tipo, escala, recurso etc. Através deste tipo de programação é possível simplificar os módulos programaveis e reutilizar os recursos existentes.</p>
 <figure class="highlight"><pre><code class="language-text" data-lang="text">ps: As aulas foram ministradas pelo professor Marcelo Riedi e as considerações são minhas usando a apostila do professor como base.

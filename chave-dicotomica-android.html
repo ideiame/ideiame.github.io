@@ -91,12 +91,10 @@
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
-            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
-            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/trybliss"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">Desenhe com pixel</a></li>
             <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
-            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
-            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="http://github.com/jonatas/torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
             <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
            </ul>
           </li>
@@ -890,18 +888,18 @@ CHAVE 2 - PALMEIRAS
     9.7 Geonoma schottiana
 </pre></div>
 
-<h2 id="express�es-regulares-divers�o-pra-noite-toda">Expressões regulares - diversão pra noite toda</h2>
+<h2 id="express-es-regulares-divers-o-pra-noite-toda">Expressões regulares - diversão pra noite toda</h2>
 
 <p>Agora chegamos as expressões. Absorvendo caso a caso vamos criar as expressões regulares separadas.</p>
 
-<h3 id="1-defini��es-de-novas-chaves-est�o-em-letra-mai�scula">1. Definições de novas chaves, estão em letra maiúscula</h3>
+<h3 id="1-defini-es-de-novas-chaves-est-o-em-letra-mai-scula">1. Definições de novas chaves, estão em letra maiúscula</h3>
 
 <p>Essa foi fácil, sempre <em>inicia</em> com a palavra CHAVE, tém um número sequencial e um traço que divide da descrição.
 <div><pre class="prettyprint">
 CHAVE = /<sup>CHAVE</sup> (.<em>) - (.</em>)/
 </pre></div></p>
 
-<h3 id="2-defini��es-de-items-iniciam-com-n�meros-que-ser�o-seus-id-39-s">2. Definições de items iniciam com números que serão seus id&#39;s</h3>
+<h3 id="2-defini-es-de-items-iniciam-com-n-meros-que-ser-o-seus-id-39-s">2. Definições de items iniciam com números que serão seus id&#39;s</h3>
 
 <p>Os items como &quot;1. Plantas com acúleos&quot; ou que apontam para outros como  &quot;5. Base dos pecíolos de cor verde .... 6&quot; casam nesta expressão regular. Inicia(<sup>)</sup> com número(\d+) seguido de ponto (\.) com barra invertida pois &quot;.&quot; é um caractér especial nas expressões regulares. 
 Neste caso a expressão está apenas buscando genéricamente por qualquer final, sem distinção de ter ou não o link.</p>
@@ -910,7 +908,7 @@ Neste caso a expressão está apenas buscando genéricamente por qualquer final,
 ITEM = /^(\d+)\.\s(.*)$/
 </pre></div>
 
-<h3 id="3-items-terminados-com-mais-um-n�mero-conectam-a-outro-item-com-o-mesmo-id">3. Items terminados com .... mais um número conectam a outro item com o mesmo id</h3>
+<h3 id="3-items-terminados-com-mais-um-n-mero-conectam-a-outro-item-com-o-mesmo-id">3. Items terminados com .... mais um número conectam a outro item com o mesmo id</h3>
 
 <p>Os items terminados com link para outros items são o segredo que mata o trabalho árduo de pesquisar no livro. A conecção está ligada com logo em seguida. Estes itens serão conectados a outros itens em um futuro próximo.</p>
 
@@ -918,7 +916,7 @@ ITEM = /^(\d+)\.\s(.*)$/
 LINK = /\s\.{4}\s(\d+)$/
 </pre></div>
 
-<h3 id="4-esp�cies-iniciam-com-4-espa�os">4. Espécies iniciam com 4 espaços</h3>
+<h3 id="4-esp-cies-iniciam-com-4-espa-os">4. Espécies iniciam com 4 espaços</h3>
 
 <p>\s identifica um espaço e isso torna mais claro do que construir uma expressão como <code>/ {4}/</code>, e as chaves permitem adicionar o número de ocorrências.</p>
 
@@ -1123,13 +1121,13 @@ end
 
 <p><img src="../../../images/cda-navegando.png" alt="navegando"></p>
 
-<h2 id="esp�cie-encontrada">Espécie encontrada</h2>
+<h2 id="esp-cie-encontrada">Espécie encontrada</h2>
 
 <p>Exemplo do toast rodando :D</p>
 
 <p><img src="../../../images/cda-encontrou-especie.png" alt="encontrou"></p>
 
-<h2 id="conclus�es">Conclusões</h2>
+<h2 id="conclus-es">Conclusões</h2>
 
 <p>Aparentemente é muito simples trabalhar com jRuby no Android, no entanto ainda não parece ser tão viável pela demora do jRuby para inicializar. Estou contando que as próximas versões se superem pois atualmente demora 17 segundos para inicializar o jruby no meu aparelho (Sansung Galaxy Ace). A inicialização do app é muito rápida, quando roda sobre o irb, é muito fácil de perceber que a VM é que demora pra carregar, e tirando isso é excelente. </p>
 

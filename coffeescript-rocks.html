@@ -91,12 +91,10 @@
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="http://bliss.ideia.me"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
-            <li><a href="http://arteterapia.ideia.me"><img src="http://arteterapia.ideia.me/favicon.ico" width=32>Arterapia, Educação e Saúde</a></li>
-            <li><a href="http://pixel.ideia.me"><img src="http://pixel.ideia.me/favicon.ico" width=32>Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/trybliss"><img src="/images/blissymbol.png" width=32 style="max-height:42px;">Aprenda Bliss</a</li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">Desenhe com pixel</a></li>
             <li><a href="http://churumelas.ideia.me"><img src="/images/logo-churumelas-green.png" width=32>Desafie-se no churumelas</a></li>
-            <li><a href="http://torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
-            <li><a href="http://lorenzo.ideia.me"><img src="/images/ideiame.png" width=32>Podcast com meu filho Lorenzo</a></li>
+            <li><a href="http://github.com/jonatas/torf.ideia.me"><img src="/images/ideiame.png" width=32>True Or False Game</a></li>
             <li><a href="/camera-overlay"><img src="/images/camera-overlay-logo64.png" width=32>Fotografia com Camera Overlay</a></li>
            </ul>
           </li>
@@ -857,7 +855,7 @@ fazendo é usar o transpilador para gerar o código final em js.</p>
 
 <p>Se você curtir, vai copiando e colando os exemplos no <a href="http://js2.coffee/">j2.coffee</a>.</p>
 
-<h2 id="fun��o">Função</h2>
+<h2 id="fun-o">Função</h2>
 
 <p>Em javascript teríamos:</p>
 
@@ -867,7 +865,7 @@ maisUm = function(n) { n + 1 }
 
 <p>Em coffeescript temos:</p>
 
-<h2 id="fun��es">funções</h2>
+<h2 id="fun-es">funções</h2>
 
 <p>Então não precisa de <code>function</code> nem <code>{}</code>:</p>
 
@@ -875,7 +873,7 @@ maisUm = function(n) { n + 1 }
 maisUm = (n) -> n + 1
 </pre>
 
-<h2 id="indenta��o-inteligente">Indentação inteligente</h2>
+<h2 id="indenta-o-inteligente">Indentação inteligente</h2>
 
 <p>As chaves não são substituídas por um código indentado. Isso quer dizer que
 você vai usar espaços ao invés de chaves para todos lados.</p>
@@ -925,7 +923,7 @@ escrever inline seria:</p>
 classificarParOuImpar = (array) -> if n % 2 is 0 then 'par' else 'impar' for n in array
 </pre>
 
-<h2 id="multiplas-atribui��es">Multiplas atribuições</h2>
+<h2 id="multiplas-atribui-es">Multiplas atribuições</h2>
 
 <p>As múltiplas atribuições já existem no javascript e não há nada de novo nisso.
 No entando o coffeescript tem a sua própria maneira de fazer.</p>
@@ -944,7 +942,7 @@ b = 2
 [a,b] = [1,2]
 </pre>
 
-<h2 id="multiplas-atribui��es-de-hashes">Multiplas atribuições de hashes</h2>
+<h2 id="multiplas-atribui-es-de-hashes">Multiplas atribuições de hashes</h2>
 
 <p>As atribuições também funcionam para hashes.</p>
 
@@ -983,7 +981,7 @@ mas gosto dessas variações que simplificam e minimizam a linguagem em si.</p>
 desnecessárias: Entendendo que <code>{a,b}</code> irá gerar exatamente isso, consigo
 manter um código mais limpo e menos verboso. Eu sinceramente gosto muito disso.</p>
 
-<h3 id="par�metros-se-transformando-em-atributo-de-acesso">Parâmetros se transformando em atributo de acesso</h3>
+<h3 id="par-metros-se-transformando-em-atributo-de-acesso">Parâmetros se transformando em atributo de acesso</h3>
 
 <p>Em um exemplo simples poderia escrever:</p>
 
@@ -1013,7 +1011,7 @@ class Pessoa
 
 <p>Desta maneira eliminamos uma série de códigos repetitivos e verbosos.</p>
 
-<h2 id="atribui��es-condicionais"><code>||=</code> atribuições condicionais</h2>
+<h2 id="atribui-es-condicionais"><code>||=</code> atribuições condicionais</h2>
 
 <p>Uma possível melhoria para fazer no algorítmo acima, ainda seria evitar
 recalcular o imc se já foi calculado, cacheando o imc, ou recalculando:</p>
@@ -1077,7 +1075,7 @@ pode declarar um código como:</p>
 imcsDeVariasPessoas = pessoa.imc for pessoa in pessoas
 </pre>
 
-<h1 id="detalhes-dif�ceis-e-cru�is">Detalhes difíceis e cruéis</h1>
+<h1 id="detalhes-dif-ceis-e-cru-is">Detalhes difíceis e cruéis</h1>
 
 <p>Nem tudo são flores e você vai precisar pisar em ovos no coffee também. Uma das
 maiores enrascadas do coffeescript está no <code>@</code> e a falta de sabedoria na hora
@@ -1145,7 +1143,7 @@ Pessoa = (function() {
 })();
 </pre>
 
-<h3 id="criando-a-refer�ncia-self">Criando a referência self</h3>
+<h3 id="criando-a-refer-ncia-self">Criando a referência self</h3>
 
 <pre class="prettyprint coffeescript">
 class Pessoa

@@ -9,7 +9,6 @@ http://ideia.me/sitemap.txt
 http://ideia.me/sitemap.xml
 http://ideia.me/talks
 
-http://ideia.me/one-year-cycling
 http://ideia.me/ruby-puzzle-gridlock
 http://ideia.me/trabalhar-sozinho-ou-contribuir
 http://ideia.me/the-dev-conf-sp-2016
@@ -30,9 +29,9 @@ http://ideia.me/vida-de-bike
 http://ideia.me/railsrumble-2015
 http://ideia.me/coffeescript-rocks
 http://ideia.me/from-linux-to-os-x
-http://ideia.me/tutorial-programacao-3d-openscad
+http://ideia.me/tutorial-programacao-3D-openscad
 http://ideia.me/6-meses-na-resultados-digitais
-http://ideia.me/tdc-sp-here-we-go
+http://ideia.me/TDC-SP-here-we-go
 http://ideia.me/vida-de-busao
 http://ideia.me/perguntas-do-meu-filho-de-3-anos
 http://ideia.me/tres-meses-na-resultados-digitais
