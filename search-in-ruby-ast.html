@@ -622,27 +622,13 @@ in another library that is my &quot;node pattern&quot; implementation running wi
 RuboCop dependency. The idea is just starting: <a href="https://github.com/jonatas/fast">https://github.com/jonatas/fast</a></p>
 
 <p>You can do similar things with plain ruby code and arrays to build the matcher:</p>
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">  it &#39;navigates deeply&#39; do
-    ast =
-      s(:send,
-        s(:send,
-          s(:send,
-            s(:send, nil, :a),
-            :b),
-          :c),
-        :d)
-
-     expect(Fast.match?(ast, [:send, &#39;...&#39;])).to be_truthy
-     expect(Fast.match?(ast, [:send, [:send, &#39;...&#39;], :d])).to be_truthy
-     expect(Fast.match?(ast, [:send, [:send, &#39;...&#39;], :c])).to be_falsy
-     expect(Fast.match?(ast, [:send, [:send, [:send, &#39;...&#39;], :c], :d])).to be_truthy
-     expect(Fast.match?(ast, [:send, [:send, [:send, [:send, nil, :a], :b], :c], :d])).to be_truthy
-     expect(Fast.match?(ast, [:send, [:send, [:send, [:send, nil, &#39;_&#39;], &#39;_&#39;], :c], &#39;_&#39;])).to be_truthy
-  end
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">Fast.match?(s(:send, s(:send, nil, :a), :b), [:send, &#39;...&#39;])) # =&gt; true
 </code></pre></figure>
+<p>Checkout the <a href="https://github.com/jonatas/fast/blob/master/spec/fast_spec.rb#L48">current specs</a>.</p>
+
 <p>In the next step, I&#39;m thinking about do a <code>f()</code> for find and <code>c()</code> to capture things. Not sure
 exactly how to proceed but the idea is something like:</p>
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">Fast.match?(ast, f(:send, f(:send, f(:send, c(:send, nil, &#39;_&#39;), &#39;_&#39;), :c), &#39;_&#39;))) =&gt; s(:send, nil, :a)
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">Fast.match?(ast, f(:send, f(:send, f(:send, c(:send, nil, &#39;_&#39;), &#39;_&#39;), :c), &#39;_&#39;))) # =&gt; s(:send, nil, :a)
 </code></pre></figure>
 <p>Any thoughts or ideas about how to be expressive in this search?</p>
 
