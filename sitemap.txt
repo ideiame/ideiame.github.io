@@ -9,6 +9,7 @@ http://ideia.me/sitemap.txt
 http://ideia.me/sitemap.xml
 http://ideia.me/talks
 
+http://ideia.me/search-in-ruby-ast
 http://ideia.me/ruby-puzzle-gridlock
 http://ideia.me/trabalhar-sozinho-ou-contribuir
 http://ideia.me/the-dev-conf-sp-2016
