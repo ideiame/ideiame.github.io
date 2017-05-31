@@ -182,319 +182,91 @@
 
 <p><hr /></p>
 
-<p><h1 class="post"><a class="post" href="/search-in-ruby-ast"> Search in Ruby AST</a></h1>
- <p>Some months ago I started coding some cops for
-<a href="https://github.com/bbatsov/rubocop">RuboCop</a>.</p></p>
+<p><h1 class="post"><a class="post" href="/parsing-ruby-code"> Parsing Ruby Code</a></h1>
+ <p>After start my saga on <a href="./">Ruby AST Search</a>
+I build some tools to help me to understand the AST and inspecting it.</p></p>
 
-<p>I was amazed in my first contact with the Ruby <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">AST</a>
-and what I can do with that.</p>
+<p>After a few days around I discover everything I needed was already build in and
+I just need to learn about.</p>
 
-<p>After some time looking for other cops, I discovered the
-<a href="https://github.com/bbatsov/rubocop/blob/master/lib/rubocop/node_pattern.rb">NodePattern</a>
-and it was an amazing experience. It reminds the mind blowing as when I learned
-regular expressions, and now I got the same in the Abstract Syntax Tree.</p>
+<h2 id="ruby-ripper">Ruby Ripper</h2>
 
-<p>To check how the AST works, please install the gem
-<a href="https://github.com/whitequark/parser">parser</a>. It brings a helpful command <code>ruby-parse</code>
-that can print the AST representation of some Ruby code.</p>
+<p><a href="http://ruby-doc.org/stdlib-2.0.0/libdoc/ripper/rdoc/Ripper.html">Ripper</a>
+provides a symbolic expression tree for your code.</p>
 
-<p>Let&#39;s start looking for the AST and how it works. The following class
-declaration:</p>
+<p>As it&#39;s in the standard library, you can simply start using it.</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">class SimpleClass
-end
+<p>I love to use <code>ruby -e</code> to test some code inline. Then, let&#39;s start with
+something to learn about the lexer:</p>
+
+<h3 id="ripper-tokenize">Ripper#tokenize</h3>
+
+<p>We can start with a simply tokenize. That will split your code into atoms to
+compile each piece in sequence.</p>
+
+<p>$ ruby -r ripper -e &#39;p Ripper.tokenize(&quot;1 + 2&quot;)&#39;    18:24:26</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">[&quot;1&quot;, &quot; &quot;, &quot;+&quot;, &quot; &quot;, &quot;2&quot;]
 </code></pre></figure>
 
-<p>Looking the AST representation with the <code>ruby-parse</code> utility:</p>
+<h3 id="ripper-lex">Ripper#lex</h3>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">$ ruby-parse simple_class.rb
-</code></pre></figure><figure class="highlight"><pre><code class="language-text" data-lang="text">(class
-  (const nil :SimpleClass) nil nil)
+<p>The lexer will tag each tokeninze piece and identify each part of your code:</p>
+
+<p>$ ruby -r ripper -e &#39;p Ripper.sexp(&quot;1+2&quot;)&#39;</p>
+
+<p>The output should be something like:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">[:program, [[:binary, [:@int, &quot;1&quot;, [1, 0]], :+, [:@int, &quot;2&quot;, [1, 2]]]]]
 </code></pre></figure>
 
-<p>I created a small project to help me understand and do experiments with Ruby AST
-and test the node pattern. You can check out it and follow this step by step:</p>
+<p>Checking one more example:</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">$ git clone git@github.com:jonatas/rubocopular.git
+<p>$ ruby -r ripper -r pp -e &#39;pp Ripper.lex(&quot;def a; end&quot;)&#39;</p>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[[[1, 0], :on_kw, &quot;def&quot;],
+ [[1, 3], :on_sp, &quot; &quot;],
+ [[1, 4], :on_ident, &quot;a&quot;],
+ [[1, 5], :on_semicolon, &quot;;&quot;],
+ [[1, 6], :on_sp, &quot; &quot;],
+ [[1, 7], :on_kw, &quot;end&quot;]]
 </code></pre></figure>
 
-<p>Then basically it has a <code>bin/console</code> that allows you to play with to simple
-methods <code>node</code> and <code>test</code>.</p>
+<p>You an also call the <code>Ripper.sexp</code> to get the symbolic expression of your code:</p>
 
-<p>Lets check how it works:</p>
+<p>Lets use <code>pp</code> to make it more easy to ready:</p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">$ cd rubocopular
-$ bin/console
+<p>$ ruby -r ripper -r pp -e &#39;pp Ripper.sexp(&quot;1+2 + ( 3 * 4)&quot;) &#39;</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">[:program,
+ [[:binary,
+   [:binary, [:@int, &quot;1&quot;, [1, 0]], :+, [:@int, &quot;2&quot;, [1, 2]]],
+   :+,
+   [:paren, [[:binary, [:@int, &quot;3&quot;, [1, 8]], :*, [:@int, &quot;4&quot;, [1, 12]]]]]]]]
 </code></pre></figure>
 
-<p><strong>node</strong> is a method that can parse the AST representation of some Ruby as
-string code.</p>
+<h3 id="ripper-slice">Ripper#slice</h3>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">node(&#39;a = 1&#39;) # =&gt; s(:lvasgn, :a, s(:int, 1))
+<p>This feature is really cool and strange. I can&#39;t find a good documentation and I debug it by myself trying to understand better the strategy.
+It&#39;s a kind of regular expression mixed with the lexer. Take a look at the example:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">Ripper.slice(&#39;(1 + 2.0 + 1.1)&#39;,&#39;int.*float.*float&#39;)
+=&gt; &quot;1 + 2.0 + 1.1&quot;
 </code></pre></figure>
 
-<p>So, the output is pretty similar with <code>ruby-parse</code>. As it&#39;s using <code>pry</code> 
-you can check that the method <code>s</code> is a simple wrap to a node:</p>
+<p>It&#39;s useful for grep for specific sequence of node types, for example, lets
+check for a sequence of <code>int float float</code> in the operation:</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">show-method s
-# From: /Users/jonatasdp/.rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/rubocop-0.48.1/lib/rubocop/ast/sexp.rb @ line 11:
-# Owner: RuboCop::AST::Sexp
-# Visibility: public
-# Number of lines: 3
-
-def s(type, *children)
-  Node.new(type, children)
-end
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">Ripper.slice(&#39;2.2 / 4.2 + (1 + 2.0+ 1.1) * 2&#39;,&#39;int.*float.*float&#39;)
+=&gt; &quot;1 + 2.0+ 1.1&quot;
 </code></pre></figure>
 
-<p>And basically, the node is an object that has a <code>#type</code> and <code>#children</code>.
-The children can be symbols or other nodes and so on.</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">node(&#39;a = 1&#39;)          # =&gt; s(:lvasgn, :a, s(:int, 1))
-node(&#39;a = 1&#39;).type     # =&gt; :lvasgn
-node(&#39;a = 1&#39;).children # =&gt; [:a, s(:int, i)]
-</code></pre></figure>
-
-<p>Let&#39;s check a few more examples:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">node(&#39;class A ; end&#39;)    # =&gt; s(:class, s(:const, nil, :A), nil, nil)
-</code></pre></figure>
-
-<p>Extended class:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">node(&#39;class A &lt; B; end&#39;) # =&gt; s(:class, s(:const, nil, :A), s(:const, nil, :B), nil)
-</code></pre></figure>
-
-<p>Implementing a method:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">node(&#39;class A &lt; B; def method; end end&#39;)
-# s(:class,
-#   s(:const, nil, :A),
-#   s(:const, nil, :B),
-#   s(:def, :method,
-#     s(:args), nil))
-</code></pre></figure>
-
-<p>You can use puts to check the same result as <code>ruby-parse</code> outputs:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">puts node(&#39;class A &lt; B; def method; end end&#39;)
-</code></pre></figure>
-
-<p>The output should be:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">(class
-  (const nil :A)
-  (const nil :B)
-  (def :method
-    (args) nil))
-</code></pre></figure>
-
-<p>Then all are single nodes with a <code>#type</code> and possible <code>#children</code>.</p>
-
-<p>A few examples with math:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">node(&#39;1 + 2 + 3&#39;) # s(:send, s(:send, s(:int, 1), :+, s(:int, 2)), :+, s(:int, 3))
-</code></pre></figure>
-
-<p>Going deeply in some levels:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">node(&#39;1 + 2 + (3 / 5 * (6 ** 7))&#39;)
-</code></pre></figure>
-
-<p>The output should be a tree a bit more complex:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">s(:send,
-  s(:send,
-    s(:int, 1), :+,
-    s(:int, 2)), :+,
-  s(:begin,
-    s(:send,
-      s(:send,
-        s(:int, 3), :/,
-        s(:int, 5)), :*,
-      s(:begin,
-        s(:send,
-          s(:int, 6), :**,
-          s(:int, 7))))))
-</code></pre></figure>
-
-<p>Other example with methods:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">puts node(&#39;a.b.c(d).e(f)&#39;)
-</code></pre></figure>
-
-<p>AST output:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">(send
-  (send
-    (send
-      (send nil :a) :b) :c
-    (send nil :d)) :e
-  (send nil :f))
-</code></pre></figure>
-
-<p>Cool yeah? Let&#39;s have fun with the Node Pattern 🕶</p>
-
-<h3 id="rubocop-node-pattern">RuboCop Node Pattern</h3>
-
-<p>The node pattern is a cool engine that allows you to match in some AST code
-using the <strong>node pattern</strong>. It&#39;s pretty similar of use regular expressions for
-me. Let&#39;s come back with our <code>a = 1</code> assignment example:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">node(&#39;a = 1&#39;) # =&gt; s(:lvasgn, :a, s(:int, 1))
-</code></pre></figure>
-
-<p>Did you remember the <a href="https://github.com/jonatas/rubocopular/blob/master/lib/rubocopular.rb#L14">test</a>
-method I mentioned before?</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">test(&#39;(...)&#39;, &#39;a = 1&#39;) # =&gt; true
-</code></pre></figure>
-
-<p>Cool, it matches with &quot;something with last children&quot;.</p>
-
-<p>Now let&#39;s check if it&#39;s a <code>:lvasg</code> aka local variable assignment:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">test(&#39;(:lvasgn)&#39;,&#39;a = 1&#39;) # =&gt; nil
-</code></pre></figure>
-
-<p>It does not match because the node has parameters. Lets specify that it comes
-with something else using the <code>...</code> shortcut:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">test(&#39;(:lvasgn ...)&#39;,&#39;a = 1&#39;) # =&gt; true
-</code></pre></figure>
-
-<h4 id="capturing">Capturing</h4>
-
-<p>It&#39;s hard sometimes to just understand based on <code>true</code> and <code>false</code>. Let&#39;s use
-<code>$</code> to capture and go deeply in the comprehension:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">test(&#39;(:lvasgn $...)&#39;,&#39;a = 1&#39;) # =&gt; [:a, s(:int, 1)]
-</code></pre></figure>
-
-<p>Cool! It captures the children.</p>
-
-<p>Let&#39;s ignore the variable name using <code>_</code> that for me represents &quot;one thing&quot;,
-I don&#39;t care the name or value for a while.</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">test(&#39;(:lvasgn _ $...)&#39;,&#39;a = 1&#39;) # =&gt; [s(:int, 1)]
-</code></pre></figure>
-
-<p>We can also capture only the value:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">test(&#39;(:lvasgn _ (int $_)&#39;,&#39;a = 1&#39;) # =&gt; 1
-</code></pre></figure>
-
-<p>Or the assigned node:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">test(&#39;(:lvasgn _ $(int _))&#39;,&#39;a = 1&#39;) # =&gt; s(:int, 1)
-</code></pre></figure>
-
-<p>Or capture multiple things independently:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">test(&#39;(:lvasgn _ ($int $_))&#39;,&#39;a = 1&#39;) # =&gt; [:int, 1]
-</code></pre></figure>
-
-<p>That&#39;s cool no?</p>
-
-<p>Let&#39;s imagine we want to restrict our search for float or int:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">test(&#39;(:lvasgn _ (int _))&#39;,&#39;a = 1&#39;) # =&gt; true
-</code></pre></figure>
-
-<p>Testing the expression with a float will not work:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">test(&#39;(:lvasgn _ (int _))&#39;,&#39;a = 1.0&#39;) # =&gt; nil
-</code></pre></figure>
-
-<p>Now let&#39;s introduce <code>{}</code> that we can union patterns:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">test(&#39;(:lvasgn _ ({int float} _))&#39;,&#39;a = 1.0&#39;) # =&gt; true
-</code></pre></figure>
-
-<p>And we can capture the type of the field as well:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">test(&#39;(:lvasgn _ (${int float} _))&#39;,&#39;a = 1.0&#39;) # =&gt; :float
-test(&#39;(:lvasgn _ (${int float} _))&#39;,&#39;a = 1&#39;) # =&gt; :int
-</code></pre></figure>
-
-<p>This search thing was amazing for me, and I tried to encapsulate in a search 
-command to allow me to search in code with this expression as I do with <code>grep</code> or <code>ag</code>.</p>
-
-<p>The prototype is in <a href="https://github.com/jonatas/rubocopular">rubocopular</a> project too. I created the <code>bin/search</code> for
-it:</p>
-
-<p>The search command syntax is pretty simple:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">bin/search &#39;pattern&#39; *path-to-ruby-files
-</code></pre></figure>
-
-<p>Let&#39;s try something:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">$ bin/search &#39;(const ... )&#39; lib/*.rb                                                                                                                  11:58:01
-lib/rubocopular.rb:5: Rubocopular
-lib/rubocopular.rb:7: RuboCop::ProcessedSource
-lib/rubocopular.rb:11: RuboCop::ProcessedSource
-lib/rubocopular.rb:11: IO
-lib/rubocopular.rb:15: RuboCop::AST::Node
-lib/rubocopular.rb:16: RuboCop::NodePattern
-lib/rubocopular.rb:20: RuboCop::NodePattern
-</code></pre></figure>
-
-<p>Nice, we can filter a bit more and search only for things under <code>RuboCop</code>
-scope:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">bin/search &#39;(const nil :RuboCop ... )&#39; lib/*.rb                                                                                                     11:59:09
-lib/rubocopular.rb:7: RuboCop
-lib/rubocopular.rb:11: RuboCop
-lib/rubocopular.rb:15: RuboCop
-lib/rubocopular.rb:16: RuboCop
-lib/rubocopular.rb:20: RuboCop
-</code></pre></figure>
-
-<p>It&#39;s cool, but we can also do it with <code>grep</code>. The difference here is that we&#39;re
-listing the nodes not only the code, than we can print some multiline nodes.</p>
-
-<p>Let&#39;s print all check static methods defined in Rubocopular library:</p>
-
-<figure class="highlight"><pre><code class="language-text" data-lang="text">$ bin/search &#39;(defs ... )&#39; lib/*.rb                                                                                                                   12:00:48
-lib/rubocopular.rb:6: def self.node(code)
-    RuboCop::ProcessedSource.new(code.to_s, 2.3).ast
-  end
-lib/rubocopular.rb:10: def self.parse_source(path)
-    RuboCop::ProcessedSource.new(IO.read(path), 2.3, path)
-  end
-lib/rubocopular.rb:14: def self.test(pattern, code)
-    code = node(code) unless code.is_a?(RuboCop::AST::Node)
-    RuboCop::NodePattern.new(pattern).match(code)
-  end
-lib/rubocopular.rb:19: def self.inspect(pattern, code)
-    RuboCop::NodePattern.new(pattern.gsub(/(\.{3}|_)/, &#39;$\1&#39;)).match(node(code))
-  end
-</code></pre></figure>
-
-<p>Awesome, it works!</p>
-
-<p>Thanks for reading until here. If you&#39;re interested in AST search, I&#39;m working
-in another library that is my &quot;node pattern&quot; implementation running without
-RuboCop dependency. The idea is just starting: <a href="https://github.com/jonatas/fast">https://github.com/jonatas/fast</a></p>
-
-<p>You can do similar things with plain ruby code and arrays to build the matcher:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">Fast.match?(s(:send, s(:send, nil, :a), :b), [:send, &#39;...&#39;])) # =&gt; true
-</code></pre></figure>
-
-<p>Checkout the <a href="https://github.com/jonatas/fast/blob/master/spec/fast_spec.rb#L48">current specs</a>.</p>
-
-<p>In the next step, I&#39;m thinking about do a <code>f()</code> for find and <code>c()</code> to capture things. Not sure
-exactly how to proceed but the idea is something like:</p>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">Fast.match?(ast, f(:send, f(:send, f(:send, c(:send, nil, &#39;_&#39;), &#39;_&#39;), :c), &#39;_&#39;))) # =&gt; s(:send, nil, :a)
-</code></pre></figure>
-
-<p>Any thoughts or ideas about how to be expressive in this search?</p>
+<p>That&#39;s all for today! Thanks for reading o/</p>
 
 <p><hr />
 <ul class="posts"></p>
+
+<p><li><span class="post_date">31 May 2017</span> &raquo;<a class="post" href="/parsing-ruby-code">Parsing Ruby Code</a></li></p>
 
 <p><li><span class="post_date">20 May 2017</span> &raquo;<a class="post" href="/search-in-ruby-ast">Search in Ruby AST</a></li></p>
 

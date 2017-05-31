@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Introdução a linguagem Ruby</title>
+    <title>Parsing Ruby Code</title>
     
     <meta name="author" content="Jônatas Davi Paganini">
 
@@ -164,7 +164,7 @@
 <div class="page-header">
     <h1>
        <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
-       Introdução a linguagem Ruby <small><br/>17/04/2016
+       Parsing Ruby Code <small><br/>31/05/2017
     
       <span class="categories">
         
@@ -394,62 +394,73 @@
   </h1>
 </div>
 <div class="content">
-    <p>Hoje estive dando uma treinada para o <a href="http://www.meetup.com/Floripa-on-Rails/events/230349469/">live coding amanhã</a> sobre quais coisas
-posso mostrar em 30 minutos.</p>
+    <p>After start my saga on <a href="./">Ruby AST Search</a>
+I build some tools to help me to understand the AST and inspecting it.</p>
 
-<h2 id="string">String</h2>
+<p>After a few days around I discover everything I needed was already build in and
+I just need to learn about.</p>
 
-<script type="text/javascript" src="https://asciinema.org/a/42629.js" id="asciicast-42629" async></script>
+<h2 id="ruby-ripper">Ruby Ripper</h2>
 
-<h2 id="array">Array</h2>
+<p><a href="http://ruby-doc.org/stdlib-2.0.0/libdoc/ripper/rdoc/Ripper.html">Ripper</a>
+provides a symbolic expression tree for your code.</p>
 
-<script type="text/javascript" src="https://asciinema.org/a/42632.js" id="asciicast-42632" async></script>
+<p>As it&#39;s in the standard library, you can simply start using it.</p>
 
-<h2 id="hash">Hash</h2>
+<p>I love to use <code>ruby -e</code> to test some code inline. Then, let&#39;s start with
+something to learn about the lexer:</p>
 
-<script type="text/javascript" src="https://asciinema.org/a/42633.js" id="asciicast-42633" async></script>
+<h3 id="ripper-tokenize">Ripper#tokenize</h3>
 
-<h2 id="classes">Classes</h2>
+<p>We can start with a simply tokenize. That will split your code into atoms to
+compile each piece in sequence.</p>
 
-<script type="text/javascript" src="https://asciinema.org/a/42634.js" id="asciicast-42634" async></script>
+<p>$ ruby -r ripper -e &#39;p Ripper.tokenize(&quot;1 + 2&quot;)&#39;    18:24:26</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">[&quot;1&quot;, &quot; &quot;, &quot;+&quot;, &quot; &quot;, &quot;2&quot;]
+</code></pre></figure>
+<h3 id="ripper-lex">Ripper#lex</h3>
 
-<h2 id="abrindo-classes-existentes">Abrindo classes existentes</h2>
+<p>The lexer will tag each tokeninze piece and identify each part of your code:</p>
 
-<script type="text/javascript" src="https://asciinema.org/a/42635.js" id="asciicast-42635" async></script>
+<p>$ ruby -r ripper -e &#39;p Ripper.sexp(&quot;1+2&quot;)&#39;</p>
 
-<h2 id="undefined-method">Undefined method</h2>
+<p>The output should be something like:</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">[:program, [[:binary, [:@int, &quot;1&quot;, [1, 0]], :+, [:@int, &quot;2&quot;, [1, 2]]]]]
+</code></pre></figure>
+<p>Checking one more example:</p>
 
-<script type="text/javascript" src="https://asciinema.org/a/42636.js" id="asciicast-42636" async></script>
+<p>$ ruby -r ripper -r pp -e &#39;pp Ripper.lex(&quot;def a; end&quot;)&#39;</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">[[[1, 0], :on_kw, &quot;def&quot;],
+ [[1, 3], :on_sp, &quot; &quot;],
+ [[1, 4], :on_ident, &quot;a&quot;],
+ [[1, 5], :on_semicolon, &quot;;&quot;],
+ [[1, 6], :on_sp, &quot; &quot;],
+ [[1, 7], :on_kw, &quot;end&quot;]]
+</code></pre></figure>
+<p>You an also call the <code>Ripper.sexp</code> to get the symbolic expression of your code:</p>
 
-<h2 id="escopo-de-vari-veis">Escopo de variáveis</h2>
+<p>Lets use <code>pp</code> to make it more easy to ready:</p>
 
-<script type="text/javascript" src="https://asciinema.org/a/42637.js" id="asciicast-42637" async></script>
+<p>$ ruby -r ripper -r pp -e &#39;pp Ripper.sexp(&quot;1+2 + ( 3 * 4)&quot;) &#39;</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">[:program,
+ [[:binary,
+   [:binary, [:@int, &quot;1&quot;, [1, 0]], :+, [:@int, &quot;2&quot;, [1, 2]]],
+   :+,
+   [:paren, [[:binary, [:@int, &quot;3&quot;, [1, 8]], :*, [:@int, &quot;4&quot;, [1, 12]]]]]]]]
+</code></pre></figure>
+<h3 id="ripper-slice">Ripper#slice</h3>
 
-<h2 id="alternative-syntaxes-and-bug-fixes">Alternative Syntaxes and bug fixes</h2>
-
-<p>Nessa parte fiquei viajando na maionese por causa de alguns erros bobos da sintaxe. Porém tem vários aprendizados de como debugar.</p>
-
-<script type="text/javascript" src="https://asciinema.org/a/42640.js" id="asciicast-42640" async></script>
-
-<h2 id="play-with-method_missing">Play with <code>method_missing</code></h2>
-
-<p>O <a href="http://ruby-doc.org/core-2.2.0/BasicObject.html#method-i-method_missing">method_missing</a> é uma das ferramentas mais legais e atrativas. Meu exemplo não é lá o melhor de todos mas já serve ;)</p>
-
-<p>Nesse episódeo também têm alguns highlights de refactor. Melhorando e extraindo
-métodos conforme as necessidades vão surgindo.</p>
-
-<script type="text/javascript" src="https://asciinema.org/a/42641.js" id="asciicast-42641" async></script>
-
-<h2 id="variable-multi-assignment">Variable multi assignment</h2>
-
-<p>Múltiplas atribuições de variáveis é muito simples.</p>
-
-<p>Também permite expressões ;)</p>
-
-<script type="text/javascript" src="https://asciinema.org/a/42651.js" id="asciicast-42651" async></script>
-
-<p>E aí gostou? Que detalhes de by mostraria em trinta minutos para alguém que não
-conhece nada de Ruby em 30 minutos?</p>
+<p>This feature is really cool and strange. I can&#39;t find a good documentation and I debug it by myself trying to understand better the strategy.
+It&#39;s a kind of regular expression mixed with the lexer. Take a look at the example:</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">Ripper.slice(&#39;(1 + 2.0 + 1.1)&#39;,&#39;int.*float.*float&#39;)
+=&gt; &quot;1 + 2.0 + 1.1&quot;
+</code></pre></figure>
+<p>It&#39;s useful for grep for specific sequence of node types, for example, lets
+check for a sequence of <code>int float float</code> in the operation:</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">Ripper.slice(&#39;2.2 / 4.2 + (1 + 2.0+ 1.1) * 2&#39;,&#39;int.*float.*float&#39;)
+=&gt; &quot;1 + 2.0+ 1.1&quot;
+</code></pre></figure>
+<p>That&#39;s all for today! Thanks for reading o/</p>
 
 </div>
 <hr>
@@ -475,19 +486,19 @@ conhece nada de Ruby em 30 minutos?</p>
 
 <div class="share-page">
   Compartilhar &rarr;
-  <a href="https://twitter.com/intent/tweet?text=Introdução a linguagem Ruby&url=http://ideia.me/introducao-linguagem-ruby&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
-  <a href="https://facebook.com/sharer.php?u=http://ideia.me/introducao-linguagem-ruby" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
-  <a href="https://plus.google.com/share?url=http://ideia.me/introducao-linguagem-ruby" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+  <a href="https://twitter.com/intent/tweet?text=Parsing Ruby Code&url=http://ideia.me/parsing-ruby-code&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/parsing-ruby-code" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/parsing-ruby-code" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
 </div>
 <hr>
 <div class="pagination">
   <ul>
     
-    <li class="prev"><a href="/programar-e-uma-droga" title="Programar é uma droga">&larr; Anterior</a></li>
+    <li class="prev"><a href="/search-in-ruby-ast" title="Search in Ruby AST">&larr; Anterior</a></li>
     
     <li><a href="/archive.html">Arquivo</a></li>
     
-    <li class="next"><a href="/pessoas-codigos-comunicacao" title="Pessoas, códigos, comunicação">Próximo &rarr;</a></li>
+    <li class="next disabled"><a>Próximo &rarr;</a>
     
   </ul>
 </div>
