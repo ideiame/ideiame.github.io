@@ -185,17 +185,17 @@
 <p><h1 class="post"><a class="post" href="/parsing-ruby-code"> Parsing Ruby Code</a></h1>
  <p>After start my saga on <a href="./">Ruby AST Search</a>
 I built a <a href="https://github.com/jonatas/rubocopular">few</a> <a href="https://github.com/jonatas/fast">tools</a> to
-help me to understand the AST and inspecting it.</p></p>
+help me to understand the AST and to inspect it.</p></p>
 
-<p>After a few days around I discover everything I needed was already build in and
-I just need to learn about.</p>
+<p>After a few days around I discover everything I needed existed already built in and
+I just need to learn about it.</p>
 
 <h2 id="ruby-ripper">Ruby Ripper</h2>
 
 <p><a href="http://ruby-doc.org/stdlib-2.0.0/libdoc/ripper/rdoc/Ripper.html">Ripper</a>
 provides a symbolic expression tree for your code.</p>
 
-<p>As it&#39;s in the standard library, you can simply start using it.</p>
+<p>As it&#39;s in the standard library, you can only start using it.</p>
 
 <p>I love to use <code>ruby -e</code> to test some code inline. Then, let&#39;s start with
 something to learn about the lexer:</p>
@@ -203,16 +203,16 @@ something to learn about the lexer:</p>
 <h3 id="ripper-tokenize">Ripper#tokenize</h3>
 
 <p>We can start with a simply tokenize. That will split your code into atoms to
-compile each piece in sequence.</p>
+compile each piece in the sequence.</p>
 
-<p>$ ruby -r ripper -e &#39;p Ripper.tokenize(&quot;1 + 2&quot;)&#39;    18:24:26</p>
+<p>$ ruby -r ripper -e &#39;p Ripper.tokenize(&quot;1 + 2&quot;)&#39;</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">[&quot;1&quot;, &quot; &quot;, &quot;+&quot;, &quot; &quot;, &quot;2&quot;]
 </code></pre></figure>
 
 <h3 id="ripper-lex">Ripper#lex</h3>
 
-<p>The lexer will tag each tokeninze piece and identify each part of your code:</p>
+<p>The lexer will tag each tokenized piece and identify each part of the statement:</p>
 
 <p>$ ruby -r ripper -e &#39;p Ripper.sexp(&quot;1+2&quot;)&#39;</p>
 
@@ -233,9 +233,9 @@ compile each piece in sequence.</p>
  [[1, 7], :on_kw, &quot;end&quot;]]
 </code></pre></figure>
 
-<p>You an also call the <code>Ripper.sexp</code> to get the symbolic expression of your code:</p>
+<p>You can also call the <code>Ripper.sexp</code> to get the symbolic expression of your code:</p>
 
-<p>Lets use <code>pp</code> to make it more easy to ready:</p>
+<p>Let&#39;s use <code>pp</code> to make it more easy to ready:</p>
 
 <p>$ ruby -r ripper -r pp -e &#39;pp Ripper.sexp(&quot;1+2 + ( 3 * 4)&quot;) &#39;</p>
 
@@ -248,7 +248,7 @@ compile each piece in sequence.</p>
 
 <h3 id="ripper-slice">Ripper#slice</h3>
 
-<p>This feature is really cool and strange. I can&#39;t find a good documentation and I debug it by myself trying to understand better the strategy.
+<p>This feature is cool and strange. I can&#39;t find a proper documentation, and I debug it by myself trying to understand better the strategy.
 It&#39;s a kind of regular expression mixed with the lexer. Take a look at the example:</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">Ripper.slice(&#39;(1 + 2.0 + 1.1)&#39;,&#39;int.*float.*float&#39;)
@@ -260,6 +260,11 @@ check for a sequence of <code>int float float</code> in the operation:</p>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">Ripper.slice(&#39;2.2 / 4.2 + (1 + 2.0+ 1.1) * 2&#39;,&#39;int.*float.*float&#39;)
 =&gt; &quot;1 + 2.0+ 1.1&quot;
+</code></pre></figure>
+
+<p>Take a look at the <a href="http://ruby-doc.org/stdlib-2.0.0/libdoc/ripper/rdoc/Ripper.html#slice">official example</a>, and it&#39;s cooler than mine.</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">Ripper.slice(&#39;def m(a) nil end&#39;, &#39;[ident lparen rparen]+&#39;)  #=&gt; &quot;m(a)&quot;
 </code></pre></figure>
 
 <p>That&#39;s all for today! Thanks for reading o/</p>
