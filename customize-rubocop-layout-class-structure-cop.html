@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>The dynamic experiment initiative</title>
+    <title>Customize RuboCop Layout/ClassStructure cop</title>
     
     <meta name="author" content="Jônatas Davi Paganini">
 
@@ -164,7 +164,7 @@
 <div class="page-header">
     <h1>
        <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
-       The dynamic experiment initiative <small><br/>21/11/2017
+       Customize RuboCop Layout/ClassStructure cop <small><br/>30/11/2017
     
       <span class="categories">
         
@@ -174,159 +174,174 @@
   </h1>
 </div>
 <div class="content">
-    <p>I&#39;m having a lot of fun with automated code rewrite.</p>
+    <p>I&#39;m really proud to announce my new contribuition to RuboCop.</p>
 
-<p>I&#39;d like to create something that I can implement an experiment,
-change some code and run some test to check if it&#39;s working.</p>
+<p>Some days ago I contributed improving the
+<a href="https://rubocop.readthedocs.io/en/latest/development/">development</a> page,
+creating a getting started guide and also creating a new tutorial to explain how <a href="https://rubocop.readthedocs.io/en/latest/node_pattern/">Node
+Pattern</a> works.</p>
 
-<p>I worked on a simple script to speed up the test suite automatically
-replaces <code>create</code> with <code>build_stubbed</code>, and it worked. You can check the first
-part of my novel in my
-<a href="https://ideia.me/adventures-on-automated-code-replacement">Adventures on automated code replacement</a>.</p>
+<p>Now, the <a href="https://rubocop.readthedocs.io/en/latest/cops_layout/#layoutclassstructure">Layout/ClassStructure</a>
+cop was merged and it allows us to specify
+the order of the elements in the class definition.</p>
 
-<p>Now my idea is to expand it in a set of tools that we can use to check if we
-forgot something or if we can improve something, or remove some code.</p>
+<p>Initially it follows the <a href="https://github.com/bbatsov/ruby-style-guide#consistent-classes">community style guide</a>
+and follows the order:</p>
 
-<p>So, let me list a few ideas I already worked on.</p>
+<ol>
+<li>Include, Extend or Prepend First</li>
+<li>Constants</li>
+<li>Initializer</li>
+<li>Public methods</li>
+<li>Protected methods</li>
+<li>Private methods</li>
+</ol>
 
-<h2 id="replace-factorygirl-create-with-build_stubbed">Replace <code>FactoryGirl.create</code> with <code>build_stubbed</code></h2>
+<p>It&#39;s also very easy to extend the cop and include new rules in the middle.</p>
 
-<p>This is a small improvement that fabricates an object but does not make it
-touches in the database and make specs run faster.</p>
+<p>The basic configuration says:</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Layout/ClassStructure:
+  Enabled: false
+  Categories:
+    module_inclusion:
+      - include
+      - prepend
+      - extend
+  ExpectedOrder:
+      - module_inclusion
+      - constants
+      - public_class_methods
+      - initializer
+      - instance_methods
+      - protected_methods
+      - private_methods
+</code></pre></figure>
+<p>Lets imagine you got sad about people saying <code>validates</code> after define methods
+and also mess with other macros from ActiveRecord.</p>
 
-<h2 id="remove-extra-options-described-in-rspec-blocks">Remove extra options described in RSpec blocks</h2>
+<p>Lets say we want to have strict rules in Rails models and use the following
+order:</p>
 
-<p>Lets imagine you&#39;re using <a href="https://github.com/avantoss/timecop-rspec#usage">timecop-rspec</a>
-gem and you have a case like this:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">it &#39;travels but check nothing&#39;, travel: Time.new(2014, 11, 15) do
-  expect(something).to be :ok
+<ol>
+<li>Include, Extend or Prepend First</li>
+<li>Constants</li>
+<li>Attributes (attribute, attr_accessor, attr_reader, attr_writer)</li>
+<li>Associations (belongs_to, has_many, has_and_belongs_to_many ...)</li>
+<li>Validations (validate, validates_presence_of, validates_uniqueness_of ...)</li>
+<li>Hooks (before_save, after_save, after_initialize ...)</li>
+<li>Initializer</li>
+<li>Public methods</li>
+<li>Protected methods</li>
+<li>Private methods</li>
+</ol>
+
+<p>Now we need to setup <code>Categories</code> and include them in the <code>ExpectedOrder</code>.</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Layout/ClassStructure:
+  Enabled: true
+  Categories:
+    module_inclusion:
+      - include
+      - prepend
+      - extend
+    attributes:
+      - attribute
+      - attr_reader
+      - attr_writer
+      - attr_accessor
+    associations:
+      - has_one
+      - has_many
+      - belongs_to
+      - has_and_belongs_to_many
+    validations:
+      - validate
+      - validates_presence_of
+      - validates_uniqueness_of
+    hooks:
+      - after_save
+      - after_create
+      - after_initialize
+  ExpectedOrder:
+      - module_inclusion
+      - constants
+      - attributes
+      - associations
+      - validations
+      - hooks
+      - public_class_methods
+      - initializer
+      - public_methods
+      - protected_methods
+      - private_methods
+</code></pre></figure>
+<p>Now it&#39;s ready to be tested.</p>
+
+<p>Lets use a example with a few mistakes:</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">class User
+
+  validate :name, :email, presence: true
+
+  attr_reader :temporary_orders
+
+  validates_uniqueness_of :email
+
+  def email_domain
+    email.split(&#39;@&#39;).last
+  end
+
+  has_many :orders
+  after_create :send_welcome_email
+
+  belongs_to :location
 end
 </code></pre></figure>
-<p>But the <code>travel</code> was forgotten there and is not being used. Then we can remove
-the <code>travel</code> block and run the spec and check if it works.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">it &#39;travels but check nothing&#39; do
-  expect(something).to be :ok
+<p>It supports autocorrect, and running it you can check that RuboCop has a kind of loop to keep autocorrecting until it&#39;s perfect.</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">user.rb:3:3: C: [Corrected] Layout/ClassStructure: attributes is supposed to appear before associations.
+  attr_reader :temporary_orders
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+user.rb:3:3: C: [Corrected] Layout/ClassStructure: attributes is supposed to appear before validations.
+  attr_reader :temporary_orders
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+user.rb:5:3: C: [Corrected] Layout/ClassStructure: associations is supposed to appear before hooks.
+  belongs_to :location
+  ^^^^^^^^^^^^^^^^^^^^
+user.rb:5:3: C: [Corrected] Layout/ClassStructure: associations is supposed to appear before validations.
+  has_many :orders
+  ^^^^^^^^^^^^^^^^
+user.rb:6:3: C: [Corrected] Layout/ClassStructure: associations is supposed to appear before validations.
+  belongs_to :location
+  ^^^^^^^^^^^^^^^^^^^^
+user.rb:6:3: C: [Corrected] Layout/ClassStructure: validations is supposed to appear before hooks.
+  validate :name, :email, presence: true
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+user.rb:8:3: C: [Corrected] Layout/ClassStructure: validations is supposed to appear before hooks.
+  validates_uniqueness_of :email
+  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+</code></pre></figure>
+<p>This feature is very cool because allow the cops algorithm simply execute one 
+<a href="https://github.com/bbatsov/rubocop/blob/master/lib/rubocop/cop/layout/class_structure.rb#L144-L150">swap</a> between the
+nodes that are not in the proper place. Then you can see it in action <a href="https://github.com/bbatsov/rubocop/blob/f72860cf9f879d8ecef19b30624d777d8cc3bd80/lib/rubocop/runner.rb#L194">recursively</a>
+until the file is totally organized.</p>
+
+<p>After autocorrect the file looks like this:</p>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">class User
+
+  attr_reader :temporary_orders
+  has_many :orders
+  belongs_to :location
+  validates_uniqueness_of :email
+  validate :name, :email, presence: true
+  after_create :send_welcome_email
+
+
+  def email_domain
+    email.split(&#39;@&#39;).last
+  end
 end
 </code></pre></figure>
-<h2 id="testing">Testing</h2>
-
-<p>If the test passes, the script can make the change official.</p>
-
-<h2 id="problems">Problems</h2>
-
-<p>My actual script replaced it with all occurrences at one time. Then, it&#39;s a bit weird
-and is not so powerful because sometimes we have a few cases that can work and
-others not. Ideally, it should run one change each time and check if that change
-works.</p>
-
-<p>Then if it works, it can do another change and check if it works.</p>
-
-<p>I also did another very similar script for
-<a href="https://github.com/evrone/factory_girl-seeds">factory_girl-seeds</a> and in at that time
-the way I was trying to automate the replacement of <code>FactoryGirl.create</code> to use
-<code>seed</code> instead. It was a bit bugged because <code>seed</code> method does not support traits and
-recognize extra attributes as keys for each kind of record needed.</p>
-
-<h2 id="the-engine">The engine</h2>
-
-<p>A tool for run code patch experiments. It should make code changes,
-create some temporary spec and check if it works. Also, apply to the official code
-if the spec works.</p>
-
-<h3 id="criteria-for-keep-the-change">Criteria for keep the change</h3>
-
-<p>The criteria should be related to keep or not keep that change. If the test
-passes but it&#39;s degrading the performance, or the improvement is insignificant.</p>
-
-<h3 id="run-a-command-to-test-the-change">Run a command to test the change</h3>
-
-<p>Every change should have a way to check if the shift was conclusively positive.</p>
-
-<p>It can be:</p>
-
-<ul>
-<li>Run a spec</li>
-<li>Execute a command</li>
-</ul>
-
-<p>One thing I found very weak in my current implementations that I was always
-running the entire file and I could try to run some specs in cascade. Then I
-think it should follow some directives:</p>
-
-<ul>
-<li>It should fail fast as possible</li>
-<li>It should run test changes in cascade trying to check the nearest scope first
-and then run the entire spec in a second moment to avoid big
-queries and exhaustive machine consumption with noneffective changes.</li>
-</ul>
-
-<h3 id="divide-and-conquer">Divide and conquer</h3>
-
-<p>Each experiment can use an isolated environment and without the interference of
-other checks. In that way, I think we can distribute the labor to multiple
-workers that can be replacing and reporting the results and even build a third
-meta-experiment to check if two examples are compatible.</p>
-
-<p>Example:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">describe User, travel: &#39;2020-02-02&#39; do
-  let(:user) { create(user, twitter: &#39;jonatasdp&#39;)}
-  it { expect(user).to be_valid }
-end
-</code></pre></figure>
-<p>Lets imagine the experiments in action:</p>
-
-<p><strong>Remove <code>travel</code></strong></p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">describe User do
-  let(:user) { create(user, twitter: &#39;jonatasdp&#39;) }
-  it { expect(user).to be_valid }
-end
-</code></pre></figure>
-<p><strong>Replace <code>create</code> with <code>build_stubbed</code></strong></p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">describe User do
-  let(:user) { build_stubbed(user, twitter: &#39;jonatasdp&#39;) }
-  it { expect(user).to be_valid }
-end
-</code></pre></figure>
-<p><strong>Remove extra parameters from FactoryGirl <code>create</code> or <code>build_stubbed</code></strong></p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">describe User do
-  let(:user) { build_stubbed(user) }
-  it { expect(user).to be_valid }
-end
-</code></pre></figure>
-<h3 id="learning-from-mistakes">Learning from mistakes</h3>
-
-<p>It can start reporting the success and failures with the current
-related AST / context to try to identify some patterns to empower intelligence and make it divide and conquer algorithm to avoiding insist in non-effective replacements for some specific cases.</p>
-
-<h2 id="putting-all-things-together">Putting all things together</h2>
-
-<p>I think I need a bit more time before start coding. My original idea is to build
-the following components:</p>
-
-<h3 id="experiment">Experiment</h3>
-
-<ul>
-<li>Receives the file</li>
-<li>Defines the rules</li>
-<li>Manipulates the code</li>
-<li>Report the experiment created</li>
-</ul>
-
-<h3 id="executor">Executor</h3>
-
-<ul>
-<li>Executes the experiment created</li>
-<li>Report lessons learned</li>
-<li>Make the change official or build 
-successive experiment to divide and conquer multiple rules.</li>
-</ul>
-
-<h3 id="runner">Runner</h3>
-
-<p>Glue all parts and set up the experiments and know what files it will run.</p>
-
-<p>Navigate in all the files and prepare the work to the divide and conquer with 
-the experiment with the files.</p>
+<p>So, that is what this cop does. I hope this cop to be useful for the community and
+make our code classes more organized. If you&#39;re interested in the full history you can
+check my pull Request <a href="https://github.com/bbatsov/rubocop/pull/5065">here</a>.</p>
 
 </div>
 <hr>
@@ -352,19 +367,19 @@ the experiment with the files.</p>
 
 <div class="share-page">
   Compartilhar &rarr;
-  <a href="https://twitter.com/intent/tweet?text=The dynamic experiment initiative&url=http://ideia.me/the-dynamic-experiment-initiative&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
-  <a href="https://facebook.com/sharer.php?u=http://ideia.me/the-dynamic-experiment-initiative" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
-  <a href="https://plus.google.com/share?url=http://ideia.me/the-dynamic-experiment-initiative" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+  <a href="https://twitter.com/intent/tweet?text=Customize RuboCop Layout/ClassStructure cop&url=http://ideia.me/customize-rubocop-layout-class-structure-cop&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/customize-rubocop-layout-class-structure-cop" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/customize-rubocop-layout-class-structure-cop" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
 </div>
 <hr>
 <div class="pagination">
   <ul>
     
-    <li class="prev"><a href="/adventures-on-automated-code-replacement" title="Adventures on automated code replacement">&larr; Anterior</a></li>
+    <li class="prev"><a href="/the-dynamic-experiment-initiative" title="The dynamic experiment initiative">&larr; Anterior</a></li>
     
     <li><a href="/archive.html">Arquivo</a></li>
     
-    <li class="next"><a href="/customize-rubocop-layout-class-structure-cop" title="Customize RuboCop Layout/ClassStructure cop">Próximo &rarr;</a></li>
+    <li class="next disabled"><a>Próximo &rarr;</a>
     
   </ul>
 </div>
