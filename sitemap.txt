@@ -9,6 +9,10 @@ http://ideia.me/sitemap.txt
 http://ideia.me/sitemap.xml
 http://ideia.me/talks
 
+http://ideia.me/retrospective-2018
+http://ideia.me/todo-lists
+http://ideia.me/todo-lists
+http://ideia.me/dynamic-experiment-part-2
 http://ideia.me/retrospective-2017
 http://ideia.me/customize-rubocop-layout-class-structure-cop
 http://ideia.me/the-dynamic-experiment-initiative

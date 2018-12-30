@@ -38,8 +38,8 @@
     <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
   <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
-    addEventListener('load', function (event) { 
-      prettyPrint(); 
+    addEventListener('load', function (event) {
+      prettyPrint();
       var agent=navigator.userAgent.toLowerCase();
       var links = document.getElementsByTagName('a');
       var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
@@ -47,7 +47,7 @@
       for (var i = 0, linksLength = links.length; i < linksLength; i++) {
         if ( ! links[i].href.match(regex)) {
            links[i].setAttribute('target', '_blank');
-       } 
+       }
      }
 
     }, false);
@@ -92,6 +92,7 @@
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
             <ul class="dropdown-menu">
+            <li><a href="http://github.com/jonatas/fast">2017-2018: Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
             <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
@@ -357,7 +358,7 @@
             
           
             
-          
+            <span class="badge">4</span>
             
           
             
@@ -385,7 +386,7 @@
             
           
             
-            <span class="badge">1</span>
+          
             
           
             
@@ -611,7 +612,7 @@
             
           
             
-            <span class="badge">1</span>
+            <span class="badge">2</span>
             
           
           </a>
@@ -783,7 +784,7 @@ integration. With a good time to have clear conversations about the life.</p>
     
     <li><a href="/archive.html">Arquivo</a></li>
     
-    <li class="next disabled"><a>Próximo &rarr;</a>
+    <li class="next"><a href="/dynamic-experiment-part-2" title="Adventures with dynamic experiments">Próximo &rarr;</a></li>
     
   </ul>
 </div>
