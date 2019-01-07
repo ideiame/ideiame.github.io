@@ -18,9 +18,8 @@
     <!-- Le styles -->
     <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
     <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
-    <link id="stylesheet_prettify" href="/prettify/prettify_white.css" type="text/css" rel="stylesheet" />
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/prettify/prettify.js"></script>
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
     <div id="fb-root"></div>
@@ -39,7 +38,6 @@
   <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
     addEventListener('load', function (event) {
-      prettyPrint();
       var agent=navigator.userAgent.toLowerCase();
       var links = document.getElementsByTagName('a');
       var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
@@ -648,14 +646,14 @@ não seguir com o comando, logo seu <code>&lt;leader&gt;</code> é esquecido.</p
 invertida: <code>\\</code>.</p>
 
 <p>Nesse caso ele usa <code>,</code> como leader. Então quando eu um mapeamento no vim:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">map &lt;Leader&gt;f :call &lt;SID&gt;JumpToFile()&lt;CR&gt;
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">map &lt;Leader&gt;f :call &lt;SID&gt;JumpToFile()&lt;CR&gt;
+</code></pre></div>
 <p>Isso quer dizer que quando eu estiver usando o editor e usar <code>&lt;esc&gt;,f</code> ele
 vai chamar a função <code>JumpToFile()</code> que deve estar em algum plugin ou faz parte do vim.</p>
 
 <p>Então se eu fizer um mapeamento:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">map &lt;Leader&gt;rr :!ruby %&lt;CR&gt;
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">map &lt;Leader&gt;rr :!ruby %&lt;CR&gt;
+</code></pre></div>
 <p>Quer dizer que quero rodar um script ruby com o arquivo atual que é
 compilado em tempo real através da variável <code>%</code>.</p>
 

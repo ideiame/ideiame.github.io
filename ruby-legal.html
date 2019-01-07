@@ -18,9 +18,8 @@
     <!-- Le styles -->
     <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
     <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
-    <link id="stylesheet_prettify" href="/prettify/prettify_white.css" type="text/css" rel="stylesheet" />
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/prettify/prettify.js"></script>
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
     <div id="fb-root"></div>
@@ -39,7 +38,6 @@
   <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
     addEventListener('load', function (event) {
-      prettyPrint();
       var agent=navigator.userAgent.toLowerCase();
       var links = document.getElementsByTagName('a');
       var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
@@ -176,10 +174,10 @@
 </div>
 <div class="content">
     <p>Hoje fiquei vendo um exercício de probabilidade na aula de estatística, o exercício dizia o seguinte:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Uma moeda é lançada 10 vezes. Qual a probabilidade de:
-a) Sair 5 vezes a face &quot;cara&quot;.
-b) Sair no máximo 9 vezes a face &quot;cara&quot;.
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">Uma moeda é lançada 10 vezes. Qual a probabilidade de:
+a) Sair 5 vezes a face "cara".
+b) Sair no máximo 9 vezes a face "cara".
+</code></pre></div>
 <p>Logo imaginei uma forma de descrever esta situação para o computador. Escrevi a seguinte frase: </p>
 
 <pre class="prettyprint">

@@ -18,9 +18,8 @@
     <!-- Le styles -->
     <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
     <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
-    <link id="stylesheet_prettify" href="/prettify/prettify_white.css" type="text/css" rel="stylesheet" />
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/prettify/prettify.js"></script>
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
     <div id="fb-root"></div>
@@ -39,7 +38,6 @@
   <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
     addEventListener('load', function (event) {
-      prettyPrint();
       var agent=navigator.userAgent.toLowerCase();
       var links = document.getElementsByTagName('a');
       var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
@@ -659,8 +657,8 @@ jonatas@xonatax-mac: helplate $ ./helplate newpost title=&#39;Helplate welcome a
 <p>helplate, template, ruby, liquid</p>
 
 <p>Então a template pede:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Inicie seu post assim
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">Inicie seu post assim
+</code></pre></div>
 <p>E eu digito:</p>
 
 <pre>

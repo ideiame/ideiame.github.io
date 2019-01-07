@@ -18,9 +18,8 @@
     <!-- Le styles -->
     <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
     <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
-    <link id="stylesheet_prettify" href="/prettify/prettify_white.css" type="text/css" rel="stylesheet" />
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/prettify/prettify.js"></script>
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
     <div id="fb-root"></div>
@@ -39,7 +38,6 @@
   <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
     addEventListener('load', function (event) {
-      prettyPrint();
       var agent=navigator.userAgent.toLowerCase();
       var links = document.getElementsByTagName('a');
       var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
@@ -1097,8 +1095,8 @@ id="asciicast-39349" async></script>
 <h2 id="vari-veis">Variáveis</h2>
 
 <p>Ao invés de usar <code>export</code> para variáveis de ambiente, no fish usa-se <code>set &lt;opcoes&gt; nome_variavel valor_variavel</code></p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">set -U EDITOR vim
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">set -U EDITOR vim
+</code></pre></div>
 <ul>
 <li><code>-U</code> de universal</li>
 <li><code>-g</code> para ser global da sessão</li>
@@ -1113,17 +1111,17 @@ id="asciicast-39349" async></script>
 
 <p>Então lá você pode fazer aquela alteração marota do seu PATH para adicionar
 outros diretórios com seus binários favoritos :)</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">set PATH $PATH:$GOPATH/bin
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">set PATH $PATH:$GOPATH/bin
+</code></pre></div>
 <p>Ou carregar outros arquivos fish que sejam interessantes:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">. $fish_path/oh-my-fish.fish
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">. $fish_path/oh-my-fish.fish
+</code></pre></div>
 <p>Ou seu tema favorito:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Theme &#39;robbyrussell&#39;
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">Theme 'robbyrussell'
+</code></pre></div>
 <p>Ou plugins do fish:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Plugin &#39;theme&#39;
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">Plugin 'theme'
+</code></pre></div>
 <h2 id="fun-es">Funções</h2>
 
 <p>As funções são altamente utilizadas no fish. Tanto que até existem alias mas é
@@ -1142,12 +1140,12 @@ id="asciicast-39350" async></script>
 <p>Eu estou curtindo muito usar o <a href="http://fisherman.sh/">fisherman.sh</a>. Um
 gerenciador de pacotes fish, permite você instalar plugins para o fish e criar
 seus próprios.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">curl -sL get.fisherman.sh | fish
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">curl -sL get.fisherman.sh | fish
+</code></pre></div>
 <p>Com o fisherman você terá um comando <code>fisher</code> que permite instalar coisas
 legais :)</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">fisher install flash
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">fisher install flash
+</code></pre></div>
 <script type="text/javascript" src="https://asciinema.org/a/39353.js"
 id="asciicast-39353" async></script>
 

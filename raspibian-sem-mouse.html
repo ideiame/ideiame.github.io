@@ -18,9 +18,8 @@
     <!-- Le styles -->
     <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
     <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
-    <link id="stylesheet_prettify" href="/prettify/prettify_white.css" type="text/css" rel="stylesheet" />
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/prettify/prettify.js"></script>
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
     <div id="fb-root"></div>
@@ -39,7 +38,6 @@
   <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
     addEventListener('load', function (event) {
-      prettyPrint();
       var agent=navigator.userAgent.toLowerCase();
       var links = document.getElementsByTagName('a');
       var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
@@ -1092,8 +1090,8 @@
 <p>O <a href="http://man.cx/keynav" title="keynav">keynav</a> é uma ferramenta simples e criativa que permite navegar com o mouse de maneira fractal. O processo é bem simples e interessante. Basicamente o mouse se posiciona ao centro da tela, e com as teclas <code>H,J,K e L</code> é possível manipular o mouse com precisão e velocidade.</p>
 
 <p>Para instalar use:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">sudo apt-get install keynav
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">sudo apt-get install keynav
+</code></pre></div>
 <p>Depois no ambiente gráfico digite: <code>ALT+F2</code> para rodar um comando e depois digite keynav.</p>
 
 <p>Para ativar o keynav use <code>CTRL+;</code>.</p>

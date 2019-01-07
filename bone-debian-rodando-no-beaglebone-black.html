@@ -18,9 +18,8 @@
     <!-- Le styles -->
     <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
     <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
-    <link id="stylesheet_prettify" href="/prettify/prettify_white.css" type="text/css" rel="stylesheet" />
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/prettify/prettify.js"></script>
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
     <div id="fb-root"></div>
@@ -39,7 +38,6 @@
   <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
     addEventListener('load', function (event) {
-      prettyPrint();
       var agent=navigator.userAgent.toLowerCase();
       var links = document.getElementsByTagName('a');
       var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
@@ -408,7 +406,7 @@
 <h2 id="conferindo-o-nome-do-disco-sdcard">Conferindo o nome do disco sdcard</h2>
 
 <p>No mac utilizei o aplicativo diskutil para descobrir qual era o meu sdcard.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">➜ diskutil list
+<div class="highlight"><pre><code class="language-" data-lang="">➜ diskutil list
 /dev/disk0
 #:                       TYPE NAME                    SIZE       IDENTIFIER
 0:      GUID_partition_scheme                        *500.1 GB   disk0
@@ -419,7 +417,7 @@
 #:                       TYPE NAME                    SIZE       IDENTIFIER
 0:     FDisk_partition_scheme                        *7.8 GB     disk1
 1:                 DOS_FAT_32 BONE DEBIAN             7.8 GB     disk1s1
-</code></pre></figure>
+</code></pre></div>
 <h2 id="formatar-o-sdcard">Formatar o sdcard</h2>
 
 <p>Utilizei o próprio aplicativo &quot;Utilitário de disco&quot; que vem instalado no Mac para formatar o disco. Utilizei a extensão MSDOS-FAT convencional.</p>
@@ -429,50 +427,50 @@
 <p>Para instalar o nova imagem do sistema eu usei um sdcard de 8GB.</p>
 
 <p>No meu macbook eu baixei a <a href="http://debian.beagleboard.org/images/bone-debian-7.4-2014-03-27-2gb.img.xz">imagem</a> com extensão .img.xz então tive que utilizar um programa chamado xz para descompactar a imagem:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">brew install xz
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">brew install xz
+</code></pre></div>
 <p>Depois disso descompactei a imagem no disco:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">xz -dkv bone-debian-7.4-2014-03-27-2gb.img.xz 
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">xz -dkv bone-debian-7.4-2014-03-27-2gb.img.xz 
+</code></pre></div>
 <p>E após isso usei o aplicativo dd para escrever a imagem no sdcard.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">➜ sudo dd bs=1m if=./bone-debian-7.4-2014-03-27-2gb.img of=/dev/disk1
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">➜ sudo dd bs=1m if=./bone-debian-7.4-2014-03-27-2gb.img of=/dev/disk1
+</code></pre></div>
 <p>Se você receber uma mensagem como esta:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">dd: /dev/disk1: Resource busy
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">dd: /dev/disk1: Resource busy
+</code></pre></div>
 <p>Então é melhor desmontar o disco antes de executar o comando dd.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">sudo umountDisk /dev/disk1
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">sudo umountDisk /dev/disk1
+</code></pre></div>
 <p>Após terminar de escrever a imagem de 1,7 GB você deve ver uma mensagem assim:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">1700+0 records in
+<div class="highlight"><pre><code class="language-" data-lang="">1700+0 records in
 1700+0 records out
 1782579200 bytes transferred in 1476.053213 secs (1207666 bytes/sec)
-</code></pre></figure>
+</code></pre></div>
 <p>Aqui demorou aproximadamente 24 minutos e depende da velocidade do sdcard e do tamanho da imagem para efetuar a gravação.</p>
 
 <p>Neste momento você pode ejetar o sdcard e remover o sdcard com segurança para colocar no Beaglebone.</p>
 
 <p>Ao reiniciar o beaglebone black e reconectar observei o boot via TTL:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Debian GNU/Linux 7 beaglebone ttyO0
+<div class="highlight"><pre><code class="language-" data-lang="">Debian GNU/Linux 7 beaglebone ttyO0
 
 default username:password is [debian:temppwd]
 
 Support/FAQ: http://elinux.org/Beagleboard:BeagleBoneBlack_Debian
 
 The IP Address for usb0 is: 192.168.7.2
-</code></pre></figure>
+</code></pre></div>
 <p>Fazendo o login via ssh:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">➜  ~  ssh debian@192.168.7.2 
-The authenticity of host &#39;192.168.7.2 (192.168.7.2)&#39; can&#39;t be established.
+<div class="highlight"><pre><code class="language-" data-lang="">➜  ~  ssh debian@192.168.7.2 
+The authenticity of host '192.168.7.2 (192.168.7.2)' can't be established.
 RSA key fingerprint is 20:8e:11:cb:98:2b:b1:f1:56:ec:3c:1a:2a:d4:e8:e5.
 Are you sure you want to continue connecting (yes/no)? yes
-Warning: Permanently added &#39;192.168.7.2&#39; (RSA) to the list of known hosts.
+Warning: Permanently added '192.168.7.2' (RSA) to the list of known hosts.
 Debian GNU/Linux 7
 
 BeagleBoard.org BeagleBone Debian Image 2014-03-27
 
 Support/FAQ: http://elinux.org/Beagleboard:BeagleBoneBlack_Debian
-debian@192.168.7.2&#39;s password: 
+debian@192.168.7.2's password: 
 debian@beaglebone:~$ ls
 sudo bin
 debian@beaglebone:~$ sudo su
@@ -486,7 +484,7 @@ Administrator. It usually boils down to these three things:
 
 [sudo] password for debian:
 root@beaglebone:/home/debian#
-</code></pre></figure>
+</code></pre></div>
 <p>Gostei das lições do administrador :)</p>
 
 </div>

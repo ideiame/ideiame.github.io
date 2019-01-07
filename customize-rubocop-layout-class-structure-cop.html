@@ -18,9 +18,8 @@
     <!-- Le styles -->
     <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
     <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
-    <link id="stylesheet_prettify" href="/prettify/prettify_white.css" type="text/css" rel="stylesheet" />
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/prettify/prettify.js"></script>
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
     <div id="fb-root"></div>
@@ -39,7 +38,6 @@
   <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
     addEventListener('load', function (event) {
-      prettyPrint();
       var agent=navigator.userAgent.toLowerCase();
       var links = document.getElementsByTagName('a');
       var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
@@ -201,7 +199,7 @@ and follows the order:</p>
 <p>It&#39;s also very easy to extend the cop and include new rules in the middle.</p>
 
 <p>The basic configuration says:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Layout/ClassStructure:
+<div class="highlight"><pre><code class="language-" data-lang="">Layout/ClassStructure:
   Enabled: false
   Categories:
     module_inclusion:
@@ -216,7 +214,7 @@ and follows the order:</p>
       - instance_methods
       - protected_methods
       - private_methods
-</code></pre></figure>
+</code></pre></div>
 <p>Lets imagine you got sad about people saying <code>validates</code> after define methods
 and also mess with other macros from ActiveRecord.</p>
 
@@ -237,7 +235,7 @@ order:</p>
 </ol>
 
 <p>Now we need to setup <code>Categories</code> and include them in the <code>ExpectedOrder</code>.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Layout/ClassStructure:
+<div class="highlight"><pre><code class="language-" data-lang="">Layout/ClassStructure:
   Enabled: true
   Categories:
     module_inclusion:
@@ -274,11 +272,11 @@ order:</p>
       - public_methods
       - protected_methods
       - private_methods
-</code></pre></figure>
+</code></pre></div>
 <p>Now it&#39;s ready to be tested.</p>
 
 <p>Lets use a example with a few mistakes:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">class User
+<div class="highlight"><pre><code class="language-" data-lang="">class User
 
   validate :name, :email, presence: true
 
@@ -287,7 +285,7 @@ order:</p>
   validates_uniqueness_of :email
 
   def email_domain
-    email.split(&#39;@&#39;).last
+    email.split('@').last
   end
 
   has_many :orders
@@ -295,9 +293,9 @@ order:</p>
 
   belongs_to :location
 end
-</code></pre></figure>
+</code></pre></div>
 <p>It supports autocorrect, and running it you can check that RuboCop has a kind of loop to keep autocorrecting until it&#39;s perfect.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">user.rb:3:3: C: [Corrected] Layout/ClassStructure: attributes is supposed to appear before associations.
+<div class="highlight"><pre><code class="language-" data-lang="">user.rb:3:3: C: [Corrected] Layout/ClassStructure: attributes is supposed to appear before associations.
   attr_reader :temporary_orders
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 user.rb:3:3: C: [Corrected] Layout/ClassStructure: attributes is supposed to appear before validations.
@@ -318,14 +316,14 @@ user.rb:6:3: C: [Corrected] Layout/ClassStructure: validations is supposed to ap
 user.rb:8:3: C: [Corrected] Layout/ClassStructure: validations is supposed to appear before hooks.
   validates_uniqueness_of :email
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-</code></pre></figure>
+</code></pre></div>
 <p>This feature is very cool because allow the cops algorithm simply execute one 
 <a href="https://github.com/bbatsov/rubocop/blob/master/lib/rubocop/cop/layout/class_structure.rb#L144-L150">swap</a> between the
 nodes that are not in the proper place. Then you can see it in action <a href="https://github.com/bbatsov/rubocop/blob/f72860cf9f879d8ecef19b30624d777d8cc3bd80/lib/rubocop/runner.rb#L194">recursively</a>
 until the file is totally organized.</p>
 
 <p>After autocorrect the file looks like this:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">class User
+<div class="highlight"><pre><code class="language-" data-lang="">class User
 
   attr_reader :temporary_orders
   has_many :orders
@@ -336,10 +334,10 @@ until the file is totally organized.</p>
 
 
   def email_domain
-    email.split(&#39;@&#39;).last
+    email.split('@').last
   end
 end
-</code></pre></figure>
+</code></pre></div>
 <p>So, that is what this cop does. I hope this cop to be useful for the community and
 make our code classes more organized. If you&#39;re interested in the full history you can
 check my Pull Request <a href="https://github.com/bbatsov/rubocop/pull/5065">here</a>.</p>

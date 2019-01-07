@@ -18,9 +18,8 @@
     <!-- Le styles -->
     <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
     <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
-    <link id="stylesheet_prettify" href="/prettify/prettify_white.css" type="text/css" rel="stylesheet" />
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/prettify/prettify.js"></script>
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
     <div id="fb-root"></div>
@@ -39,7 +38,6 @@
   <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
     addEventListener('load', function (event) {
-      prettyPrint();
       var agent=navigator.userAgent.toLowerCase();
       var links = document.getElementsByTagName('a');
       var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
@@ -1074,8 +1072,8 @@
     <p>Estive gerando uma série de vídeos com fotos sequências estilo <em>timelapse</em> e existem muitas formas de fazer isso. Aqui estou  usando o bom e velho <a href="http://www.ffmpeg.org/">ffmpeg</a>.</p>
 
 <p>Coloquei todas as fotos em um diretório e digitei: </p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">ffmpeg -r 24 -i img%04d.jpg -c:v libx264 timelapse.mp4
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">ffmpeg -r 24 -i img%04d.jpg -c:v libx264 timelapse.mp4
+</code></pre></div>
 <p>Onde:</p>
 
 <ul>
@@ -1089,13 +1087,13 @@
 <h3 id="renomeando-imagens">Renomeando imagens</h3>
 
 <p>O ffmpeg não consegue entender a ordem se as imagens não tiverem um número de casas fixo, por exemplo:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">img1.jpg, img2.jpg,..., img10.jpg, img11.jpg
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">img1.jpg, img2.jpg,..., img10.jpg, img11.jpg
+</code></pre></div>
 <p>Neste caso, é necessário converter o nome das imagens para utilizar casa fixas como img001.jpg, img002.jpg.</p>
 
 <p>Para renomear as imagens necessárias, eu fiz um script ruby para gerar os nomes corretamente e depois executei o comando com <code>| sh</code> pegando o puts diretamenten do <code>$stdout</code>.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">ruby -e &quot;Dir[&#39;*.jpg&#39;].each{|f|f =~ /img_(\d+).jpg/; g = \&quot;img_#{&#39;%04d&#39; % \$1.to_i}.jpg\&quot;; puts \&quot;mv #{f} #{g}\&quot; if f != g}&quot; | sh
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">ruby -e "Dir['*.jpg'].each{|f|f =~ /img_(\d+).jpg/; g = \"img_#{'%04d' % \$1.to_i}.jpg\"; puts \"mv #{f} #{g}\" if f != g}" | sh
+</code></pre></div>
 <p>Este é o tipo de comando rápido que as vezes não tenho tanta agilidade e prática com shell para fazer o rename. Mas com ruby flui rapidamente e consigo avançar.</p>
 
 <h3 id="refactoring">Refactoring</h3>
@@ -1114,13 +1112,13 @@ end
 </pre>
 
 <p>Executando ruby e fazendo o pipeline para o shell temos o mesmo resultado de uma forma mais bonita:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">ruby converte.rb | sh
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">ruby converte.rb | sh
+</code></pre></div>
 <h3 id="imagens-com-nomes-diferentes">Imagens com nomes diferentes</h3>
 
 <p>Se as suas imagens não tiverem um padrão de nomes também é possível utilizando o parâmetro <code>pattern_type glob</code>, veja o exemplo:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">ffmpeg -r 24 -pattern_type glob -i &quot;*.jpg&quot; out.mkv
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">ffmpeg -r 24 -pattern_type glob -i "*.jpg" out.mkv
+</code></pre></div>
 <h3 id="veja-um-exemplo-de-v-deo">Veja um exemplo de vídeo</h3>
 
 <p>O vídeo abaixo é um timelapse de 120 fotos, uma foto a cada 64 segundos. Girando 1 grau para a direita. O framerate utilizado foi 24 fotos por segundo.</p>

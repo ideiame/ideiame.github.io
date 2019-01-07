@@ -18,9 +18,8 @@
     <!-- Le styles -->
     <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
     <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
-    <link id="stylesheet_prettify" href="/prettify/prettify_white.css" type="text/css" rel="stylesheet" />
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/prettify/prettify.js"></script>
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
     <div id="fb-root"></div>
@@ -39,7 +38,6 @@
   <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
     addEventListener('load', function (event) {
-      prettyPrint();
       var agent=navigator.userAgent.toLowerCase();
       var links = document.getElementsByTagName('a');
       var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
@@ -193,11 +191,11 @@ ferramenta então vou mostrar os primeiros passos para programar em 3D com ela.<
 <h2 id="download">Download</h2>
 
 <p>Baixe o openscad de sua maneira favorita. A minha no Mac OSX é via <code>brew cask</code>.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">brew cask install openscad
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">brew cask install openscad
+</code></pre></div>
 <p>Ou via linux</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">sudo apt-get install openscad
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">sudo apt-get install openscad
+</code></pre></div>
 <p>Mas você pode entrar no <a href="http://www.openscad.org">www.openscad.org</a> e baixar o zip também.</p>
 
 <h2 id="explorando-as-formas">Explorando as formas</h2>
@@ -206,8 +204,8 @@ ferramenta então vou mostrar os primeiros passos para programar em 3D com ela.<
 
 <p>Por exemplo. Para construir uma simples esfera, eu apenas preciso passar o
 tamanho do raio:</p>
-<figure class="highlight"><pre><code class="language-openscad" data-lang="openscad">sphere(r=2)
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-openscad" data-lang="openscad">sphere(r=2)
+</code></pre></div>
 <p>O código acima cria uma esfera como a imagem abaixo exibe na prática rodando
 dentro do openscad.</p>
 
@@ -244,11 +242,11 @@ sequência enquanto não encontrar o <code>;</code>.</p>
 <h2 id="usando-repeti-o">Usando repetição</h2>
 
 <p>A estrutura básica do <code>for</code> é bem semelhante as linguagens convencionais e aceita um range de valores como parâmetro, ou ainda um próprio array. A sintaxe é: <code>for (indice = [comeco:fim])</code> para usar com ranges. Veja como é simples de adicionar uma estrutura de repetição aqui:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">for (i = [5:1]){
+<div class="highlight"><pre><code class="language-" data-lang="">for (i = [5:1]){
   translate([i*2,0,0])
     sphere(r=i);
 }
-</code></pre></figure>
+</code></pre></div>
 <p><img src="/images/sphere_for_1_5.png" alt="Criando 5 esferas e transladando com um for repetitivo"></p>
 
 <p>Uau, veja que a peça acima parece uma gota, mas também lembra um pião. Então

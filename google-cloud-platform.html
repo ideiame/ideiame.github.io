@@ -18,9 +18,8 @@
     <!-- Le styles -->
     <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
     <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
-    <link id="stylesheet_prettify" href="/prettify/prettify_white.css" type="text/css" rel="stylesheet" />
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/prettify/prettify.js"></script>
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
     <div id="fb-root"></div>
@@ -39,7 +38,6 @@
   <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
     addEventListener('load', function (event) {
-      prettyPrint();
       var agent=navigator.userAgent.toLowerCase();
       var links = document.getElementsByTagName('a');
       var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
@@ -194,8 +192,8 @@ cloud enquanto o <code>gsutil</code> é para você fazer coisas relacionadas ao 
 <h2 id="instala-o-do-google-cloud-platform">Instalação do Google Cloud Platform</h2>
 
 <p>Para instalar o <code>gcloud</code> e <code>gsutil</code> digite na linha de comando:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">curl https://sdk.cloud.google.com | bash
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">curl https://sdk.cloud.google.com | bash
+</code></pre></div>
 <p>Neste exemplo vou mostrar usando <code>gsutil</code> para manusear seus arquivos entre sua
 máquina e o google :)</p>
 

@@ -18,9 +18,8 @@
     <!-- Le styles -->
     <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
     <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
-    <link id="stylesheet_prettify" href="/prettify/prettify_white.css" type="text/css" rel="stylesheet" />
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/prettify/prettify.js"></script>
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
     <div id="fb-root"></div>
@@ -39,7 +38,6 @@
   <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
     addEventListener('load', function (event) {
-      prettyPrint();
       var agent=navigator.userAgent.toLowerCase();
       var links = document.getElementsByTagName('a');
       var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
@@ -399,15 +397,13 @@
   </h1>
 </div>
 <div class="content">
-    <p>During my vacations I decide to play in a different project. I&#39;d like to make
-some hashi art with a lot of chopsticks my girlfriend is collecting from the
-japanese restaurant that she works.</p>
+    <p>During my vacations, I decide to play in a different project. I&#39;d like to make
+some hashi art with packs of used chopsticks my girlfriend is collecting from the Japanese restaurant that she works.</p>
 
-<p>We have hundreds and will reach thousands of chopsticks collected soon. The idea
-is try some art and we decide to build a plaque with holes that could
-pottentially  turn into some art.</p>
+<p>We have hundreds and will reach thousands of chopsticks collected soon. We cleaned them to reuse in some art and we decide to build a plaque with holes that could
+potentially turn into some art.</p>
 
-<p>The project is pretty simple, we got an random stencil image from web and we
+<p>The project is pretty simple, we got a random stencil image from the web, and we
 want to convert the painted black part into dots. Like this image:</p>
 
 <p><img src="/images/skull.jpg" alt="skull"></p>
@@ -417,23 +413,22 @@ want to convert the painted black part into dots. Like this image:</p>
 <p><img src="/images/skull-dots1-5.jpg" alt="skull with dots"></p>
 
 <p>The software is basic. We navigate into pixels and check if they&#39;re not white.
-If they&#39;re not the background, we can plot a circle and keep jumping using some
-padding and some &quot;hashi&quot; diameter configuration.</p>
+If they&#39;re not the background, we can plot a circle and keep jumping considering a padding and chopstick diameter configuration.</p>
 
-<p>The project is open source here: <a href="https://github.com/jonatas/hashi">https://github.com/jonatas/hashi</a></p>
+<p>The project is open source here: <a href="https://github.com/jonatas/hashi">https://github.com/jonatas/hashi</a>.</p>
 
-<p>And you can play at your own. So, let&#39;s build the idea step by step.</p>
+<p>So you can play on your own. So, let&#39;s build the idea step by step.</p>
 
 <h2 id="creating-the-new-project-with-bundler-gem">Creating the new project with bundler gem</h2>
 
-<p>I love to use <code>bundle gem</code> to create all my ruby projects because it&#39;s easier
-than start from scratch and easy to adapt later.</p>
+<p>I love to use <code>bundle gem</code>  on all my ruby projects because it&#39;s easier
+to start from scratch and easy to adapt later than play in a single file and add the gems manually.</p>
 
-<p>First step is <code>bundle gem hashi</code> that is supposed to be the name of our project.</p>
+<p>The first step is <code>bundle gem hashi</code> that is supposed to be the name of our project.</p>
 
 <h2 id="add-libraries-to-the-project-with-bundler-add">Add libraries to the project with <code>bundler add</code></h2>
 
-<p>I love <a href="http://pryrepl.org">pry</a> and I need it since the beginning, so let&#39;s add it.</p>
+<p>I love <a href="http://pryrepl.org">pry</a>, and I need it since the beginning, so let&#39;s add it.</p>
 
 <p><code>bundle add pry</code></p>
 
@@ -443,58 +438,52 @@ than start from scratch and easy to adapt later.</p>
 
 <h2 id="setup-pry-on-bin-console">Setup pry on <code>bin/console</code></h2>
 
-<p>When you use the <code>bundle gem</code> it creates a <code>bin/console</code> utility that simply
-brings your environment into a IRB session. It&#39;s pretty useful for debugging
+<p>When you use the <code>bundle gem</code> it creates a <code>bin/console</code> utility that brings your environment into an IRB session. It&#39;s pretty useful for debugging
 purposes and understanding the libraries. As the first step, let&#39;s switch to
 <code>pry</code> instead of IRB:</p>
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">#!/usr/bin/env ruby
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#!/usr/bin/env ruby</span>
 
-require &quot;bundler/setup&quot;
-require &quot;hashi&quot;
-require &quot;pry&quot;
-Pry.start
-</code></pre></figure>
-<p>There&#39;s no secret in the code. We&#39;re just requiring the bundler requirements
+<span class="nb">require</span> <span class="s2">"bundler/setup"</span>
+<span class="nb">require</span> <span class="s2">"hashi"</span>
+<span class="nb">require</span> <span class="s2">"pry"</span>
+<span class="no">Pry</span><span class="p">.</span><span class="nf">start</span>
+</code></pre></div>
+<p>There&#39;s no secret in the code. We just require the bundler requirements
 plus the files into our project and start a pry session.</p>
 
-<p>The next step is and pick some image to learn the basics of the image reading.</p>
+<p>The next step is and picks some image to learn the basics of the image reading.</p>
 
-<h2 id="pick-a-image-from-web-with-curl">Pick a image from web with <code>curl</code></h2>
+<h2 id="pick-an-image-from-the-web-with-curl">Pick an image from the web with <code>curl</code></h2>
 
-<p>Now, let&#39;s pick some random image from web to follow the process. I&#39;ll use
-<a href="https://www.bing.com/images/search?view=detailv2&amp;form=INRECC&amp;it=IMG&amp;st=TPD&amp;dt=IMG&amp;lids=skull-stencil&amp;id=BFBB82AB9CBDEFB72C25459D4A87A6E32A9EDA16&amp;ccid=8uSGNq7g&amp;thid=OIP.8uSGNq7gbMksMyX_f7vXewHaK7%26o%3D5&amp;first=1000&amp;selectedindex=1007&amp;iss=TF&amp;expw=441&amp;exph=651&amp;ajaxhist=0&amp;pagetoken=dt_image*fver_0*it_image*lft_spc*lid_skull-stencil*offset_0*st_topic*uft_gen&amp;mediaurl=http%3A%2F%2Fcliparts.co%2Fcliparts%2Frcj%2FKMa%2FrcjKMaMzi.jpg">this one</a>.</p>
-
-<p>![<a href="http://cliparts.co/cliparts/rcj/KMa/rcjKMaMzi.jpg">http://cliparts.co/cliparts/rcj/KMa/rcjKMaMzi.jpg</a>]</p>
+<p>Now, let&#39;s pick some random image from the web to follow the process. I&#39;ll use
+<a href="http://cliparts.co/cliparts/rcj/KMa/rcjKMaMzi.jpg">this one</a>.</p>
 
 <p>Let&#39;s download the image in the project folder naming it <code>skull.png</code>:</p>
-
-<p><code>curl http://cliparts.co/cliparts/rcj/KMa/rcjKMaMzi.jpg &gt; skull.png</code></p>
-
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">curl http://cliparts.co/cliparts/rcj/KMa/rcjKMaMzi.jpg <span class="o">&gt;</span> skull.png
+</code></pre></div>
 <p>With the <code>skull.png</code> we can play and learn more about the image with RMagick.</p>
 
 <h2 id="reading-image-with-rmagick">Reading image with RMagick</h2>
 
-<p><a href="http://rmagick.github.io">RMagick</a> is a powerfull library and we&#39;re going to
-supperficially cover our needs.</p>
+<p><a href="http://rmagick.github.io">RMagick</a> is a powerful library, and we&#39;re going to
+superficially cover our needs.</p>
 
-<p>First thing is learn more about image details:
-```ruby
-require &#39;rmagick&#39;
-Magick::Image.read(&#39;skull.jpg&#39;)</p>
-
-<h1 id="gt-skull-jpg-jpeg-441x651-4-l41x651-0-0-directclass-8-bit-56kb">=&gt; [skull.jpg JPEG 441x651 4)l41x651+0+0 DirectClass 8-bit 56kb]</h1>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Check that it returns an array of images because it probably can process
-multiple images. In this case let&#39;s pick the first.
-```ruby
-image = Magick::Image.read(&#39;skull.jpg&#39;).first
-# =&gt; skull.jpg JPEG 441x651 441x651+0+0 DirectClass 8-bit 56kb
-</code></pre></figure>
+<p>The first thing is to learn more about image details:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s1">'rmagick'</span>
+<span class="no">Magick</span><span class="o">::</span><span class="no">Image</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="s1">'skull.jpg'</span><span class="p">)</span>
+<span class="c1"># =&gt; [skull.jpg JPEG 441x651 4)l41x651+0+0 DirectClass 8-bit 56kb]</span>
+</code></pre></div>
+<p>Check that it returns an array of images because it probably can process
+multiple images. In this case, let&#39;s pick the first.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">image</span> <span class="o">=</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Image</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="s1">'skull.jpg'</span><span class="p">).</span><span class="nf">first</span>
+<span class="c1"># =&gt; skull.jpg JPEG 441x651 441x651+0+0 DirectClass 8-bit 56kb</span>
+</code></pre></div>
 <p>Now let&#39;s check some crucial properties to follow our small image processor.
-<code>ruby
+<pre class="prettyprint">
 image.rows # =&gt; 651
 image.columns # =&gt; 441
-</code>```
-With the number of row and columns we can navigate pixel by pixel and
+</pre>
+With the number of row and columns, we can navigate pixel by pixel and
 calculate the position of each pixel discovering the row and column based on
 the pixel index.</p>
 
@@ -505,241 +494,216 @@ pixels from (651 * 441) spots we have.</p>
 
 <p>To discover the row, let&#39;s build some example:</p>
 
-<p>Let&#39;s say that we&#39;re analyzing the pixel <code>1234</code>:
-<code>ruby
-pixel_index = 1234
-row = pixel_index / image.rows # =&gt; 1
-col = pixel_index % image.columns # =&gt; 352
-</code>
-We don&#39;t need the <code>pixel_index</code> but the <code>col</code> and <code>row</code> values are crucial to plot
-the dots in the new image.</p>
+<p>Let&#39;s say that we&#39;re analyzing the pixel <code>1234</code>:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">pixel_index</span> <span class="o">=</span> <span class="mi">1234</span>
+<span class="n">row</span> <span class="o">=</span> <span class="n">pixel_index</span> <span class="o">/</span> <span class="n">image</span><span class="p">.</span><span class="nf">rows</span> <span class="c1"># =&gt; 1</span>
+<span class="n">col</span> <span class="o">=</span> <span class="n">pixel_index</span> <span class="o">%</span> <span class="n">image</span><span class="p">.</span><span class="nf">columns</span> <span class="c1"># =&gt; 352</span>
+</code></pre></div>
+<p>We don&#39;t need the <code>pixel_index</code>, but the <code>col</code> and <code>row</code> values are crucial to plot the dots in the new image.</p>
 
 <p>Now, let&#39;s discover the proper method to get the pixels from image:</p>
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">image.methods.grep /pixel/
-[:get_pixels,
- :store_pixels,
- :mean_error_per_pixel,
- :pixel_interpolation_method,
- :pixel_interpolation_method=,
- :virtual_pixel_method,
- :virtual_pixel_method=,
- :export_pixels,
- :export_pixels_to_str,
- :import_pixels,
- :each_pixel,
- :pixel_color]
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">image</span><span class="p">.</span><span class="nf">methods</span><span class="p">.</span><span class="nf">grep</span> <span class="sr">/pixel/</span> <span class="c1"># =&gt; [:get_pixels, :store_pixels, ... import_pixels, :each_pixel, :pixel_color]</span>
+</code></pre></div>
 <p>Cool! looks like we can use <code>get_pixels</code> or iterate directly with
  <code>each_pixel</code>.</p>
 
 <p>Following my &quot;Binding Pry Driven Development&quot; flow, let&#39;s jump into the first
 pixel:</p>
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">[13] pry(main)&gt; image.each_pixel do |px|
-[13] pry(main)*   binding.pry
-[13] pry(main)* end
-[1] pry(main)&gt; px
-=&gt; #&lt;Magick::Pixel:0x00007f8c2d58fd98&gt;
-[2] pry(main)&gt; px.methods.grep /color/
-=&gt; [:to_color]
-[3] pry(main)&gt; px.to_color
-=&gt; &quot;white&quot;
-</code></pre></figure>
-<p>Ta da! we have almost all pieces ready to start the real implementation:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">image</span><span class="p">.</span><span class="nf">each_pixel</span> <span class="k">do</span> <span class="o">|</span><span class="n">px</span><span class="o">|</span>
+  <span class="nb">binding</span><span class="p">.</span><span class="nf">pry</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Right after execute this line, it will jump into another pry session:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">px</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;Magick::Pixel:0x00007f8c2d58fd98&gt;</span>
+<span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">px</span><span class="p">.</span><span class="nf">methods</span><span class="p">.</span><span class="nf">grep</span> <span class="sr">/color/</span>
+<span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:to_color</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">px</span><span class="p">.</span><span class="nf">to_color</span>
+<span class="o">=&gt;</span> <span class="s2">"white"</span>
+</code></pre></div>
+<p>Tada! We have almost all pieces ready to start the real implementation. We know
+the color and the pixel position.</p>
 
 <p>Let&#39;s start building a smart iterator that can yield the information we need for
 create the rules and drawings that we want:</p>
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">  def navigate_on_pixels_with_index
-    i = 0
-    image.each_pixel do |pixel|
-      row = i / image.rows
-      col = i % image.columns
-      yield pixel, row, col, i
-      i += 1
-    end
-  end
-</code></pre></figure>
-<p>And the method can yield the information we need to create our drawing.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">navigate_on_pixels_with_index</span>
+  <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">image</span><span class="p">.</span><span class="nf">each_pixel</span> <span class="k">do</span> <span class="o">|</span><span class="n">pixel</span><span class="o">|</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="n">image</span><span class="p">.</span><span class="nf">rows</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="n">image</span><span class="p">.</span><span class="nf">columns</span>
+    <span class="k">yield</span> <span class="n">pixel</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">i</span>
+    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Also, the method can yield the information we need to create our drawing.</p>
 
-<p>Going back to command line, let&#39;s see how the <code>Draw</code> object works:
-<code>ruby
-draw = Magick::Draw.new
-=&gt; (no primitives defined)
-[6] pry(main)&gt; draw.methods.grep /circle/
-=&gt; [:circle]
-</code></p>
-
+<p>Going back to command line, let&#39;s see how the <code>Draw</code> object works:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">draw</span> <span class="o">=</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Draw</span><span class="p">.</span><span class="nf">new</span>
+<span class="o">=&gt;</span> <span class="p">(</span><span class="n">no</span> <span class="n">primitives</span> <span class="n">defined</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">draw</span><span class="p">.</span><span class="nf">methods</span><span class="p">.</span><span class="nf">grep</span> <span class="sr">/circle/</span>
+<span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:circle</span><span class="p">]</span>
+</code></pre></div>
 <p>One of my favorite shortcuts is <code>$</code> on pry. It&#39;s a shortcut for <code>show-doc</code> of
-something. Let&#39;s inspect the <code>circle</code> method:
-```ruby
-[7] pry(main)&gt; $ draw.circle</p>
+something. Let&#39;s inspect the <code>circle</code> method:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="err">$</span> <span class="n">draw</span><span class="p">.</span><span class="nf">circle</span>
 
-<p>From: /Users/jonatasdp/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/rmagick-2.16.0/lib/rmagick_internal.rb @ line 244:
-Owner: Magick::Draw
-Visibility: public
-Number of lines: 3</p>
+<span class="no">From</span><span class="p">:</span> <span class="sr">/Users/</span><span class="n">jonatasdp</span><span class="o">/</span><span class="p">.</span><span class="nf">rbenv</span><span class="o">/</span><span class="n">versions</span><span class="o">/</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">1</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">rmagick</span><span class="o">-</span><span class="mf">2.16</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">rmagick_internal</span><span class="p">.</span><span class="nf">rb</span> <span class="err">@</span> <span class="n">line</span> <span class="mi">244</span><span class="p">:</span>
+<span class="no">Owner</span><span class="p">:</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Draw</span>
+<span class="no">Visibility</span><span class="p">:</span> <span class="kp">public</span>
+<span class="no">Number</span> <span class="n">of</span> <span class="ss">lines: </span><span class="mi">3</span>
 
-<p>def circle(originX, originY, perimX, perimY)
-  primitive &#39;circle &#39; + sprintf(&#39;%g,%g %g,%g&#39;, originX, originY, perimX, perimY)
-end
-<code>
-You can see the method will need the `originX` and `originY` that are `col` and
-`row` position. The `perimX `and `perimY` will basically depend on the hashi
-diameter + `col` and `row` position.
-</code>ruby
-def draw_hashi_on(row, col)
-  hashi_size = 3
-  draw.circle(col, row, col + hashi_size, row + hashi_size)
-end
-```
-We still need to take care of the padding, otherwise we&#39;re going to iterate
-under all the pixels and it will become a blurried image of dots.</p>
+<span class="k">def</span> <span class="nf">circle</span><span class="p">(</span><span class="n">originX</span><span class="p">,</span> <span class="n">originY</span><span class="p">,</span> <span class="n">perimX</span><span class="p">,</span> <span class="n">perimY</span><span class="p">)</span>
+  <span class="n">primitive</span> <span class="s1">'circle '</span> <span class="o">+</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s1">'%g,%g %g,%g'</span><span class="p">,</span> <span class="n">originX</span><span class="p">,</span> <span class="n">originY</span><span class="p">,</span> <span class="n">perimX</span><span class="p">,</span> <span class="n">perimY</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>You can see the method need the <code>originX</code> and <code>originY</code> that are <code>col</code> and
+<code>row</code> position. The <code>perimX</code>and <code>perimY</code> will depend on the hashi
+diameter + <code>col</code> and <code>row</code> position.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">draw_hashi_on</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+  <span class="n">hashi_size</span> <span class="o">=</span> <span class="mi">3</span>
+  <span class="n">draw</span><span class="p">.</span><span class="nf">circle</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">+</span> <span class="n">hashi_size</span><span class="p">,</span> <span class="n">row</span> <span class="o">+</span> <span class="n">hashi_size</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>We still need to take care of the padding. Otherwise, we&#39;re going to iterate
+under all the pixels and it will become a blurred image of dots.</p>
 
 <p>As we want to have some distance between the circles, we need to define this
-distance and ignore the pixels that are not in this position.
-<code>ruby
-  def navigate_on_pixels_with_row_and_col
-    i = 0
-    padding = 8
-    image.each_pixel do |pixel|
-      row = i / image.rows
-      col = i % image.columns
-      if (row % padding).zero? &amp;&amp;
-         (col % padding).zero?
-        yield pixel, row, col
-      end
-      i += 1
-    end
-  end
-</code></p>
-
-<p>Now we&#39;re ignoring all pixels that are not divisable by 8 and it means that
-we&#39;re jumping each 8 pixels to make the check. Why? Because of if we want only
+distance and ignore the pixels that are not in this position.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">navigate_on_pixels_with_row_and_col</span>
+  <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+  <span class="n">padding</span> <span class="o">=</span> <span class="mi">8</span>
+  <span class="n">image</span><span class="p">.</span><span class="nf">each_pixel</span> <span class="k">do</span> <span class="o">|</span><span class="n">pixel</span><span class="o">|</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="n">image</span><span class="p">.</span><span class="nf">rows</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="n">image</span><span class="p">.</span><span class="nf">columns</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">row</span> <span class="o">%</span> <span class="n">padding</span><span class="p">).</span><span class="nf">zero?</span> <span class="o">&amp;&amp;</span>
+        <span class="p">(</span><span class="n">col</span> <span class="o">%</span> <span class="n">padding</span><span class="p">).</span><span class="nf">zero?</span>
+      <span class="k">yield</span> <span class="n">pixel</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span>
+    <span class="k">end</span>
+    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Now we&#39;re ignoring all pixels that are not divisible by 8, and it means that
+we&#39;re jumping every 8 pixels to make the check. Why? Because of if we want only
 to plot dots every 8 pixels, I don&#39;t need to navigate and check the pixels
-between them. It will just have a poor performance.</p>
+between them.</p>
 
-<p>Improving our iterator will make it easy to concentrate in your very basic rule:</p>
+<p>Improving our iterator will make it easy to concentrate on your very basic rule:</p>
 
-<p>Non white pixels should have circles.</p>
+<p>Non-white pixels should have circles. Putting all together in the <code>process!</code> method:</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">process!</span>
+  <span class="n">navigate_on_pixels_with_row_and_col</span> <span class="k">do</span> <span class="o">|</span><span class="n">pixel</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="o">|</span>
+    <span class="k">if</span> <span class="n">pixel</span><span class="p">.</span><span class="nf">to_color</span> <span class="o">!=</span> <span class="s2">"white"</span>
+      <span class="n">draw_hashi_on</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+  <span class="n">save_new_image</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>We still missed a final step that saves the new drawing.</p>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">save_new_image</span>
+  <span class="n">img</span> <span class="o">=</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Image</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">Hashi</span><span class="p">.</span><span class="nf">image</span><span class="p">.</span><span class="nf">rows</span><span class="p">,</span> <span class="no">Hashi</span><span class="p">.</span><span class="nf">image</span><span class="p">.</span><span class="nf">columns</span><span class="p">)</span>
+  <span class="n">draw</span><span class="p">.</span><span class="nf">draw</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+  <span class="n">img</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="s1">'skull-dots.jpg'</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>If you save the file probably it will work in some how.</p>
 
-<p>Putting all together in the <code>process!</code> method:
-<code>ruby
-    def process!
-      navigate_on_pixels_with_row_and_col do |pixel, row, col|
-        if pixel.to_color != &quot;white&quot;
-          draw_hashi_on(row, col)
-        end
-      end
-      save_new_image
-    end
-</code>
-We still missed a final step that is save the new drawing.
-<code>ruby
-def save_new_image
-  img = Magick::Image.new(Hashi.image.rows, Hashi.image.columns)
-  draw.draw(img)
-  img.write(&#39;skull-dots.jpg&#39;)
-end
-</code>
-If you save the file probably it will work in some how.</p>
-
-<p>It was the basic steps I follow to create this small project. Looking the entire
+<p>It was the necessary steps I follow to create this small project. Looking the entire
 code that accepts the filename, hashi size and padding as a command line input:</p>
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">require &quot;hashi/version&quot;
-require &#39;rmagick&#39;
-require &#39;set&#39;
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">require</span> <span class="s2">"hashi/version"</span>
+<span class="nb">require</span> <span class="s1">'rmagick'</span>
+<span class="nb">require</span> <span class="s1">'set'</span>
 
-module Hashi
-  module_function
+<span class="k">module</span> <span class="nn">Hashi</span>
+  <span class="kp">module_function</span>
 
-  def image_file
-    @file = ARGV[0] || &#39;stencil.png&#39;
-  end
+  <span class="k">def</span> <span class="nf">image_file</span>
+    <span class="vi">@file</span> <span class="o">=</span> <span class="no">ARGV</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">||</span> <span class="s1">'stencil.png'</span>
+  <span class="k">end</span>
 
-  def image
-    @image ||= Magick::Image.read(image_file).first
-  end
+  <span class="k">def</span> <span class="nf">image</span>
+    <span class="vi">@image</span> <span class="o">||=</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Image</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="n">image_file</span><span class="p">).</span><span class="nf">first</span>
+  <span class="k">end</span>
 
-  def dots_image_file
-    name, extension = image_file.split(&#39;.&#39;)
-    &quot;#{name}-dots.#{extension}&quot;
-  end
+  <span class="k">def</span> <span class="nf">dots_image_file</span>
+    <span class="nb">name</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">image_file</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)</span>
+    <span class="s2">"</span><span class="si">#{</span><span class="nb">name</span><span class="si">}</span><span class="s2">-dots.</span><span class="si">#{</span><span class="n">extension</span><span class="si">}</span><span class="s2">"</span>
+  <span class="k">end</span>
 
-  def draw
-    @draw ||= Magick::Draw.new
-  end
+  <span class="k">def</span> <span class="nf">draw</span>
+    <span class="vi">@draw</span> <span class="o">||=</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Draw</span><span class="p">.</span><span class="nf">new</span>
+  <span class="k">end</span>
 
-  def hashi_size
-    @hashi_size ||= ARGV[1]&amp;.to_i || 10
-  end
+  <span class="k">def</span> <span class="nf">hashi_size</span>
+    <span class="vi">@hashi_size</span> <span class="o">||=</span> <span class="no">ARGV</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">&amp;</span><span class="p">.</span><span class="nf">to_i</span> <span class="o">||</span> <span class="mi">10</span>
+  <span class="k">end</span>
 
-  def hashi_padding
-    @hashi_padding ||= ARGV[2]&amp;.to_i || hashi_size * 3
-  end
+  <span class="k">def</span> <span class="nf">hashi_padding</span>
+    <span class="vi">@hashi_padding</span> <span class="o">||=</span> <span class="no">ARGV</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">&amp;</span><span class="p">.</span><span class="nf">to_i</span> <span class="o">||</span> <span class="n">hashi_size</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="k">end</span>
 
-  def padding
-    @padding ||= hashi_size + hashi_padding
-  end
+  <span class="k">def</span> <span class="nf">padding</span>
+    <span class="vi">@padding</span> <span class="o">||=</span> <span class="n">hashi_size</span> <span class="o">+</span> <span class="n">hashi_padding</span>
+  <span class="k">end</span>
 
-  def navigate_on_pixels_with_index
-    i = 0
-    image.each_pixel do |pixel|
-      row = i / image.rows
-      col = i % image.columns
-      if (row % padding).zero? &amp;&amp;
-         (col % padding).zero?
-        yield pixel, row, col, i
-      end
-      i += 1
-    end
-  end
+  <span class="k">def</span> <span class="nf">navigate_on_pixels_with_index</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">image</span><span class="p">.</span><span class="nf">each_pixel</span> <span class="k">do</span> <span class="o">|</span><span class="n">pixel</span><span class="o">|</span>
+      <span class="n">row</span> <span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="n">image</span><span class="p">.</span><span class="nf">rows</span>
+      <span class="n">col</span> <span class="o">=</span> <span class="n">i</span> <span class="o">%</span> <span class="n">image</span><span class="p">.</span><span class="nf">columns</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">row</span> <span class="o">%</span> <span class="n">padding</span><span class="p">).</span><span class="nf">zero?</span> <span class="o">&amp;&amp;</span>
+         <span class="p">(</span><span class="n">col</span> <span class="o">%</span> <span class="n">padding</span><span class="p">).</span><span class="nf">zero?</span>
+        <span class="k">yield</span> <span class="n">pixel</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">i</span>
+      <span class="k">end</span>
+      <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 
-  def process!
-    @hashi_map = Set.new
-    navigate_on_pixels_with_index do |pixel, row, col, index|
-      if pixel.to_color != &quot;white&quot;
-        hashi_on(row, col)
-      end
-    end
-    finish!
-  end
+  <span class="k">def</span> <span class="nf">process!</span>
+    <span class="vi">@hashi_map</span> <span class="o">=</span> <span class="no">Set</span><span class="p">.</span><span class="nf">new</span>
+    <span class="n">navigate_on_pixels_with_index</span> <span class="k">do</span> <span class="o">|</span><span class="n">pixel</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">,</span> <span class="n">index</span><span class="o">|</span>
+      <span class="k">if</span> <span class="n">pixel</span><span class="p">.</span><span class="nf">to_color</span> <span class="o">!=</span> <span class="s2">"white"</span>
+        <span class="n">hashi_on</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="n">finish!</span>
+  <span class="k">end</span>
 
-  def finish!
-    print &quot;drawing the new image..&quot;
-    img = Magick::Image.new(Hashi.image.rows, Hashi.image.columns)
-    draw.draw(img)
-    img.write(dots_image_file)
-    `open #{dots_image_file}`
-    print &quot;... done!&quot;
-  end
+  <span class="k">def</span> <span class="nf">finish!</span>
+    <span class="nb">print</span> <span class="s2">"drawing the new image.."</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Image</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">Hashi</span><span class="p">.</span><span class="nf">image</span><span class="p">.</span><span class="nf">rows</span><span class="p">,</span> <span class="no">Hashi</span><span class="p">.</span><span class="nf">image</span><span class="p">.</span><span class="nf">columns</span><span class="p">)</span>
+    <span class="n">draw</span><span class="p">.</span><span class="nf">draw</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="n">img</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">dots_image_file</span><span class="p">)</span>
+    <span class="sb">`open </span><span class="si">#{</span><span class="n">dots_image_file</span><span class="si">}</span><span class="sb">`</span>
+    <span class="nb">print</span> <span class="s2">"... done!"</span>
+  <span class="k">end</span>
 
-  def hashi_on row, col
-    draw.circle(col, row, col + hashi_size, row + hashi_size)
-  end
-end
-</code></pre></figure>
+  <span class="k">def</span> <span class="nf">hashi_on</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span>
+    <span class="n">draw</span><span class="p">.</span><span class="nf">circle</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">+</span> <span class="n">hashi_size</span><span class="p">,</span> <span class="n">row</span> <span class="o">+</span> <span class="n">hashi_size</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
 <h2 id="conclusion">Conclusion</h2>
 
-<p>If you look at the code, it have a few extra messages but the basics are what
+<p>If you look at the code, it has a few extra messages, but the basics are what
 was explained here.</p>
 
 <p>It walks through each n pixels on an image, check if it&#39;s not a white color and
-plot a dot. It creates this beautiful effect and you can expand the program to
+plot a dot. It creates this beautiful effect, and you can expand the program to
 make other details.</p>
 
 <p>I&#39;m not caring about the code organization but my experience automatically
-divide the problem into multiple steps and I organize the methods as I was
-exploring the library into the console session.</p>
+divide the problem into multiple steps, and I organize the methods as I was exploring the library into the console session.</p>
 
 <p>If you know what you want to build, it&#39;s easy to explore focused on the final
-result you want to achieve. With this prototype we can easily imagine how the
-final work will be, how many chopsticks we need and so on...</p>
+result you want to achieve. With this prototype, we can easily envision how the final work looks like, how many chopsticks we need and so on.</p>
 
-<p>My code is not tested and I just had fun with code. My next step is export this
+<p>My code is not tested, and I just had fun with code. My next step is export this
 coordinated dots positions to work directly into 3D files. I&#39;ll convert to <a href="/tutorial-programacao-3d-openscad">stl
 file</a> and print it in 3D printing. My idea is
-create cylinders from the hashies x, y position and then use another cube to
-subtract it and get the perfect plaque with all the holes to make the final
-hashi art.</p>
+creating cylinders from the chopstick coordinates and then use another cube to subtract it and get the perfect plaque with all the holes to make the final hashi art.</p>
 
 </div>
 <hr>

@@ -18,9 +18,8 @@
     <!-- Le styles -->
     <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
     <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
-    <link id="stylesheet_prettify" href="/prettify/prettify_white.css" type="text/css" rel="stylesheet" />
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/prettify/prettify.js"></script>
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
     <div id="fb-root"></div>
@@ -39,7 +38,6 @@
   <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
     addEventListener('load', function (event) {
-      prettyPrint();
       var agent=navigator.userAgent.toLowerCase();
       var links = document.getElementsByTagName('a');
       var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
@@ -646,8 +644,8 @@
 <iframe src="//instagram.com/p/ltELezHfQ4/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
 
 <p>Essa camera é muito boa e fácil de usar. Para utilizar ela via código em python, tive que instalar uma biblioteca com um nome sugestivo: <code>python-camera</code></p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">sudo apt-get install python-camera
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">sudo apt-get install python-camera
+</code></pre></div>
 <p>Depois disso é só utilizar no código diretamente:</p>
 
 <pre class="prettyprint">
@@ -687,8 +685,8 @@ with picamera.PiCamera() as camera:
 <p>Funcionou legal e é muito simples de trabalhar.</p>
 
 <p>Usei uma <a href="http://blog.scphillips.com/2012/12/a-python-class-to-move-the-stepper-motor/">classe Motor</a> para abstrair a rotação do motor e agora só falta adicionar um fator tempo para poder dizer:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Quero que gire 180 graus em 6 horas.
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">Quero que gire 180 graus em 6 horas.
+</code></pre></div>
 <p>Para girar o motor basta importar a classe e usar o método <code>move_to(angle)</code>.</p>
 
 <pre class="prettyprint">

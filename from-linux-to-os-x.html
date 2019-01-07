@@ -18,9 +18,8 @@
     <!-- Le styles -->
     <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
     <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
-    <link id="stylesheet_prettify" href="/prettify/prettify_white.css" type="text/css" rel="stylesheet" />
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
 
-    <script type="text/javascript" src="/prettify/prettify.js"></script>
     <script src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
     <div id="fb-root"></div>
@@ -39,7 +38,6 @@
   <script type="text/javascript" language="javascript" charset="utf-8">
 // <![CDATA[
     addEventListener('load', function (event) {
-      prettyPrint();
       var agent=navigator.userAgent.toLowerCase();
       var links = document.getElementsByTagName('a');
       var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
@@ -632,24 +630,24 @@ pedindo dicas do que instalar e o que vai mudar agora que ele vai comprar um Mac
 
 <p>O Home Brew ou <a href="http://brew.sh">brew</a> funciona como o <code>apt-get</code> do linux. Vale a pena pois
 tem muitos pacotes, bibliotecas e facilidades nas receitas da comunidade.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+</code></pre></div>
 <p>Com o brew instalado é possível instalar as bibliotecas e coisas básicas a lá <code>apt-get</code>.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">brew install go redis postgresql
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">brew install go redis postgresql
+</code></pre></div>
 <p>Também vale a pena instalar o brew-cask que permite instalar apps do mac mesmo
 não só bibliotecas.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">brew install caskroom/cask/brew-cask
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">brew install caskroom/cask/brew-cask
+</code></pre></div>
 <p>Com o brew cask você instala coisas como:</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">brew cask install google-chrome firefox skype telegram slack openscad
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">brew cask install google-chrome firefox skype telegram slack openscad
+</code></pre></div>
 <h1 id="terminal-gt-iterm2">Terminal -&gt; iTerm2</h1>
 
 <p>No OS X por default vem o <code>Terminal.app</code>. Porém aconselho a dar uma olhada no
 <a href="https://iterm2.com">iTerm2</a>.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">brew cask install iterm2
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">brew cask install iterm2
+</code></pre></div>
 <p>O iTerm2 é um terminal muito bom e têm uma série de pequenas melhorias que só para quem usa
 bastante o terminal vai sentir a diferença. Entre elas posso citar:</p>
 
@@ -674,12 +672,12 @@ convencional. Estou gostando da experiência :)</p>
 <p>O shell em si é muito bom e uso o tempo todo. Um comando que substitui a pouco
 tempo é o <a href="http://geoff.greer.fm/ag/">silver light searcher</a> aka <code>ag</code>. O <code>ag</code> é
 um <code>grep</code> mais humanizado. Vale a pena dar uma testada!</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">brew install ag
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">brew install ag
+</code></pre></div>
 <p>O ag é um mecanismo de busca então você pode encontrar facilmente arquivos no
 terminal. Então é muito semelhante a um <code>grep -rni &lt;minha busca&gt; &lt;onde&gt;</code></p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">ag &lt;minha busca&gt; &lt;onde&gt;
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">ag &lt;minha busca&gt; &lt;onde&gt;
+</code></pre></div>
 <h1 id="printscreen-screenshot">PrintScreen || ScreenShot</h1>
 
 <p>Sou viciado em printscreen então tiro fotos e registro meu trabalho e detalhes
@@ -708,8 +706,8 @@ printscreen permitindo selecionar a janela que deseja ser fotografada.</p>
 <h2 id="pbcopy"><code>| pbcopy</code></h2>
 
 <p>O pbcopy permite você copiar um determinado output no terminal para o <code>cmd+v</code> ou <code>ctrl+v</code> antigo do linux.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">cat arquivo.txt | pbcopy
-</code></pre></figure>
+<div class="highlight"><pre><code class="language-" data-lang="">cat arquivo.txt | pbcopy
+</code></pre></div>
 <p>Com o arquivo acima, ele vai copiar o conteúdo do arquivo.txt para a área de
 transferência. Agora basta dar um <code>cmd+v</code> para colar. Uso muito este comando
 quando estou realizando consultas complexas no servidor então em vez de
@@ -720,9 +718,9 @@ para copiar todo o conteúdo que estou editando para colar no ambiente que estou
 
 <p>Sem problemas! Maquinas virtuais são muito eficazes para não manter a máquina
 pesada.</p>
-<figure class="highlight"><pre><code class="language-text" data-lang="text">brew install vagrant
+<div class="highlight"><pre><code class="language-" data-lang="">brew install vagrant
 brew cask install virtualbox
-</code></pre></figure>
+</code></pre></div>
 <p>Dessa forma, se você vai instalar um projeto que usa: postgres, redis e
 n serviços, pode subir uma maquina virtual linux com todos eles e mapear as
 portas para consumir em localhost. Esse processo é muito interessante e pode
