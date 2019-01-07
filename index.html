@@ -77,22 +77,22 @@
       <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
             <ul class="dropdown-menu" id="swatch-menu">
-              <li><a href="http://github.com/jonatas">Github</a></li>
-              <li><a href="http://twitter.com/jonatasdp">Twitter</a></li>
-              <li><a href="http://instagram.com/jonatasdp">Instagram</a></li>
-              <li><a href="http://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://github.com/jonatas">Github</a></li>
+              <li><a href="https://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="https://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="https://facebook.com/jonatas.paganini">Facebook</a></li>
               <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
               <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
-              <li><a href="http://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="https://soundcloud.com/jonatasdp">Soundcloud</a></li>
               <li><a href="https://www.meetup.com/Floripa-on-Rails/members/185190193/">Meetup</a></li>
-              <li><a href="http://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
               <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
            </ul>
           </li>
           <li class="dropdown">
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="http://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
             <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
@@ -183,251 +183,365 @@
 
 <p><hr /></p>
 
-<p><h1 class="post"><a class="post" href="/retrospective-2018"> Retrospective 2018</a></h1>
- <p>Every year I spend some time in my <a href="/categories.html#retrospective-ref">retrospective</a> and this year I&#39;m feeling a bit ashamed to say that my plans didn&#39;t end up as I originally planned and I needed to start a new life plan. In another hand, I&#39;d like to start with a positive note, and I can guarantee I&#39;m living the happiest days of my life.  </p></p>
+<p><h1 class="post"><a class="post" href="/image-processing-with-rmagick"> Image processing with Ruby</a></h1>
+ <p>During my vacations I decide to play in a different project. I&#39;d like to make
+some hashi art with a lot of chopsticks my girlfriend is collecting from the
+japanese restaurant that she works.</p></p>
 
-<p>Well, I started my <a href="/my-nomad-life">digital nomad life</a> and ended up as a digital homeless.
-My stable relationship of 7 years was over, and we share the guard of our son amicably.</p>
+<p>We have hundreds and will reach thousands of chopsticks collected soon. The idea
+is try some art and we decide to build a plaque with holes that could
+pottentially  turn into some art.</p>
 
-<p>I started my year in a solo mode, only with my bike and all my stuff fit in a 60L saddle bag that goes in my bike. I lived with friends for a few months until
-I decide to rent an apartment and start my new life. I lived part-time in
-Florianopolis and part-time in Sao Miguel do Oeste, the city that my son lives.</p>
+<p>The project is pretty simple, we got an random stencil image from web and we
+want to convert the painted black part into dots. Like this image:</p>
 
-<p>To be closer to him I decided to move to his city, and here we&#39;re now. He lives
-half of the week with me and half with his mother.</p>
+<p><img src="/images/skull.jpg" alt="skull"></p>
 
-<iframe src="//instagram.com/p/BrbRT_YHOGN/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+<p>Into dots format:</p>
 
-<h2 id="career">Career</h2>
+<p><img src="/images/skull-dots1-5.jpg" alt="skull with dots"></p>
 
-<p>In the first days of January, when I was back from holidays, I start my new
-role at Toptal: Team Leader. I worked as a back-end developer mentoring
-other people during all my time there, and I was promoted to TL.
-I was pleased with all the stuff that I was doing previously, but the leadership was something
-new for me. I never thought about it, and I dedicated a good time learning about
-what was my next steps. </p>
+<p>The software is basic. We navigate into pixels and check if they&#39;re not white.
+If they&#39;re not the background, we can plot a circle and keep jumping using some
+padding and some &quot;hashi&quot; diameter configuration.</p>
 
-<p>One book that was pretty useful to me was <a href="https://www.amazon.com.br/First-Days-Updated-Expanded-Strategies/dp/1422188612">The first ninety days</a>.</p>
+<p>The project is open source here: <a href="https://github.com/jonatas/hashi">https://github.com/jonatas/hashi</a></p>
 
-<figure class="highlight"><pre><code class="language-text" data-lang="text">Every time I refer to books imagine I&#39;m listening to the audiobook version :)
+<p>And you can play at your own. So, let&#39;s build the idea step by step.</p>
+
+<h2 id="creating-the-new-project-with-bundler-gem">Creating the new project with bundler gem</h2>
+
+<p>I love to use <code>bundle gem</code> to create all my ruby projects because it&#39;s easier
+than start from scratch and easy to adapt later.</p>
+
+<p>First step is <code>bundle gem hashi</code> that is supposed to be the name of our project.</p>
+
+<h2 id="add-libraries-to-the-project-with-bundler-add">Add libraries to the project with <code>bundler add</code></h2>
+
+<p>I love <a href="http://pryrepl.org">pry</a> and I need it since the beginning, so let&#39;s add it.</p>
+
+<p><code>bundle add pry</code></p>
+
+<p>I also will need RMagick, so let&#39;s add it as well:</p>
+
+<p><code>bundle add rmagick</code></p>
+
+<h2 id="setup-pry-on-bin-console">Setup pry on <code>bin/console</code></h2>
+
+<p>When you use the <code>bundle gem</code> it creates a <code>bin/console</code> utility that simply
+brings your environment into a IRB session. It&#39;s pretty useful for debugging
+purposes and understanding the libraries. As the first step, let&#39;s switch to
+<code>pry</code> instead of IRB:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">#!/usr/bin/env ruby
+
+require &quot;bundler/setup&quot;
+require &quot;hashi&quot;
+require &quot;pry&quot;
+Pry.start
 </code></pre></figure>
 
-<p>Another thing that I did a lot was taking notes. I really liked to take notes
-and spend time reviewing my thoughts in the paper. It helped me a lot to have
-better meetings and drive my days more productively.</p>
-
-<p>This year I participated in the Leadership off-site, and it was a fantastic experience.
-Too many cultures and people that I work, but I never faced them before.</p>
-
-<iframe src="//instagram.com/p/BqkgjaMHE2S/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<p>We worked, had meals, tours, and party together. All extraordinary people.
-Learned a few jokes from other countries as well :D</p>
-
-<iframe src="//instagram.com/p/BqkCjxhnH0o/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<p>Participating in such activity was essential. Working remote have this
-gap and gathering are very expressive but they turn the job more productive in the long term.</p>
-
-<p>People need to trust each other and such opportunity bonds people and create trust.</p>
-
-<p>It was an exciting year, and I&#39;m planning to submit some talks to speak at conferences.
-We&#39;re <a href="https://github.com/toptal?utf8=%E2%9C%93&amp;q=&amp;type=source&amp;language=">open sourcing great projects</a>, and I&#39;ll evangelize about them.
-I&#39;m also thinking seriously about starting speaking not only on technical topics but
-also go for more managerial/agile conferences. Today I&#39;m only on developers conference,
-and I&#39;m a <a href="https://en.eventials.com/locaweb/manipulating-ruby-abstract-syntax-tree-com-jonatas-davi-paganini/">big fan of live coding</a>. </p>
-
-<h2 id="i-quit-drinking">I quit drinking</h2>
-
-<p>One of the most critical decisions of the year. I&#39;m 8 months without beers and
-I survived! I&#39;m pretty happy with my life, and now I have even more time to spend
-with my son and do something healthier than drink beers.</p>
-
-<iframe src="//instagram.com/p/Bev2JKNBM-v/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<p>I decided to quit drinking to spend more time with my son and leave my ex-wife
-in peace without being worried if I was distracted by something else than take
-care of him.</p>
-
-<p>I&#39;m in love with this feeling of being healthful and sane and try to expand what
-I do instead of keeping doing the same forever.</p>
-
-<p>As a backfill, I spend a good time drawing with my son and listening to
-audiobooks to fill the time and adopt new habits.</p>
-
-<p>I lose weight from 95 kg to 82 kg after the stop with the daily beer.</p>
-
-<p>I got a bit sick and got some kilos back, but I&#39;m pretty happy reducing from 125
-KG to 88 KG in the last 3 years. My weight is stable, but I&#39;m still not a lean person but much more accessible to live without carrying 30+ extra kilos :)</p>
-
-<h2 id="i-lived-with-friends">I lived with friends</h2>
-
-<p>My first months without a house I lived with Felipe Duardo. A great friend that was
-receiving people through Couchsurfing and I asked to stay for some time.</p>
-
-<iframe src="//instagram.com/p/Bb71w3Qh0QT/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<p>I had a fantastic opportunity to live with a guy that has a better lifestyle
-than me, and it pushed me to eat better and do more exercises. I learned a bit
-more about a paleolithic diet, and we had generous breakfasts in the morning
-talking a lot and sharing our daily stuff. </p>
-
-<p>My son lived with us during January, and it was delightful. We never spend an
-entire month together, and he adapted very well. I cycled around 800 km in
-January with Lorenzo on the back seat \o/</p>
-
-<iframe src="//instagram.com/p/Bd3_g4XhWJL/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<p>He slept a few times as always :)</p>
-
-<p>I also lived on friends houses&#39; while visiting my son. I started running with my
-friend Fagner and ran 50+ KM in the first week until I hurt my Achilles tendon.</p>
-
-<p>Fagner is a great entrepreneur, and I had a great conversation with him about business, life, and future. Fagner is a dreamer, I always have great times with him.</p>
-
-<p>We also spend our vacations together :)</p>
-
-<iframe src="//instagram.com/p/BlWBk4rFJAK/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<p>I also lived in Willian&#39;s house, and we have a great friendship. He is psychologist
-and we spend our evenings talking about childhood mindset, talks, job,
-career, future and so on.</p>
-
-<p>He is a great friend, and I met him through Fagner as well. </p>
-
-<p>For 3 months I got an average of 45 hours of bus per month, coming and going
-back to Florianopolis.</p>
-
-<p>I got bored and decided to move full time to my son city, and here I live now.</p>
-
-<p>My story with living with friends didn&#39;t end up here.</p>
-
-<p>I decided to build a dedicated bedroom in my new place for guests to visit me more. 
-And give back as people did with me when I needed.</p>
-
-<p><a href="https://www.couchsurfing.com/people/jonatas-paganini">Follow me on couchsurfing</a> and stay tuned!</p>
-
-<h2 id="my-amazing-dad-life">My amazing dad life</h2>
-
-<p>I love my son, and he is my precious. I don&#39;t know how my life would be if I
-didn&#39;t have him around. During this year, he turned 7, and he is brilliant.
-He is learning Spanish and English in the school, and he is also doing extra
-classes for English and he is going very well.</p>
-
-<iframe src="//instagram.com/p/Bks1eLGF59W/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<p>Some days ago he invented a new game: In the game, I should say something in
-English and he would guess what the meaning of the message in Portuguese is.
-Pretty cool game and I started with colors, numbers and then simple
-messages and he got around 80% of right answers.</p>
-
-<iframe src="//instagram.com/p/BlTkVirFmme/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<p>Now he is excited about collecting stuff, and he asked me to start a new
-collection, and he is accumulating coins from different countries and ages. With
-some luck, he inherited my older brother collection, and now he has a few coins to
-hold for the next generation.</p>
-
-<iframe src="//instagram.com/p/BiecUoOgV6R/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<p>I&#39;m also encouraging him to start collecting comics books, and he is reading
-a lot. It&#39;s very cool to see him around a book and start laughing after
-understanding the pieces of the story. Sometimes he also feels so excited that he
-needs to tell the story and it&#39;s very cool to see him processing and to talk
-about what he read.</p>
-
-<p>He is also learning to write some Japanese and eventually rolling some
-hosomaki with my girlfriend :)</p>
-
-<iframe src="//instagram.com/p/Bk8MUFiFBfj/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<h2 id="i-did-a-laser-eye-surgery">I did a laser eye surgery</h2>
-
-<p>For some years I was expecting to make it happen in my life, and here I am.
-Living without glasses after 20+ years of adhesion.</p>
-
-<iframe src="//instagram.com/p/BkqVQGsl8MP/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<p>The new life is comfortable, and I still tend to heart my eyes because before I was always being protected and know, I&#39;m double caring about this until I get used to
-not have anything protecting the eye.</p>
-
-<p>The most impressive thing after doing the surgery was looking into the mirror. It was the first time in my adult life that I was really looking at me having a high definition without the glasses.</p>
-
-<p>I&#39;m delighted with the decision and even having and small issue in my eye flap 
-after the surgery on the first day, everything was adjusted, and I follow a healthy life in a few days.</p>
-
-<h2 id="drawing">Drawing</h2>
-
-<p>I drew a lot during my free time, and it was my own art therapy process.</p>
-
-<iframe src="//instagram.com/p/BlUMsVdlaqn/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<p>I got really involved in this pattern and did some very cool pieces of random
-forms.</p>
-
-<iframe src="//instagram.com/p/BjSOs0NlfUm/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<h2 id="my-first-mechanical-keyboard">My first mechanical keyboard</h2>
-
-<p>I never thought about using a mechanical keyboard. I was pretty comfortable with
-my current keyboard, but after I saw the <a href="https://ergodox-ez.com/">ergodox</a>, I decided to buy
-one. This keyboard is pretty powerful, and you can configure multiple layers and
-have much more than a regular keyboard.</p>
-
-<iframe src="//instagram.com/p/BnTqx5gFoD1/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<p>I&#39;m a command line fan and having the keys configured with multiple shortcuts is
-pretty cool. For example, if I hold <code>z</code>, it simply turns into control. I also created
-a second layout where the arrows are on <code>hjkl,</code> and I can easily switch using my
-favorite shortcuts from Vim.</p>
-
-<iframe src="//instagram.com/p/Bnw5vT0lEC_/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<p>I bought this mainly because I&#39;d like to use in my belly and work in a very
-different position and even try to work laid or stand up. I got 3 hernias in my
-lower back because of 15 years sat in front of the computer.</p>
-
-<p>I genuinely believe we need to find better interfaces for the long-term solution for
-people in long journeys in the desk.</p>
-
-<iframe src="//instagram.com/p/BqvrRFUHpHn/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
-
-<p>I&#39;m trying to adapt but still getting tired easily trying to play with the keyboard.
-I did some hour session and most part of the time I needed to concentrate on
-localize the keys.</p>
-
-<p>I spent 3 weeks training during the night and adapt the keyboard layout until I get speed enough to start working. To not be in a random practice
-I decided to build the official documentation for
-<a href="https://github.com/jonatas/fast">fast</a> and now it&#39;s alive:</p>
-
-<p><a href="https://jonatas.github.io/fast/">https://jonatas.github.io/fast/</a></p>
-
-<p>In the new documentation, I&#39;m trying to store some of my researches and share details about how I&#39;m using them. I build a nice one about <a href="https://jonatas.github.io/fast/similarity_tutorial/">code similarity</a>.  </p>
-
-<h2 id="audiobooks">Audiobooks</h2>
-
-<p>My favorite books this year:</p>
-
-<ul>
-<li><a href="https://www.amazon.com/Principles-Life-Work-Ray-Dalio/dp/1501124021">Principles: Life and Work</a></li>
-<li><a href="https://www.thegreatcourses.com/courses/your-deceptive-mind-a-scientific-guide-to-critical-thinking-skills.html">Your Deceptive Mind: A Scientific Guide to Critical Thinking Skills</a></li>
-<li><a href="https://www.audible.com/pd/Give-and-Take-Audiobook/B00BMBWNEW?">Give and Take</a>  is also amazing.</li>
-<li><a href="https://www.audible.com/pd/TED-Talks-Audiobook/B01DTE9WOI">TED Talks</a>
-the official guide is amazing for who is interested in public speaking.</li>
-</ul>
-
-<p>I am still listening to
-<a href="https://www.amazon.com/Behave-Biology-Humans-Best-Worst/dp/1594205078">Behave: The Biology of Humans at Our Best and Worst</a> and 
-<a href="https://www.amazon.com/Thinking-Fast-Slow-Daniel-Kahneman/dp/0374533555">Thinking Fast and Slow</a> and both are pretty interesting.</p>
-
-<h2 id="conclusions">Conclusions</h2>
-
-<p>My year was outstanding. I&#39;m adapting to my new solo life, and I think I take the best decision to get closer to my son. I&#39;m pleased to have the opportunity to do my work remotely and see him growing up every day.</p>
-
-<p>No promises, for now, just looking forward to the new year \o/</p>
+<p>There&#39;s no secret in the code. We&#39;re just requiring the bundler requirements
+plus the files into our project and start a pry session.</p>
+
+<p>The next step is and pick some image to learn the basics of the image reading.</p>
+
+<h2 id="pick-a-image-from-web-with-curl">Pick a image from web with <code>curl</code></h2>
+
+<p>Now, let&#39;s pick some random image from web to follow the process. I&#39;ll use
+<a href="https://www.bing.com/images/search?view=detailv2&amp;form=INRECC&amp;it=IMG&amp;st=TPD&amp;dt=IMG&amp;lids=skull-stencil&amp;id=BFBB82AB9CBDEFB72C25459D4A87A6E32A9EDA16&amp;ccid=8uSGNq7g&amp;thid=OIP.8uSGNq7gbMksMyX_f7vXewHaK7%26o%3D5&amp;first=1000&amp;selectedindex=1007&amp;iss=TF&amp;expw=441&amp;exph=651&amp;ajaxhist=0&amp;pagetoken=dt_image*fver_0*it_image*lft_spc*lid_skull-stencil*offset_0*st_topic*uft_gen&amp;mediaurl=http%3A%2F%2Fcliparts.co%2Fcliparts%2Frcj%2FKMa%2FrcjKMaMzi.jpg">this one</a>.</p>
+
+<p>![<a href="http://cliparts.co/cliparts/rcj/KMa/rcjKMaMzi.jpg">http://cliparts.co/cliparts/rcj/KMa/rcjKMaMzi.jpg</a>]</p>
+
+<p>Let&#39;s download the image in the project folder naming it <code>skull.png</code>:</p>
+
+<p><code>curl http://cliparts.co/cliparts/rcj/KMa/rcjKMaMzi.jpg &gt; skull.png</code></p>
+
+<p>With the <code>skull.png</code> we can play and learn more about the image with RMagick.</p>
+
+<h2 id="reading-image-with-rmagick">Reading image with RMagick</h2>
+
+<p><a href="http://rmagick.github.io">RMagick</a> is a powerfull library and we&#39;re going to
+supperficially cover our needs.</p>
+
+<p>First thing is learn more about image details:
+```ruby
+require &#39;rmagick&#39;
+Magick::Image.read(&#39;skull.jpg&#39;)</p>
+
+<h1 id="gt-skull-jpg-jpeg-441x651-4-l41x651-0-0-directclass-8-bit-56kb">=&gt; [skull.jpg JPEG 441x651 4)l41x651+0+0 DirectClass 8-bit 56kb]</h1>
+
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Check that it returns an array of images because it probably can process
+multiple images. In this case let&#39;s pick the first.
+```ruby
+image = Magick::Image.read(&#39;skull.jpg&#39;).first
+# =&gt; skull.jpg JPEG 441x651 441x651+0+0 DirectClass 8-bit 56kb
+</code></pre></figure>
+
+<p>Now let&#39;s check some crucial properties to follow our small image processor.
+<code>ruby
+image.rows # =&gt; 651
+image.columns # =&gt; 441
+</code>```
+With the number of row and columns we can navigate pixel by pixel and
+calculate the position of each pixel discovering the row and column based on
+the pixel index.</p>
+
+<p>If the image have 651 rows and 441 columns, we can imagine the image have 287091
+pixels from (651 * 441) spots we have.</p>
+
+<h2 id="calculate-row-and-column-from-pixel-index">Calculate row and column from pixel index</h2>
+
+<p>To discover the row, let&#39;s build some example:</p>
+
+<p>Let&#39;s say that we&#39;re analyzing the pixel <code>1234</code>:
+<code>ruby
+pixel_index = 1234
+row = pixel_index / image.rows # =&gt; 1
+col = pixel_index % image.columns # =&gt; 352
+</code>
+We don&#39;t need the <code>pixel_index</code> but the <code>col</code> and <code>row</code> values are crucial to plot
+the dots in the new image.</p>
+
+<p>Now, let&#39;s discover the proper method to get the pixels from image:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">image.methods.grep /pixel/
+[:get_pixels,
+ :store_pixels,
+ :mean_error_per_pixel,
+ :pixel_interpolation_method,
+ :pixel_interpolation_method=,
+ :virtual_pixel_method,
+ :virtual_pixel_method=,
+ :export_pixels,
+ :export_pixels_to_str,
+ :import_pixels,
+ :each_pixel,
+ :pixel_color]
+</code></pre></figure>
+
+<p>Cool! looks like we can use <code>get_pixels</code> or iterate directly with
+ <code>each_pixel</code>.</p>
+
+<p>Following my &quot;Binding Pry Driven Development&quot; flow, let&#39;s jump into the first
+pixel:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">[13] pry(main)&gt; image.each_pixel do |px|
+[13] pry(main)*   binding.pry
+[13] pry(main)* end
+[1] pry(main)&gt; px
+=&gt; #&lt;Magick::Pixel:0x00007f8c2d58fd98&gt;
+[2] pry(main)&gt; px.methods.grep /color/
+=&gt; [:to_color]
+[3] pry(main)&gt; px.to_color
+=&gt; &quot;white&quot;
+</code></pre></figure>
+
+<p>Ta da! we have almost all pieces ready to start the real implementation:</p>
+
+<p>Let&#39;s start building a smart iterator that can yield the information we need for
+create the rules and drawings that we want:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">  def navigate_on_pixels_with_index
+    i = 0
+    image.each_pixel do |pixel|
+      row = i / image.rows
+      col = i % image.columns
+      yield pixel, row, col, i
+      i += 1
+    end
+  end
+</code></pre></figure>
+
+<p>And the method can yield the information we need to create our drawing.</p>
+
+<p>Going back to command line, let&#39;s see how the <code>Draw</code> object works:
+<code>ruby
+draw = Magick::Draw.new
+=&gt; (no primitives defined)
+[6] pry(main)&gt; draw.methods.grep /circle/
+=&gt; [:circle]
+</code></p>
+
+<p>One of my favorite shortcuts is <code>$</code> on pry. It&#39;s a shortcut for <code>show-doc</code> of
+something. Let&#39;s inspect the <code>circle</code> method:
+```ruby
+[7] pry(main)&gt; $ draw.circle</p>
+
+<p>From: /Users/jonatasdp/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/rmagick-2.16.0/lib/rmagick_internal.rb @ line 244:
+Owner: Magick::Draw
+Visibility: public
+Number of lines: 3</p>
+
+<p>def circle(originX, originY, perimX, perimY)
+  primitive &#39;circle &#39; + sprintf(&#39;%g,%g %g,%g&#39;, originX, originY, perimX, perimY)
+end
+<code>
+You can see the method will need the `originX` and `originY` that are `col` and
+`row` position. The `perimX `and `perimY` will basically depend on the hashi
+diameter + `col` and `row` position.
+</code>ruby
+def draw_hashi_on(row, col)
+  hashi_size = 3
+  draw.circle(col, row, col + hashi_size, row + hashi_size)
+end
+```
+We still need to take care of the padding, otherwise we&#39;re going to iterate
+under all the pixels and it will become a blurried image of dots.</p>
+
+<p>As we want to have some distance between the circles, we need to define this
+distance and ignore the pixels that are not in this position.
+<code>ruby
+  def navigate_on_pixels_with_row_and_col
+    i = 0
+    padding = 8
+    image.each_pixel do |pixel|
+      row = i / image.rows
+      col = i % image.columns
+      if (row % padding).zero? &amp;&amp;
+         (col % padding).zero?
+        yield pixel, row, col
+      end
+      i += 1
+    end
+  end
+</code></p>
+
+<p>Now we&#39;re ignoring all pixels that are not divisable by 8 and it means that
+we&#39;re jumping each 8 pixels to make the check. Why? Because of if we want only
+to plot dots every 8 pixels, I don&#39;t need to navigate and check the pixels
+between them. It will just have a poor performance.</p>
+
+<p>Improving our iterator will make it easy to concentrate in your very basic rule:</p>
+
+<p>Non white pixels should have circles.</p>
+
+<p>Putting all together in the <code>process!</code> method:
+<code>ruby
+    def process!
+      navigate_on_pixels_with_row_and_col do |pixel, row, col|
+        if pixel.to_color != &quot;white&quot;
+          draw_hashi_on(row, col)
+        end
+      end
+      save_new_image
+    end
+</code>
+We still missed a final step that is save the new drawing.
+<code>ruby
+def save_new_image
+  img = Magick::Image.new(Hashi.image.rows, Hashi.image.columns)
+  draw.draw(img)
+  img.write(&#39;skull-dots.jpg&#39;)
+end
+</code>
+If you save the file probably it will work in some how.</p>
+
+<p>It was the basic steps I follow to create this small project. Looking the entire
+code that accepts the filename, hashi size and padding as a command line input:</p>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">require &quot;hashi/version&quot;
+require &#39;rmagick&#39;
+require &#39;set&#39;
+
+module Hashi
+  module_function
+
+  def image_file
+    @file = ARGV[0] || &#39;stencil.png&#39;
+  end
+
+  def image
+    @image ||= Magick::Image.read(image_file).first
+  end
+
+  def dots_image_file
+    name, extension = image_file.split(&#39;.&#39;)
+    &quot;#{name}-dots.#{extension}&quot;
+  end
+
+  def draw
+    @draw ||= Magick::Draw.new
+  end
+
+  def hashi_size
+    @hashi_size ||= ARGV[1]&amp;.to_i || 10
+  end
+
+  def hashi_padding
+    @hashi_padding ||= ARGV[2]&amp;.to_i || hashi_size * 3
+  end
+
+  def padding
+    @padding ||= hashi_size + hashi_padding
+  end
+
+  def navigate_on_pixels_with_index
+    i = 0
+    image.each_pixel do |pixel|
+      row = i / image.rows
+      col = i % image.columns
+      if (row % padding).zero? &amp;&amp;
+         (col % padding).zero?
+        yield pixel, row, col, i
+      end
+      i += 1
+    end
+  end
+
+  def process!
+    @hashi_map = Set.new
+    navigate_on_pixels_with_index do |pixel, row, col, index|
+      if pixel.to_color != &quot;white&quot;
+        hashi_on(row, col)
+      end
+    end
+    finish!
+  end
+
+  def finish!
+    print &quot;drawing the new image..&quot;
+    img = Magick::Image.new(Hashi.image.rows, Hashi.image.columns)
+    draw.draw(img)
+    img.write(dots_image_file)
+    `open #{dots_image_file}`
+    print &quot;... done!&quot;
+  end
+
+  def hashi_on row, col
+    draw.circle(col, row, col + hashi_size, row + hashi_size)
+  end
+end
+</code></pre></figure>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>If you look at the code, it have a few extra messages but the basics are what
+was explained here.</p>
+
+<p>It walks through each n pixels on an image, check if it&#39;s not a white color and
+plot a dot. It creates this beautiful effect and you can expand the program to
+make other details.</p>
+
+<p>I&#39;m not caring about the code organization but my experience automatically
+divide the problem into multiple steps and I organize the methods as I was
+exploring the library into the console session.</p>
+
+<p>If you know what you want to build, it&#39;s easy to explore focused on the final
+result you want to achieve. With this prototype we can easily imagine how the
+final work will be, how many chopsticks we need and so on...</p>
+
+<p>My code is not tested and I just had fun with code. My next step is export this
+coordinated dots positions to work directly into 3D files. I&#39;ll convert to <a href="/tutorial-programacao-3d-openscad">stl
+file</a> and print it in 3D printing. My idea is
+create cylinders from the hashies x, y position and then use another cube to
+subtract it and get the perfect plaque with all the holes to make the final
+hashi art.</p>
 
 <p><hr />
 <ul class="posts"></p>
+
+<p><li><span class="post_date">06 Jan 2019</span> &raquo;<a class="post" href="/image-processing-with-rmagick">Image processing with Ruby</a></li></p>
 
 <p><li><span class="post_date">30 Dec 2018</span> &raquo;<a class="post" href="/retrospective-2018">Retrospective 2018</a></li></p>
 

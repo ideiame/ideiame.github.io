@@ -1,0 +1,814 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Image processing with Ruby</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link id="stylesheet_prettify" href="/prettify/prettify_white.css" type="text/css" rel="stylesheet" />
+
+    <script type="text/javascript" src="/prettify/prettify.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) {
+      prettyPrint();
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       }
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="https://github.com/jonatas">Github</a></li>
+              <li><a href="https://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="https://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="https://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+              <li><a href="https://plus.google.com/100136762810302102952/">Google+</a></li>
+              <li><a href="https://soundcloud.com/jonatasdp">Soundcloud</a></li>
+              <li><a href="https://www.meetup.com/Floripa-on-Rails/members/185190193/">Meetup</a></li>
+              <li><a href="https://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://speakerdeck.com/jonatas/">Speaker Deck</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
+            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
+            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Páginas</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Image processing with Ruby <small><br/>06/01/2019
+    
+      <span class="categories">
+        
+          <a  class="btn btn-primary" href=/categories.html#ruby-ref>ruby
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+            <span class="badge">17</span>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+          </a>
+         
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>During my vacations I decide to play in a different project. I&#39;d like to make
+some hashi art with a lot of chopsticks my girlfriend is collecting from the
+japanese restaurant that she works.</p>
+
+<p>We have hundreds and will reach thousands of chopsticks collected soon. The idea
+is try some art and we decide to build a plaque with holes that could
+pottentially  turn into some art.</p>
+
+<p>The project is pretty simple, we got an random stencil image from web and we
+want to convert the painted black part into dots. Like this image:</p>
+
+<p><img src="/images/skull.jpg" alt="skull"></p>
+
+<p>Into dots format:</p>
+
+<p><img src="/images/skull-dots1-5.jpg" alt="skull with dots"></p>
+
+<p>The software is basic. We navigate into pixels and check if they&#39;re not white.
+If they&#39;re not the background, we can plot a circle and keep jumping using some
+padding and some &quot;hashi&quot; diameter configuration.</p>
+
+<p>The project is open source here: <a href="https://github.com/jonatas/hashi">https://github.com/jonatas/hashi</a></p>
+
+<p>And you can play at your own. So, let&#39;s build the idea step by step.</p>
+
+<h2 id="creating-the-new-project-with-bundler-gem">Creating the new project with bundler gem</h2>
+
+<p>I love to use <code>bundle gem</code> to create all my ruby projects because it&#39;s easier
+than start from scratch and easy to adapt later.</p>
+
+<p>First step is <code>bundle gem hashi</code> that is supposed to be the name of our project.</p>
+
+<h2 id="add-libraries-to-the-project-with-bundler-add">Add libraries to the project with <code>bundler add</code></h2>
+
+<p>I love <a href="http://pryrepl.org">pry</a> and I need it since the beginning, so let&#39;s add it.</p>
+
+<p><code>bundle add pry</code></p>
+
+<p>I also will need RMagick, so let&#39;s add it as well:</p>
+
+<p><code>bundle add rmagick</code></p>
+
+<h2 id="setup-pry-on-bin-console">Setup pry on <code>bin/console</code></h2>
+
+<p>When you use the <code>bundle gem</code> it creates a <code>bin/console</code> utility that simply
+brings your environment into a IRB session. It&#39;s pretty useful for debugging
+purposes and understanding the libraries. As the first step, let&#39;s switch to
+<code>pry</code> instead of IRB:</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">#!/usr/bin/env ruby
+
+require &quot;bundler/setup&quot;
+require &quot;hashi&quot;
+require &quot;pry&quot;
+Pry.start
+</code></pre></figure>
+<p>There&#39;s no secret in the code. We&#39;re just requiring the bundler requirements
+plus the files into our project and start a pry session.</p>
+
+<p>The next step is and pick some image to learn the basics of the image reading.</p>
+
+<h2 id="pick-a-image-from-web-with-curl">Pick a image from web with <code>curl</code></h2>
+
+<p>Now, let&#39;s pick some random image from web to follow the process. I&#39;ll use
+<a href="https://www.bing.com/images/search?view=detailv2&amp;form=INRECC&amp;it=IMG&amp;st=TPD&amp;dt=IMG&amp;lids=skull-stencil&amp;id=BFBB82AB9CBDEFB72C25459D4A87A6E32A9EDA16&amp;ccid=8uSGNq7g&amp;thid=OIP.8uSGNq7gbMksMyX_f7vXewHaK7%26o%3D5&amp;first=1000&amp;selectedindex=1007&amp;iss=TF&amp;expw=441&amp;exph=651&amp;ajaxhist=0&amp;pagetoken=dt_image*fver_0*it_image*lft_spc*lid_skull-stencil*offset_0*st_topic*uft_gen&amp;mediaurl=http%3A%2F%2Fcliparts.co%2Fcliparts%2Frcj%2FKMa%2FrcjKMaMzi.jpg">this one</a>.</p>
+
+<p>![<a href="http://cliparts.co/cliparts/rcj/KMa/rcjKMaMzi.jpg">http://cliparts.co/cliparts/rcj/KMa/rcjKMaMzi.jpg</a>]</p>
+
+<p>Let&#39;s download the image in the project folder naming it <code>skull.png</code>:</p>
+
+<p><code>curl http://cliparts.co/cliparts/rcj/KMa/rcjKMaMzi.jpg &gt; skull.png</code></p>
+
+<p>With the <code>skull.png</code> we can play and learn more about the image with RMagick.</p>
+
+<h2 id="reading-image-with-rmagick">Reading image with RMagick</h2>
+
+<p><a href="http://rmagick.github.io">RMagick</a> is a powerfull library and we&#39;re going to
+supperficially cover our needs.</p>
+
+<p>First thing is learn more about image details:
+```ruby
+require &#39;rmagick&#39;
+Magick::Image.read(&#39;skull.jpg&#39;)</p>
+
+<h1 id="gt-skull-jpg-jpeg-441x651-4-l41x651-0-0-directclass-8-bit-56kb">=&gt; [skull.jpg JPEG 441x651 4)l41x651+0+0 DirectClass 8-bit 56kb]</h1>
+<figure class="highlight"><pre><code class="language-text" data-lang="text">Check that it returns an array of images because it probably can process
+multiple images. In this case let&#39;s pick the first.
+```ruby
+image = Magick::Image.read(&#39;skull.jpg&#39;).first
+# =&gt; skull.jpg JPEG 441x651 441x651+0+0 DirectClass 8-bit 56kb
+</code></pre></figure>
+<p>Now let&#39;s check some crucial properties to follow our small image processor.
+<code>ruby
+image.rows # =&gt; 651
+image.columns # =&gt; 441
+</code>```
+With the number of row and columns we can navigate pixel by pixel and
+calculate the position of each pixel discovering the row and column based on
+the pixel index.</p>
+
+<p>If the image have 651 rows and 441 columns, we can imagine the image have 287091
+pixels from (651 * 441) spots we have.</p>
+
+<h2 id="calculate-row-and-column-from-pixel-index">Calculate row and column from pixel index</h2>
+
+<p>To discover the row, let&#39;s build some example:</p>
+
+<p>Let&#39;s say that we&#39;re analyzing the pixel <code>1234</code>:
+<code>ruby
+pixel_index = 1234
+row = pixel_index / image.rows # =&gt; 1
+col = pixel_index % image.columns # =&gt; 352
+</code>
+We don&#39;t need the <code>pixel_index</code> but the <code>col</code> and <code>row</code> values are crucial to plot
+the dots in the new image.</p>
+
+<p>Now, let&#39;s discover the proper method to get the pixels from image:</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">image.methods.grep /pixel/
+[:get_pixels,
+ :store_pixels,
+ :mean_error_per_pixel,
+ :pixel_interpolation_method,
+ :pixel_interpolation_method=,
+ :virtual_pixel_method,
+ :virtual_pixel_method=,
+ :export_pixels,
+ :export_pixels_to_str,
+ :import_pixels,
+ :each_pixel,
+ :pixel_color]
+</code></pre></figure>
+<p>Cool! looks like we can use <code>get_pixels</code> or iterate directly with
+ <code>each_pixel</code>.</p>
+
+<p>Following my &quot;Binding Pry Driven Development&quot; flow, let&#39;s jump into the first
+pixel:</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">[13] pry(main)&gt; image.each_pixel do |px|
+[13] pry(main)*   binding.pry
+[13] pry(main)* end
+[1] pry(main)&gt; px
+=&gt; #&lt;Magick::Pixel:0x00007f8c2d58fd98&gt;
+[2] pry(main)&gt; px.methods.grep /color/
+=&gt; [:to_color]
+[3] pry(main)&gt; px.to_color
+=&gt; &quot;white&quot;
+</code></pre></figure>
+<p>Ta da! we have almost all pieces ready to start the real implementation:</p>
+
+<p>Let&#39;s start building a smart iterator that can yield the information we need for
+create the rules and drawings that we want:</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">  def navigate_on_pixels_with_index
+    i = 0
+    image.each_pixel do |pixel|
+      row = i / image.rows
+      col = i % image.columns
+      yield pixel, row, col, i
+      i += 1
+    end
+  end
+</code></pre></figure>
+<p>And the method can yield the information we need to create our drawing.</p>
+
+<p>Going back to command line, let&#39;s see how the <code>Draw</code> object works:
+<code>ruby
+draw = Magick::Draw.new
+=&gt; (no primitives defined)
+[6] pry(main)&gt; draw.methods.grep /circle/
+=&gt; [:circle]
+</code></p>
+
+<p>One of my favorite shortcuts is <code>$</code> on pry. It&#39;s a shortcut for <code>show-doc</code> of
+something. Let&#39;s inspect the <code>circle</code> method:
+```ruby
+[7] pry(main)&gt; $ draw.circle</p>
+
+<p>From: /Users/jonatasdp/.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems/rmagick-2.16.0/lib/rmagick_internal.rb @ line 244:
+Owner: Magick::Draw
+Visibility: public
+Number of lines: 3</p>
+
+<p>def circle(originX, originY, perimX, perimY)
+  primitive &#39;circle &#39; + sprintf(&#39;%g,%g %g,%g&#39;, originX, originY, perimX, perimY)
+end
+<code>
+You can see the method will need the `originX` and `originY` that are `col` and
+`row` position. The `perimX `and `perimY` will basically depend on the hashi
+diameter + `col` and `row` position.
+</code>ruby
+def draw_hashi_on(row, col)
+  hashi_size = 3
+  draw.circle(col, row, col + hashi_size, row + hashi_size)
+end
+```
+We still need to take care of the padding, otherwise we&#39;re going to iterate
+under all the pixels and it will become a blurried image of dots.</p>
+
+<p>As we want to have some distance between the circles, we need to define this
+distance and ignore the pixels that are not in this position.
+<code>ruby
+  def navigate_on_pixels_with_row_and_col
+    i = 0
+    padding = 8
+    image.each_pixel do |pixel|
+      row = i / image.rows
+      col = i % image.columns
+      if (row % padding).zero? &amp;&amp;
+         (col % padding).zero?
+        yield pixel, row, col
+      end
+      i += 1
+    end
+  end
+</code></p>
+
+<p>Now we&#39;re ignoring all pixels that are not divisable by 8 and it means that
+we&#39;re jumping each 8 pixels to make the check. Why? Because of if we want only
+to plot dots every 8 pixels, I don&#39;t need to navigate and check the pixels
+between them. It will just have a poor performance.</p>
+
+<p>Improving our iterator will make it easy to concentrate in your very basic rule:</p>
+
+<p>Non white pixels should have circles.</p>
+
+<p>Putting all together in the <code>process!</code> method:
+<code>ruby
+    def process!
+      navigate_on_pixels_with_row_and_col do |pixel, row, col|
+        if pixel.to_color != &quot;white&quot;
+          draw_hashi_on(row, col)
+        end
+      end
+      save_new_image
+    end
+</code>
+We still missed a final step that is save the new drawing.
+<code>ruby
+def save_new_image
+  img = Magick::Image.new(Hashi.image.rows, Hashi.image.columns)
+  draw.draw(img)
+  img.write(&#39;skull-dots.jpg&#39;)
+end
+</code>
+If you save the file probably it will work in some how.</p>
+
+<p>It was the basic steps I follow to create this small project. Looking the entire
+code that accepts the filename, hashi size and padding as a command line input:</p>
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby">require &quot;hashi/version&quot;
+require &#39;rmagick&#39;
+require &#39;set&#39;
+
+module Hashi
+  module_function
+
+  def image_file
+    @file = ARGV[0] || &#39;stencil.png&#39;
+  end
+
+  def image
+    @image ||= Magick::Image.read(image_file).first
+  end
+
+  def dots_image_file
+    name, extension = image_file.split(&#39;.&#39;)
+    &quot;#{name}-dots.#{extension}&quot;
+  end
+
+  def draw
+    @draw ||= Magick::Draw.new
+  end
+
+  def hashi_size
+    @hashi_size ||= ARGV[1]&amp;.to_i || 10
+  end
+
+  def hashi_padding
+    @hashi_padding ||= ARGV[2]&amp;.to_i || hashi_size * 3
+  end
+
+  def padding
+    @padding ||= hashi_size + hashi_padding
+  end
+
+  def navigate_on_pixels_with_index
+    i = 0
+    image.each_pixel do |pixel|
+      row = i / image.rows
+      col = i % image.columns
+      if (row % padding).zero? &amp;&amp;
+         (col % padding).zero?
+        yield pixel, row, col, i
+      end
+      i += 1
+    end
+  end
+
+  def process!
+    @hashi_map = Set.new
+    navigate_on_pixels_with_index do |pixel, row, col, index|
+      if pixel.to_color != &quot;white&quot;
+        hashi_on(row, col)
+      end
+    end
+    finish!
+  end
+
+  def finish!
+    print &quot;drawing the new image..&quot;
+    img = Magick::Image.new(Hashi.image.rows, Hashi.image.columns)
+    draw.draw(img)
+    img.write(dots_image_file)
+    `open #{dots_image_file}`
+    print &quot;... done!&quot;
+  end
+
+  def hashi_on row, col
+    draw.circle(col, row, col + hashi_size, row + hashi_size)
+  end
+end
+</code></pre></figure>
+<h2 id="conclusion">Conclusion</h2>
+
+<p>If you look at the code, it have a few extra messages but the basics are what
+was explained here.</p>
+
+<p>It walks through each n pixels on an image, check if it&#39;s not a white color and
+plot a dot. It creates this beautiful effect and you can expand the program to
+make other details.</p>
+
+<p>I&#39;m not caring about the code organization but my experience automatically
+divide the problem into multiple steps and I organize the methods as I was
+exploring the library into the console session.</p>
+
+<p>If you know what you want to build, it&#39;s easy to explore focused on the final
+result you want to achieve. With this prototype we can easily imagine how the
+final work will be, how many chopsticks we need and so on...</p>
+
+<p>My code is not tested and I just had fun with code. My next step is export this
+coordinated dots positions to work directly into 3D files. I&#39;ll convert to <a href="/tutorial-programacao-3d-openscad">stl
+file</a> and print it in 3D printing. My idea is
+create cylinders from the hashies x, y position and then use another cube to
+subtract it and get the perfect plaque with all the holes to make the final
+hashi art.</p>
+
+</div>
+<hr>
+
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'ideiame'; // required: replace example with your forum shortname
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+
+
+<div class="share-page">
+  Compartilhar &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Image processing with Ruby&url=http://ideia.me/image-processing-with-rmagick&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=http://ideia.me/image-processing-with-rmagick" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=http://ideia.me/image-processing-with-rmagick" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+</div>
+<hr>
+<div class="pagination">
+  <ul>
+    
+    <li class="prev"><a href="/retrospective-2018" title="Retrospective 2018">&larr; Anterior</a></li>
+    
+    <li><a href="/archive.html">Arquivo</a></li>
+    
+    <li class="next disabled"><a>Próximo &rarr;</a>
+    
+  </ul>
+</div>
+<hr>
+
+ <p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+<p>Veja minhas
+  <a href="/talks">talks</a> ou conecte-se via
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+
