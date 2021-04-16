@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -173,7 +173,7 @@
   </h1>
 </div>
 <div class="content">
-    <p>I&#39;m really proud to announce my new contribuition to RuboCop.</p>
+    <p>I’m really proud to announce my new contribuition to RuboCop.</p>
 
 <p>Some days ago I contributed improving the
 <a href="https://rubocop.readthedocs.io/en/latest/development/">development</a> page,
@@ -188,18 +188,19 @@ the order of the elements in the class definition.</p>
 and follows the order:</p>
 
 <ol>
-<li>Include, Extend or Prepend First</li>
-<li>Constants</li>
-<li>Initializer</li>
-<li>Public methods</li>
-<li>Protected methods</li>
-<li>Private methods</li>
+  <li>Include, Extend or Prepend First</li>
+  <li>Constants</li>
+  <li>Initializer</li>
+  <li>Public methods</li>
+  <li>Protected methods</li>
+  <li>Private methods</li>
 </ol>
 
-<p>It&#39;s also very easy to extend the cop and include new rules in the middle.</p>
+<p>It’s also very easy to extend the cop and include new rules in the middle.</p>
 
 <p>The basic configuration says:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">Layout/ClassStructure:
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Layout/ClassStructure:
   Enabled: false
   Categories:
     module_inclusion:
@@ -214,28 +215,30 @@ and follows the order:</p>
       - instance_methods
       - protected_methods
       - private_methods
-</code></pre></div>
-<p>Lets imagine you got sad about people saying <code>validates</code> after define methods
+</code></pre></div></div>
+
+<p>Lets imagine you got sad about people saying <code class="language-plaintext highlighter-rouge">validates</code> after define methods
 and also mess with other macros from ActiveRecord.</p>
 
 <p>Lets say we want to have strict rules in Rails models and use the following
 order:</p>
 
 <ol>
-<li>Include, Extend or Prepend First</li>
-<li>Constants</li>
-<li>Attributes (attribute, attr_accessor, attr_reader, attr_writer)</li>
-<li>Associations (belongs_to, has_many, has_and_belongs_to_many ...)</li>
-<li>Validations (validate, validates_presence_of, validates_uniqueness_of ...)</li>
-<li>Hooks (before_save, after_save, after_initialize ...)</li>
-<li>Initializer</li>
-<li>Public methods</li>
-<li>Protected methods</li>
-<li>Private methods</li>
+  <li>Include, Extend or Prepend First</li>
+  <li>Constants</li>
+  <li>Attributes (attribute, attr_accessor, attr_reader, attr_writer)</li>
+  <li>Associations (belongs_to, has_many, has_and_belongs_to_many …)</li>
+  <li>Validations (validate, validates_presence_of, validates_uniqueness_of …)</li>
+  <li>Hooks (before_save, after_save, after_initialize …)</li>
+  <li>Initializer</li>
+  <li>Public methods</li>
+  <li>Protected methods</li>
+  <li>Private methods</li>
 </ol>
 
-<p>Now we need to setup <code>Categories</code> and include them in the <code>ExpectedOrder</code>.</p>
-<div class="highlight"><pre><code class="language-" data-lang="">Layout/ClassStructure:
+<p>Now we need to setup <code class="language-plaintext highlighter-rouge">Categories</code> and include them in the <code class="language-plaintext highlighter-rouge">ExpectedOrder</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Layout/ClassStructure:
   Enabled: true
   Categories:
     module_inclusion:
@@ -272,11 +275,13 @@ order:</p>
       - public_methods
       - protected_methods
       - private_methods
-</code></pre></div>
-<p>Now it&#39;s ready to be tested.</p>
+</code></pre></div></div>
+
+<p>Now it’s ready to be tested.</p>
 
 <p>Lets use a example with a few mistakes:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">class User
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class User
 
   validate :name, :email, presence: true
 
@@ -293,9 +298,11 @@ order:</p>
 
   belongs_to :location
 end
-</code></pre></div>
-<p>It supports autocorrect, and running it you can check that RuboCop has a kind of loop to keep autocorrecting until it&#39;s perfect.</p>
-<div class="highlight"><pre><code class="language-" data-lang="">user.rb:3:3: C: [Corrected] Layout/ClassStructure: attributes is supposed to appear before associations.
+</code></pre></div></div>
+
+<p>It supports autocorrect, and running it you can check that RuboCop has a kind of loop to keep autocorrecting until it’s perfect.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user.rb:3:3: C: [Corrected] Layout/ClassStructure: attributes is supposed to appear before associations.
   attr_reader :temporary_orders
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 user.rb:3:3: C: [Corrected] Layout/ClassStructure: attributes is supposed to appear before validations.
@@ -316,14 +323,16 @@ user.rb:6:3: C: [Corrected] Layout/ClassStructure: validations is supposed to ap
 user.rb:8:3: C: [Corrected] Layout/ClassStructure: validations is supposed to appear before hooks.
   validates_uniqueness_of :email
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-</code></pre></div>
+</code></pre></div></div>
+
 <p>This feature is very cool because allow the cops algorithm simply execute one 
 <a href="https://github.com/bbatsov/rubocop/blob/master/lib/rubocop/cop/layout/class_structure.rb#L144-L150">swap</a> between the
 nodes that are not in the proper place. Then you can see it in action <a href="https://github.com/bbatsov/rubocop/blob/f72860cf9f879d8ecef19b30624d777d8cc3bd80/lib/rubocop/runner.rb#L194">recursively</a>
 until the file is totally organized.</p>
 
 <p>After autocorrect the file looks like this:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">class User
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class User
 
   attr_reader :temporary_orders
   has_many :orders
@@ -337,9 +346,10 @@ until the file is totally organized.</p>
     email.split('@').last
   end
 end
-</code></pre></div>
+</code></pre></div></div>
+
 <p>So, that is what this cop does. I hope this cop to be useful for the community and
-make our code classes more organized. If you&#39;re interested in the full history you can
+make our code classes more organized. If you’re interested in the full history you can
 check my Pull Request <a href="https://github.com/bbatsov/rubocop/pull/5065">here</a>.</p>
 
 </div>

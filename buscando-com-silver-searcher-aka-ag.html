@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -859,45 +859,51 @@
 <div class="content">
     <p>Sempre fui viciadão em fazer buscas com o grep.</p>
 
-<p>Porém um dia o <a href="https://twitter.com/brodock">@brodock</a> me mostrou o <code>ag</code>.</p>
+<p>Porém um dia o <a href="https://twitter.com/brodock">@brodock</a> me mostrou o <code class="language-plaintext highlighter-rouge">ag</code>.</p>
 
-<h2 id="ag-gt-the-silver-searcher"><code>ag</code> -&gt; The Silver Searcher</h2>
+<h2 id="ag---the-silver-searcher"><code class="language-plaintext highlighter-rouge">ag</code> -&gt; The Silver Searcher</h2>
 
-<p>Ele funciona como o <code>grep</code> porém é um pouco mais humanizado.</p>
+<p>Ele funciona como o <code class="language-plaintext highlighter-rouge">grep</code> porém é um pouco mais humanizado.</p>
 
 <p>Para instalar no mac use:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">brew install the_silver_searcher
-</code></pre></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install the_silver_searcher
+</code></pre></div></div>
+
 <p>ou no linux:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">apt-get install silversearcher-ag
-</code></pre></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>apt-get install silversearcher-ag
+</code></pre></div></div>
+
 <p>Ele também tem integração com o vim: meu editor favorito. Então é só adicionar
 o <a href="https://github.com/Shougo/neobundle.vim">NeoBundle</a></p>
-<div class="highlight"><pre><code class="language-" data-lang="">NeoBundle 'rking/ag.vim'
-</code></pre></div>
-<h2 id="diferen-as-para-o-grep">Diferenças para o grep</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>NeoBundle 'rking/ag.vim'
+</code></pre></div></div>
+
+<h2 id="diferenças-para-o-grep">Diferenças para o grep</h2>
 
 <p>Na real não existem grandes diferenças. Ele apenas é mais amigável e por padrão
 já vem mais configurado.</p>
 
-<p>Eu busco <code>ag busca</code> é muito semelhante a usar <code>grep --color -nri busca ./*</code>. </p>
+<p>Eu busco <code class="language-plaintext highlighter-rouge">ag busca</code> é muito semelhante a usar <code class="language-plaintext highlighter-rouge">grep --color -nri busca ./*</code>.</p>
 
-<p>Só não preciso lembrar do que quer dizer <code>-nri</code> onde:</p>
+<p>Só não preciso lembrar do que quer dizer <code class="language-plaintext highlighter-rouge">-nri</code> onde:</p>
 
 <ul>
-<li><code>--color</code> usar cores</li>
-<li><code>n</code> mostra o número</li>
-<li><code>r</code> busca recursiva nos sub diretórios</li>
-<li><code>i</code> ignore case sensitive</li>
+  <li><code class="language-plaintext highlighter-rouge">--color</code> usar cores</li>
+  <li><code class="language-plaintext highlighter-rouge">n</code> mostra o número</li>
+  <li><code class="language-plaintext highlighter-rouge">r</code> busca recursiva nos sub diretórios</li>
+  <li><code class="language-plaintext highlighter-rouge">i</code> ignore case sensitive</li>
 </ul>
 
 <p>Abaixo exemplo fazendo buscas com grep vs ag.</p>
 
-<script type="text/javascript" src="https://asciinema.org/a/39465.js"
-id="asciicast-39465" async></script>
+<script type="text/javascript" src="https://asciinema.org/a/39465.js" id="asciicast-39465" async=""></script>
 
-<p>No vim também tenho um keybind <code>&lt;esc&gt;,f</code> que uso para buscar com foco na
+<p>No vim também tenho um keybind <code class="language-plaintext highlighter-rouge">&lt;esc&gt;,f</code> que uso para buscar com foco na
 palavra sobre o cursor. Muito útil fazer esse link para ganhar produtividade.</p>
+
 
 </div>
 <hr>

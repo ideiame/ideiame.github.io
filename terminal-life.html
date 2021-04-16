@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -175,7 +175,7 @@
 <div class="content">
     <p>Existe uma gama de comandos muito forte para se tornar mais ágil no linux e também no msysgit e eu me sinto feliz em compartilhar aqui meus preferidos:</p>
 
-<h2 id=">$!</h2>
+<h2>$!</h2>
 
 <p>Sempre uso este atalho para fazer mil coisas. O comando $! retorna o último parâmetro da última função utilizada. Por exemplo, eu crio e depois adiciono um determinado arquivo no meu projeto logo eu digito.</p>
 
@@ -193,7 +193,7 @@ git add !$
 
 <h2 id="locate">locate</h2>
 
-<p>Localiza arquivos do HD rápidamente. Se o arquivo foi criado recentemente talvez você tenha que usar o comando <code>sudo updatedb</code> para encontrar o arquivo.</p>
+<p>Localiza arquivos do HD rápidamente. Se o arquivo foi criado recentemente talvez você tenha que usar o comando <code class="language-plaintext highlighter-rouge">sudo updatedb</code> para encontrar o arquivo.</p>
 
 <pre>
 jonatas@jonatax:~/ideia.me$ locate rubygems.rb
@@ -229,8 +229,8 @@ jonatas@jonatax:~/ideia.me$
 
 <h2 id="grep">grep</h2>
 
-<p>Filtra por uma <a href="/ruby/sinatra/regexp/2010/02/16/inspecionando-regexp-com-sinatra.html" title="post super legal sobre expressões regulares">expressão regular</a> de diversas formas, eu geral uso <a href="/ruby/regexp/2010/02/23/regexp-maravilha.html" title="eu gosto mesmo de expressões regulares">comando</a> <code>grep -r</code> e <code>| grep</code> para duas situações distintas.
-O exemplo abaixo usa o mesmo exemplo do locate acima, mas e filtrando novamente apenas por &quot;jruby&quot;.</p>
+<p>Filtra por uma <a href="/ruby/sinatra/regexp/2010/02/16/inspecionando-regexp-com-sinatra.html" title="post super legal sobre expressões regulares">expressão regular</a> de diversas formas, eu geral uso <a href="/ruby/regexp/2010/02/23/regexp-maravilha.html" title="eu gosto mesmo de expressões regulares">comando</a> <code class="language-plaintext highlighter-rouge">grep -r</code> e <code class="language-plaintext highlighter-rouge">| grep</code> para duas situações distintas.
+O exemplo abaixo usa o mesmo exemplo do locate acima, mas e filtrando novamente apenas por “jruby”.</p>
 
 <pre>
 jonatas@jonatax:~/ideia.me$ locate rubygems.rb | grep jruby
@@ -247,8 +247,7 @@ jonatas@jonatax:~/ideia.me$ locate rubygems.rb | grep jruby
 </pre>
 
 <h2 id="buscando">Buscando</h2>
-
-<p>Outra maneira que utilizo bastante é para procurar por texto dentro de arquivos. Por exemplo, digamos que estou procurando pela palavra &quot;éia&quot; que vem de ideia e assembleia e que agora perdeu o acento nas novas normas. Como quero corrigir meu site preciso pesquisar por esta expressão:</p>
+<p>Outra maneira que utilizo bastante é para procurar por texto dentro de arquivos. Por exemplo, digamos que estou procurando pela palavra “éia” que vem de ideia e assembleia e que agora perdeu o acento nas novas normas. Como quero corrigir meu site preciso pesquisar por esta expressão:</p>
 
 <pre>
 jonatas@jonatax:~/ideia.me$ grep éia _posts/*
@@ -259,7 +258,7 @@ _posts/2010-02-23-regexp-maravilha.markdown:Nesta idéia, foi simples de convert
 
 <h2 id="tail">tail</h2>
 
-<p>Exibe o final de um arquivo e é muito interessante para inspecionar logs. Gosto do tail pois é possível observar mais de um arquivo no mesmo comando, por exemplo, as vezes estou testando algo e utilizo o thin como servidor. Logo o standard output ($stdout) está configurado para receber o arquivo thin.log e estou em observação de mais de um arquivo. </p>
+<p>Exibe o final de um arquivo e é muito interessante para inspecionar logs. Gosto do tail pois é possível observar mais de um arquivo no mesmo comando, por exemplo, as vezes estou testando algo e utilizo o thin como servidor. Logo o standard output ($stdout) está configurado para receber o arquivo thin.log e estou em observação de mais de um arquivo.</p>
 
 <pre>
 tail -n 200 -f log/development.log log/thin.log
@@ -284,24 +283,24 @@ alias rvm-restart='rvm\_reload\_flag=1 source '\''/home/jonatas/.rvm/scripts/rvm
 alias trab='cd ~/photon/workspace/ActiveScripts/'
 </pre>
 
-<h2 id="ou">` ` ou $()</h2>
+<h2 id="--ou-">` ` ou $()</h2>
 
 <p>Já tinha escrito outro <a href="/ruby/sinatra/regexp/2010/02/16/inspecionando-regexp-com-sinatra.html" title="post super legal sobre expressões regulares">post</a> com este comando mas é muito bacana e aqui segue a ideia. Quando preciso fazer uma combinação de comandos e preciso usar o resultado em outra expressão, logo é possível concatenar os resultados com $(). Por exemplo fiz um locate e agora quero buscar apenas dentro do meu diretório. Para pegar o diretório atual, é necessário utilizar o comando pwd, mas naturalmente utilizado após o grep ele se torna a palavra, logo um sub-terminal resolve o problema.</p>
 
 <pre>
 locate myFile | grep $(pwd)
 </pre>
-
-<p>ou
+<p>ou</p>
 <pre>
-locate myFile | grep <code>pwd</code>
-</pre></p>
+locate myFile | grep `pwd`
+</pre>
 
-<h2 id="conclus-es">Conclusões</h2>
+<h2 id="conclusões">Conclusões</h2>
 
-<p>A vida no terminal é muito mais que um canivete suiço e você só consegue ter agilidade quando se acostumar com as opções e optar por utilizá-las ao invés de pegar o mouse e partir para uma ferramenta mais visuais. </p>
+<p>A vida no terminal é muito mais que um canivete suiço e você só consegue ter agilidade quando se acostumar com as opções e optar por utilizá-las ao invés de pegar o mouse e partir para uma ferramenta mais visuais.</p>
 
 <p>Escrevo este post inspirado em um freelancer que estamos desenvolvendo na <a href="www.leosoft.com.br" title="veja os produtos da Leosoft">Leosoft</a>, em que estamos codificando tudo diretamente em um Ubuntu Server sem interface gráfica lá da <a href="www.leosoft.com.br" title="veja os produtos da Leosoft">Leosoft</a>, e simplesmente, não senti falta de nada. Conseguimos realizar o desenvolvimento de todas as funcionalidades sem intervenção de uma interface gráfica e estamos apenas usando ssh e usando o <a href="/shell/regexp/unix/grep/rails/migrations/vim/2010/03/01/regexp-com-grep.html" title="post sobre o grep">VIM</a> como editor.</p>
+
 
 </div>
 <hr>

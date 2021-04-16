@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -184,31 +184,32 @@ estou iniciando minha história com o <a href="http://cloud.google.com">Google C
 rodando com meu dotvim + fish redondo pela primeira vez me senti em casa como
 no terminal mas rodando direto de uma cloud através de um browser \o/</p>
 
-<p>Outra coisa que gostei foi dos comandos auxiliares para usar no console: <code>gcloud</code> e <code>gsutil</code>.</p>
+<p>Outra coisa que gostei foi dos comandos auxiliares para usar no console: <code class="language-plaintext highlighter-rouge">gcloud</code> e <code class="language-plaintext highlighter-rouge">gsutil</code>.</p>
 
-<p>O <code>gcloud</code> é mais genérico e abrangente no gerenciamento geral da sua google
-cloud enquanto o <code>gsutil</code> é para você fazer coisas relacionadas ao <a href="https://cloud.google.com/storage/">Google Storage</a>.</p>
+<p>O <code class="language-plaintext highlighter-rouge">gcloud</code> é mais genérico e abrangente no gerenciamento geral da sua google
+cloud enquanto o <code class="language-plaintext highlighter-rouge">gsutil</code> é para você fazer coisas relacionadas ao <a href="https://cloud.google.com/storage/">Google Storage</a>.</p>
 
-<h2 id="instala-o-do-google-cloud-platform">Instalação do Google Cloud Platform</h2>
+<h2 id="instalação-do-google-cloud-platform">Instalação do Google Cloud Platform</h2>
 
-<p>Para instalar o <code>gcloud</code> e <code>gsutil</code> digite na linha de comando:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">curl https://sdk.cloud.google.com | bash
-</code></pre></div>
-<p>Neste exemplo vou mostrar usando <code>gsutil</code> para manusear seus arquivos entre sua
+<p>Para instalar o <code class="language-plaintext highlighter-rouge">gcloud</code> e <code class="language-plaintext highlighter-rouge">gsutil</code> digite na linha de comando:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl https://sdk.cloud.google.com | bash
+</code></pre></div></div>
+
+<p>Neste exemplo vou mostrar usando <code class="language-plaintext highlighter-rouge">gsutil</code> para manusear seus arquivos entre sua
 máquina e o google :)</p>
 
-<h2 id="criando-meu-primeiro-hd-no-google">Criando meu primeiro HD no google :)</h2>
+<h2 id="criando-meu-primeiro-hd-no-google-">Criando meu primeiro HD no google :)</h2>
 
-<p>Estou com meu bucket &quot;jonatasdp&quot; criado e agora vamos usufruir dele.</p>
+<p>Estou com meu bucket “jonatasdp” criado e agora vamos usufruir dele.</p>
 
 <p>Um bucket funciona como uma partição de um HD em um servidor do google. O custo médio é 2 centavos de dólar por GB.</p>
 
-<p>O comando <a href="https://cloud.google.com/storage/docs/gsutil">gsutil</a> é bem parecido com o <a href="http://docs.aws.amazon.com/cli/latest/reference/s3/">aws s3</a> do Amazon e tem a mesma finalidade: manipular buckets. Só que em um &quot;google storage&quot; :)</p>
+<p>O comando <a href="https://cloud.google.com/storage/docs/gsutil">gsutil</a> é bem parecido com o <a href="http://docs.aws.amazon.com/cli/latest/reference/s3/">aws s3</a> do Amazon e tem a mesma finalidade: manipular buckets. Só que em um “google storage” :)</p>
 
-<script type="text/javascript" src="https://asciinema.org/a/40271.js"
-id="asciicast-40271" async></script>
+<script type="text/javascript" src="https://asciinema.org/a/40271.js" id="asciicast-40271" async=""></script>
 
-<p>Lembre-se que antes de iniciar a interação com o <code>gsutil</code> você precisa fazer um <code>gcloud auth login</code>.</p>
+<p>Lembre-se que antes de iniciar a interação com o <code class="language-plaintext highlighter-rouge">gsutil</code> você precisa fazer um <code class="language-plaintext highlighter-rouge">gcloud auth login</code>.</p>
 
 </div>
 <hr>

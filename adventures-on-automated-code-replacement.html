@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -186,10 +186,10 @@ few lines of code without use my favourite editor: VIM ;)</p>
 <p>My first experiment is <a href="https://gist.github.com/jonatas/836eb9bff1c4fa20cfee1b58ac4ee27b">here</a> and it does the following steps:</p>
 
 <ol>
-<li>search for specs that use <a href="https://github.com/thoughtbot/factory_girl">FactoryGirl</a> calls to the method <code>create</code>.</li>
-<li>create an experimental spec file replacing the current method call from <code>create</code> to <code>build_stubbed</code></li>
-<li>run the experimental spec</li>
-<li>move the experiment file to the original if it works otherwise remove it</li>
+  <li>search for specs that use <a href="https://github.com/thoughtbot/factory_girl">FactoryGirl</a> calls to the method <code class="language-plaintext highlighter-rouge">create</code>.</li>
+  <li>create an experimental spec file replacing the current method call from <code class="language-plaintext highlighter-rouge">create</code> to <code class="language-plaintext highlighter-rouge">build_stubbed</code></li>
+  <li>run the experimental spec</li>
+  <li>move the experiment file to the original if it works otherwise remove it</li>
 </ol>
 
 <p>So, my script was very simple and the experiment is here:</p>
@@ -206,24 +206,25 @@ the experimental spec again.</p>
 <p>The cool part is that the tedious manual replacement come into an interesting
 the way of being checking and validating real code with strict and custom rules.</p>
 
-<p>I&#39;ll be probably sugar part of this scaffold to the tool and allow to create
+<p>I’ll be probably sugar part of this scaffold to the tool and allow to create
 small experiments like this and check different things mechanically.</p>
 
-<p>I think this tests can allow developers to create smarter codes and build checkers that don&#39;t need human intervention.</p>
+<p>I think this tests can allow developers to create smarter codes and build checkers that don’t need human intervention.</p>
 
 <p>As RuboCop auto-correct mode is reliable and use the same API that fast gem
 uses the same rewriter behind the scenes.</p>
 
-<p>I know I could do the most of it using <code>sed</code> and combine a few scripts in shell, but I&#39;m
+<p>I know I could do the most of it using <code class="language-plaintext highlighter-rouge">sed</code> and combine a few scripts in shell, but I’m
 comfortable with Ruby and the replace is sensitive and strict to the right syntax.</p>
 
-<p>I hope <code>fast</code> can be used in the future to help other developers to automate
+<p>I hope <code class="language-plaintext highlighter-rouge">fast</code> can be used in the future to help other developers to automate
 their code base migrations. e.g. when you need to migrate syntax to a new
-Rails version, it brings new incompatibilities in the syntax and better API&#39;s.</p>
+Rails version, it brings new incompatibilities in the syntax and better API’s.</p>
 
 <p>Today in general, those kind of needs are still be done manually by developers.
-I hope more developers get involved on this kind of cause. It&#39;s the next step
+I hope more developers get involved on this kind of cause. It’s the next step
 before everything turns into deep learning :D</p>
+
 
 </div>
 <hr>

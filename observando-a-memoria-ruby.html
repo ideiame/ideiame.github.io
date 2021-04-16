@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -635,21 +635,19 @@
 
 <p>A brincadeira começa com uma simples array de 1000_000 registros e populamos ela das seguintes formas:</p>
 
-<h2 id="hash-memory_a-rb">Hash - memory_a.rb</h2>
-
+<h2 id="hash---memory_arb">Hash - memory_a.rb</h2>
 <pre class="prettyprint">
 a = []
 sum = 0
 100000.times do |i|
    sum += 1
-   a &lt;&lt; {:i => i,
-         :sum => sum}
+   a &lt;&lt; {:i =&gt; i,
+         :sum =&gt; sum}
 
 end
 </pre>
 
-<h2 id="struct-memory_b-rb">Struct - memory_b.rb</h2>
-
+<h2 id="struct---memory_brb">Struct - memory_b.rb</h2>
 <pre class="prettyprint">
 a = []
 B = Struct.new :i, :sum
@@ -660,8 +658,7 @@ sum = 0
 end
 </pre>
 
-<h2 id="array-memory_c-rb">Array - memory_c.rb</h2>
-
+<h2 id="array---memory_crb">Array - memory_c.rb</h2>
 <pre class="prettyprint">
 i = []
 sums = []
@@ -673,8 +670,7 @@ sum = 0
 end
 </pre>
 
-<h2 id="class-com-m-todos-memory_d-rb">Class com métodos - memory_d.rb</h2>
-
+<h2 id="class-com-métodos---memory_drb">Class com métodos - memory_d.rb</h2>
 <pre class="prettyprint">
 a = []
 class B
@@ -696,8 +692,7 @@ sum = 0
 end
 </pre>
 
-<h2 id="class-com-accessors-memory_e-rb">Class com accessors - memory_e.rb</h2>
-
+<h2 id="class-com-accessors---memory_erb">Class com accessors - memory_e.rb</h2>
 <pre class="prettyprint">
 a = []
 sum = 0
@@ -714,7 +709,7 @@ end
 end
 </pre>
 
-<h2 id="class-sem-m-todos-memory_f-rb">Class sem métodos - memory_f.rb</h2>
+<h2 id="class-sem-métodos---memory_frb">Class sem métodos - memory_f.rb</h2>
 
 <pre class="prettyprint">
 class B
@@ -736,43 +731,47 @@ end
 
 <p>Observando os resultados com jruby-1.7.3 temos os seguintes tamanhos de memória em bytes:</p>
 
-<table><thead>
-<tr>
-<th>arquivo</th>
-<th>memória</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>memory_a.rb</td>
-<td>106409984</td>
-</tr>
-<tr>
-<td>memory_b.rb</td>
-<td>94859264</td>
-</tr>
-<tr>
-<td>memory_c.rb</td>
-<td>95125504</td>
-</tr>
-<tr>
-<td>memory_d.rb</td>
-<td>95064064</td>
-</tr>
-<tr>
-<td>memory_e.rb</td>
-<td>94691328</td>
-</tr>
-<tr>
-<td>memory_f.rb</td>
-<td>94236672</td>
-</tr>
-</tbody></table>
+<table>
+  <thead>
+    <tr>
+      <th>arquivo</th>
+      <th>memória</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>memory_a.rb</td>
+      <td>106409984</td>
+    </tr>
+    <tr>
+      <td>memory_b.rb</td>
+      <td>94859264</td>
+    </tr>
+    <tr>
+      <td>memory_c.rb</td>
+      <td>95125504</td>
+    </tr>
+    <tr>
+      <td>memory_d.rb</td>
+      <td>95064064</td>
+    </tr>
+    <tr>
+      <td>memory_e.rb</td>
+      <td>94691328</td>
+    </tr>
+    <tr>
+      <td>memory_f.rb</td>
+      <td>94236672</td>
+    </tr>
+  </tbody>
+</table>
 
 <p>No meu caso o modelo <strong>memory_f</strong> parece ser o mais adequado em vista do consumo de memória e a implementação também é relativamente simples. O interessante destes objetos em branco é por que de certa forma eles não podem ser clonados, mas para casos específicos podem ajudar muito, neste caso têm uma significância de aproximadamente 12%.</p>
 
 <p>Baixe e teste o <a href="https://github.com/jonatas/ruby-memory-comparison">code</a> você mesmo!</p>
 
 <p>Assim que sobrar um tempo vou evoluir os modelos para comparar entre tipos de númericos. Hoje estamos usando o java.math.BigDecimal para cálculos precisos mas este é um dos mais lentos e grandes para trabalhar com números.</p>
+
 
 </div>
 <hr>

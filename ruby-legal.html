@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -174,11 +174,13 @@
 </div>
 <div class="content">
     <p>Hoje fiquei vendo um exercício de probabilidade na aula de estatística, o exercício dizia o seguinte:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">Uma moeda é lançada 10 vezes. Qual a probabilidade de:
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Uma moeda é lançada 10 vezes. Qual a probabilidade de:
 a) Sair 5 vezes a face "cara".
 b) Sair no máximo 9 vezes a face "cara".
-</code></pre></div>
-<p>Logo imaginei uma forma de descrever esta situação para o computador. Escrevi a seguinte frase: </p>
+</code></pre></div></div>
+
+<p>Logo imaginei uma forma de descrever esta situação para o computador. Escrevi a seguinte frase:</p>
 
 <pre class="prettyprint">
 objeto moeda
@@ -215,11 +217,11 @@ objeto "moeda"
 
 <pre class="prettyprint">
 [jonatas] ~ $ irb
->> def objeto(nome) ; nome ; end
-=> nil
->> objeto 'moeda'
-=> "moeda"
->> moeda
+&gt;&gt; def objeto(nome) ; nome ; end
+=&gt; nil
+&gt;&gt; objeto 'moeda'
+=&gt; "moeda"
+&gt;&gt; moeda
 NameError: undefined local variable or method 'moeda' for main:Object
 </pre>
 
@@ -236,9 +238,9 @@ class Object
 end
 </pre>
 
-<p>Após este passo, é necessário implementar o método &quot;method_missing&quot; que é responsável por saber a respeito das chamadas do sistema.</p>
+<p>Após este passo, é necessário implementar o método “method_missing” que é responsável por saber a respeito das chamadas do sistema.</p>
 
-<p>Este método é invocado, quando o método não é encontrado na classe, e recebe como parâmetros, um símbolo representando o nome do método, os parâmetros e um possível bloco. </p>
+<p>Este método é invocado, quando o método não é encontrado na classe, e recebe como parâmetros, um símbolo representando o nome do método, os parâmetros e um possível bloco.</p>
 
 <p>O objetivo de implementar este método, é lidar com situações inesperadas como esta, que está buscando um método que não existe. Neste caso, iremos flexibilizar o uso da linguagem ruby, implementando uma mini-linguagem para descrever um objeto.</p>
 
@@ -272,9 +274,9 @@ def possui(atributos)
 end
 </pre>
 
-<p>Depois que este elemento foi declarado é possivel declarar atributos para o objeto. </p>
+<p>Depois que este elemento foi declarado é possivel declarar atributos para o objeto.</p>
 
-<p>Dado que os atributos foram declarados, é necessário poder acessá-los também. Para tornar o acesso público, é necessário alterar a implementação do método  &quot;method_missing&quot; para ler os atributos do objeto também.</p>
+<p>Dado que os atributos foram declarados, é necessário poder acessá-los também. Para tornar o acesso público, é necessário alterar a implementação do método  “method_missing” para ler os atributos do objeto também.</p>
 
 <pre class="prettyprint">
 def method_missing(nome, *args, &amp;block)
@@ -289,12 +291,12 @@ end
 <pre class="prettyprint">
  objeto 'carro' 
  possui 'portas' =&gt; 4
- possui 'airbag' => 'duplo'
- carro.portas # => 4
+ possui 'airbag' =&gt; 'duplo'
+ carro.portas # =&gt; 4
  carro.dirigir # NoMethodError: undefined method 'dirigir'
 </pre>
 
-<p>Agora é necessário tomar as ações para que possa &quot;aprender&quot; a dirigir o carro ou &quot;jogar&quot; a moeda. O próximo objetivo então é implementar o método <strong>quando</strong> determinada ação acontecer, então faça... </p>
+<p>Agora é necessário tomar as ações para que possa “aprender” a dirigir o carro ou “jogar” a moeda. O próximo objetivo então é implementar o método <strong>quando</strong> determinada ação acontecer, então faça…</p>
 
 <p>A deste método consiste em:</p>
 
@@ -357,6 +359,7 @@ quando("jogar") {
 <p>Ruby é excepcional para trabalhar com DSL. O domínio específico da linguagem torna as tarefas mais simples e diretas. Isto se trata de expressividade, de melhorar a linguagem para estabelecer uma conversa mais direta e compreensiva. No lado da metaprogramação, torna-se simples de implementar as ideias propostas. A codificação e montagem deste post foi feito em paralelo e em um tempo satisfatório.</p>
 
 <p>ps: se você se interessa por este assunto, leia também meu artigo sobre expressividade da linguagem em <a href="http://github.com/jonatas/artigo_elep">http://github.com/jonatas/artigo_elep</a>.</p>
+
 
 </div>
 <hr>

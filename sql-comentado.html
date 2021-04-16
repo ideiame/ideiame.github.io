@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -405,11 +405,11 @@
 
 <p>Apesar de não ser um fã de desenvolvimento orientado a banco de dados, à dois anos atrás <a href="http://github.com/jonatas/appointme">trabalhei em um ensaio do TCC</a>, em cima de um projeto sem BD.</p>
 
-<p>Entreguei o projeto com alegria no último bimestre, mas descobri que a matéria de Banco de Dados II iria cobrar um banco de dados referente ao projeto anterior. Sendo esta a própria avaliação do quarto bimestre, resolvi criar um banco de dados de exemplo, usando um número razoável de recursos do SGBD, para auxiliar do &quot;desenvolvimento&quot; do projeto.</p>
+<p>Entreguei o projeto com alegria no último bimestre, mas descobri que a matéria de Banco de Dados II iria cobrar um banco de dados referente ao projeto anterior. Sendo esta a própria avaliação do quarto bimestre, resolvi criar um banco de dados de exemplo, usando um número razoável de recursos do SGBD, para auxiliar do “desenvolvimento” do projeto.</p>
 
 <p>Como meu projeto não concebia um banco de dados, abordei um exemplo de um ponto de encontro, o qual meninos e meninas podem sentar-se em casal em uma mesa. Este bd tem a seguinte estrutura:</p>
 
-<p><img src="/images/der_ponto_de_encontro.jpg" alt="der-bd"></p>
+<p><img src="/images/der_ponto_de_encontro.jpg" alt="der-bd" /></p>
 
 <p>Depois, organizei a criação começando pela criação do DATABASE.</p>
 
@@ -445,7 +445,7 @@ CREATE LANGUAGE plpgsql;
 
 <h2 id="create-domain">CREATE DOMAIN</h2>
 
-<p>Os domínios, são tipos de dados próprios que permitem extender os tipos de colunas, e a vantagem de usar domínio, é a refatoração do banco. Por exemplo, o domínio abaixo, garante que qualquer tabela que tenha uma coluna do tipo masculino_ou_feminino irá aceitar apenas as letras &#39;M&#39;, &#39;m&#39;, &#39;F&#39;, &#39;f&#39;. Se decidir por mudar para &#39;masculino&#39; e &#39;feminino&#39;, é possível apenas trocar o domínio, e todas as colunas que fazem referência a este domínio serão compátiveis.</p>
+<p>Os domínios, são tipos de dados próprios que permitem extender os tipos de colunas, e a vantagem de usar domínio, é a refatoração do banco. Por exemplo, o domínio abaixo, garante que qualquer tabela que tenha uma coluna do tipo masculino_ou_feminino irá aceitar apenas as letras ‘M’, ‘m’, ‘F’, ‘f’. Se decidir por mudar para ‘masculino’ e ‘feminino’, é possível apenas trocar o domínio, e todas as colunas que fazem referência a este domínio serão compátiveis.</p>
 
 <div><pre class="prettyprint lang-sql">
 -- Tipo de dado para usar em pessoa   
@@ -667,6 +667,7 @@ INSERT INTO conversas (menina_id, menino_id, mesa_id) VALUES (9,2,2);
 </pre></div>
 
 <p>Bom, apesar do exemplo ser simples, foi possível mostrar algumas funcionalidades do banco PostgreSql, que muitas vezes, estes pequenos códigos se tornam úteis e interessantes!</p>
+
 
 </div>
 <hr>

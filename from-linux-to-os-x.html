@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -634,40 +634,50 @@ pedindo dicas do que instalar e o que vai mudar agora que ele vai comprar um Mac
 
 <p>Então aqui vai algumas dicas para quem vive no Linux e vai migrar para o OS X da Apple:</p>
 
-<h1 id="brew-apt-get">brew = apt-get</h1>
+<h1 id="brew--apt-get">brew = apt-get</h1>
 
-<p>O Home Brew ou <a href="http://brew.sh">brew</a> funciona como o <code>apt-get</code> do linux. Vale a pena pois
+<p>O Home Brew ou <a href="http://brew.sh">brew</a> funciona como o <code class="language-plaintext highlighter-rouge">apt-get</code> do linux. Vale a pena pois
 tem muitos pacotes, bibliotecas e facilidades nas receitas da comunidade.</p>
-<div class="highlight"><pre><code class="language-" data-lang="">ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-</code></pre></div>
-<p>Com o brew instalado é possível instalar as bibliotecas e coisas básicas a lá <code>apt-get</code>.</p>
-<div class="highlight"><pre><code class="language-" data-lang="">brew install go redis postgresql
-</code></pre></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+</code></pre></div></div>
+
+<p>Com o brew instalado é possível instalar as bibliotecas e coisas básicas a lá <code class="language-plaintext highlighter-rouge">apt-get</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install go redis postgresql
+</code></pre></div></div>
+
 <p>Também vale a pena instalar o brew-cask que permite instalar apps do mac mesmo
 não só bibliotecas.</p>
-<div class="highlight"><pre><code class="language-" data-lang="">brew install caskroom/cask/brew-cask
-</code></pre></div>
-<p>Com o brew cask você instala coisas como:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">brew cask install google-chrome firefox skype telegram slack openscad
-</code></pre></div>
-<h1 id="terminal-gt-iterm2">Terminal -&gt; iTerm2</h1>
 
-<p>No OS X por default vem o <code>Terminal.app</code>. Porém aconselho a dar uma olhada no
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install caskroom/cask/brew-cask
+</code></pre></div></div>
+
+<p>Com o brew cask você instala coisas como:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew cask install google-chrome firefox skype telegram slack openscad
+</code></pre></div></div>
+
+<h1 id="terminal---iterm2">Terminal -&gt; iTerm2</h1>
+
+<p>No OS X por default vem o <code class="language-plaintext highlighter-rouge">Terminal.app</code>. Porém aconselho a dar uma olhada no
 <a href="https://iterm2.com">iTerm2</a>.</p>
-<div class="highlight"><pre><code class="language-" data-lang="">brew cask install iterm2
-</code></pre></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew cask install iterm2
+</code></pre></div></div>
+
 <p>O iTerm2 é um terminal muito bom e têm uma série de pequenas melhorias que só para quem usa
 bastante o terminal vai sentir a diferença. Entre elas posso citar:</p>
 
 <p>Integração com tmux default:</p>
 
 <ul>
-<li><code>cmd-d</code> divide a tela horizontalmente em duas sessões do tmux.</li>
-<li><code>cmd-shift-d</code> divide verticalmente</li>
-<li><code>cmd-alt-&lt;arrows&gt;</code> navega entre sub-janelas da sessão</li>
+  <li><code class="language-plaintext highlighter-rouge">cmd-d</code> divide a tela horizontalmente em duas sessões do tmux.</li>
+  <li><code class="language-plaintext highlighter-rouge">cmd-shift-d</code> divide verticalmente</li>
+  <li><code class="language-plaintext highlighter-rouge">cmd-alt-&lt;arrows&gt;</code> navega entre sub-janelas da sessão</li>
 </ul>
 
-<h1 id="shell-zsh-fish-wtf">{ Shell | Zsh | Fish } wtf?</h1>
+<h1 id="-shell--zsh--fish--wtf">{ Shell | Zsh | Fish } wtf?</h1>
 
 <p>Outra questão é a decisão pela linguagem do terminal. Eu gosto muito do
 <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a> que torna o terminal
@@ -678,57 +688,65 @@ muito receptiva, interativa, umas sugestões bem mais elaboradas que o shell
 convencional. Estou gostando da experiência :)</p>
 
 <p>O shell em si é muito bom e uso o tempo todo. Um comando que substitui a pouco
-tempo é o <a href="http://geoff.greer.fm/ag/">silver light searcher</a> aka <code>ag</code>. O <code>ag</code> é
-um <code>grep</code> mais humanizado. Vale a pena dar uma testada!</p>
-<div class="highlight"><pre><code class="language-" data-lang="">brew install ag
-</code></pre></div>
+tempo é o <a href="http://geoff.greer.fm/ag/">silver light searcher</a> aka <code class="language-plaintext highlighter-rouge">ag</code>. O <code class="language-plaintext highlighter-rouge">ag</code> é
+um <code class="language-plaintext highlighter-rouge">grep</code> mais humanizado. Vale a pena dar uma testada!</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install ag
+</code></pre></div></div>
+
 <p>O ag é um mecanismo de busca então você pode encontrar facilmente arquivos no
-terminal. Então é muito semelhante a um <code>grep -rni &lt;minha busca&gt; &lt;onde&gt;</code></p>
-<div class="highlight"><pre><code class="language-" data-lang="">ag &lt;minha busca&gt; &lt;onde&gt;
-</code></pre></div>
-<h1 id="printscreen-screenshot">PrintScreen || ScreenShot</h1>
+terminal. Então é muito semelhante a um <code class="language-plaintext highlighter-rouge">grep -rni &lt;minha busca&gt; &lt;onde&gt;</code></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ag &lt;minha busca&gt; &lt;onde&gt;
+</code></pre></div></div>
+
+<h1 id="printscreen--screenshot">PrintScreen || ScreenShot</h1>
 
 <p>Sou viciado em printscreen então tiro fotos e registro meu trabalho e detalhes
 do que estou fazendo o tempo todo. Para capturar uma foto da tela em um
 determinado momento é muito fácil.</p>
 
-<h2 id="cmd-shift-3"><code>cmd+shift+3</code></h2>
+<h2 id="cmdshift3"><code class="language-plaintext highlighter-rouge">cmd+shift+3</code></h2>
 
 <p>Sim, esse atalho é super escroto mas depois de um tempo você se acostumar,
-alguns atalhos do mac parece que você tá tocando piano mesmo. <code>cmd+shift+3</code>
+alguns atalhos do mac parece que você tá tocando piano mesmo. <code class="language-plaintext highlighter-rouge">cmd+shift+3</code>
 é o atalho para tirar uma foto da tela toda.</p>
 
-<h2 id="cmd-shift-4"><code>cmd+shift+4</code></h2>
+<h2 id="cmdshift4"><code class="language-plaintext highlighter-rouge">cmd+shift+4</code></h2>
 
 <p>O Cmd + Shift + 4 também tira foto mas abre um momento para você selecionar um
 pedaço da tela que quer tirar o printscreen. Isso é muito útil, é só selecionar
 um pedaço da tela com o mouse, quando solta o mouse, ele tira uma foto da parte
 selecionada.</p>
 
-<h3 id="cmd-shift-4-space"><code>cmd+shift+4+space</code></h3>
+<h3 id="cmdshift4space"><code class="language-plaintext highlighter-rouge">cmd+shift+4+space</code></h3>
 
 <p>Outra dica importante deste comando é, se você ao invés de usar o mouse para selecionar o pedaço
 da tela, usar a barra de espaço uma vez, aí vai abrir uma seleção para tirar o
 printscreen permitindo selecionar a janela que deseja ser fotografada.</p>
 
-<h2 id="pbcopy"><code>| pbcopy</code></h2>
+<h2 id="-pbcopy"><code class="language-plaintext highlighter-rouge">| pbcopy</code></h2>
 
-<p>O pbcopy permite você copiar um determinado output no terminal para o <code>cmd+v</code> ou <code>ctrl+v</code> antigo do linux.</p>
-<div class="highlight"><pre><code class="language-" data-lang="">cat arquivo.txt | pbcopy
-</code></pre></div>
+<p>O pbcopy permite você copiar um determinado output no terminal para o <code class="language-plaintext highlighter-rouge">cmd+v</code> ou <code class="language-plaintext highlighter-rouge">ctrl+v</code> antigo do linux.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cat arquivo.txt | pbcopy
+</code></pre></div></div>
+
 <p>Com o arquivo acima, ele vai copiar o conteúdo do arquivo.txt para a área de
-transferência. Agora basta dar um <code>cmd+v</code> para colar. Uso muito este comando
+transferência. Agora basta dar um <code class="language-plaintext highlighter-rouge">cmd+v</code> para colar. Uso muito este comando
 quando estou realizando consultas complexas no servidor então em vez de
-trabalhar diretamente no console uso o vim normalmente e uso <code>&lt;esc&gt;:!cat % | pbcopy</code>
+trabalhar diretamente no console uso o vim normalmente e uso <code class="language-plaintext highlighter-rouge">&lt;esc&gt;:!cat % | pbcopy</code>
 para copiar todo o conteúdo que estou editando para colar no ambiente que estou trabalhando.</p>
 
-<h2 id="s-funciona-no-linux-n-o-funciona-no-mac">Só funciona no linux não funciona no mac?</h2>
+<h2 id="só-funciona-no-linux-não-funciona-no-mac">Só funciona no linux não funciona no mac?</h2>
 
 <p>Sem problemas! Maquinas virtuais são muito eficazes para não manter a máquina
 pesada.</p>
-<div class="highlight"><pre><code class="language-" data-lang="">brew install vagrant
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install vagrant
 brew cask install virtualbox
-</code></pre></div>
+</code></pre></div></div>
+
 <p>Dessa forma, se você vai instalar um projeto que usa: postgres, redis e
 n serviços, pode subir uma maquina virtual linux com todos eles e mapear as
 portas para consumir em localhost. Esse processo é muito interessante e pode
@@ -738,7 +756,7 @@ do tempo.
 mac. Uma maneira bem simples de não poluir o ambiente inicializando muitos
 serviços, bancos de dados e outras aplicações no amb</p>
 
-<h2 id="cmd-space-gt-spotlight-busca-r-pida"><code>cmd+space</code> -&gt; spotlight = busca rápida</h2>
+<h2 id="cmdspace---spotlight--busca-rápida"><code class="language-plaintext highlighter-rouge">cmd+space</code> -&gt; spotlight = busca rápida</h2>
 
 <p>O spotlight é uma ferramenta fantástica de acesso a qualquer coisa do Mac. Você
 pode pesquisar no dicionário, no google, nos seus arquivos, na agenda ou
@@ -753,7 +771,7 @@ as documentações do ruby e do rails.</p>
 
 <p>Apesar de pouco atualizado são bem úteis. Você pode encontrar detalhes <a href="http://prii.it/blog/rails4-and-ruby2-dictionaries">aqui</a>.</p>
 
-<h1 id="e-a-mac-ou-linux">E aí? Mac ou Linux?</h1>
+<h1 id="e-aí-mac-ou-linux">E aí? Mac ou Linux?</h1>
 
 <p>E você, usa mac e migrou do linux? Não gosta de mac, só de linux? não deixe de
 colocar sua contribuição e opinião.</p>

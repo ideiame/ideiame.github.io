@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -1087,29 +1087,37 @@
 <div class="content">
     <p>Estive gerando uma série de vídeos com fotos sequências estilo <em>timelapse</em> e existem muitas formas de fazer isso. Aqui estou  usando o bom e velho <a href="http://www.ffmpeg.org/">ffmpeg</a>.</p>
 
-<p>Coloquei todas as fotos em um diretório e digitei: </p>
-<div class="highlight"><pre><code class="language-" data-lang="">ffmpeg -r 24 -i img%04d.jpg -c:v libx264 timelapse.mp4
-</code></pre></div>
+<p>Coloquei todas as fotos em um diretório e digitei:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg -r 24 -i img%04d.jpg -c:v libx264 timelapse.mp4
+</code></pre></div></div>
+
 <p>Onde:</p>
 
 <ul>
-<li><code>-r</code> é o frame rate, neste caso 24 fotos por segundo</li>
-<li><code>-i</code> é o padrão de entrada (input) de imagens. Neste caso img001.jpg, img002.jpg e assim por diante.</li>
-<li><p><a href="http://www.videolan.org/developers/x264.html">libx264</a> refere-se ao padrão de encoding do vídeo. Parece ser o padrão do Facebook, Youtube, Vimeo e outros..</p>
+  <li><code class="language-plaintext highlighter-rouge">-r</code> é o frame rate, neste caso 24 fotos por segundo</li>
+  <li><code class="language-plaintext highlighter-rouge">-i</code> é o padrão de entrada (input) de imagens. Neste caso img001.jpg, img002.jpg e assim por diante.</li>
+  <li>
+    <p><a href="http://www.videolan.org/developers/x264.html">libx264</a> refere-se ao padrão de encoding do vídeo. Parece ser o padrão do Facebook, Youtube, Vimeo e outros..</p>
 
-<p>Apesar do ffmpeg ser muito interessante, existe um fork dele que se chama avconv e é o projeto que está sendo continuado e é o novo manipulador de vídeos/imagens padrão para linux. Não estou usando neste caso mas se você estiver fazendo algo do gênero vale a pena dar uma olhada.</p></li>
+    <p>Apesar do ffmpeg ser muito interessante, existe um fork dele que se chama avconv e é o projeto que está sendo continuado e é o novo manipulador de vídeos/imagens padrão para linux. Não estou usando neste caso mas se você estiver fazendo algo do gênero vale a pena dar uma olhada.</p>
+  </li>
 </ul>
 
 <h3 id="renomeando-imagens">Renomeando imagens</h3>
 
 <p>O ffmpeg não consegue entender a ordem se as imagens não tiverem um número de casas fixo, por exemplo:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">img1.jpg, img2.jpg,..., img10.jpg, img11.jpg
-</code></pre></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>img1.jpg, img2.jpg,..., img10.jpg, img11.jpg
+</code></pre></div></div>
+
 <p>Neste caso, é necessário converter o nome das imagens para utilizar casa fixas como img001.jpg, img002.jpg.</p>
 
-<p>Para renomear as imagens necessárias, eu fiz um script ruby para gerar os nomes corretamente e depois executei o comando com <code>| sh</code> pegando o puts diretamenten do <code>$stdout</code>.</p>
-<div class="highlight"><pre><code class="language-" data-lang="">ruby -e "Dir['*.jpg'].each{|f|f =~ /img_(\d+).jpg/; g = \"img_#{'%04d' % \$1.to_i}.jpg\"; puts \"mv #{f} #{g}\" if f != g}" | sh
-</code></pre></div>
+<p>Para renomear as imagens necessárias, eu fiz um script ruby para gerar os nomes corretamente e depois executei o comando com <code class="language-plaintext highlighter-rouge">| sh</code> pegando o puts diretamenten do <code class="language-plaintext highlighter-rouge">$stdout</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ruby -e "Dir['*.jpg'].each{|f|f =~ /img_(\d+).jpg/; g = \"img_#{'%04d' % \$1.to_i}.jpg\"; puts \"mv #{f} #{g}\" if f != g}" | sh
+</code></pre></div></div>
+
 <p>Este é o tipo de comando rápido que as vezes não tenho tanta agilidade e prática com shell para fazer o rename. Mas com ruby flui rapidamente e consigo avançar.</p>
 
 <h3 id="refactoring">Refactoring</h3>
@@ -1128,20 +1136,25 @@ end
 </pre>
 
 <p>Executando ruby e fazendo o pipeline para o shell temos o mesmo resultado de uma forma mais bonita:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">ruby converte.rb | sh
-</code></pre></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ruby converte.rb | sh
+</code></pre></div></div>
+
 <h3 id="imagens-com-nomes-diferentes">Imagens com nomes diferentes</h3>
 
-<p>Se as suas imagens não tiverem um padrão de nomes também é possível utilizando o parâmetro <code>pattern_type glob</code>, veja o exemplo:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">ffmpeg -r 24 -pattern_type glob -i "*.jpg" out.mkv
-</code></pre></div>
-<h3 id="veja-um-exemplo-de-v-deo">Veja um exemplo de vídeo</h3>
+<p>Se as suas imagens não tiverem um padrão de nomes também é possível utilizando o parâmetro <code class="language-plaintext highlighter-rouge">pattern_type glob</code>, veja o exemplo:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg -r 24 -pattern_type glob -i "*.jpg" out.mkv
+</code></pre></div></div>
+
+<h3 id="veja-um-exemplo-de-vídeo">Veja um exemplo de vídeo</h3>
 
 <p>O vídeo abaixo é um timelapse de 120 fotos, uma foto a cada 64 segundos. Girando 1 grau para a direita. O framerate utilizado foi 24 fotos por segundo.</p>
 
 <video src="/images/motolapse.mp4"></video>
 
-<p>O vídeo foi gerado com o comando: <code>ffmpeg -r 24 -i deg%04d.jpg -c:v libx264 motolapse.mp4</code>.</p>
+<p>O vídeo foi gerado com o comando: <code class="language-plaintext highlighter-rouge">ffmpeg -r 24 -i deg%04d.jpg -c:v libx264 motolapse.mp4</code>.</p>
+
 
 </div>
 <hr>

@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -1323,36 +1323,36 @@ tentando criar um game de cognitividade voltado para o aprendizado da linguagem 
 interface e por fim decidi tomar <a href="https://github.com/jonatas/trybliss/issues?milestone=1&amp;state=open">outros rumos</a> no game. Estive repensando sobre a interface
 e decidi migrar o formato do funcionamento para algo mais simples e fácil de alimentar.</p>
 
-<h3 id="o-problema-da-interface-de-edi-o-do-game">O problema da interface de edição do game</h3>
+<h3 id="o-problema-da-interface-de-edição-do-game">O problema da interface de edição do game</h3>
 
 <p>Estive criando uma interface dividindo e classificando o conhecimento de cada nível do jogo da seguinte forma:</p>
 
-<p>Veja o código <a href="https://github.com/jonatas/trybliss/blob/master/server/levels.js">aqui</a>.
+<p>Veja o código <a href="https://github.com/jonatas/trybliss/blob/master/server/levels.js">aqui</a>.</p>
 <pre class="prettyprint">
 var levels = [
   {
-     title: &quot;Places&quot;,
+     title: "Places",
      learn: {
-       symbols: [ &#39;house&#39;, &#39;money&#39;, &#39;God&#39;, &#39;feeling&#39;,&#39;medicine&#39;],
+       symbols: [ 'house', 'money', 'God', 'feeling','medicine'],
        combinations : [
-        &#39;house and money equal bank&#39;,
-        &#39;house and God equal church&#39;,
-        &#39;house and feeling equal home&#39;
+        'house and money equal bank',
+        'house and God equal church',
+        'house and feeling equal home'
        ]
      },
      answer: {
-       question: &#39;house and medicine equal question&#39;,
-       answer: &#39;hospital&#39;,
-       alternatives: [&#39;home&#39;, &#39;church&#39;, &#39;hospital&#39;, &#39;restaurant&#39;]
+       question: 'house and medicine equal question',
+       answer: 'hospital',
+       alternatives: ['home', 'church', 'hospital', 'restaurant']
      }
   },...
-</pre></p>
+</pre>
 
-<h3 id="solu-es-tempor-rias-custam-caro">Soluções temporárias custam caro</h3>
+<h3 id="soluções-temporárias-custam-caro">Soluções temporárias custam caro</h3>
 
 <p>Iniciei o desenvolvimento da interface que alimentava cada detalhe do hash de forma que 
 ficasse funcional mas não consegui cobrir o conceito e idealizar os componentes
-da melhor forma então resolvi mudar. </p>
+da melhor forma então resolvi mudar.</p>
 
 <p>Obtive sucesso mas parece que a interface ainda estava com muitas coisas fora do lugar. Não consegui me 
 adaptar e aceitar o modelo que estava criando e então decidi usar outro modelo.
@@ -1362,11 +1362,11 @@ o meteor e jquery.</p>
 <p>Agora estou decidido que usarei um framework de testes para me ajudar desde o
 início a  criar cada passo da minha aplicação com o Meteor também.</p>
 
-<h3 id="n-o-existem-solu-es-definitivas">Não existem soluções definitivas</h3>
+<h3 id="não-existem-soluções-definitivas">Não existem soluções definitivas</h3>
 
 <p>Sinto que cada experiência decepcionante enquanto aprender errando e também 
 um bom caminho para um aprendizado saudável, aprender tentando, o que 
- muitas vezes não é o mais fácil. </p>
+ muitas vezes não é o mais fácil.</p>
 
 <p>Valeu o aprendizado de pensar mais antes de iniciar uma implementação e de
 aceitar que muitas vezes o melhor caminho é mudar. Simples assim.</p>
@@ -1462,6 +1462,7 @@ brasileiro e isso é muito positivo.</p>
 
 <p>Existe 2 vídeos do Dave Thomas no youtube e uma outra apresentação do próprio
 José Valim falando sobre a linguagem no <a href="http://elixir-lang.org">site</a> da linguagem. Vale a pena conferir!</p>
+
 
 </div>
 <hr>

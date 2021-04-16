@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -401,9 +401,9 @@
   </h1>
 </div>
 <div class="content">
-    <h1 id="quanto-espa-o-seu-banco-postgresql-usa">Quanto espaço seu banco PostgreSql usa?</h1>
+    <h1 id="quanto-espaço-seu-banco-postgresql-usa">Quanto espaço seu banco PostgreSql usa?</h1>
 
-<p>Não sabe o tamanho dos seus bancos de dados no PostgreSql? Este BD opensource maravilhoso possuí uma série de tabelas informativas, que são reflexivas a situação atual SGBD. Em outras palavras, ele possuí tabelas que guardam informações sobre toda estrutura do próprio banco de dados. </p>
+<p>Não sabe o tamanho dos seus bancos de dados no PostgreSql? Este BD opensource maravilhoso possuí uma série de tabelas informativas, que são reflexivas a situação atual SGBD. Em outras palavras, ele possuí tabelas que guardam informações sobre toda estrutura do próprio banco de dados.</p>
 
 <p>Estas tabelas estão dentro de um schema chamado pg_catalog, que é automaticamente reconhecido com o schema <strong>public</strong>.</p>
 
@@ -417,7 +417,6 @@ SELECT pg_database.datname,
 FROM pg_database
 ORDER BY 1 DESC, 2 ASC; 
 </pre></div>
-
 <pre>
           datname          | pg_size_pretty 
 ---------------------------+----------------
@@ -431,6 +430,7 @@ ORDER BY 1 DESC, 2 ASC;
 </pre>
 
 <p><a href="/portfolio/2010/02/01/portfolio.html" title="veja o meu portfólio">Trabalho</a> com <strong>PostgreSql</strong> à seis anos e gosto muito da forma simples de trabalhar com este SGBD. Assim como é possível ver o tamanho, também é possível resgatar qualquer tipo de informação reflexiva ao próprio DDL do BD.</p>
+
 
 </div>
 <hr>

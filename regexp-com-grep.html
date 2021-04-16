@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -1785,7 +1785,7 @@ rake db:migrate:redo VERSION=20100301193807
 
 <p>Mas toda vez preciso escrever manualmente <strong>20100301193807</strong> e isso se torna uma tarefa chata.</p>
 
-<p>Como sou um fãn do editor <strong>vim</strong>, enquanto edito o arquivo tenho a possibilidade de acessar o nome do arquivo através de uma variável chamada &quot;%&quot;. Através do comando &quot;!&quot; é possível executar um comando do shell. Desta forma é possível enviar algo para o shell e receber uma resposta.</p>
+<p>Como sou um fãn do editor <strong>vim</strong>, enquanto edito o arquivo tenho a possibilidade de acessar o nome do arquivo através de uma variável chamada “%”. Através do comando “!” é possível executar um comando do shell. Desta forma é possível enviar algo para o shell e receber uma resposta.</p>
 
 <p>Executando no modo de comando do <strong>vim</strong>, é possível executar o comando:</p>
 
@@ -1793,17 +1793,16 @@ rake db:migrate:redo VERSION=20100301193807
 :!echo %
 </pre></div>
 
-<p>Que irá retornar algo como:
+<p>Que irá retornar algo como:</p>
 <div><pre class="prettyprint">
 20100301193807_create_tickets.rb
-</pre></div></p>
+</pre></div>
 
 <p>Para pegar apenas os digitos da versão, é possível recuperar apenas os dígitos usandoo comando grep:</p>
 
 <div><pre class="prettyprint">
 echo '20100301193807_create_tickets.rb' | grep -oEi '([0-9]+)'
 </pre></div>
- 
 
 <p>Que irá retornar apenas:</p>
 
@@ -1838,7 +1837,7 @@ db/migrate/20100301193807_create_tickets.rb:    create_table :tickets do |t|
 db/migrate/20100301193807_create_tickets.rb:    drop_table :tickets
 </pre></div>
 
-<p>ps: aprendi essa do &quot;<strong>grep -r</strong>&quot; com o <a href="http://parasitando.com">@leandroh</a></p>
+<p>ps: aprendi essa do “<strong>grep -r</strong>” com o <a href="http://parasitando.com">@leandroh</a></p>
 
 <p>Para ficar mais parecido com o rak é bom adicionar a opção <strong>n</strong> para exibir o número da linha:</p>
 
@@ -1854,6 +1853,7 @@ db/migrate/20100301193807_create_tickets.rb:15:    drop_table :tickets
 </pre></div>
 
 <p>Conclusão: divirta-se concatenando comandos!</p>
+
 
 </div>
 <hr>

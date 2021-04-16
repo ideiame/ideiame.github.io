@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -166,7 +166,8 @@
 
 <div class="row-fluid">
   <div class="span12">
-    <p><p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
+    
+<p>Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
 <p>Veja minhas
   <a href="/talks">talks</a> ou conecte-se via
   <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
@@ -177,25 +178,26 @@
   <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
   <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
   <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
-</p></p>
+</p>
 
-<p><hr /></p>
 
-<p><h1 class="post"><a class="post" href="/complex-ast-search-with-ruby"> Complex AST search with Ruby</a></h1>
+<hr />
+
+   <h1 class="post"><a class="post" href="/complex-ast-search-with-ruby"> Complex AST search with Ruby</a></h1>
  <p>I previously wrote a post about <a href="/search-in-ruby-ast">search in ruby ast</a> and I
-was showing the RuboCop node pattern in action.</p></p>
+was showing the RuboCop node pattern in action.</p>
 
 <p>Well, I take it as a personal challenge to write a small compiler and isolate
 the node pattern language to learn about compilers and scratch my own itch.</p>
 
-<p>RuboCop seems too much to what I&#39;d like to do and I start discovering how to
+<p>RuboCop seems too much to what I’d like to do and I start discovering how to
 build these functions along the way.</p>
 
-<p>I started working on fast: <a href="https://github.com/jonatas/fast/">https://github.com/jonatas/fast/</a>.</p>
+<p>I started working on fast: https://github.com/jonatas/fast/.</p>
 
 <p>Instead of keep piling tutorials and blog posts on my own domain, I decided to create one dedicated documentation to the library, and here we are:</p>
 
-<p><a href="https://jonatas.github.io/fast/">https://jonatas.github.io/fast/</a></p>
+<p>https://jonatas.github.io/fast/</p>
 
 <p>I created a few tutorials showing how to
 <a href="https://jonatas.github.io/fast/similarity_tutorial/">identify code similarity</a>
@@ -204,19 +206,19 @@ that can replace code and keep running the test suite.</p>
 
 <p>If the test passes, it tries a new refactor and keep refactoring.</p>
 
-<p>I&#39;m thrilled with all the work I dedicated here and during this week I
+<p>I’m thrilled with all the work I dedicated here and during this week I
 <a href="https://github.com/jonatas/fast/pull/11">implemented a new feature</a>
-that I&#39;d like to show here.</p>
+that I’d like to show here.</p>
 
 <p>Basically, the current function is able to use custom ruby methods to leverage
 complexity in AST search.</p>
 
-<p>With the new syntax, it&#39;s possible to use embedded methods in the middle of the
+<p>With the new syntax, it’s possible to use embedded methods in the middle of the
 expressions that also matches nodes or inner elements.</p>
 
-<p>Let&#39;s take a look in some code example:</p>
+<p>Let’s take a look in some code example:</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Example</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Example</span>
   <span class="k">def</span> <span class="nf">first_method</span>
   <span class="k">end</span>
   <span class="k">def</span> <span class="nf">second_method</span>
@@ -224,13 +226,13 @@ expressions that also matches nodes or inner elements.</p>
   <span class="k">def</span> <span class="nf">first_method</span> <span class="c1"># repeated</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre></div>
+</code></pre></div></div>
 
 <p>How can we build a search to find the repeated method?</p>
 
-<p>With a simple search of <code>def</code> we have the following results:</p>
+<p>With a simple search of <code class="language-plaintext highlighter-rouge">def</code> we have the following results:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">fast <span class="s1">'def '</span> example.rb                                                                                                                                                                                                                                                                                                                                                                                                                                    21:30:40
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fast <span class="s1">'def '</span> example.rb                                                                                                                                                                                                                                                                                                                                                                                                                                    21:30:40
 <span class="c"># example.rb:2</span>
 def first_method
   end
@@ -240,48 +242,47 @@ def second_method
 <span class="c"># example.rb:6</span>
 def first_method <span class="c"># repeated</span>
   end
-</code></pre></div>
+</code></pre></div></div>
 
 <p>If I know the method name I can simply say it:</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">fast <span class="s1">'(def first_method)'</span> example.rb                                                                                                                                                                                                                                                                                                                                                                                                                       21:30:56
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fast <span class="s1">'(def first_method)'</span> example.rb                                                                                                                                                                                                                                                                                                                                                                                                                       21:30:56
 <span class="c"># example.rb:2</span>
 def first_method
   end
 <span class="c"># example.rb:6</span>
 def first_method <span class="c"># repeated</span>
   end
-</code></pre></div>
-
-<p>But how can I collect the method names to discover if they&#39;re repeated?</p>
+</code></pre></div></div>
+<p>But how can I collect the method names to discover if they’re repeated?</p>
 
 <p>Using <a href="https://jonatas.github.io/fast/syntax/#is-for-capture-current-expression">Fast.capture</a>
-It can be easily found. Let&#39;s see how I could do it in the old way?</p>
+It can be easily found. Let’s see how I could do it in the old way?</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Fast</span><span class="p">.</span><span class="nf">capture</span><span class="p">(</span><span class="no">Fast</span><span class="p">.</span><span class="nf">ast_from_file</span><span class="p">(</span><span class="s2">"example.rb"</span><span class="p">),</span> <span class="s2">"(def $_)"</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">capture</span><span class="p">(</span><span class="no">Fast</span><span class="p">.</span><span class="nf">ast_from_file</span><span class="p">(</span><span class="s2">"example.rb"</span><span class="p">),</span> <span class="s2">"(def $_)"</span><span class="p">)</span>
 <span class="c1"># =&gt; [:first_method, :second_method, :first_method]</span>
-</code></pre></div>
+</code></pre></div></div>
 
-<p>Great! But I&#39;d like to pick only the third element that is the first duplicated.</p>
+<p>Great! But I’d like to pick only the third element that is the first duplicated.</p>
 
-<p>How can I make it happen? How to ignore the <code>second_method</code> and the first
-<code>first_method</code>?</p>
+<p>How can I make it happen? How to ignore the <code class="language-plaintext highlighter-rouge">second_method</code> and the first
+<code class="language-plaintext highlighter-rouge">first_method</code>?</p>
 
-<p>We need to build a small method that can record the method name and collect unique methods. When it founds some method that is already registered. It can target this as a &quot;match&quot;. Let&#39;s implement the method and use it inside our
+<p>We need to build a small method that can record the method name and collect unique methods. When it founds some method that is already registered. It can target this as a “match”. Let’s implement the method and use it inside our
 expression:</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">duplicated</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">duplicated</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span>
   <span class="vi">@methods</span> <span class="o">||=</span> <span class="p">[]</span>
   <span class="n">already_exists</span> <span class="o">=</span> <span class="vi">@methods</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span>
   <span class="vi">@methods</span> <span class="o">&lt;&lt;</span> <span class="n">method_name</span>
   <span class="n">already_exists</span>
 <span class="k">end</span>
-</code></pre></div>
+</code></pre></div></div>
 
 <p>The method simply receives a symbol and check if it was previously included in
 the array. Now, we can use the method:</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">duplicated</span> <span class="ss">:a</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">duplicated</span> <span class="ss">:a</span>
 <span class="c1"># =&gt; false</span>
 <span class="n">duplicated</span> <span class="ss">:a</span>
 <span class="c1"># =&gt; true</span>
@@ -291,21 +292,23 @@ the array. Now, we can use the method:</p>
 <span class="c1"># =&gt; false</span>
 <span class="n">duplicated</span> <span class="ss">:b</span>
 <span class="c1"># =&gt; true</span>
-</code></pre></div><div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">search_file</span><span class="p">(</span> <span class="s1">'(def #duplicated)'</span><span class="p">,</span> <span class="s1">'example.rb'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">search_file</span><span class="p">(</span> <span class="s1">'(def #duplicated)'</span><span class="p">,</span> <span class="s1">'example.rb'</span><span class="p">)</span>
 <span class="c1"># (def :first_method</span>
 <span class="c1">#  (args) nil)</span>
-</code></pre></div>
+</code></pre></div></div>
 
 <p>Keep in mind that if you rerun the same search, it will not work because we
-need to reset the <code>@methods</code> variable.</p>
+need to reset the <code class="language-plaintext highlighter-rouge">@methods</code> variable.</p>
 
 <p>The <a href="https://github.com/jonatas/fast/blob/master/lib/fast.rb#L382">MethodCall</a>
-will simply take the argument, no matter if it&#39;s a node or some inner element.
+will simply take the argument, no matter if it’s a node or some inner element.
 It will depend on where the function is placed in the DSL.</p>
 
-<p>If we want to match with the node, it needs to be written and validating the <code>def</code> internally. Example:</p>
+<p>If we want to match with the node, it needs to be written and validating the <code class="language-plaintext highlighter-rouge">def</code> internally. Example:</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">duplicated_def</span> <span class="n">node</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">duplicated_def</span> <span class="n">node</span>
   <span class="k">return</span> <span class="kp">false</span> <span class="k">unless</span> <span class="n">node</span><span class="p">.</span><span class="nf">type</span> <span class="o">==</span> <span class="ss">:def</span>
   <span class="n">method_name</span><span class="p">,</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="nf">children</span>
   <span class="vi">@methods</span> <span class="o">||=</span> <span class="p">[]</span>
@@ -313,282 +316,285 @@ It will depend on where the function is placed in the DSL.</p>
   <span class="vi">@methods</span> <span class="o">&lt;&lt;</span> <span class="n">method_name</span>
   <span class="n">already_exists</span>
 <span class="k">end</span>
-</code></pre></div>
+</code></pre></div></div>
 
 <p>We created a guard clause to avoid match other node types. As the method call
 will receive the node inline with the expression, we can even remove the parens
 from the expression:</p>
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">search_file</span><span class="p">(</span> <span class="s1">'#duplicated_def'</span><span class="p">,</span> <span class="s1">'example.rb'</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">search_file</span><span class="p">(</span> <span class="s1">'#duplicated_def'</span><span class="p">,</span> <span class="s1">'example.rb'</span><span class="p">)</span>
 <span class="p">(</span><span class="k">def</span> <span class="ss">:first_method</span>
   <span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="kp">nil</span><span class="p">)</span>
-</code></pre></div>
+</code></pre></div></div>
 
-<p>That&#39;s all I have for today! I&#39;m a bit bored with my tool, and I&#39;m also working
+<p>That’s all I have for today! I’m a bit bored with my tool, and I’m also working
 to <a href="https://github.com/rubocop-hq/rubocop/pull/6686">extract the node pattern from RuboCop to a separated library</a>.</p>
 
-<p><hr />
-<ul class="posts"></p>
 
-<p><li><span class="post_date">23 Feb 2019</span> &raquo;<a class="post" href="/complex-ast-search-with-ruby">Complex AST search with Ruby</a></li></p>
 
-<p><li><span class="post_date">06 Jan 2019</span> &raquo;<a class="post" href="/image-processing-with-rmagick">Image processing with Ruby</a></li></p>
-
-<p><li><span class="post_date">30 Dec 2018</span> &raquo;<a class="post" href="/retrospective-2018">Retrospective 2018</a></li></p>
-
-<p><li><span class="post_date">21 Dec 2017</span> &raquo;<a class="post" href="/retrospective-2017">Retrospective 2017</a></li></p>
-
-<p><li><span class="post_date">30 Nov 2017</span> &raquo;<a class="post" href="/customize-rubocop-layout-class-structure-cop">Customize RuboCop Layout/ClassStructure cop</a></li></p>
-
-<p><li><span class="post_date">21 Nov 2017</span> &raquo;<a class="post" href="/the-dynamic-experiment-initiative">The dynamic experiment initiative</a></li></p>
-
-<p><li><span class="post_date">04 Aug 2017</span> &raquo;<a class="post" href="/adventures-on-automated-code-replacement">Adventures on automated code replacement</a></li></p>
-
-<p><li><span class="post_date">20 Jul 2017</span> &raquo;<a class="post" href="/my-nomad-life">My nomad life</a></li></p>
-
-<p><li><span class="post_date">31 May 2017</span> &raquo;<a class="post" href="/parsing-ruby-code">Parsing Ruby Code</a></li></p>
-
-<p><li><span class="post_date">20 May 2017</span> &raquo;<a class="post" href="/search-in-ruby-ast">Search in Ruby AST</a></li></p>
-
-<p><li><span class="post_date">13 Aug 2016</span> &raquo;<a class="post" href="/ruby-puzzle-gridlock">Gridlock game - solving with Ruby</a></li></p>
-
-<p><li><span class="post_date">27 Jul 2016</span> &raquo;<a class="post" href="/trabalhar-sozinho-ou-contribuir">Trabalhar sozinho ou contribuir?</a></li></p>
-
-<p><li><span class="post_date">05 Jun 2016</span> &raquo;<a class="post" href="/the-dev-conf-sp-2016">TDC SP 2016 here we go :)</a></li></p>
-
-<p><li><span class="post_date">22 May 2016</span> &raquo;<a class="post" href="/pessoas-codigos-comunicacao">Pessoas, códigos, comunicação</a></li></p>
-
-<p><li><span class="post_date">17 Apr 2016</span> &raquo;<a class="post" href="/introducao-linguagem-ruby">Introdução a linguagem Ruby</a></li></p>
-
-<p><li><span class="post_date">01 Apr 2016</span> &raquo;<a class="post" href="/programar-e-uma-droga">Programar é uma droga</a></li></p>
-
-<p><li><span class="post_date">25 Mar 2016</span> &raquo;<a class="post" href="/tdc-online">TDC Online! Here we go!</a></li></p>
-
-<p><li><span class="post_date">24 Mar 2016</span> &raquo;<a class="post" href="/google-cloud-platform">Google Cloud Platform</a></li></p>
-
-<p><li><span class="post_date">22 Mar 2016</span> &raquo;<a class="post" href="/automate-first">Automatize primeiro</a></li></p>
-
-<p><li><span class="post_date">19 Mar 2016</span> &raquo;<a class="post" href="/lorenzo-ideia-me-no-ar">lorenzo.ideia.me no ar!</a></li></p>
-
-<p><li><span class="post_date">16 Mar 2016</span> &raquo;<a class="post" href="/comecando-com-go-lang">Começando com GO Lang</a></li></p>
-
-<p><li><span class="post_date">15 Mar 2016</span> &raquo;<a class="post" href="/vim-basico-para-ruby">Vim básico para trabalhar com Ruby</a></li></p>
-
-<p><li><span class="post_date">14 Mar 2016</span> &raquo;<a class="post" href="/fish-shell">Fish shell</a></li></p>
-
-<p><li><span class="post_date">14 Mar 2016</span> &raquo;<a class="post" href="/buscando-com-silver-searcher-aka-ag">Buscando com silver searcher</a></li></p>
-
-<p><li><span class="post_date">22 Feb 2016</span> &raquo;<a class="post" href="/um-ano-na-resultados-digitais">Primeiro Ano na RD</a></li></p>
-
-<p><li><span class="post_date">14 Feb 2016</span> &raquo;<a class="post" href="/podcast-boa-noite-lorenzo">Podcast Boa Noite Lorenzo</a></li></p>
-
-<p><li><span class="post_date">05 Dec 2015</span> &raquo;<a class="post" href="/vida-de-bike">Vida de bike</a></li></p>
-
-<p><li><span class="post_date">15 Nov 2015</span> &raquo;<a class="post" href="/railsrumble-2015">Rails Rumble 2015</a></li></p>
-
-<p><li><span class="post_date">27 Sep 2015</span> &raquo;<a class="post" href="/coffeescript-rocks">Coffeescript rocks</a></li></p>
-
-<p><li><span class="post_date">10 Sep 2015</span> &raquo;<a class="post" href="/from-linux-to-os-x">Migrando do linux para o Mac OS X</a></li></p>
-
-<p><li><span class="post_date">28 Aug 2015</span> &raquo;<a class="post" href="/tutorial-programacao-3D-openscad">Programação 3D com OpenSCad</a></li></p>
-
-<p><li><span class="post_date">24 Aug 2015</span> &raquo;<a class="post" href="/6-meses-na-resultados-digitais">6 meses na Resultados Digitais</a></li></p>
-
-<p><li><span class="post_date">14 Jul 2015</span> &raquo;<a class="post" href="/TDC-SP-here-we-go">TDC SP here we go :)</a></li></p>
-
-<p><li><span class="post_date">01 Jun 2015</span> &raquo;<a class="post" href="/vida-de-busao">Vida de busão</a></li></p>
-
-<p><li><span class="post_date">28 May 2015</span> &raquo;<a class="post" href="/perguntas-do-meu-filho-de-3-anos">Perguntas do meu filho de 3 anos</a></li></p>
-
-<p><li><span class="post_date">26 May 2015</span> &raquo;<a class="post" href="/tres-meses-na-resultados-digitais">Três meses na Resultados Digitais</a></li></p>
-
-<p><li><span class="post_date">04 Apr 2015</span> &raquo;<a class="post" href="/produto-ou-servico">Produto ou serviço?</a></li></p>
-
-<p><li><span class="post_date">23 Mar 2015</span> &raquo;<a class="post" href="/primeiro-mes-na-resultados-digitais">Primeiro mês na Resultados Digitais</a></li></p>
-
-<p><li><span class="post_date">01 Mar 2015</span> &raquo;<a class="post" href="/primeira-semana-na-resultados-digitais">Primeira semana na Resultados Digitais</a></li></p>
-
-<p><li><span class="post_date">23 Dec 2014</span> &raquo;<a class="post" href="/retrospectiva-2014">Retrospectiva 2014</a></li></p>
-
-<p><li><span class="post_date">27 Oct 2014</span> &raquo;<a class="post" href="/blog-da-inventto">Blog da invent.to</a></li></p>
-
-<p><li><span class="post_date">22 Apr 2014</span> &raquo;<a class="post" href="/raspibian-sem-mouse">Raspibian sem mouse</a></li></p>
-
-<p><li><span class="post_date">09 Apr 2014</span> &raquo;<a class="post" href="/coisas-legais-para-fazer-com-o-rpi">Coisas legais para fazer com o Raspberry PI</a></li></p>
-
-<p><li><span class="post_date">07 Apr 2014</span> &raquo;<a class="post" href="/bone-debian-rodando-no-beaglebone-black">Bone Debian rodando no BeagleBone Black</a></li></p>
-
-<p><li><span class="post_date">03 Apr 2014</span> &raquo;<a class="post" href="/como-gerar-um-video-de-fotos-sequenciais">Como gerar um vídeo de fotos sequênciais</a></li></p>
-
-<p><li><span class="post_date">01 Apr 2014</span> &raquo;<a class="post" href="/rotative-timelapse">Timelapse girando no Raspberry PI</a></li></p>
-
-<p><li><span class="post_date">29 Jan 2014</span> &raquo;<a class="post" href="/desenvolvemos-seu-invento">Desenvolvemos seu invento!</a></li></p>
-
-<p><li><span class="post_date">23 Dec 2013</span> &raquo;<a class="post" href="/retrospectiva-2013">Retrospectiva 2013</a></li></p>
-
-<p><li><span class="post_date">21 Oct 2013</span> &raquo;<a class="post" href="/re-inventto-esta-no-ar">ReInvent.to está no ar!</a></li></p>
-
-<p><li><span class="post_date">16 Oct 2013</span> &raquo;<a class="post" href="/railsrumble-vem-ai">Rails Rumble vem aí</a></li></p>
-
-<p><li><span class="post_date">29 Jul 2013</span> &raquo;<a class="post" href="/diversidade-e-riqueza">A diversidade é a riqueza</a></li></p>
-
-<p><li><span class="post_date">27 Jul 2013</span> &raquo;<a class="post" href="/site-arteterapia-no-ar">Arteterapia no ar!</a></li></p>
-
-<p><li><span class="post_date">23 Jul 2013</span> &raquo;<a class="post" href="/o-que-tira-meu-tempo">O que tira o meu tempo?</a></li></p>
-
-<p><li><span class="post_date">28 Jun 2013</span> &raquo;<a class="post" href="/pensando-no-futuro">Pensando No Futuro</a></li></p>
-
-<p><li><span class="post_date">26 Jun 2013</span> &raquo;<a class="post" href="/bliss-ideia-me-no-ar">Bliss ideia.me está no ar!</a></li></p>
-
-<p><li><span class="post_date">10 Jun 2013</span> &raquo;<a class="post" href="/o-que-ando-ideiando">O que ando fazendo nos últimos dias</a></li></p>
-
-<p><li><span class="post_date">05 May 2013</span> &raquo;<a class="post" href="/fim-de-semana-bliss">Fim de semana bliss</a></li></p>
-
-<p><li><span class="post_date">01 May 2013</span> &raquo;<a class="post" href="/git-post-receive">Git Post Receive</a></li></p>
-
-<p><li><span class="post_date">24 Apr 2013</span> &raquo;<a class="post" href="/migrando-estilo-para-twitter-bootstrap">Jekyll e Twitter Bootstrap</a></li></p>
-
-<p><li><span class="post_date">18 Apr 2013</span> &raquo;<a class="post" href="/observando-a-memoria-ruby">Observando a memória no ruby</a></li></p>
-
-<p><li><span class="post_date">18 Apr 2013</span> &raquo;<a class="post" href="/experiencias-meteor">Experiências com o Meteor js</a></li></p>
-
-<p><li><span class="post_date">08 Apr 2013</span> &raquo;<a class="post" href="/pixel-no-ar">Pixel no ar!</a></li></p>
-
-<p><li><span class="post_date">01 Apr 2013</span> &raquo;<a class="post" href="/flu-ideia-me-no-ar">Flu.ideia.me no ar!</a></li></p>
-
-<p><li><span class="post_date">05 Mar 2013</span> &raquo;<a class="post" href="/concentracao-na-era-da-distracao">Concentração na era da distração</a></li></p>
-
-<p><li><span class="post_date">14 Dec 2012</span> &raquo;<a class="post" href="/retro-2012">Retrospectiva 2012</a></li></p>
-
-<p><li><span class="post_date">03 Dec 2012</span> &raquo;<a class="post" href="/moving-the-homeoffice">Home office de mudança</a></li></p>
-
-<p><li><span class="post_date">24 Nov 2012</span> &raquo;<a class="post" href="/efetivamente">Efetivamente....</a></li></p>
-
-<p><li><span class="post_date">11 Nov 2012</span> &raquo;<a class="post" href="/meu-filho-ja-vai-fazer-um-ano">Meu primeiro filho e seu primeiro ano</a></li></p>
-
-<p><li><span class="post_date">11 Nov 2012</span> &raquo;<a class="post" href="/arteterapia-begins">Arteterapia o início</a></li></p>
-
-<p><li><span class="post_date">08 Nov 2012</span> &raquo;<a class="post" href="/churumelas-no-ar">Não me venha com churumelas!</a></li></p>
-
-<p><li><span class="post_date">18 Oct 2012</span> &raquo;<a class="post" href="/rails-rumble-se-foi-e-churumelas-esta-no-ar">Como foi a Rails Rumble 2012</a></li></p>
-
-<p><li><span class="post_date">01 Oct 2012</span> &raquo;<a class="post" href="/rails-rumble-ideias">Ideias sobre o Rails Rumble</a></li></p>
-
-<p><li><span class="post_date">13 Sep 2012</span> &raquo;<a class="post" href="/os-programadores-do-futuro">Os programadores do futuro</a></li></p>
-
-<p><li><span class="post_date">23 May 2012</span> &raquo;<a class="post" href="/disciplina-no-home-office">Disciplina no home office</a></li></p>
-
-<p><li><span class="post_date">08 May 2012</span> &raquo;<a class="post" href="/galaxy-note-n7000">Sansung Galaxy Note N7000</a></li></p>
-
-<p><li><span class="post_date">09 Apr 2012</span> &raquo;<a class="post" href="/update-ou-upgrade-parte-2">Update ou upgrade parte 2</a></li></p>
-
-<p><li><span class="post_date">01 Apr 2012</span> &raquo;<a class="post" href="/cursando-aulas-da-stanford">Cursando aulas da Stanford University</a></li></p>
-
-<p><li><span class="post_date">30 Mar 2012</span> &raquo;<a class="post" href="/terminal-life">Vida no terminal</a></li></p>
-
-<p><li><span class="post_date">29 Mar 2012</span> &raquo;<a class="post" href="/update-ou-upgrade">Update ou upgrade</a></li></p>
-
-<p><li><span class="post_date">25 Mar 2012</span> &raquo;<a class="post" href="/usabilidade-versus-simplicidade">Usabilidade versus simplicidade</a></li></p>
-
-<p><li><span class="post_date">13 Mar 2012</span> &raquo;<a class="post" href="/camera-overlay-open-source">Câmera Overlay Open Source</a></li></p>
-
-<p><li><span class="post_date">08 Mar 2012</span> &raquo;<a class="post" href="/chave-dicotomica-android">Chave Dicotômica</a></li></p>
-
-<p><li><span class="post_date">07 Mar 2012</span> &raquo;<a class="post" href="/pequenas-decisoes-grandes-mudancas">Pequenas mudanças e grandes decisões</a></li></p>
-
-<p><li><span class="post_date">27 Feb 2012</span> &raquo;<a class="post" href="/camera-overlay">Camera Overlay</a></li></p>
-
-<p><li><span class="post_date">12 Jul 2010</span> &raquo;<a class="post" href="/sinceridade-nao-faz-mal-a-ninguem">Sinceridade não faz mal a ninguém</a></li></p>
-
-<p><li><span class="post_date">07 Jul 2010</span> &raquo;<a class="post" href="/ingles-legal">Inglês Legal</a></li></p>
-
-<p><li><span class="post_date">30 Jun 2010</span> &raquo;<a class="post" href="/problemas-no-software">Problemas no software e hardware</a></li></p>
-
-<p><li><span class="post_date">27 Jun 2010</span> &raquo;<a class="post" href="/cognitividade-da-interface">Cognitividade da Interface</a></li></p>
-
-<p><li><span class="post_date">18 Jun 2010</span> &raquo;<a class="post" href="/ipad-chegou">Meu iPad Chegou!</a></li></p>
-
-<p><li><span class="post_date">11 Jun 2010</span> &raquo;<a class="post" href="/palestra-sobre-ruby-e-rails">Palestra na Vizivali</a></li></p>
-
-<p><li><span class="post_date">30 May 2010</span> &raquo;<a class="post" href="/sh-legal">SH Legal</a></li></p>
-
-<p><li><span class="post_date">21 May 2010</span> &raquo;<a class="post" href="/sistemas-operacionais-gerencia-processador-pt1">Sistemas Operacionais - Gerência do processador - parte 1</a></li></p>
-
-<p><li><span class="post_date">19 May 2010</span> &raquo;<a class="post" href="/javascript-legal">Javascript Ninja Legal</a></li></p>
-
-<p><li><span class="post_date">18 May 2010</span> &raquo;<a class="post" href="/iteracao-legal">Iteração legal</a></li></p>
-
-<p><li><span class="post_date">16 May 2010</span> &raquo;<a class="post" href="/coffeescript-legal">Coffeescript Legal</a></li></p>
-
-<p><li><span class="post_date">13 May 2010</span> &raquo;<a class="post" href="/servicos-google-api">Google Api</a></li></p>
-
-<p><li><span class="post_date">13 May 2010</span> &raquo;<a class="post" href="/linguagens-e-o-mundo">As linguagens e o mundo</a></li></p>
-
-<p><li><span class="post_date">05 May 2010</span> &raquo;<a class="post" href="/google-legal">Nova roda mágica do google</a></li></p>
-
-<p><li><span class="post_date">03 May 2010</span> &raquo;<a class="post" href="/ruby-legal">Ruby Legal</a></li></p>
-
-<p><li><span class="post_date">03 May 2010</span> &raquo;<a class="post" href="/google-buzz-api-no-ideiame">Integrando API do Google Buzz no Ideia.me</a></li></p>
-
-<p><li><span class="post_date">29 Apr 2010</span> &raquo;<a class="post" href="/find-exec">Usufruindo do comando find do Unix</a></li></p>
-
-<p><li><span class="post_date">27 Apr 2010</span> &raquo;<a class="post" href="/curriculo-jonatas-davi-paganini">Jônatas Davi Paganini</a></li></p>
-
-<p><li><span class="post_date">21 Apr 2010</span> &raquo;<a class="post" href="/diario-de-um-feriado">Diário de um feriado</a></li></p>
-
-<p><li><span class="post_date">18 Apr 2010</span> &raquo;<a class="post" href="/novas-cores-no-site">Novas cores no site</a></li></p>
-
-<p><li><span class="post_date">31 Mar 2010</span> &raquo;<a class="post" href="/weborb-active-record">WebOrb + ActiveRecord</a></li></p>
-
-<p><li><span class="post_date">25 Mar 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">Gerência do Projetos</a></li></p>
-
-<p><li><span class="post_date">25 Mar 2010</span> &raquo;<a class="post" href="/a-importancia-dos-baby-steps">A importância dos baby steps</a></li></p>
-
-<p><li><span class="post_date">22 Mar 2010</span> &raquo;<a class="post" href="/helplate">Helplate = Help + Template</a></li></p>
-
-<p><li><span class="post_date">18 Mar 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">gtR - gerência do projeto do gtR da nissan</a></li></p>
-
-<p><li><span class="post_date">11 Mar 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">gtR - um projeto da nissan</a></li></p>
-
-<p><li><span class="post_date">04 Mar 2010</span> &raquo;<a class="post" href="/modos-so">Aula de Sistemas Operacionais - Modos do Kernel</a></li></p>
-
-<p><li><span class="post_date">04 Mar 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">Gerência de Projetos</a></li></p>
-
-<p><li><span class="post_date">02 Mar 2010</span> &raquo;<a class="post" href="/cartao-de-visitas">Cartão de visitas</a></li></p>
-
-<p><li><span class="post_date">01 Mar 2010</span> &raquo;<a class="post" href="/regexp-com-grep">Expressões Regulares com grep</a></li></p>
-
-<p><li><span class="post_date">25 Feb 2010</span> &raquo;<a class="post" href="/inspecionando-formulas-em-ruby">Inspecionando fórmulas em ruby</a></li></p>
-
-<p><li><span class="post_date">23 Feb 2010</span> &raquo;<a class="post" href="/regexp-maravilha">Expressões Regulares + Ruby = *maravilhas</a></li></p>
-
-<p><li><span class="post_date">22 Feb 2010</span> &raquo;<a class="post" href="/sql-comentado">A linguagem SQL</a></li></p>
-
-<p><li><span class="post_date">21 Feb 2010</span> &raquo;<a class="post" href="/postgresql-tricks">PostgreSql Tricks</a></li></p>
-
-<p><li><span class="post_date">18 Feb 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">Gerência de Projetos</a></li></p>
-
-<p><li><span class="post_date">16 Feb 2010</span> &raquo;<a class="post" href="/inspecionando-regexp-com-sinatra">Inspecionando expressões regulares com Sinatra!</a></li></p>
-
-<p><li><span class="post_date">14 Feb 2010</span> &raquo;<a class="post" href="/leiaute-iphone">Leiaute para iPhone no Ideia.me</a></li></p>
-
-<p><li><span class="post_date">14 Feb 2010</span> &raquo;<a class="post" href="/google-code-playground">Google code playground</a></li></p>
-
-<p><li><span class="post_date">14 Feb 2010</span> &raquo;<a class="post" href="/estorias-bonitas-vs-testes-unitarios">Estórias Bonitas vs Testes Unitários</a></li></p>
-
-<p><li><span class="post_date">13 Feb 2010</span> &raquo;<a class="post" href="/rml-resume-markup-language">RML - Resume Markup Language</a></li></p>
-
-<p><li><span class="post_date">11 Feb 2010</span> &raquo;<a class="post" href="/de-volta-ao-tex">De volta as aulas</a></li></p>
-
-<p><li><span class="post_date">03 Feb 2010</span> &raquo;<a class="post" href="/bom-dia-a-dia">Bom dia a dia do desenvolvimento</a></li></p>
-
-<p><li><span class="post_date">01 Feb 2010</span> &raquo;<a class="post" href="/portfolio">Portfolio::Base</a></li></p>
-
-<p><li><span class="post_date">01 Feb 2010</span> &raquo;<a class="post" href="/curriculo">Currículo</a></li></p>
-
-<p><li><span class="post_date">31 Jan 2010</span> &raquo;<a class="post" href="/prototipo-site">Protótipo do site</a></li></p>
-
-<p></ul></p>
+<hr />
+<ul class="posts">
+ 
+  <li><span class="post_date">23 Feb 2019</span> &raquo;<a class="post" href="/complex-ast-search-with-ruby">Complex AST search with Ruby</a></li>
+ 
+  <li><span class="post_date">06 Jan 2019</span> &raquo;<a class="post" href="/image-processing-with-rmagick">Image processing with Ruby</a></li>
+ 
+  <li><span class="post_date">30 Dec 2018</span> &raquo;<a class="post" href="/retrospective-2018">Retrospective 2018</a></li>
+ 
+  <li><span class="post_date">21 Dec 2017</span> &raquo;<a class="post" href="/retrospective-2017">Retrospective 2017</a></li>
+ 
+  <li><span class="post_date">30 Nov 2017</span> &raquo;<a class="post" href="/customize-rubocop-layout-class-structure-cop">Customize RuboCop Layout/ClassStructure cop</a></li>
+ 
+  <li><span class="post_date">21 Nov 2017</span> &raquo;<a class="post" href="/the-dynamic-experiment-initiative">The dynamic experiment initiative</a></li>
+ 
+  <li><span class="post_date">04 Aug 2017</span> &raquo;<a class="post" href="/adventures-on-automated-code-replacement">Adventures on automated code replacement</a></li>
+ 
+  <li><span class="post_date">20 Jul 2017</span> &raquo;<a class="post" href="/my-nomad-life">My nomad life</a></li>
+ 
+  <li><span class="post_date">31 May 2017</span> &raquo;<a class="post" href="/parsing-ruby-code">Parsing Ruby Code</a></li>
+ 
+  <li><span class="post_date">20 May 2017</span> &raquo;<a class="post" href="/search-in-ruby-ast">Search in Ruby AST</a></li>
+ 
+  <li><span class="post_date">13 Aug 2016</span> &raquo;<a class="post" href="/ruby-puzzle-gridlock">Gridlock game - solving with Ruby</a></li>
+ 
+  <li><span class="post_date">27 Jul 2016</span> &raquo;<a class="post" href="/trabalhar-sozinho-ou-contribuir">Trabalhar sozinho ou contribuir?</a></li>
+ 
+  <li><span class="post_date">05 Jun 2016</span> &raquo;<a class="post" href="/the-dev-conf-sp-2016">TDC SP 2016 here we go :)</a></li>
+ 
+  <li><span class="post_date">22 May 2016</span> &raquo;<a class="post" href="/pessoas-codigos-comunicacao">Pessoas, códigos, comunicação</a></li>
+ 
+  <li><span class="post_date">17 Apr 2016</span> &raquo;<a class="post" href="/introducao-linguagem-ruby">Introdução a linguagem Ruby</a></li>
+ 
+  <li><span class="post_date">01 Apr 2016</span> &raquo;<a class="post" href="/programar-e-uma-droga">Programar é uma droga</a></li>
+ 
+  <li><span class="post_date">25 Mar 2016</span> &raquo;<a class="post" href="/tdc-online">TDC Online! Here we go!</a></li>
+ 
+  <li><span class="post_date">24 Mar 2016</span> &raquo;<a class="post" href="/google-cloud-platform">Google Cloud Platform</a></li>
+ 
+  <li><span class="post_date">22 Mar 2016</span> &raquo;<a class="post" href="/automate-first">Automatize primeiro</a></li>
+ 
+  <li><span class="post_date">19 Mar 2016</span> &raquo;<a class="post" href="/lorenzo-ideia-me-no-ar">lorenzo.ideia.me no ar!</a></li>
+ 
+  <li><span class="post_date">16 Mar 2016</span> &raquo;<a class="post" href="/comecando-com-go-lang">Começando com GO Lang</a></li>
+ 
+  <li><span class="post_date">15 Mar 2016</span> &raquo;<a class="post" href="/vim-basico-para-ruby">Vim básico para trabalhar com Ruby</a></li>
+ 
+  <li><span class="post_date">14 Mar 2016</span> &raquo;<a class="post" href="/fish-shell">Fish shell</a></li>
+ 
+  <li><span class="post_date">14 Mar 2016</span> &raquo;<a class="post" href="/buscando-com-silver-searcher-aka-ag">Buscando com silver searcher</a></li>
+ 
+  <li><span class="post_date">22 Feb 2016</span> &raquo;<a class="post" href="/um-ano-na-resultados-digitais">Primeiro Ano na RD</a></li>
+ 
+  <li><span class="post_date">14 Feb 2016</span> &raquo;<a class="post" href="/podcast-boa-noite-lorenzo">Podcast Boa Noite Lorenzo</a></li>
+ 
+  <li><span class="post_date">05 Dec 2015</span> &raquo;<a class="post" href="/vida-de-bike">Vida de bike</a></li>
+ 
+  <li><span class="post_date">15 Nov 2015</span> &raquo;<a class="post" href="/railsrumble-2015">Rails Rumble 2015</a></li>
+ 
+  <li><span class="post_date">27 Sep 2015</span> &raquo;<a class="post" href="/coffeescript-rocks">Coffeescript rocks</a></li>
+ 
+  <li><span class="post_date">10 Sep 2015</span> &raquo;<a class="post" href="/from-linux-to-os-x">Migrando do linux para o Mac OS X</a></li>
+ 
+  <li><span class="post_date">28 Aug 2015</span> &raquo;<a class="post" href="/tutorial-programacao-3D-openscad">Programação 3D com OpenSCad</a></li>
+ 
+  <li><span class="post_date">24 Aug 2015</span> &raquo;<a class="post" href="/6-meses-na-resultados-digitais">6 meses na Resultados Digitais</a></li>
+ 
+  <li><span class="post_date">14 Jul 2015</span> &raquo;<a class="post" href="/TDC-SP-here-we-go">TDC SP here we go :)</a></li>
+ 
+  <li><span class="post_date">01 Jun 2015</span> &raquo;<a class="post" href="/vida-de-busao">Vida de busão</a></li>
+ 
+  <li><span class="post_date">28 May 2015</span> &raquo;<a class="post" href="/perguntas-do-meu-filho-de-3-anos">Perguntas do meu filho de 3 anos</a></li>
+ 
+  <li><span class="post_date">26 May 2015</span> &raquo;<a class="post" href="/tres-meses-na-resultados-digitais">Três meses na Resultados Digitais</a></li>
+ 
+  <li><span class="post_date">04 Apr 2015</span> &raquo;<a class="post" href="/produto-ou-servico">Produto ou serviço?</a></li>
+ 
+  <li><span class="post_date">23 Mar 2015</span> &raquo;<a class="post" href="/primeiro-mes-na-resultados-digitais">Primeiro mês na Resultados Digitais</a></li>
+ 
+  <li><span class="post_date">01 Mar 2015</span> &raquo;<a class="post" href="/primeira-semana-na-resultados-digitais">Primeira semana na Resultados Digitais</a></li>
+ 
+  <li><span class="post_date">23 Dec 2014</span> &raquo;<a class="post" href="/retrospectiva-2014">Retrospectiva 2014</a></li>
+ 
+  <li><span class="post_date">27 Oct 2014</span> &raquo;<a class="post" href="/blog-da-inventto">Blog da invent.to</a></li>
+ 
+  <li><span class="post_date">22 Apr 2014</span> &raquo;<a class="post" href="/raspibian-sem-mouse">Raspibian sem mouse</a></li>
+ 
+  <li><span class="post_date">09 Apr 2014</span> &raquo;<a class="post" href="/coisas-legais-para-fazer-com-o-rpi">Coisas legais para fazer com o Raspberry PI</a></li>
+ 
+  <li><span class="post_date">07 Apr 2014</span> &raquo;<a class="post" href="/bone-debian-rodando-no-beaglebone-black">Bone Debian rodando no BeagleBone Black</a></li>
+ 
+  <li><span class="post_date">03 Apr 2014</span> &raquo;<a class="post" href="/como-gerar-um-video-de-fotos-sequenciais">Como gerar um vídeo de fotos sequênciais</a></li>
+ 
+  <li><span class="post_date">01 Apr 2014</span> &raquo;<a class="post" href="/rotative-timelapse">Timelapse girando no Raspberry PI</a></li>
+ 
+  <li><span class="post_date">29 Jan 2014</span> &raquo;<a class="post" href="/desenvolvemos-seu-invento">Desenvolvemos seu invento!</a></li>
+ 
+  <li><span class="post_date">23 Dec 2013</span> &raquo;<a class="post" href="/retrospectiva-2013">Retrospectiva 2013</a></li>
+ 
+  <li><span class="post_date">21 Oct 2013</span> &raquo;<a class="post" href="/re-inventto-esta-no-ar">ReInvent.to está no ar!</a></li>
+ 
+  <li><span class="post_date">16 Oct 2013</span> &raquo;<a class="post" href="/railsrumble-vem-ai">Rails Rumble vem aí</a></li>
+ 
+  <li><span class="post_date">29 Jul 2013</span> &raquo;<a class="post" href="/diversidade-e-riqueza">A diversidade é a riqueza</a></li>
+ 
+  <li><span class="post_date">27 Jul 2013</span> &raquo;<a class="post" href="/site-arteterapia-no-ar">Arteterapia no ar!</a></li>
+ 
+  <li><span class="post_date">23 Jul 2013</span> &raquo;<a class="post" href="/o-que-tira-meu-tempo">O que tira o meu tempo?</a></li>
+ 
+  <li><span class="post_date">28 Jun 2013</span> &raquo;<a class="post" href="/pensando-no-futuro">Pensando No Futuro</a></li>
+ 
+  <li><span class="post_date">26 Jun 2013</span> &raquo;<a class="post" href="/bliss-ideia-me-no-ar">Bliss ideia.me está no ar!</a></li>
+ 
+  <li><span class="post_date">10 Jun 2013</span> &raquo;<a class="post" href="/o-que-ando-ideiando">O que ando fazendo nos últimos dias</a></li>
+ 
+  <li><span class="post_date">05 May 2013</span> &raquo;<a class="post" href="/fim-de-semana-bliss">Fim de semana bliss</a></li>
+ 
+  <li><span class="post_date">01 May 2013</span> &raquo;<a class="post" href="/git-post-receive">Git Post Receive</a></li>
+ 
+  <li><span class="post_date">24 Apr 2013</span> &raquo;<a class="post" href="/migrando-estilo-para-twitter-bootstrap">Jekyll e Twitter Bootstrap</a></li>
+ 
+  <li><span class="post_date">18 Apr 2013</span> &raquo;<a class="post" href="/observando-a-memoria-ruby">Observando a memória no ruby</a></li>
+ 
+  <li><span class="post_date">18 Apr 2013</span> &raquo;<a class="post" href="/experiencias-meteor">Experiências com o Meteor js</a></li>
+ 
+  <li><span class="post_date">08 Apr 2013</span> &raquo;<a class="post" href="/pixel-no-ar">Pixel no ar!</a></li>
+ 
+  <li><span class="post_date">01 Apr 2013</span> &raquo;<a class="post" href="/flu-ideia-me-no-ar">Flu.ideia.me no ar!</a></li>
+ 
+  <li><span class="post_date">05 Mar 2013</span> &raquo;<a class="post" href="/concentracao-na-era-da-distracao">Concentração na era da distração</a></li>
+ 
+  <li><span class="post_date">14 Dec 2012</span> &raquo;<a class="post" href="/retro-2012">Retrospectiva 2012</a></li>
+ 
+  <li><span class="post_date">03 Dec 2012</span> &raquo;<a class="post" href="/moving-the-homeoffice">Home office de mudança</a></li>
+ 
+  <li><span class="post_date">24 Nov 2012</span> &raquo;<a class="post" href="/efetivamente">Efetivamente....</a></li>
+ 
+  <li><span class="post_date">11 Nov 2012</span> &raquo;<a class="post" href="/meu-filho-ja-vai-fazer-um-ano">Meu primeiro filho e seu primeiro ano</a></li>
+ 
+  <li><span class="post_date">11 Nov 2012</span> &raquo;<a class="post" href="/arteterapia-begins">Arteterapia o início</a></li>
+ 
+  <li><span class="post_date">08 Nov 2012</span> &raquo;<a class="post" href="/churumelas-no-ar">Não me venha com churumelas!</a></li>
+ 
+  <li><span class="post_date">18 Oct 2012</span> &raquo;<a class="post" href="/rails-rumble-se-foi-e-churumelas-esta-no-ar">Como foi a Rails Rumble 2012</a></li>
+ 
+  <li><span class="post_date">01 Oct 2012</span> &raquo;<a class="post" href="/rails-rumble-ideias">Ideias sobre o Rails Rumble</a></li>
+ 
+  <li><span class="post_date">13 Sep 2012</span> &raquo;<a class="post" href="/os-programadores-do-futuro">Os programadores do futuro</a></li>
+ 
+  <li><span class="post_date">23 May 2012</span> &raquo;<a class="post" href="/disciplina-no-home-office">Disciplina no home office</a></li>
+ 
+  <li><span class="post_date">08 May 2012</span> &raquo;<a class="post" href="/galaxy-note-n7000">Sansung Galaxy Note N7000</a></li>
+ 
+  <li><span class="post_date">09 Apr 2012</span> &raquo;<a class="post" href="/update-ou-upgrade-parte-2">Update ou upgrade parte 2</a></li>
+ 
+  <li><span class="post_date">01 Apr 2012</span> &raquo;<a class="post" href="/cursando-aulas-da-stanford">Cursando aulas da Stanford University</a></li>
+ 
+  <li><span class="post_date">30 Mar 2012</span> &raquo;<a class="post" href="/terminal-life">Vida no terminal</a></li>
+ 
+  <li><span class="post_date">29 Mar 2012</span> &raquo;<a class="post" href="/update-ou-upgrade">Update ou upgrade</a></li>
+ 
+  <li><span class="post_date">25 Mar 2012</span> &raquo;<a class="post" href="/usabilidade-versus-simplicidade">Usabilidade versus simplicidade</a></li>
+ 
+  <li><span class="post_date">13 Mar 2012</span> &raquo;<a class="post" href="/camera-overlay-open-source">Câmera Overlay Open Source</a></li>
+ 
+  <li><span class="post_date">08 Mar 2012</span> &raquo;<a class="post" href="/chave-dicotomica-android">Chave Dicotômica</a></li>
+ 
+  <li><span class="post_date">07 Mar 2012</span> &raquo;<a class="post" href="/pequenas-decisoes-grandes-mudancas">Pequenas mudanças e grandes decisões</a></li>
+ 
+  <li><span class="post_date">27 Feb 2012</span> &raquo;<a class="post" href="/camera-overlay">Camera Overlay</a></li>
+ 
+  <li><span class="post_date">12 Jul 2010</span> &raquo;<a class="post" href="/sinceridade-nao-faz-mal-a-ninguem">Sinceridade não faz mal a ninguém</a></li>
+ 
+  <li><span class="post_date">07 Jul 2010</span> &raquo;<a class="post" href="/ingles-legal">Inglês Legal</a></li>
+ 
+  <li><span class="post_date">30 Jun 2010</span> &raquo;<a class="post" href="/problemas-no-software">Problemas no software e hardware</a></li>
+ 
+  <li><span class="post_date">27 Jun 2010</span> &raquo;<a class="post" href="/cognitividade-da-interface">Cognitividade da Interface</a></li>
+ 
+  <li><span class="post_date">18 Jun 2010</span> &raquo;<a class="post" href="/ipad-chegou">Meu iPad Chegou!</a></li>
+ 
+  <li><span class="post_date">11 Jun 2010</span> &raquo;<a class="post" href="/palestra-sobre-ruby-e-rails">Palestra na Vizivali</a></li>
+ 
+  <li><span class="post_date">30 May 2010</span> &raquo;<a class="post" href="/sh-legal">SH Legal</a></li>
+ 
+  <li><span class="post_date">21 May 2010</span> &raquo;<a class="post" href="/sistemas-operacionais-gerencia-processador-pt1">Sistemas Operacionais - Gerência do processador - parte 1</a></li>
+ 
+  <li><span class="post_date">19 May 2010</span> &raquo;<a class="post" href="/javascript-legal">Javascript Ninja Legal</a></li>
+ 
+  <li><span class="post_date">18 May 2010</span> &raquo;<a class="post" href="/iteracao-legal">Iteração legal</a></li>
+ 
+  <li><span class="post_date">16 May 2010</span> &raquo;<a class="post" href="/coffeescript-legal">Coffeescript Legal</a></li>
+ 
+  <li><span class="post_date">13 May 2010</span> &raquo;<a class="post" href="/servicos-google-api">Google Api</a></li>
+ 
+  <li><span class="post_date">13 May 2010</span> &raquo;<a class="post" href="/linguagens-e-o-mundo">As linguagens e o mundo</a></li>
+ 
+  <li><span class="post_date">05 May 2010</span> &raquo;<a class="post" href="/google-legal">Nova roda mágica do google</a></li>
+ 
+  <li><span class="post_date">03 May 2010</span> &raquo;<a class="post" href="/ruby-legal">Ruby Legal</a></li>
+ 
+  <li><span class="post_date">03 May 2010</span> &raquo;<a class="post" href="/google-buzz-api-no-ideiame">Integrando API do Google Buzz no Ideia.me</a></li>
+ 
+  <li><span class="post_date">29 Apr 2010</span> &raquo;<a class="post" href="/find-exec">Usufruindo do comando find do Unix</a></li>
+ 
+  <li><span class="post_date">27 Apr 2010</span> &raquo;<a class="post" href="/curriculo-jonatas-davi-paganini">Jônatas Davi Paganini</a></li>
+ 
+  <li><span class="post_date">21 Apr 2010</span> &raquo;<a class="post" href="/diario-de-um-feriado">Diário de um feriado</a></li>
+ 
+  <li><span class="post_date">18 Apr 2010</span> &raquo;<a class="post" href="/novas-cores-no-site">Novas cores no site</a></li>
+ 
+  <li><span class="post_date">31 Mar 2010</span> &raquo;<a class="post" href="/weborb-active-record">WebOrb + ActiveRecord</a></li>
+ 
+  <li><span class="post_date">25 Mar 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">Gerência do Projetos</a></li>
+ 
+  <li><span class="post_date">25 Mar 2010</span> &raquo;<a class="post" href="/a-importancia-dos-baby-steps">A importância dos baby steps</a></li>
+ 
+  <li><span class="post_date">22 Mar 2010</span> &raquo;<a class="post" href="/helplate">Helplate = Help + Template</a></li>
+ 
+  <li><span class="post_date">18 Mar 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">gtR - gerência do projeto do gtR da nissan</a></li>
+ 
+  <li><span class="post_date">11 Mar 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">gtR - um projeto da nissan</a></li>
+ 
+  <li><span class="post_date">04 Mar 2010</span> &raquo;<a class="post" href="/modos-so">Aula de Sistemas Operacionais - Modos do Kernel</a></li>
+ 
+  <li><span class="post_date">04 Mar 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">Gerência de Projetos</a></li>
+ 
+  <li><span class="post_date">02 Mar 2010</span> &raquo;<a class="post" href="/cartao-de-visitas">Cartão de visitas</a></li>
+ 
+  <li><span class="post_date">01 Mar 2010</span> &raquo;<a class="post" href="/regexp-com-grep">Expressões Regulares com grep</a></li>
+ 
+  <li><span class="post_date">25 Feb 2010</span> &raquo;<a class="post" href="/inspecionando-formulas-em-ruby">Inspecionando fórmulas em ruby</a></li>
+ 
+  <li><span class="post_date">23 Feb 2010</span> &raquo;<a class="post" href="/regexp-maravilha">Expressões Regulares + Ruby = \*maravilhas</a></li>
+ 
+  <li><span class="post_date">22 Feb 2010</span> &raquo;<a class="post" href="/sql-comentado">A linguagem SQL</a></li>
+ 
+  <li><span class="post_date">21 Feb 2010</span> &raquo;<a class="post" href="/postgresql-tricks">PostgreSql Tricks</a></li>
+ 
+  <li><span class="post_date">18 Feb 2010</span> &raquo;<a class="post" href="/gerencia-de-projetos">Gerência de Projetos</a></li>
+ 
+  <li><span class="post_date">16 Feb 2010</span> &raquo;<a class="post" href="/inspecionando-regexp-com-sinatra">Inspecionando expressões regulares com Sinatra!</a></li>
+ 
+  <li><span class="post_date">14 Feb 2010</span> &raquo;<a class="post" href="/leiaute-iphone">Leiaute para iPhone no Ideia.me</a></li>
+ 
+  <li><span class="post_date">14 Feb 2010</span> &raquo;<a class="post" href="/google-code-playground">Google code playground</a></li>
+ 
+  <li><span class="post_date">14 Feb 2010</span> &raquo;<a class="post" href="/estorias-bonitas-vs-testes-unitarios">Estórias Bonitas vs Testes Unitários</a></li>
+ 
+  <li><span class="post_date">13 Feb 2010</span> &raquo;<a class="post" href="/rml-resume-markup-language">RML - Resume Markup Language</a></li>
+ 
+  <li><span class="post_date">11 Feb 2010</span> &raquo;<a class="post" href="/de-volta-ao-tex">De volta as aulas</a></li>
+ 
+  <li><span class="post_date">03 Feb 2010</span> &raquo;<a class="post" href="/bom-dia-a-dia">Bom dia a dia do desenvolvimento</a></li>
+ 
+  <li><span class="post_date">01 Feb 2010</span> &raquo;<a class="post" href="/portfolio">Portfolio::Base</a></li>
+ 
+  <li><span class="post_date">01 Feb 2010</span> &raquo;<a class="post" href="/curriculo">Currículo</a></li>
+ 
+  <li><span class="post_date">31 Jan 2010</span> &raquo;<a class="post" href="/prototipo-site">Protótipo do site</a></li>
+ 
+</ul>
+</p>
 
   </div>
 </div>

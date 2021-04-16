@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -636,7 +636,7 @@
 <p>A primeira linha do arquivo mencionado anteriormente diz:</p>
 
 <blockquote>
-<p>Todos os dias fizemos repetidamente várias tarefas como esta:</p>
+  <p>Todos os dias fizemos repetidamente várias tarefas como esta:</p>
 </blockquote>
 
 <p>Esta qual?</p>
@@ -645,28 +645,30 @@
 
 <p>Cada tarefa, é composta por diversos passos, diversas variáveis que podem fazer com que você não realize-a com sucesso. Quando você faz uma vez com sucesso, logo sabe como fazer e aprende a receita. Quando erra, procura não seguir mais aquele caminho do erro.</p>
 
-<p>Durante muito tempo me perguntei como poderia criar uma lingugem simples de ajuda que também pudesse realizar a tarefa. O que esta &quot;ajuda&quot; precisava saber era como a tarefa era executada, e se faltasse alguma informação, esta própria ajuda poderia lhe pedir explicações sobre o assunto.</p>
+<p>Durante muito tempo me perguntei como poderia criar uma lingugem simples de ajuda que também pudesse realizar a tarefa. O que esta “ajuda” precisava saber era como a tarefa era executada, e se faltasse alguma informação, esta própria ajuda poderia lhe pedir explicações sobre o assunto.</p>
 
-<p>Helplate é uma ideia de criar uma linguagem para auxiliar o preenchimento de uma template interativa e humanizada. Inicialmente cobre apenas um documento, mas é possível &quot;programar&quot; ela. A primeira programação a ser executada, é o levantamento das variáveis ainda não descobertas. </p>
+<p>Helplate é uma ideia de criar uma linguagem para auxiliar o preenchimento de uma template interativa e humanizada. Inicialmente cobre apenas um documento, mas é possível “programar” ela. A primeira programação a ser executada, é o levantamento das variáveis ainda não descobertas.</p>
 
 <p>Esta template tem como objetivo, sugerir a estrutura de um documento, e questionar sobre as variáveis do contexto.</p>
 
-<p>O exemplo a seguir, mostra a criação de um novo post no meu blog, iniciando pelo uso da template.
+<p>O exemplo a seguir, mostra a criação de um novo post no meu blog, iniciando pelo uso da template.</p>
 <pre class="prettyprint">
-jonatas@xonatax-mac: helplate $ ./helplate newpost title=&#39;Helplate welcome aboard!&#39;
-</pre></p>
+jonatas@xonatax-mac: helplate $ ./helplate newpost title='Helplate welcome aboard!'
+</pre>
 
 <p>Após isso, a template irá pedir se quero adicionar alguma tag:</p>
 
-<p>Tags dividido por &#39;,&#39;</p>
+<p>Tags dividido por ‘,’</p>
 
 <p>Então preencho:</p>
 
 <p>helplate, template, ruby, liquid</p>
 
 <p>Então a template pede:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">Inicie seu post assim
-</code></pre></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Inicie seu post assim
+</code></pre></div></div>
+
 <p>E eu digito:</p>
 
 <pre>
@@ -702,35 +704,35 @@ $ ./helplate newpost title='helplate welcome aboard'
 
 <p>As perguntas foram feitas e a estrutura foi definida através da seguinte template:</p>
 
-<pre class="prettyprint" markdown="0">
-jonatas@xonatax-mac: helplate $  cat newpost<br>
----<br>
-  layout: post<br>
-  title:  \{\{ title }}<br>
-  categories: \['\{\{ categories \| join glue: ', ' }}'\]<br>
+<pre class="prettyprint">
+jonatas@xonatax-mac: helplate $  cat newpost<br />
+---<br />
+  layout: post<br />
+  title:  \{\{ title }}<br />
+  categories: \['\{\{ categories \| join glue: ', ' }}'\]<br />
 
 ---
-<br>
-<br>
+<br />
+<br />
 # \{\{ title }}
-<br>
-<br>
+<br />
+<br />
 \{\{ description }}
-<br>
-<br>
-help:<br>
- description: Inicie seu post assim<br>
- title: Qual é o título<br>
- categories: Tags dividido por ','<br>
+<br />
+<br />
+help:<br />
+ description: Inicie seu post assim<br />
+ title: Qual é o título<br />
+ categories: Tags dividido por ','<br />
 </pre>
 
 <p>A template vai até a linha em que começa com a palavra <strong>help:</strong>, e neste local, são descritos as variáveis anteriormente utilizadas. O interessante desta descrição é tornar a template menos confusa, e resolver o problema dos passos iterando sobre cada uma das variáveis do contexto.</p>
 
 <p>Trabalhando com uma ajuda útil, é possível gerar documentos específicos e ao mesmo tempo padrõnizar os documentos. A descrição de cada variável pode ser simplesmente colocada como:</p>
 
-<pre class="prettyprint" markdown="0">
-bem vindo ao mundo \{\{ nome }}<br>
-help:<br>
+<pre class="prettyprint">
+bem vindo ao mundo \{\{ nome }}<br />
+help:<br />
 nome: Digite seu nome
 </pre>
 

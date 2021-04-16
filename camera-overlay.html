@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -857,11 +857,11 @@
   </h1>
 </div>
 <div class="content">
-    <p><img src="/../../../images/camera-overlay-logo64.png" alt="logo"></p>
+    <p><img src="/../../../images/camera-overlay-logo64.png" alt="logo" /></p>
 
 <h2 id="a-ideia">A ideia</h2>
 
-<p>A ideia do <a href="https://play.google.com/store/apps/details?id=me.ideia.cameraoverlay&amp;feature=search_result#?t=W251bGwsMSwxLDEsIm1lLmlkZWlhLmNhbWVyYW92ZXJsYXkiXQ..">aplicativo</a> veio de que <a href="http://www.facebook.com/media/set/?set=a.1691903151672.87739.1660567052&amp;type=3&amp;l=6db59445b9">tiro diversas fotos da sacada do meu apartamento/home-office</a> e nunca consigo tirar exatamente no mesmo lugar. Pensando em aplicativos para dispositivos móveis, me veio esta <em>necessidade</em> de tirar fotos do mesmo lugar reposicionando imagens. Pensando a respeito do assunto, lembrei de uma vez que vi um documentário sobre como as formigas conseguiam voltar pra casa e uma das hipóteses era que ela tinha uma camada de imagem como uma foto sobreposta, que encaixava a &quot;lembrança&quot; sobre a sua própria visão dando os pontos de referência para que voltasse pra casa.</p>
+<p>A ideia do <a href="https://play.google.com/store/apps/details?id=me.ideia.cameraoverlay&amp;feature=search_result#?t=W251bGwsMSwxLDEsIm1lLmlkZWlhLmNhbWVyYW92ZXJsYXkiXQ..">aplicativo</a> veio de que <a href="http://www.facebook.com/media/set/?set=a.1691903151672.87739.1660567052&amp;type=3&amp;l=6db59445b9">tiro diversas fotos da sacada do meu apartamento/home-office</a> e nunca consigo tirar exatamente no mesmo lugar. Pensando em aplicativos para dispositivos móveis, me veio esta <em>necessidade</em> de tirar fotos do mesmo lugar reposicionando imagens. Pensando a respeito do assunto, lembrei de uma vez que vi um documentário sobre como as formigas conseguiam voltar pra casa e uma das hipóteses era que ela tinha uma camada de imagem como uma foto sobreposta, que encaixava a “lembrança” sobre a sua própria visão dando os pontos de referência para que voltasse pra casa.</p>
 
 <p>Na época que tive a ideia (5/6/2011) enviei um email para alguns amigos programadores falando sobre o assunto, para desenvolvermos em conjunto um aplicativo que fizesse isso, como objeto de estudo do android e colocarmos um primeiro experimento no <a href="https://play.google.com/store/apps/details?id=me.ideia.cameraoverlay&amp;feature=search_result#?t=W251bGwsMSwxLDEsIm1lLmlkZWlhLmNhbWVyYW92ZXJsYXkiXQ..">android market</a>. O <a href="mailto:marlonscalabrin@gmail.com">Marlon</a> gostou da ideia e então iniciamos o desenvolvimento alguns dias atrás.</p>
 
@@ -869,75 +869,75 @@
 
 <p>Colocamos a ideia inicial para projetar uma imagem pré-definida e usamos uma foto das fotos tiradas por mim inicialmente do apartamento (veja a foto abaixo). A foto abaixo foi utilizada como base para reposicionar a camera pela primeira vez.</p>
 
-<p><img src="/../../../images/camera-overlay-foto-base.jpg" alt="foto-base"></p>
+<p><img src="/../../../images/camera-overlay-foto-base.jpg" alt="foto-base" /></p>
 
 <p>Logo, alteramos  a foto para ficar transparente e transpusemos o preview da camera com a foto base. Este é um screenshot enquanto estava tentando posicionar a câmera pela primeira vez.</p>
 
-<p><img src="/../../../images/camera-overlay-primeira-sobreposicao.png" alt="primeira-sobreposicao"></p>
+<p><img src="/../../../images/camera-overlay-primeira-sobreposicao.png" alt="primeira-sobreposicao" /></p>
 
 <p>Percebemos que a foto e a camera eram iguais, o que era óbvio, mas era muito mais confuso ao aproximar-se do momento ideal de tirar a foto, pois a camera e a imagem tornam-se uma e o cérebro confunde se está manipulando a camera ou a imagem. Mas conseguimos tirar boas fotos!</p>
 
-<h2 id="primeira-otimiza-o-negativo-da-imagem">Primeira Otimização - Negativo da imagem</h2>
+<h2 id="primeira-otimização---negativo-da-imagem">Primeira Otimização - Negativo da imagem</h2>
 
 <p>Um dos maiores problemas de utilizar uma foto base parecida é confundir as cores entre a camera e a realidade, logo, se a foto for muito parecida criamos a opção para utilizar a cor inversa. Este foi o primeiro tratamento eficaz da foto base para ajudar no reposicionamento.</p>
 
-<h2 id="segunda-otimiza-o-quadriculados-e-com-cortes-verticais-e-horizontais">Segunda Otimização - Quadriculados e com cortes verticais e horizontais</h2>
+<h2 id="segunda-otimização---quadriculados-e-com-cortes-verticais-e-horizontais">Segunda Otimização - Quadriculados e com cortes verticais e horizontais</h2>
 
 <p>Passado uma noite de bom sono após toda empolgação do novo app, o Marlon chega com novas ideias para ajudar no reposicionamento. Criar cortes trasparentes entre a camera e a imagem de forma que seja possível reposicionar cortes da imagem.</p>
 
-<h2 id="resultado-da-a-o-em-conjunto">Resultado da ação em conjunto</h2>
+<h2 id="resultado-da-ação-em-conjunto">Resultado da ação em conjunto</h2>
 
 <p>Veja a foto do resultado combinado entre o negativo e um quadriculado bem grande.</p>
 
-<p><img src="/../../../images/camera-overlay-negativo.png" alt="negativo"></p>
+<p><img src="/../../../images/camera-overlay-negativo.png" alt="negativo" /></p>
 
-<p>Nas opções de corte adicionamos quadriculado, corte vertical e horizontal. O tamanho do corte pode ser ajustado alternando entre a transparência e os tipos de corte. Este é um exemplo de corte bem grande então é praticamente um divisor da imagem. Observe que a imagem dividida abaixo não está utilizando o efeito do negativo, logo já torna um pouco mais confuso a identificação nas imagens sobrepostas. </p>
+<p>Nas opções de corte adicionamos quadriculado, corte vertical e horizontal. O tamanho do corte pode ser ajustado alternando entre a transparência e os tipos de corte. Este é um exemplo de corte bem grande então é praticamente um divisor da imagem. Observe que a imagem dividida abaixo não está utilizando o efeito do negativo, logo já torna um pouco mais confuso a identificação nas imagens sobrepostas.</p>
 
-<p><img src="/../../../images/camera-overlay-normal-corte-vertical.png" alt="normal-cv"></p>
+<p><img src="/../../../images/camera-overlay-normal-corte-vertical.png" alt="normal-cv" /></p>
 
 <p>Agora o mesmo caso sem negativo mas utilizando um quadriculado menor também dá para identificar bons pontos de referência.</p>
 
-<p><img src="/../../../images/camera-overlay-quadriculado-pequeno.png" alt="quadriculado-pequeno"></p>
+<p><img src="/../../../images/camera-overlay-quadriculado-pequeno.png" alt="quadriculado-pequeno" /></p>
 
-<h2 id="a-hist-ria-do-vaso">A história do vaso</h2>
+<h2 id="a-história-do-vaso">A história do vaso</h2>
 
 <p>Resolvemos então escolher outro cenário e tirar uma foto inicial de um vaso de tomates que plantei dias atrás aqui no apartamento para testarmos as características de uma foto com proximidade mínima. Os resultados foram totalmente diferentes e a confusão também foi diferente :D.</p>
 
-<h3 id="experi-ncia-com-foto-noturna">Experiência com foto noturna</h3>
+<h3 id="experiência-com-foto-noturna">Experiência com foto noturna</h3>
 
 <p>Esta é a foto noturna legal e sem fundo, tirada quando chegamos após viagem e o tomateiro estava murcho.</p>
 
-<p><img src="/../../../images/camera-overlay-vaso-1.jpg" alt="vaso1"></p>
+<p><img src="/../../../images/camera-overlay-vaso-1.jpg" alt="vaso1" /></p>
 
-<p>Duas horas depois de regado...</p>
+<p>Duas horas depois de regado…</p>
 
-<p><img src="/../../../images/camera-overlay-vaso-2.jpg" alt="vaso2"></p>
+<p><img src="/../../../images/camera-overlay-vaso-2.jpg" alt="vaso2" /></p>
 
 <p>Funcionou sem problemas, mas a sobreposição já não ficou boa. O caso é que o vaso é próximo da camera e como falei anteriormente, quanto mais próximo o objeto estiver da camera mais difícil se torna a sobreposição perfeita. Tem alguma coisa a ver com o <a href="http://pt.wikipedia.org/wiki/Erro_de_paralaxe">erro de paralaxe</a> do observador ;)</p>
 
-<h3 id="experi-ncia-com-foto-a-luz-do-dia">Experiência com foto a luz do dia</h3>
+<h3 id="experiência-com-foto-a-luz-do-dia">Experiência com foto a luz do dia</h3>
 
 <p>As cores intensas da árvore do fundo e as folhas da planta confundem ainda mais ao tentar a sobreposição.</p>
 
-<p><img src="/../../../images/camera-overlay-vaso-dia-1.jpg" alt="vaso3"></p>
+<p><img src="/../../../images/camera-overlay-vaso-dia-1.jpg" alt="vaso3" /></p>
 
-<h3 id="o-formato-e-a-cor-do-objeto-de-refer-ncia">O formato e a cor do objeto de referência</h3>
+<h3 id="o-formato-e-a-cor-do-objeto-de-referência">O formato e a cor do objeto de referência</h3>
 
 <p>O meu vaso de tomates é de alumínio (na verdade era um balde de gelo :D) e foi muito difícil de utilizar o vaso como referência. As dificuldades de tirar fotos deste balde também tratam-se do ângulo da camera versus a projeção da circunferência do vaso. O alumínio é muito difícil de interpretar e a borda externa para borda interna do ponto de referência e também não dava para saber qual era a camera e qual era a foto base. O negativo não foi o suficiente para o alumínio e então resolvemos criar outros artefatos para suprir este caso.</p>
 
-<p><img src="/../../../images/camera-overlay-vaso-dia-2.jpg" alt="vaso4"></p>
+<p><img src="/../../../images/camera-overlay-vaso-dia-2.jpg" alt="vaso4" /></p>
 
 <p>Observando as duas fotos, aí está o vaso quadriculado com negativo.</p>
 
-<p><img src="/../../../images/camera-overlay-vaso-dia-quadriculado.png" alt="vasodiaquadriculado"></p>
+<p><img src="/../../../images/camera-overlay-vaso-dia-quadriculado.png" alt="vasodiaquadriculado" /></p>
 
-<h3 id="o-ngulo-do-ponto-de-refer-ncia">O ângulo do ponto de referência</h3>
+<h3 id="o-ângulo-do-ponto-de-referência">O ângulo do ponto de referência</h3>
 
-<h3 id="as-cores-e-a-intensidade-das-cores-no-entrela-amento">As cores e a intensidade das cores no entrelaçamento</h3>
+<h3 id="as-cores-e-a-intensidade-das-cores-no-entrelaçamento">As cores e a intensidade das cores no entrelaçamento</h3>
 
 <p>O difícil para os olhos é encontrar um ponto de referência fácil de idêntificar a imagem de fundo e se esta está ou não totalmente encaixada sobre a camera. Existem duas imagens com 2 fundos distintos, estamos usando transparência e a imagem pode ser até mutável, no meu caso o pé de tomate está em pleno vigor.</p>
 
-<h3 id="a-dist-ncia-do-ponto-de-refer-ncia">A distância do ponto de referência</h3>
+<h3 id="a-distância-do-ponto-de-referência">A distância do ponto de referência</h3>
 
 <p>Tirar uma foto da paisagem é realmente fácil. As fotos que você tira já tem um reposicionamento mental do lugar onde estava para tirar a foto, então é só ajustar o angulo, a altura e talvez um pouco da distância. Quando o ponto de referência está fotógrafo a precisão do movimento é muito maior, o que significa que centímetros de diferença podem causar um grande deslocamento comparando a original. Concluindo, é necessário você encaixar perfeitamente pra ficar bom.</p>
 
@@ -947,29 +947,32 @@
 
 <h3 id="sem-cor-vermelho-com-negativo">Sem cor vermelho com negativo</h3>
 
-<p><img src="/../../../images/camera-overlay-sem-vermelho-negativo.png" alt="semvermelhonegativo"></p>
+<p><img src="/../../../images/camera-overlay-sem-vermelho-negativo.png" alt="semvermelhonegativo" /></p>
 
 <h2 id="outras-funcionalidades">Outras funcionalidades</h2>
 
 <p>Além dos efeitos acima mostrados, também criamos opções com alto-contraste, preto e branco, extração de bordas e mudança de cor (matiz). O efeito abaixo é com borda e transparência.</p>
 
-<p><img src="/../../../images/camera-overlay-com-bordas-transparente.png" alt="combordastransparente"></p>
+<p><img src="/../../../images/camera-overlay-com-bordas-transparente.png" alt="combordastransparente" /></p>
 
 <h2 id="outras-ideias-e-futuro">Outras ideias e futuro</h2>
 
 <ul>
-<li>Quando tirar foto, visualiza fotos mergindo rapidamente alternando sequência de todas fotos tiradas na ordem de data.</li>
-<li>Permite continuar filmagem e selecionar última cena um vídeo.</li>
-<li>Permite escolher configurações avançadas da camera, alteranar cameras.</li>
-<li>Qualificar e selecionar sequência de fotos para gera vídeo</li>
-<li>Gerar vídeo de sequência de fotos</li>
+  <li>Quando tirar foto, visualiza fotos mergindo rapidamente alternando sequência de todas fotos tiradas na ordem de data.</li>
+  <li>Permite continuar filmagem e selecionar última cena um vídeo.</li>
+  <li>Permite escolher configurações avançadas da camera, alteranar cameras.</li>
+  <li>Qualificar e selecionar sequência de fotos para gera vídeo</li>
+  <li>Gerar vídeo de sequência de fotos</li>
 </ul>
 
 <h2 id="o-futuro">O futuro</h2>
 
 <p>O futuro depende de <a href="https://play.google.com/store/apps/details?id=me.ideia.cameraoverlay&amp;feature=search_result#?t=W251bGwsMSwxLDEsIm1lLmlkZWlhLmNhbWVyYW92ZXJsYXkiXQ..">quantos aplicativos</a> iremos vender e qual o feedback recebido dos usuários. Tenho sido um usuário ativo do meu aplicativo e preciso descobrir que não sou o único que irei usá-lo :)</p>
-<div class="highlight"><pre><code class="language-" data-lang="">O projeto camera overlay é [opensource][github] e está no [github].
-</code></pre></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>O projeto camera overlay é [opensource][github] e está no [github].
+</code></pre></div></div>
+
+
 </div>
 <hr>
 

@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -857,7 +857,7 @@
   </h1>
 </div>
 <div class="content">
-    <p>Hoje estive querendo transformar a <a href="/categories.html">página de categorias</a> para ficar mais estilo &#39;tag cloud&#39; com cada categoria com um tamanho diferente dependendo do número de posts que houvesse. Então tive uma série de problemas para adaptar um tamanho legal via css e resolvi procurar por um <a href="https://gist.github.com/yeban/2290195">plugin para o jekyll</a>. Após encontrar um plugin para o liquid templates, descobri que o jekyll do github está em modo safe e não aceita plugin algum, então como gostei da nova forma resolvi migrar meu site do github para minha VPS. E aí precisava automatizar o processo de deploy do site a cada novo post.</p>
+    <p>Hoje estive querendo transformar a <a href="/categories.html">página de categorias</a> para ficar mais estilo ‘tag cloud’ com cada categoria com um tamanho diferente dependendo do número de posts que houvesse. Então tive uma série de problemas para adaptar um tamanho legal via css e resolvi procurar por um <a href="https://gist.github.com/yeban/2290195">plugin para o jekyll</a>. Após encontrar um plugin para o liquid templates, descobri que o jekyll do github está em modo safe e não aceita plugin algum, então como gostei da nova forma resolvi migrar meu site do github para minha VPS. E aí precisava automatizar o processo de deploy do site a cada novo post.</p>
 
 <h2 id="como-funciona">Como funciona</h2>
 
@@ -906,9 +906,9 @@ git push deploy master
 
 <p>O jekyll é uma engine muito boa e valeu muito a pena desde o início. Agora estou totalmente livre do sistema de páginas do github e posso dar o deploy em minha VPS como bem entender :)</p>
 
-<h2 id="configura-o-do-nginx">Configuração do nginx</h2>
+<h2 id="configuração-do-nginx">Configuração do nginx</h2>
 
-<p>Para configurar o Nginx criei o arquivo <code>/etc/nginx/sites-enabled/ideiame</code> com o seguinte conteúdo:</p>
+<p>Para configurar o Nginx criei o arquivo <code class="language-plaintext highlighter-rouge">/etc/nginx/sites-enabled/ideiame</code> com o seguinte conteúdo:</p>
 
 <pre class="prettycode sh">
 server {
@@ -922,8 +922,11 @@ server {
 </pre>
 
 <p>Valeu GIT!</p>
-<div class="highlight"><pre><code class="language-" data-lang="">Demorou um pouco para o site ficar 100% pois o DNS demora um tempo para migrar e na nostalgia ainda cheguei a ver uma primeira versão do meu site onlne durante o período da migração.
-</code></pre></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Demorou um pouco para o site ficar 100% pois o DNS demora um tempo para migrar e na nostalgia ainda cheguei a ver uma primeira versão do meu site onlne durante o período da migração.
+</code></pre></div></div>
+
+
 </div>
 <hr>
 

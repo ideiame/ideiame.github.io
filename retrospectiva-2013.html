@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -869,7 +869,7 @@
 
 <p>Inspirado em usar tecnologia e arterapia, trabalhei no <a href="http://pixel.ideia.me">http://pixel.ideia.me</a> utilizando como meu piloto de teste com o framework <a href="http://aulasconectadas-sc.blogspot.com.br/p/seminario-aulas-conectadas_23.html">Meteor JS</a> e depois criei o <a href="http://bliss.ideia.me">http://bliss.ideia.me</a>, onde me aprofundei sobre os símbolos e principalmente estudei sobre a linguagem bliss.</p>
 
-<h3 id="primeiro-ano-da-invent-to">Primeiro ano da Invent.to</h3>
+<h3 id="primeiro-ano-da-inventto">Primeiro ano da Invent.to</h3>
 
 <p>Este ano eu e o Marlon Scalabrin oficialmente iniciamos as atividades da Invent.to. Trabalhamos como freelancers durante um ano e meio e formalizamos nossa sociedade a fim de prestar serviços e trocar demandas na área de computação. Começamos pequeno e da forma mais justa possível com nós, com nossos clientes e também com nossos colaboradores. Trabalhamos remotamente pois me mudei para São Miguel do Oeste e tudo funciona muito bem (fora a internet) com os escritórios remotos.</p>
 
@@ -886,26 +886,26 @@
 <p>Veja algumas das demandas que trabalhamos:</p>
 
 <ul>
-<li><p>Web / Mobile</p>
-
-<ul>
-<li>Sincronização e sistemas Rails / Android offline</li>
-<li>Sistemas reativos com Meteor JS (<a href="http://pixel.ideia.me">http://pixel.ideia.me</a>, <a href="http://bliss.ideia.me">http://bliss.ideia.me</a>)</li>
-<li>Sistemas integrados com hardware para integração de catracas e equipamentos de academias: <a href="http://academi.as">http://academi.as</a></li>
-<li>Aplicativo musical: mobile + hardware (TOP SECRET)</li>
-</ul></li>
-<li><p>Mercado Financeiro</p>
-
-<ul>
-<li>Market data parser de alta performance</li>
-<li>Primeiro ano completo de estabilidade total com estratégias operando 100% automatizadas no mercado de ações</li>
-<li>Sistemas multithreads com akka tools</li>
-<li>Sistemas distribuídos com abrangência de vários protocólos (ømq, ws, FIX, ActiveMQ)</li>
-<li>Um Dashboard/Observador de estratégias em realtime/backtest em js com socket.io, handlebars e highcharts.</li>
-</ul></li>
+  <li>Web / Mobile
+    <ul>
+      <li>Sincronização e sistemas Rails / Android offline</li>
+      <li>Sistemas reativos com Meteor JS (http://pixel.ideia.me, http://bliss.ideia.me)</li>
+      <li>Sistemas integrados com hardware para integração de catracas e equipamentos de academias: http://academi.as</li>
+      <li>Aplicativo musical: mobile + hardware (TOP SECRET)</li>
+    </ul>
+  </li>
+  <li>Mercado Financeiro
+    <ul>
+      <li>Market data parser de alta performance</li>
+      <li>Primeiro ano completo de estabilidade total com estratégias operando 100% automatizadas no mercado de ações</li>
+      <li>Sistemas multithreads com akka tools</li>
+      <li>Sistemas distribuídos com abrangência de vários protocólos (ømq, ws, FIX, ActiveMQ)</li>
+      <li>Um Dashboard/Observador de estratégias em realtime/backtest em js com socket.io, handlebars e highcharts.</li>
+    </ul>
+  </li>
 </ul>
 
-<h3 id="s-o-miguel-do-oeste-sc">São Miguel do Oeste - SC</h3>
+<h3 id="são-miguel-do-oeste---sc">São Miguel do Oeste - SC</h3>
 
 <p>No fim do ano passado migrei para SMO e foi muito legal passar o meu primeiro ano de vida fora de minha cidade natal: Francisco Beltrão - PR.</p>
 
@@ -927,7 +927,7 @@
 
 <p>Assim como os análistas do mercado financeiro compõem um significado utilizando uma análise gráfica, seria possível modular um som, de tal maneira que fosse possível observar o movimento do mercado apenas ouvindo. Entendendo a capacidade de audição que temos, acredito que um sistema sonoro seria mais eficiente do que uma simples visualização de candlesticks e identificação de padrões visuais. Pretendo levar este projeto em frente mas faltou tempo.</p>
 
-<p>Trabalhei inicialmente em estabelecer um pulso padrão e computando os preços das negociações um <a href="http://en.wikipedia.org/wiki/Open-high-low-close_chart">candle stick&#39;s (Open, High, Low, Close)</a> e com os valores  parametrizei um envelope <a href="http://en.wikipedia.org/wiki/Synthesizer#ADSR_envelope">ADSR (Attack-Decay-Sustain-Release)</a> para tentar sintetizar algum som com significado. Consegui fazer o algorítmo porém não gerou nenhum som audível, logo parti para implementar uma maneira mais interessante de trabalhar com fórmulas para distorcer os valores e intensificar os sinais para transformar o som. Criei um mecanismo para usar fórmulas personalizadas mas não obtive sucesso algum na tentativa de criar harmonia. Logo o programa foi me deixando louco de tanto ruído que gerei.</p>
+<p>Trabalhei inicialmente em estabelecer um pulso padrão e computando os preços das negociações um <a href="http://en.wikipedia.org/wiki/Open-high-low-close_chart">candle stick’s (Open, High, Low, Close)</a> e com os valores  parametrizei um envelope <a href="http://en.wikipedia.org/wiki/Synthesizer#ADSR_envelope">ADSR (Attack-Decay-Sustain-Release)</a> para tentar sintetizar algum som com significado. Consegui fazer o algorítmo porém não gerou nenhum som audível, logo parti para implementar uma maneira mais interessante de trabalhar com fórmulas para distorcer os valores e intensificar os sinais para transformar o som. Criei um mecanismo para usar fórmulas personalizadas mas não obtive sucesso algum na tentativa de criar harmonia. Logo o programa foi me deixando louco de tanto ruído que gerei.</p>
 
 <h3 id="aprendendo-elixir">Aprendendo Elixir</h3>
 
@@ -947,7 +947,7 @@
 
 <p>Meu primeiro projeto em elixir é <a href="https://github.com/jonatas/ohlc-processor">este</a> e trata-se de um processador de <a href="http://en.wikipedia.org/wiki/Open-high-low-close_chart">candlestick</a> escrito em elixir. Ainda não é totalmente funcional, porém estou usando este desafio como meu primeiro algorítmo em elixir. Esta linguagem é realmente muito legal!</p>
 
-<h2 id="blissymbols-aprenda-bliss">Blissymbols - <a href="http://bliss.ideia.me">aprenda bliss</a></h2>
+<h2 id="blissymbols---aprenda-bliss">Blissymbols - <a href="http://bliss.ideia.me">aprenda bliss</a></h2>
 
 <iframe src="//instagram.com/p/cPZpS2HfdX/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
 
@@ -963,7 +963,7 @@
 
 <p>Este foi o projeto que usei mais intensamente o Meteor JS e foi muito prazeroso de trabalhar. Apesar de muitas vezes ficar lento as atualizações e ter que derrubar o server, sei que a ferramenta ainda está em beta e realmente me sinto orgulhoso de ter desenvolvido tanto tempo antes da versão 1.0. Espero logo migrar para a versão mais recente, pois existe uma incompatibilidade no heroku build pack do meteor e ainda estou usando a versão 0.6.2.</p>
 
-<h3 id="apresenta-o-no-evento-aulas-conectadas">Apresentação no evento Aulas conectadas</h3>
+<h3 id="apresentação-no-evento-aulas-conectadas">Apresentação no evento Aulas conectadas</h3>
 
 <p>Estive na UDESC de Florianópolis para participar do evento <a href="http://aulasconectadas-sc.blogspot.com.br/p/seminario-aulas-conectadas_23.html">Aulas conectadas</a>. Apresentei meu projeto <a href="http://bliss.ideia.me">bliss</a> e também tive a oportunidade de conhecer alguns projetos de teconologia voltados para educação.  O evento têm como seu principal tópico a avaliação dos primeiros anos do OLPC: One laptop per child, aqui no Brasil chamados de UCA: Um Computador por Aluno).</p>
 
@@ -973,24 +973,24 @@
 consegui perceber algumas coisas basicas:</p>
 
 <ul>
-<li>Bateria fraca - não suporta o tempo de uso dos alunos nas aulas</li>
-<li>Internet fraca - na escola é impossível todos alunos assistirem a vídeos pela internet ao mesmo tempo</li>
-<li>Um por criança - não tem reserva - muitas vezes o notebook estraga e precisar ir para assistência, então várias crianças não tem o aparelho durante as aulas</li>
-<li>Falta software - ainda é pouco software para capacidade que pode ser explorado</li>
+  <li>Bateria fraca - não suporta o tempo de uso dos alunos nas aulas</li>
+  <li>Internet fraca - na escola é impossível todos alunos assistirem a vídeos pela internet ao mesmo tempo</li>
+  <li>Um por criança - não tem reserva - muitas vezes o notebook estraga e precisar ir para assistência, então várias crianças não tem o aparelho durante as aulas</li>
+  <li>Falta software - ainda é pouco software para capacidade que pode ser explorado</li>
 </ul>
 
 <p>Tinha ido lá exatamente para descobrir este último item e fiquei muito feliz pois alguns pesquisadores/acadêmicos querem desenvolver coisas novas e é um ótimo espaço para construir parcerias acadêmicas.</p>
 
 <h3 id="pixel">Pixel</h3>
 
-<p>Também desenvolvi o <a href="http://pixel.ideia.me">Pixel</a> com a ajuda do Marlon. Um app web para desenhar com os amigos.
-<iframe src="//instagram.com/p/Yc8wePnfYn/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe></p>
+<p>Também desenvolvi o <a href="http://pixel.ideia.me">Pixel</a> com a ajuda do Marlon. Um app web para desenhar com os amigos.</p>
+<iframe src="//instagram.com/p/Yc8wePnfYn/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
 
 <h1 id="fora-da-tecnologia">Fora da tecnologia</h1>
 
 <p>Sou um apaixonado pela vida. Gosto muito de produzir coisas e este ano fiz algumas coisas legais sozinho, com a Tânia e o Lorenzo.</p>
 
-<h2 id="fam-lia">Família</h2>
+<h2 id="família">Família</h2>
 
 <p>Viver em família é um desafio. Educar então: uma experiência mutante.</p>
 
@@ -1066,22 +1066,22 @@ consegui perceber algumas coisas basicas:</p>
 
 <iframe src="//instagram.com/p/VrPMTmHfaH/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
 
-<h2 id="p-s-gradua-o-em-arteterapia-educa-o-e-sa-de">Pós graduação em Arteterapia, educação e saúde</h2>
+<h2 id="pós-graduação-em-arteterapia-educação-e-saúde">Pós graduação em Arteterapia, educação e saúde</h2>
 
 <p>A minha pós têm rendido boas reflexões e me abriu a mente para a psicologia, filosofia e arte. Tivemos uma ênfase forte nos tópicos da educação mas percebo claramente que o drama da pedagogia já é algo extremamente batido e um tanto quanto teórico. Por isso meu foco acabou sendo nestas 3 áreas.</p>
 
 <p>Durante este primeiro ano da pós, tivemos a maioria das matérias práticas, abordando dinâmicas ricas nas diversas áreas da arteterapia. As que mais gostei foram:</p>
 
 <ul>
-<li>Biodança aplicada</li>
-<li>Teatro terapêutico</li>
-<li>Oficina de criação em saúde mental e coletiva</li>
-<li>Psicossomática e abordagem junguiana</li>
+  <li>Biodança aplicada</li>
+  <li>Teatro terapêutico</li>
+  <li>Oficina de criação em saúde mental e coletiva</li>
+  <li>Psicossomática e abordagem junguiana</li>
 </ul>
 
-<p>Ainda estou fazendo a matéria de &quot;Música no contexto da saúde: articulação entre educação musical e musicoterapia&quot; e também está sendo muito legal. Todas as matérias eu gostei muito. Não houveram aulas massantes ou desoladamente ruins. Todos os professores tinham além de qualificação uma sensibilidade admirável. Apesar de ser uma faculdade particular e em uma cidade pequena a qualidade do curso me surpreendeu.</p>
+<p>Ainda estou fazendo a matéria de “Música no contexto da saúde: articulação entre educação musical e musicoterapia” e também está sendo muito legal. Todas as matérias eu gostei muito. Não houveram aulas massantes ou desoladamente ruins. Todos os professores tinham além de qualificação uma sensibilidade admirável. Apesar de ser uma faculdade particular e em uma cidade pequena a qualidade do curso me surpreendeu.</p>
 
-<h3 id="arteterapia-ideia-me"><a href="http://arteterapia.ideia.me">arteterapia.ideia.me</a></h3>
+<h3 id="arteterapiaideiame"><a href="http://arteterapia.ideia.me">arteterapia.ideia.me</a></h3>
 
 <p>Este <a href="http://arteterapia.ideia.me">site</a> reúne uma série de trabalhos que me envolvi esse ano. Também adicionei alguns artigos escritos pelos meus amigos da pós. Queria eu ter tido tempo para organizar e publicar de toda a turma, mas seria muito envolvente para um primeiro momento.</p>
 
@@ -1089,7 +1089,7 @@ consegui perceber algumas coisas basicas:</p>
 
 <h2 id="as-mandalas">As mandalas</h2>
 
-<p>Enquanto estava em Florianópolis, acabei comprando alguns livros chamados &quot;Mandalas de bolso para colorir&quot;. Me apaixonei pela terapia de pintar elas e este foi mais um hobbye que adquiri durante estes últimos dias.</p>
+<p>Enquanto estava em Florianópolis, acabei comprando alguns livros chamados “Mandalas de bolso para colorir”. Me apaixonei pela terapia de pintar elas e este foi mais um hobbye que adquiri durante estes últimos dias.</p>
 
 <iframe src="//instagram.com/p/hsuGmznfZ4/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
 
@@ -1109,13 +1109,14 @@ consegui perceber algumas coisas basicas:</p>
 
 <h1 id="fim">Fim</h1>
 
-<p>Enfim estou de férias e pude tirar um dia para reunir as fotos do instagram e distribuir conforme os textos que tinha criado. </p>
+<p>Enfim estou de férias e pude tirar um dia para reunir as fotos do instagram e distribuir conforme os textos que tinha criado.</p>
 
 <p>Faltou o tópico da cerveja artesanal e da música popular brasileira, e que as vezes até escrevo alguma coisa..</p>
 
 <iframe src="//instagram.com/p/g0uaV_nfW5/embed/" width="445px" height="535px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
 
 <p>Um feliz ano novo a todos!</p>
+
 
 </div>
 <hr>

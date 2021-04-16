@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -1089,40 +1089,43 @@
 
 <p>No entanto precisei aprender um pouco sobre esta interface pois instalei o puredata e não dá pra fazer muita coisa sem mouse nele.</p>
 
-<p>Usei <code>startx</code> para iniciar a interface gráfica.</p>
+<p>Usei <code class="language-plaintext highlighter-rouge">startx</code> para iniciar a interface gráfica.</p>
 
-<h2 id="alt-f2-rodar-comando">ALT+F2 = Rodar comando</h2>
+<h2 id="altf2--rodar-comando">ALT+F2 = Rodar comando</h2>
 
-<p>No ambiente gráfico, o primeiro atalho interessante é o <code>ALT+F2</code>. Com este comando é possível rodar um comando em ambiente gráfico. Experimente <code>lxterminal</code> no input que aparecer.</p>
+<p>No ambiente gráfico, o primeiro atalho interessante é o <code class="language-plaintext highlighter-rouge">ALT+F2</code>. Com este comando é possível rodar um comando em ambiente gráfico. Experimente <code class="language-plaintext highlighter-rouge">lxterminal</code> no input que aparecer.</p>
 
-<h2 id="ctrl-alt-f1-volta-para-o-terminal">CTRL+ALT+F1 = volta para o terminal</h2>
+<h2 id="ctrlaltf1--volta-para-o-terminal">CTRL+ALT+F1 = volta para o terminal</h2>
 
-<p>Se tudo travar ou algo der errado e você não conseguir mais manipular a interface gráfica sem o mouse, só lhe resta um <code>CTRL+ALT+F1</code> para voltar para a tela do terminal. Lá você pode dar um <code>CTRL-C</code> caso queira interromper o processo da interface gráfica, ou mesmo navegar nas outras tty do terminal usando <code>ALT+F2</code> para tty2 e <code>ALT+F3</code> para tty3 e assim por diante.</p>
+<p>Se tudo travar ou algo der errado e você não conseguir mais manipular a interface gráfica sem o mouse, só lhe resta um <code class="language-plaintext highlighter-rouge">CTRL+ALT+F1</code> para voltar para a tela do terminal. Lá você pode dar um <code class="language-plaintext highlighter-rouge">CTRL-C</code> caso queira interromper o processo da interface gráfica, ou mesmo navegar nas outras tty do terminal usando <code class="language-plaintext highlighter-rouge">ALT+F2</code> para tty2 e <code class="language-plaintext highlighter-rouge">ALT+F3</code> para tty3 e assim por diante.</p>
 
 <h2 id="simulando-o-mouse-com-keynav">Simulando o mouse com keynav</h2>
 
-<p>No descontentamento de não encontrar uma forma de manipular o mouse em si, fui dar um <code>apt-cache search mouse | grep keyboard</code> e acabei encontrando o keynav.</p>
+<p>No descontentamento de não encontrar uma forma de manipular o mouse em si, fui dar um <code class="language-plaintext highlighter-rouge">apt-cache search mouse | grep keyboard</code> e acabei encontrando o keynav.</p>
 
-<p>O <a href="http://man.cx/keynav" title="keynav">keynav</a> é uma ferramenta simples e criativa que permite navegar com o mouse de maneira fractal. O processo é bem simples e interessante. Basicamente o mouse se posiciona ao centro da tela, e com as teclas <code>H,J,K e L</code> é possível manipular o mouse com precisão e velocidade.</p>
+<p>O <a href="http://man.cx/keynav" title="keynav">keynav</a> é uma ferramenta simples e criativa que permite navegar com o mouse de maneira fractal. O processo é bem simples e interessante. Basicamente o mouse se posiciona ao centro da tela, e com as teclas <code class="language-plaintext highlighter-rouge">H,J,K e L</code> é possível manipular o mouse com precisão e velocidade.</p>
 
 <p>Para instalar use:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">sudo apt-get install keynav
-</code></pre></div>
-<p>Depois no ambiente gráfico digite: <code>ALT+F2</code> para rodar um comando e depois digite keynav.</p>
 
-<p>Para ativar o keynav use <code>CTRL+;</code>.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install keynav
+</code></pre></div></div>
+
+<p>Depois no ambiente gráfico digite: <code class="language-plaintext highlighter-rouge">ALT+F2</code> para rodar um comando e depois digite keynav.</p>
+
+<p>Para ativar o keynav use <code class="language-plaintext highlighter-rouge">CTRL+;</code>.</p>
 
 <p>Se você usa o VIM como eu não irá ter problemas em se adaptar com a navegação através das letras, caso contrário o mouse será útil :)</p>
 
-<h2 id="outros-comandos-teis-para-interface-gr-fica-no-raspibian">Outros comandos úteis para interface gráfica no Raspibian</h2>
+<h2 id="outros-comandos-úteis-para-interface-gráfica-no-raspibian">Outros comandos úteis para interface gráfica no Raspibian</h2>
 
 <ul>
-<li><code>lxtask</code> visualiza os processos em tempo real no ambiente visual</li>
-<li><code>pcmanfm [diretorio]</code> gerenciador de arquivos</li>
-<li><code>gpicview [arquivo]</code> visualizador de imagem</li>
-<li><code>wpa_gui</code> configure the wifi via interface gráfica</li>
-<li><code>midori [url]</code> navegador web</li>
+  <li><code class="language-plaintext highlighter-rouge">lxtask</code> visualiza os processos em tempo real no ambiente visual</li>
+  <li><code class="language-plaintext highlighter-rouge">pcmanfm [diretorio]</code> gerenciador de arquivos</li>
+  <li><code class="language-plaintext highlighter-rouge">gpicview [arquivo]</code> visualizador de imagem</li>
+  <li><code class="language-plaintext highlighter-rouge">wpa_gui</code> configure the wifi via interface gráfica</li>
+  <li><code class="language-plaintext highlighter-rouge">midori [url]</code> navegador web</li>
 </ul>
+
 
 </div>
 <hr>

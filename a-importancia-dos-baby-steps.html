@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -857,22 +857,22 @@
   </h1>
 </div>
 <div class="content">
-    <p>Estou trabalhando em um projeto em que a interface foi construída com Flex. Estou me adaptando novamente a IDE e não consegui encontrar nenhuma ferramenta de integração entre o VIM e o Eclipse que funcionasse no mac. </p>
+    <p>Estou trabalhando em um projeto em que a interface foi construída com Flex. Estou me adaptando novamente a IDE e não consegui encontrar nenhuma ferramenta de integração entre o VIM e o Eclipse que funcionasse no mac.</p>
 
 <h2 id="o-ciclo-de-desenvolvimento">O ciclo de desenvolvimento</h2>
 
 <p>Testar um sistema em Flex, tem sido uma satisfação no ciclo de desenvolvimento orientado a testes. Cada pequena alteração no Flex, envolve uma série de tarefas como:</p>
 
 <ul>
-<li>abrir o browser</li>
-<li>logar no sistema</li>
-<li>navegar até chegar no ponto desejado</li>
-<li>preencher os campos</li>
-<li>verificar a validade da execução do serviço</li>
-<li>então o teste passou ou falhou</li>
-<li>implementação</li>
-<li>se o teste passou posso escrever um novo teste</li>
-<li>reabrir o browser e reiniciar este ciclo</li>
+  <li>abrir o browser</li>
+  <li>logar no sistema</li>
+  <li>navegar até chegar no ponto desejado</li>
+  <li>preencher os campos</li>
+  <li>verificar a validade da execução do serviço</li>
+  <li>então o teste passou ou falhou</li>
+  <li>implementação</li>
+  <li>se o teste passou posso escrever um novo teste</li>
+  <li>reabrir o browser e reiniciar este ciclo</li>
 </ul>
 
 <p>Existem basicamente dois passos acima que não são repetitivos, implementação e adicionar novas funcionalidades escrevendo novos testes. Os outros passos são apenas consequências destes dois. Sendo este um processo de vários passos, como desenvolvedor quero automatizar estes passos repetitivos.</p>
@@ -889,11 +889,11 @@
 <p>Em conjunto com a biblioteca FunFx é possível compilar uma versão do aplicativo flex, com algumas ferramentas que permitem automação de tarefas e manipulação do aplicativo. Neste projeto estou usando as seguintes biblitecas:</p>
 
 <ul>
-<li>FunFXAdapter.swc</li>
-<li>automation.swc</li>
-<li>automation_agent.swc</li>
-<li>automation_dmv.swc</li>
-<li>funfx-0.2.2.swc</li>
+  <li>FunFXAdapter.swc</li>
+  <li>automation.swc</li>
+  <li>automation_agent.swc</li>
+  <li>automation_dmv.swc</li>
+  <li>funfx-0.2.2.swc</li>
 </ul>
 
 <p>Com estas bibliotecas e a gem <strong>FunFx</strong>, é possível resgatar o objeto principal do aplicativo flex, que está na página aberta anteriormente:</p>
@@ -905,9 +905,9 @@
 <p>Após isso o objeto flex está disponível e pode manipular elementos por vários tipos de seletores.</p>
 
 <pre class="prettyprint">
-  @flex.text_field(:id => "username").input("jonatas")
-  @flex.tab_navigator(:automationName => "Administração").change("Usuários")
-  @flex.button(:id => "login").click
+  @flex.text_field(:id =&gt; "username").input("jonatas")
+  @flex.tab_navigator(:automationName =&gt; "Administração").change("Usuários")
+  @flex.button(:id =&gt; "login").click
 </pre>
 
 <p>Com estes e outros métodos, é possível manipular e testar o funcionamento do aplicativo flex. AutomationName é um nome deduzido pela própria biblioteca e geralmente é representado pelo próprio label do componente.</p>
@@ -916,24 +916,24 @@
 O exemplo a seguir, trata-se da gravação de apenas um clique em um botão:</p>
 
 <pre class="prettyprint">
-@flex.panel({:id => 'users', 
-        :automationName => 'Usuarios', 
-        :automationIndex => 'index:4', 
-        :automationValue => 'Usuarios'}
+@flex.panel({:id =&gt; 'users', 
+        :automationName =&gt; 'Usuarios', 
+        :automationIndex =&gt; 'index:4', 
+        :automationValue =&gt; 'Usuarios'}
         ).button({
-           :id => 'newUserButton',
-           :automationName => 'Novo', 
-           :automationIndex => 'index:5', 
-           :automationValue => 'Novo'}).click('0')
+           :id =&gt; 'newUserButton',
+           :automationName =&gt; 'Novo', 
+           :automationIndex =&gt; 'index:5', 
+           :automationValue =&gt; 'Novo'}).click('0')
 </pre>
 
-<p>Também é interessante olhar este exemplo, para entender as várias formas de se atingir o mesmo elemento, ou garantir que será aquele. Agora basta escolher qual é a melhor forma de acessar o elemento, retirando os seletores que apenas <strong>garantem</strong> que será aquele elemento. </p>
+<p>Também é interessante olhar este exemplo, para entender as várias formas de se atingir o mesmo elemento, ou garantir que será aquele. Agora basta escolher qual é a melhor forma de acessar o elemento, retirando os seletores que apenas <strong>garantem</strong> que será aquele elemento.</p>
 
 <pre class="prettyprint">
-@flex.panel(:id => 'users').button(:id => 'newUserButton').click('0')
+@flex.panel(:id =&gt; 'users').button(:id =&gt; 'newUserButton').click('0')
 </pre>
 
-<p>Para usufruir desta bela biblioteca, estou usando <strong>Cucumber</strong> para escrever as estórias e implementar os passos. </p>
+<p>Para usufruir desta bela biblioteca, estou usando <strong>Cucumber</strong> para escrever as estórias e implementar os passos.</p>
 
 <p>Para não sofrer em reiniciar o ciclo todas as vezes, estou usando <strong>Autotest</strong> para reiniciar o ciclo a cada alteração efetuada. Uma prática que gostei, foi de manter uma tag @focus apenas na estória que estou executando, então na configuração do cucumber adicionei o seguinte:</p>
 
@@ -945,47 +945,48 @@ autotest-all: --format pretty --tags @focus
 
 <p>Olhando para cada pequena funcionalidade, posso desenvolver apenas pequenos fragmentos, e fazer os testes passar.</p>
 
-<p>Sem medo, cada passo acontece no seu tempo, e não gasto tempo navegando &quot;pessoalmente&quot; no sistema. Também evito aborrecimentos com grandes alterações. Uma alteração deve ser iniciada sempre com a escrita de um teste, pois quando você terminar a alteração, ela já vai estar pronta e testada.</p>
+<p>Sem medo, cada passo acontece no seu tempo, e não gasto tempo navegando “pessoalmente” no sistema. Também evito aborrecimentos com grandes alterações. Uma alteração deve ser iniciada sempre com a escrita de um teste, pois quando você terminar a alteração, ela já vai estar pronta e testada.</p>
 
 <p>Cada dia que passa, tenho certeza que o desenvolvimento orientado a testes, juntamente com os outros princípios do Extremme Programming trazem muitos benefícios para:</p>
 
 <h2 id="desenvolvedor">desenvolvedor</h2>
 
 <ul>
-<li>sempre evolui suas técnicas </li>
-<li>melhora a qualidade do produto</li>
-<li>têm certeza da tarefa que está implementando</li>
-<li>mantêm o código auto documentado</li>
-<li>mantém o foco em um pequeno passo a cumprir</li>
-<li>satisfação em ver as funcionalidades implementadas</li>
+  <li>sempre evolui suas técnicas</li>
+  <li>melhora a qualidade do produto</li>
+  <li>têm certeza da tarefa que está implementando</li>
+  <li>mantêm o código auto documentado</li>
+  <li>mantém o foco em um pequeno passo a cumprir</li>
+  <li>satisfação em ver as funcionalidades implementadas</li>
 </ul>
 
 <h2 id="produto">produto</h2>
 
 <ul>
-<li>é mais preciso</li>
-<li>resolve exatamente o que o teste (a estória) propõe</li>
+  <li>é mais preciso</li>
+  <li>resolve exatamente o que o teste (a estória) propõe</li>
 </ul>
 
 <h2 id="equipe">equipe</h2>
 
 <ul>
-<li>entende fácilmente a funcionalidade </li>
-<li>adapta-se ao código</li>
-<li>levanta cenários de falhas ou estórias ainda não contadas</li>
+  <li>entende fácilmente a funcionalidade</li>
+  <li>adapta-se ao código</li>
+  <li>levanta cenários de falhas ou estórias ainda não contadas</li>
 </ul>
 
-<h2 id="propriet-rio-do-produto">proprietário do produto</h2>
+<h2 id="proprietário-do-produto">proprietário do produto</h2>
 
 <ul>
-<li>têm um documento formal em mãos que cumpre exatamente o que a estória conta ou seja, o que o aplicativo faz</li>
-<li>desenvolve uma habilidade e satisfação pelo protocolo utilizado</li>
-<li>respeita a estória e sabe que está &quot;assinando um cheque&quot; ao concordar com ela</li>
+  <li>têm um documento formal em mãos que cumpre exatamente o que a estória conta ou seja, o que o aplicativo faz</li>
+  <li>desenvolve uma habilidade e satisfação pelo protocolo utilizado</li>
+  <li>respeita a estória e sabe que está “assinando um cheque” ao concordar com ela</li>
 </ul>
 
-<h1 id="conclus-es">Conclusões</h1>
+<h1 id="conclusões">Conclusões</h1>
 
 <p>Cada passo que tenho andado tenho certeza que tem sido para frente. Aparentemente, executar um processo automatizado torna o desenvolvimento mais lento, mas no final das contas, é mais seguro e traz uma série de boas consequências para todos aspectos do negócio.</p>
+
 
 </div>
 <hr>

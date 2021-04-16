@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -190,13 +190,17 @@ ferramenta então vou mostrar os primeiros passos para programar em 3D com ela.<
 
 <h2 id="download">Download</h2>
 
-<p>Baixe o openscad de sua maneira favorita. A minha no Mac OSX é via <code>brew cask</code>.</p>
-<div class="highlight"><pre><code class="language-" data-lang="">brew cask install openscad
-</code></pre></div>
+<p>Baixe o openscad de sua maneira favorita. A minha no Mac OSX é via <code class="language-plaintext highlighter-rouge">brew cask</code>.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew cask install openscad
+</code></pre></div></div>
+
 <p>Ou via linux</p>
-<div class="highlight"><pre><code class="language-" data-lang="">sudo apt-get install openscad
-</code></pre></div>
-<p>Mas você pode entrar no <a href="http://www.openscad.org">www.openscad.org</a> e baixar o zip também.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt-get install openscad
+</code></pre></div></div>
+
+<p>Mas você pode entrar no www.openscad.org e baixar o zip também.</p>
 
 <h2 id="explorando-as-formas">Explorando as formas</h2>
 
@@ -204,90 +208,95 @@ ferramenta então vou mostrar os primeiros passos para programar em 3D com ela.<
 
 <p>Por exemplo. Para construir uma simples esfera, eu apenas preciso passar o
 tamanho do raio:</p>
-<div class="highlight"><pre><code class="language-openscad" data-lang="openscad">sphere(r=2)
-</code></pre></div>
+
+<pre><code class="language-openscad">sphere(r=2)
+</code></pre>
+
 <p>O código acima cria uma esfera como a imagem abaixo exibe na prática rodando
 dentro do openscad.</p>
 
-<p><img src="/images/sphere2mm.png" alt="Esfera com raio de 2 milímetros"></p>
+<p><img src="/images/sphere2mm.png" alt="Esfera com raio de 2 milímetros" /></p>
 
 <p>Observe nas reguas laterais estamos trabalhando com uma esfera de 1 milímetro.</p>
 
 <p>Observe a escala de definição:</p>
 
-<p><img src="/images/sphere3mm.png" alt="Esfera com raio de 3 milímetros"></p>
+<p><img src="/images/sphere3mm.png" alt="Esfera com raio de 3 milímetros" /></p>
 
 <p>Ela não posssúi definição por isso é um objeto de poucas faces. Se aumentar o
 raio do objeto, a resolução da esfera vai ter uma qualidade maior.</p>
 
-<p><img src="/images/sphere6mm.png" alt="Esfera com raio de 6 milímetros"></p>
+<p><img src="/images/sphere6mm.png" alt="Esfera com raio de 6 milímetros" /></p>
 
-<h2 id="navegando-no-espa-o">Navegando no espaço</h2>
+<h2 id="navegando-no-espaço">Navegando no espaço</h2>
 
 <p>Legal, nada de muito novo criar uma esfera. Vamos explorar o espaço.
 Se criarmos duas esferas, não poderemos ver elas pois estarão uma sobre a outra
-então é necessário &quot;transladar&quot; para outro espaço.</p>
+então é necessário “transladar” para outro espaço.</p>
 
-<p>A função <code>translate</code> recebe um array com <code>[x,y,z]</code> direções. No exemplo abaixo
+<p>A função <code class="language-plaintext highlighter-rouge">translate</code> recebe um array com <code class="language-plaintext highlighter-rouge">[x,y,z]</code> direções. No exemplo abaixo
 vamos apenas transladar em x para fazer outra esfera menor ao lado.</p>
 
-<p><img src="/images/sphere5translate5sphere3.png" alt="Transladando a segunda esfera com raio de de 3 milímetros"></p>
+<p><img src="/images/sphere5translate5sphere3.png" alt="Transladando a segunda esfera com raio de de 3 milímetros" /></p>
 
 <p>Uau! Agora imagina que você pode combinar movimentos, formas e tamanhos!?</p>
 
 <p>Tudo isso é possível usando funções incrementais. O objeto vai sendo
 transformado, transladado, escalado conforme as funções vão sendo chamadas em
-sequência enquanto não encontrar o <code>;</code>.</p>
+sequência enquanto não encontrar o <code class="language-plaintext highlighter-rouge">;</code>.</p>
 
-<h2 id="usando-repeti-o">Usando repetição</h2>
+<h2 id="usando-repetição">Usando repetição</h2>
 
-<p>A estrutura básica do <code>for</code> é bem semelhante as linguagens convencionais e aceita um range de valores como parâmetro, ou ainda um próprio array. A sintaxe é: <code>for (indice = [comeco:fim])</code> para usar com ranges. Veja como é simples de adicionar uma estrutura de repetição aqui:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">for (i = [5:1]){
+<p>A estrutura básica do <code class="language-plaintext highlighter-rouge">for</code> é bem semelhante as linguagens convencionais e aceita um range de valores como parâmetro, ou ainda um próprio array. A sintaxe é: <code class="language-plaintext highlighter-rouge">for (indice = [comeco:fim])</code> para usar com ranges. Veja como é simples de adicionar uma estrutura de repetição aqui:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for (i = [5:1]){
   translate([i*2,0,0])
     sphere(r=i);
 }
-</code></pre></div>
-<p><img src="/images/sphere_for_1_5.png" alt="Criando 5 esferas e transladando com um for repetitivo"></p>
+</code></pre></div></div>
+
+<p><img src="/images/sphere_for_1_5.png" alt="Criando 5 esferas e transladando com um for repetitivo" /></p>
 
 <p>Uau, veja que a peça acima parece uma gota, mas também lembra um pião. Então
 vamos tentar produzir um peão.</p>
 
-<h2 id="criando-meu-pi-o-de-brinquedo-em-3d">Criando meu pião de brinquedo em 3D</h2>
+<h2 id="criando-meu-pião-de-brinquedo-em-3d">Criando meu pião de brinquedo em 3D</h2>
 
 <p>Bom para terminar o peão apenas temos que aumentar o tamanho. Penso em fazer de
 um tamanho parecido com da <a href="https://pt.wikipedia.org/wiki/Moeda_de_vinte_e_cinco_centavos_do_real">moeda de 25
 centavos</a>,
 , com 24 mm.</p>
 
-<p><img src="/images/sphere_translated_24mm.png" alt="Esfera transladando e 1 a 24 milímetros"></p>
+<p><img src="/images/sphere_translated_24mm.png" alt="Esfera transladando e 1 a 24 milímetros" /></p>
 
 <p>Adicionando um cilíndro na ponta para poder girar o pião na mão.</p>
 
-<p><img src="/images/sphere_translated_24mm_2.png" alt="Esfera transladando e 1 a 24 milímetros com cilíndro"></p>
+<p><img src="/images/sphere_translated_24mm_2.png" alt="Esfera transladando e 1 a 24 milímetros com cilíndro" /></p>
 
-<h2 id="usando-subtra-o-de-formas">Usando subtração de formas</h2>
+<h2 id="usando-subtração-de-formas">Usando subtração de formas</h2>
 
 <p>Uma coisa extremamente explorada em desenho 3D é a subtração de fórmas, então
 no meu caso eu quero abrir um furo para passar um prego e potencializar a ponta
-do peão como é um peão de madeira. Imagina que vou usar um prego <code>17x27mm</code> então
-vamos abrir um furo de <code>2.7mm</code> de diâmetro que atravesse o peão inteiro.</p>
+do peão como é um peão de madeira. Imagina que vou usar um prego <code class="language-plaintext highlighter-rouge">17x27mm</code> então
+vamos abrir um furo de <code class="language-plaintext highlighter-rouge">2.7mm</code> de diâmetro que atravesse o peão inteiro.</p>
 
-<p>Esse furo nada mais é do que a remoção de um cilíndro de <code>2.7mm</code> de raio do
+<p>Esse furo nada mais é do que a remoção de um cilíndro de <code class="language-plaintext highlighter-rouge">2.7mm</code> de raio do
 centro.</p>
 
-<p>Então é só aplicar a função <code>difference</code> para obter o objeto com a diferença dos objetos em questão.</p>
+<p>Então é só aplicar a função <code class="language-plaintext highlighter-rouge">difference</code> para obter o objeto com a diferença dos objetos em questão.</p>
 
 <p>A função difference aceita múltiplos objetos, então é possível construir um objeto complexo e remover algo dentro dele. Apenas a última expressão é entendida como o objeto que será removido.</p>
 
-<p><img src="/images/piao_final.png" alt="Esfera com difference abrindo um espaço para passar o prego com cilíndro"></p>
+<p><img src="/images/piao_final.png" alt="Esfera com difference abrindo um espaço para passar o prego com cilíndro" /></p>
 
 <p>Bom, nosso primeiro objeto está disponível opensource. Baixe, altere, compartilhe, imprima! Crie e distribua!</p>
 
-<p><a href="https://github.com/jonatas/3d-scad">https://github.com/jonatas/3d-scad</a></p>
+<p>https://github.com/jonatas/3d-scad</p>
 
 <p>Ficou curioso?</p>
 
 <p>Acesse o <a href="https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/">manual do usuário do OpenSCad</a> que tem exemplos muito mais ricos e fantásticos do que os apresentados aqui :)</p>
+
 
 </div>
 <hr>

@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -407,7 +407,7 @@
 
 <p>A linguagem de programação funciona da mesma maneira. Ela só abstrai para não escrevermos códigos de máquina. Então, por que não conseguimos compilar o mesmo código na cabeça de todas pessoas?</p>
 
-<p>Essa semana apresentei um RDTalk intitulado <a href="http://www.slideshare.net/jonataspaganini/tech-for-non-techs">&quot;Tech for non tech people&quot;</a>. E a ideia era explicar um pouco dos termos técnicos do dia a dia dos desenvolvedores para outras áreas da Resultados Digitais, então pensei em praticar mais essas analogias que representassem bem cada cenário e como poderia contar histórias ao invés de simplesmente explicar os termos.</p>
+<p>Essa semana apresentei um RDTalk intitulado <a href="http://www.slideshare.net/jonataspaganini/tech-for-non-techs">“Tech for non tech people”</a>. E a ideia era explicar um pouco dos termos técnicos do dia a dia dos desenvolvedores para outras áreas da Resultados Digitais, então pensei em praticar mais essas analogias que representassem bem cada cenário e como poderia contar histórias ao invés de simplesmente explicar os termos.</p>
 
 <p>Está difícil de lembrar? Aponte para fatos mais marcantes que sua própria talk!</p>
 
@@ -420,43 +420,44 @@ simples e podemos comparar a vazão de um cano. Mas usando um contexto mais comp
 
 <p>Inicialmente fiz uma [evolução das imagens dos slides] para mostrar o exemplo via imagens para mostrar o que era throughput. Mas quando fiz uma piada usando o próprio elevador da RD, o exemplo se tornou realmente remarcante.</p>
 
-<p><img src="/images/tech-for-non-techs-77-638.jpg" alt="tech-for-non-techs-77-638"></p>
+<p><img src="/images/tech-for-non-techs-77-638.jpg" alt="tech-for-non-techs-77-638" /></p>
 
 <p>Quando você consegue usar um exemplo de uma experiência já vivida, acredito que facilita muito a assimilação. Todos que estavam lá sofrem esperando todos os dias pela lentidão e limite de pessoas (throughput) de cada elevador. Então quando usei esse exemplo, senti que valeu mais do que toda aquela organização dos slides para mostrar o funcionamento.</p>
 
-<p>Outro aspecto que ficou fácil de entender é o nível de acoplamento de determinados recursos na aplicação, enfim não é fácil de colocarmos um &#39;terceiro&#39; elevador no edifício. Na aplicação a mesma coisa. Certos recursos acabam se engessando na construção e é mais complexo fazer a substituição ou melhorar significativamente sem grandes mudanças.</p>
+<p>Outro aspecto que ficou fácil de entender é o nível de acoplamento de determinados recursos na aplicação, enfim não é fácil de colocarmos um ‘terceiro’ elevador no edifício. Na aplicação a mesma coisa. Certos recursos acabam se engessando na construção e é mais complexo fazer a substituição ou melhorar significativamente sem grandes mudanças.</p>
 
 <p>Também aproveitei para tentar mostrar um pouco dos principais desafios da
 arquitetura enquanto escalando uma aplicação.</p>
 
-<p><img src="/images/tech-for-non-techs-83-638.jpg" alt="tech-for-non-techs-83-638"></p>
+<p><img src="/images/tech-for-non-techs-83-638.jpg" alt="tech-for-non-techs-83-638" /></p>
 
-<h2 id="exemplo-deploy-comparando-a-filme-velocidade-m-xima">Exemplo deploy comparando a filme velocidade máxima</h2>
+<h2 id="exemplo-deploy-comparando-a-filme-velocidade-máxima">Exemplo deploy comparando a filme velocidade máxima</h2>
 
 <p>Falando do processo de deploy enquanto ensaiava minha apresentação em casa, a Tânia, me perguntou por que era tão perigoso esse processo de deploy?</p>
 
-<p>Todos assistiram ao filme <a href="https://pt.wikipedia.org/wiki/Speed_(filme)">velocidade máxima</a> e essa foi uma boa relação para explicar o processo de deploy.</p>
+<p>Todos assistiram ao filme <a href="https://pt.wikipedia.org/wiki/Speed_\(filme\)">velocidade máxima</a> e essa foi uma boa relação para explicar o processo de deploy.</p>
 
-<p><img src="/images/tech-for-non-techs-52-638.jpg" alt="tech-for-non-techs-52-638"></p>
+<p><img src="/images/tech-for-non-techs-52-638.jpg" alt="tech-for-non-techs-52-638" /></p>
 
 <p>Digamos que o <a href="http://rdstation.com.br">RDStation</a> é o ônibus que não pode
 parar, e o deploy é: queremos trocar algumas peças desse ônibus. Então como fazemos para trocar com o ônibus andando?</p>
 
 <p>Transferimos as pessoas de ônibus como no filme do velocidade máxima, sem parar o ônibus.</p>
 
-<p><img src="/images/tech-for-non-techs-53-638.jpg" alt="tech-for-non-techs-53-638"></p>
+<p><img src="/images/tech-for-non-techs-53-638.jpg" alt="tech-for-non-techs-53-638" /></p>
 
-<h2 id="exemplo-do-rollout-gradual-a-l-deploy-can-rio">Exemplo do Rollout Gradual a lá deploy canário:</h2>
+<h2 id="exemplo-do-rollout-gradual-a-lá-deploy-canário">Exemplo do Rollout Gradual a lá deploy canário:</h2>
 
 <p>O deploy canário foi inspirado no uso de canários para medir a sensibilidade do ar dentro de espaços de mineração.</p>
 
 <p>Basicamente se o canário morria os operários saiam para não morrer também. A sensibilidade dos pulmões do canário é maior então eles morrem mais facilmente intoxicados.</p>
 
-<p><img src="/images/tech-for-non-techs-55-638.jpg" alt="tech-for-non-techs-55-638"></p>
+<p><img src="/images/tech-for-non-techs-55-638.jpg" alt="tech-for-non-techs-55-638" /></p>
 
 <p>Essa história foi um exemplo realmente marcante para mim. Sabia sobre o deploy canário mas acabei ouvindo a história que inspirou o nome apenas esses dias. Isso tornou o contexto ainda mais fácil de lembrar dos perigos e objetivos da história.</p>
 
 <p>E você que tipo de artifícios usa para fazer suas talks? Não deixe de comentar!</p>
+
 
 </div>
 <hr>

@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -1774,27 +1774,27 @@
 <p>Estamos utilizando o Balsamiq Mockups para colaborar nas decisões da interface. Prototipamos várias telas do projeto e tivemos várias ideias interessantes. 
 Falando em nós, estou falando do meu cliente Edson Lima que está sendo o POD (Product Owner and Developer) deste projeto.</p>
 
-<p>As estórias foram aceitas e a iteração desta semana e começou com poucos ajustes técnicos. </p>
+<p>As estórias foram aceitas e a iteração desta semana e começou com poucos ajustes técnicos.</p>
 
 <h2 id="prototipando-telas">Prototipando telas</h2>
 
-<p>Criar um protótipo das telas com o cliente torna-se muito interessante pois é possível visualizar a necessidade final do sistema antes mesmo dele existir. </p>
+<p>Criar um protótipo das telas com o cliente torna-se muito interessante pois é possível visualizar a necessidade final do sistema antes mesmo dele existir.</p>
 
 <p>Conversando e escolhendo cada detalhe da interface trouxe um resultado significativo no final de nossa primeira iteração.</p>
 
-<p>Estamos usando o Balsamiq Mockups para prototipar as telas e é altamente produtivo para criar protótipos e discutir as decisões de leiaute. Em alguns momentos nos pegamos ajeitando &quot;detalhes&quot; desnecessários e criando outras alternativas e utilização de componentes diversos.</p>
+<p>Estamos usando o Balsamiq Mockups para prototipar as telas e é altamente produtivo para criar protótipos e discutir as decisões de leiaute. Em alguns momentos nos pegamos ajeitando “detalhes” desnecessários e criando outras alternativas e utilização de componentes diversos.</p>
 
-<p><img src="/images/enviar_sms.png" alt="enviarsms"></p>
+<p><img src="/images/enviar_sms.png" alt="enviarsms" /></p>
 
-<p>Criar uma tela limpa, agradável e útil é uma tarefa extremamente difícil. Cada decisão a ser tomada pode corromper as &quot;filosofias&quot; da tela e trazer mais retrabalho. E este é mais um motivo forte para prototipar antes de programar.</p>
+<p>Criar uma tela limpa, agradável e útil é uma tarefa extremamente difícil. Cada decisão a ser tomada pode corromper as “filosofias” da tela e trazer mais retrabalho. E este é mais um motivo forte para prototipar antes de programar.</p>
 
 <p>Outro ponto importante é a evolução das telas durante a iteração. Por exemplo, nesta iteração decidimos o leiaute e alguns detalhes da interface. Observe a próxima tela. Ela é uma evolução da anterior com leiaute e no momento de busca no sistema:</p>
 
-<p><img src="/images/busca.png" alt="busca"></p>
+<p><img src="/images/busca.png" alt="busca" /></p>
 
 <p>Este exemplo demonstra a evolução da primeira interface em relação a segunda com leiaute e a funcionalidade de busca.</p>
 
-<h2 id="utilizando-est-rias">Utilizando estórias</h2>
+<h2 id="utilizando-estórias">Utilizando estórias</h2>
 
 <p>Em conjunto a tela, vêm a descrição da estória que pretende sanar qualque dúvida quanto aos eventos:</p>
 
@@ -1825,27 +1825,27 @@ Funcionalidade: Enviar mensagem SMS
 
 <p>Estes são apenas alguns exemplos da funcionalidade. Logo o UseSMS estará online e será muito parecido com o protótipo desenvolvido. Pelo menos a primeira versão. A evolução das telas e do sistema será feito durante as iterações.</p>
 
-<p>Além das especificações com Cucumber, o sistema está totalmente coberto de specs o que garante a sua consistência. O Edson fez um ótimo trabalho neste projeto e está com um uma média de 2,5 linhas de teste por linha de código. </p>
+<p>Além das especificações com Cucumber, o sistema está totalmente coberto de specs o que garante a sua consistência. O Edson fez um ótimo trabalho neste projeto e está com um uma média de 2,5 linhas de teste por linha de código.</p>
 
-<p>Sei que este não é um número confiável, mas trás bastante confiança e muitos exemplos fáceis de se consultar. </p>
+<p>Sei que este não é um número confiável, mas trás bastante confiança e muitos exemplos fáceis de se consultar.</p>
 
-<h2 id="m-todologia">Métodologia</h2>
+<h2 id="métodologia">Métodologia</h2>
 
 <p>Quando vou trabalhar em qualquer funcionalidade já existente sigo os seguintes passos:</p>
 
 <ul>
-<li>Verifico os specs que compõem cada parte do contexto em que estou desenvolvendo</li>
-<li>Planejo alguns novos specs quando necessário para fazer o sistema falhar</li>
-<li>Implemento as novas modificações e invoco o rspec novamente para validar. </li>
-<li>Quando os testes passam então rodo toda a bateria de testes para ver se a integridade está ok.</li>
-<li>Passado todos os testes sem erro já posso fazer um commit e reiniciar este ciclo</li>
+  <li>Verifico os specs que compõem cada parte do contexto em que estou desenvolvendo</li>
+  <li>Planejo alguns novos specs quando necessário para fazer o sistema falhar</li>
+  <li>Implemento as novas modificações e invoco o rspec novamente para validar.</li>
+  <li>Quando os testes passam então rodo toda a bateria de testes para ver se a integridade está ok.</li>
+  <li>Passado todos os testes sem erro já posso fazer um commit e reiniciar este ciclo</li>
 </ul>
 
-<p>Embora pudesse usar o plugin &quot;Integration&quot; para automatizar este processo ainda não tenho com quem integrar então estou fazendo manual mesmo.</p>
+<p>Embora pudesse usar o plugin “Integration” para automatizar este processo ainda não tenho com quem integrar então estou fazendo manual mesmo.</p>
 
 <h2 id="pomodoro">Pomodoro</h2>
 
-<p>Outra ferramenta importante para concentração no desenvolvimento têm sido o pomodoro. Tenho utilizado ele para fazer qualquer tarefa objetiva e têm muitos resultados positivos. </p>
+<p>Outra ferramenta importante para concentração no desenvolvimento têm sido o pomodoro. Tenho utilizado ele para fazer qualquer tarefa objetiva e têm muitos resultados positivos.</p>
 
 <p>Muitas vezes esqueço de sua existência e me desconcentro pela web, mas tenho procurado seguir a risca com a técnica e têm sido uma experiência válida.</p>
 
@@ -1856,6 +1856,7 @@ Funcionalidade: Enviar mensagem SMS
 <p>Muito interessante trabalhar com feedback. Passei um tempo sem este feedback e é realmente desanimante. Nesta primeira iteração, consegui fazer tarefas significativas para o projeto. Isto foi possível por pensar na essência do sistema e priorizar as tarefas certas.</p>
 
 <p>Estamos usando o Pivotal Tracker para controlar as estórias e o GitHub como repositório oficial. Assim tenho sempre qualquer notificação do Edson por email quando faz algum comentário ou adiciona novas informações ao projeto, ou seja: feedback automático.</p>
+
 
 </div>
 <hr>

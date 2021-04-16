@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -868,9 +868,9 @@ denso.</p>
 <p>Coffeescript é uma linguagem que idealiza várias ideias que me atraem.</p>
 
 <ul>
-<li>Simplicidade</li>
-<li>Confidência</li>
-<li>Minimalismo</li>
+  <li>Simplicidade</li>
+  <li>Confidência</li>
+  <li>Minimalismo</li>
 </ul>
 
 <p>Vou citar caso a caso as coisas que mais gosto. Todas elas são complementares e
@@ -879,7 +879,7 @@ fazendo é usar o transpilador para gerar o código final em js.</p>
 
 <p>Se você curtir, vai copiando e colando os exemplos no <a href="http://js2.coffee/">j2.coffee</a>.</p>
 
-<h2 id="fun-o">Função</h2>
+<h2 id="função">Função</h2>
 
 <p>Em javascript teríamos:</p>
 
@@ -889,21 +889,21 @@ maisUm = function(n) { n + 1 }
 
 <p>Em coffeescript temos:</p>
 
-<h2 id="fun-es">funções</h2>
+<h2 id="funções">funções</h2>
 
-<p>Então não precisa de <code>function</code> nem <code>{}</code>:</p>
+<p>Então não precisa de <code class="language-plaintext highlighter-rouge">function</code> nem <code class="language-plaintext highlighter-rouge">{}</code>:</p>
 
 <pre class="prettyprint coffeescript">
-maisUm = (n) -> n + 1
+maisUm = (n) -&gt; n + 1
 </pre>
 
-<h2 id="indenta-o-inteligente">Indentação inteligente</h2>
+<h2 id="indentação-inteligente">Indentação inteligente</h2>
 
 <p>As chaves não são substituídas por um código indentado. Isso quer dizer que
 você vai usar espaços ao invés de chaves para todos lados.</p>
 
 <pre class="prettyprint coffeescript">
-maisUm = (n) ->
+maisUm = (n) -&gt;
   n + 1
 </pre>
 
@@ -911,17 +911,17 @@ maisUm = (n) ->
 contexto.</p>
 
 <pre class="prettyprint coffeescript">
-parOuImpar = (n) ->
+parOuImpar = (n) -&gt;
   if n % 2 is 0
     'par'
   else
     'impar'
 </pre>
 
-<p>Também é possível fazer <em>inline</em> com <code>then</code>.</p>
+<p>Também é possível fazer <em>inline</em> com <code class="language-plaintext highlighter-rouge">then</code>.</p>
 
 <pre class="prettyprint coffeescript">
-parOuImpar = (n) -> if n % 2 is 0 then 'par' else 'impar'
+parOuImpar = (n) -&gt; if n % 2 is 0 then 'par' else 'impar'
 </pre>
 
 <p>Essas opções <em>inline</em> são muito interessantes para explorar pois elas podem ser
@@ -930,7 +930,7 @@ combinadas e gerar um código bem compacto e com bastante significado.</p>
 <p>Por exemplo, vamos combinar a função de par ou impar para iterar sobre um array:</p>
 
 <pre class="prettyprint coffeescript">
-classificarParOuImpar = (array) ->
+classificarParOuImpar = (array) -&gt;
   for n in array
     if n % 2 is 0
       'par'
@@ -940,14 +940,14 @@ classificarParOuImpar = (array) ->
 
 <h2 id="inline">Inline</h2>
 
-<p>A função acima, irá retornar um array de strings &#39;par&#39; ou &#39;impar&#39;. Se fosse
+<p>A função acima, irá retornar um array de strings ‘par’ ou ‘impar’. Se fosse
 escrever inline seria:</p>
 
 <pre class="prettyprint coffeescript">
-classificarParOuImpar = (array) -> if n % 2 is 0 then 'par' else 'impar' for n in array
+classificarParOuImpar = (array) -&gt; if n % 2 is 0 then 'par' else 'impar' for n in array
 </pre>
 
-<h2 id="multiplas-atribui-es">Multiplas atribuições</h2>
+<h2 id="multiplas-atribuições">Multiplas atribuições</h2>
 
 <p>As múltiplas atribuições já existem no javascript e não há nada de novo nisso.
 No entando o coffeescript tem a sua própria maneira de fazer.</p>
@@ -966,7 +966,7 @@ b = 2
 [a,b] = [1,2]
 </pre>
 
-<h2 id="multiplas-atribui-es-de-hashes">Multiplas atribuições de hashes</h2>
+<h2 id="multiplas-atribuições-de-hashes">Multiplas atribuições de hashes</h2>
 
 <p>As atribuições também funcionam para hashes.</p>
 
@@ -1001,49 +1001,49 @@ e quiser retornar um hash modificado com as medidas normalmente iria fazer:</p>
 <p>Eu acho interessante a ideia de ter apenas uma maneira de se escrever um código
 mas gosto dessas variações que simplificam e minimizam a linguagem em si.</p>
 
-<p>Acredito que as declarações como  <code>{a: a, b: b}</code> são repetitivas e
-desnecessárias: Entendendo que <code>{a,b}</code> irá gerar exatamente isso, consigo
+<p>Acredito que as declarações como  <code class="language-plaintext highlighter-rouge">{a: a, b: b}</code> são repetitivas e
+desnecessárias: Entendendo que <code class="language-plaintext highlighter-rouge">{a,b}</code> irá gerar exatamente isso, consigo
 manter um código mais limpo e menos verboso. Eu sinceramente gosto muito disso.</p>
 
-<h3 id="par-metros-se-transformando-em-atributo-de-acesso">Parâmetros se transformando em atributo de acesso</h3>
+<h3 id="parâmetros-se-transformando-em-atributo-de-acesso">Parâmetros se transformando em atributo de acesso</h3>
 
 <p>Em um exemplo simples poderia escrever:</p>
 
 <pre class="prettyprint coffeescript">
 class Pessoa
-  constructor: (nome) ->
+  constructor: (nome) -&gt;
     @nome = nome
 </pre>
 
-<p>Eu posso simplesmente usar <code>@</code> no parâmetro e funciona da mesma maneira,
+<p>Eu posso simplesmente usar <code class="language-plaintext highlighter-rouge">@</code> no parâmetro e funciona da mesma maneira,
 criando o atributo interno do objeto.</p>
 
 <pre class="prettyprint coffeescript">
 class Pessoa
-  constructor: (@nome) ->
+  constructor: (@nome) -&gt;
 </pre>
 
-<p>E você não está limitado a usar apenas no <code>constructor</code>, pois pode usar onde
+<p>E você não está limitado a usar apenas no <code class="language-plaintext highlighter-rouge">constructor</code>, pois pode usar onde
 bem entender este tipo de método e pode ser extremamente útil.</p>
 
 <pre class="prettyprint coffeescript">
 class Pessoa
-  constructor: (@nome) ->
-  indiceMassaCorporal: (@altura, @peso) ->
+  constructor: (@nome) -&gt;
+  indiceMassaCorporal: (@altura, @peso) -&gt;
     @imc = @peso / (@altura * @altura)
 </pre>
 
 <p>Desta maneira eliminamos uma série de códigos repetitivos e verbosos.</p>
 
-<h2 id="atribui-es-condicionais"><code>||=</code> atribuições condicionais</h2>
+<h2 id="-atribuições-condicionais"><code class="language-plaintext highlighter-rouge">||=</code> atribuições condicionais</h2>
 
 <p>Uma possível melhoria para fazer no algorítmo acima, ainda seria evitar
 recalcular o imc se já foi calculado, cacheando o imc, ou recalculando:</p>
 
 <pre class="prettyprint coffeescript">
 class Pessoa
-  constructor: (@nome) ->
-  indiceMassaCorporal: (@altura, @peso) ->
+  constructor: (@nome) -&gt;
+  indiceMassaCorporal: (@altura, @peso) -&gt;
     @imc ||= @peso / (@altura * @altura)
 </pre>
 
@@ -1055,8 +1055,8 @@ evitar reprocessamento.</p>
 <p>Estilo narrador do polishop:</p>
 
 <ul>
-<li>Transtornado com propriedades não definidas?</li>
-<li>Recebe um <code>undefined is not a function</code> a cada tentativa de rodar um novo código?</li>
+  <li>Transtornado com propriedades não definidas?</li>
+  <li>Recebe um <code class="language-plaintext highlighter-rouge">undefined is not a function</code> a cada tentativa de rodar um novo código?</li>
 </ul>
 
 <p>Seus problemas acabaram! O super poder das condicionais no coffeescript é muito
@@ -1076,7 +1076,7 @@ if pessoa?
 pessoa?.indiceMassaCorporal(190,112)
 </pre>
 
-<p>E encadeado. Por exemplo, verificar se existe a função <code>indiceMassaCorporal</code>
+<p>E encadeado. Por exemplo, verificar se existe a função <code class="language-plaintext highlighter-rouge">indiceMassaCorporal</code>
 antes de executá-la:</p>
 
 <pre class="prettyprint coffeescript">
@@ -1099,29 +1099,29 @@ pode declarar um código como:</p>
 imcsDeVariasPessoas = pessoa.imc for pessoa in pessoas
 </pre>
 
-<h1 id="detalhes-dif-ceis-e-cru-is">Detalhes difíceis e cruéis</h1>
+<h1 id="detalhes-difíceis-e-cruéis">Detalhes difíceis e cruéis</h1>
 
 <p>Nem tudo são flores e você vai precisar pisar em ovos no coffee também. Uma das
-maiores enrascadas do coffeescript está no <code>@</code> e a falta de sabedoria na hora
+maiores enrascadas do coffeescript está no <code class="language-plaintext highlighter-rouge">@</code> e a falta de sabedoria na hora
 de usar ele.</p>
 
 <p>Um bom conselho que posso dar é: mantenha-se sempre olhando o código javascript
 gerado pois você está compilando javascript e no final não pode gerar
 incompatibilidades da linguagem.</p>
 
-<p>O <code>@</code> é o <code>this.</code> do javascript. Então, ao se referir a uma propriedade você
-naturalmente usa <code>@</code>. Supomos o exemplo:</p>
+<p>O <code class="language-plaintext highlighter-rouge">@</code> é o <code class="language-plaintext highlighter-rouge">this.</code> do javascript. Então, ao se referir a uma propriedade você
+naturalmente usa <code class="language-plaintext highlighter-rouge">@</code>. Supomos o exemplo:</p>
 
 <pre class="prettyprint coffeescript">
-euclidean = (p1, p2) ->
+euclidean = (p1, p2) -&gt;
   [a, b] = [p1.x - p2.x, p1.y - p2.y]
   Math.sqrt Math.pow(a, 2) + Math.pow(b, 2)
 class Pessoa
-  distancia: (outro) -> euclidean(@,outro)
-  amigosProximos: (raioEsperado = 50) ->
+  distancia: (outro) -&gt; euclidean(@,outro)
+  amigosProximos: (raioEsperado = 50) -&gt;
     proximos = []
-    @relacionamentos.filter (pessoa) ->
-      if @distancia(pessoa) < raioEsperado
+    @relacionamentos.filter (pessoa) -&gt;
+      if @distancia(pessoa) &lt; raioEsperado
          proximos.push pessoa.nome
     proximos
 </pre>
@@ -1129,7 +1129,7 @@ class Pessoa
 <p>Esse é o clássico algorítmo que não funciona e você fica puto da cara com isso.</p>
 
 <p>Então é necessário entender o código gerado e você vai perceber que o
-<code>@distancia</code> não existe naquele contexto. Nesse caso, não existe pois uma
+<code class="language-plaintext highlighter-rouge">@distancia</code> não existe naquele contexto. Nesse caso, não existe pois uma
 função interna que faz o código do filter funcionar. Veja o código javascript gerado:</p>
 
 <pre class="prettyprint javascript">
@@ -1155,7 +1155,7 @@ Pessoa = (function() {
     }
     proximos = [];
     this.relacionamentos.filter(function(pessoa) {
-      if (this.distancia(pessoa) < raioEsperado) {
+      if (this.distancia(pessoa) &lt; raioEsperado) {
         return proximos.push(pessoa.nome);
       }
     });
@@ -1167,16 +1167,16 @@ Pessoa = (function() {
 })();
 </pre>
 
-<h3 id="criando-a-refer-ncia-self">Criando a referência self</h3>
+<h3 id="criando-a-referência-self">Criando a referência self</h3>
 
 <pre class="prettyprint coffeescript">
 class Pessoa
-  distancia: (outro) -> euclidean(@,outro)
-  amigosProximos: (raioEsperado = 50) ->
+  distancia: (outro) -&gt; euclidean(@,outro)
+  amigosProximos: (raioEsperado = 50) -&gt;
     proximos = []
     self = @
-    @relacionamentos.filter (pessoa) ->
-      if self.distancia(pessoa) < raioEsperado
+    @relacionamentos.filter (pessoa) -&gt;
+      if self.distancia(pessoa) &lt; raioEsperado
          proximos.push pessoa.nome
     proximos
 </pre>
@@ -1187,13 +1187,13 @@ que é uma maneira simples e padrão do que manter-se usando uma variável self.
 <p>Mas segue de exemplo com self acima e abaixo com <em>list comprehensions</em>.</p>
 
 <pre class="prettyprint coffeescript">
-euclidean = (p1, p2) ->
+euclidean = (p1, p2) -&gt;
   [a, b] = [p1.x - p2.x, p1.y - p2.y]
   Math.sqrt Math.pow(a, 2) + Math.pow(b, 2)
 class Pessoa
-  distancia: (outro) -> euclidean(@,outro)
-  amigosProximos: (raioEsperado = 50) ->
-    pessoa for pessoa in @relacionamentos when @distancia(pessoa) < raioEsperado
+  distancia: (outro) -&gt; euclidean(@,outro)
+  amigosProximos: (raioEsperado = 50) -&gt;
+    pessoa for pessoa in @relacionamentos when @distancia(pessoa) &lt; raioEsperado
 </pre>
 
 <p>Então observando o exemplo final e o código gerado, escrevemos 7 linhas de coffeescript que geraram mais de 30 em javascript.</p>
@@ -1222,9 +1222,9 @@ Pessoa = (function() {
     }
     ref = this.relacionamentos;
     results = [];
-    for (i = 0, len = ref.length; i < len; i++) {
+    for (i = 0, len = ref.length; i &lt; len; i++) {
       pessoa = ref[i];
-      if (self.distancia(pessoa) < raioEsperado) {
+      if (self.distancia(pessoa) &lt; raioEsperado) {
         results.push(pessoa);
       }
     }
@@ -1236,7 +1236,7 @@ Pessoa = (function() {
 })();
 </pre>
 
-<p>E aí gostou? <a href=http://js2.coffee/#coffee/try:euclidean%20%3D%20(p1%2C%20p2)%20-%3E%0A%20%20%5Ba%2C%20b%5D%20%3D%20%5Bp1.x%20-%20p2.x%2C%20p1.y%20-%20p2.y%5D%0A%20%20Math.sqrt%20Math.pow(a%2C%202)%20%2B%20Math.pow(b%2C%202)%0Aclass%20Pessoa%0A%20%20distancia%3A%20(outro)%20-%3E%20euclidean(%40%2Coutro)%0A%20%20amigosProximos%3A%20(raioEsperado%20%3D%2050)%20-%3E%0A%20%20%20%20pessoa.nome%20for%20pessoa%20in%20%40relacionamentos%20when%20%40distancia(pessoa)%20%3C%20raioEsperado%0Aeu%20%3D%20new%20Pessoa()%0Aeu.x%20%3D%2010%0Aeu.y%20%3D%2020%0Aeu.relacionamentos%20%3D%20%5B%0A%20%20%7B%20nome%3A%20%22maria%22%2C%20x%3A%205%2C%20y%3A%2010%20%20%20%20%7D%0A%20%20%7B%20nome%3A%20%22joao%22%2C%20%20x%3A%2020%2C%20y%3A%2040%20%20%20%7D%0A%20%20%7B%20nome%3A%20%22z%C3%A9zin%22%2C%20x%3A%20200%2C%20y%3A%20500%20%7D%0A%5D%0Aconsole.log%20eu.amigosProximos()">Tenta rodar na prática</a> esse exemplo e não deixe de comentar!</p>
+<p>E aí gostou? &lt;a href=http://js2.coffee/#coffee/try:euclidean%20%3D%20(p1%2C%20p2)%20-%3E%0A%20%20%5Ba%2C%20b%5D%20%3D%20%5Bp1.x%20-%20p2.x%2C%20p1.y%20-%20p2.y%5D%0A%20%20Math.sqrt%20Math.pow(a%2C%202)%20%2B%20Math.pow(b%2C%202)%0Aclass%20Pessoa%0A%20%20distancia%3A%20(outro)%20-%3E%20euclidean(%40%2Coutro)%0A%20%20amigosProximos%3A%20(raioEsperado%20%3D%2050)%20-%3E%0A%20%20%20%20pessoa.nome%20for%20pessoa%20in%20%40relacionamentos%20when%20%40distancia(pessoa)%20%3C%20raioEsperado%0Aeu%20%3D%20new%20Pessoa()%0Aeu.x%20%3D%2010%0Aeu.y%20%3D%2020%0Aeu.relacionamentos%20%3D%20%5B%0A%20%20%7B%20nome%3A%20%22maria%22%2C%20x%3A%205%2C%20y%3A%2010%20%20%20%20%7D%0A%20%20%7B%20nome%3A%20%22joao%22%2C%20%20x%3A%2020%2C%20y%3A%2040%20%20%20%7D%0A%20%20%7B%20nome%3A%20%22z%C3%A9zin%22%2C%20x%3A%20200%2C%20y%3A%20500%20%7D%0A%5D%0Aconsole.log%20eu.amigosProximos()”&gt;Tenta rodar na prática&lt;/a&gt; esse exemplo e não deixe de comentar!</p>
 
 <p>Quais são suas principais dificuldades com coffeescript?</p>
 

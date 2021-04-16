@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -857,15 +857,15 @@
   </h1>
 </div>
 <div class="content">
-    <h1 id="inspecionando-express-es-regulares-com-sinatra">Inspecionando expressões regulares com Sinatra</h1>
+    <h1 id="inspecionando-expressões-regulares-com-sinatra">Inspecionando expressões regulares com Sinatra</h1>
 
 <p>Expressões regulares, muitas vezes são difíceis de compreender e também de testar. Uma boa alternativa, é inspecionar os resultados enquanto estiver construindo a expressão.</p>
 
-<p>Ispirado no <a href="http://www.rubyist.net/%7Eslagell/ruby/regexp.html">regexp syntax highligth</a> feito para usar no terminal, resolvi criar uma aplicação em Sinatra que fizesse  a mesma coisa. </p>
+<p>Ispirado no <a href="http://www.rubyist.net/~slagell/ruby/regexp.html">regexp syntax highligth</a> feito para usar no terminal, resolvi criar uma aplicação em Sinatra que fizesse  a mesma coisa.</p>
 
-<p><img src="/images/regex-test-sinatra.jpg" alt="img-printscreen"></p>
+<p><img src="/images/regex-test-sinatra.jpg" alt="img-printscreen" /></p>
 
-<p>O &quot;segredo&quot; básico deste aplicativo, está na forma como a expressão casa com a string. Supomos o mesmo exemplo da imagem acima, mas ao invés de trocar a cor de fundo, colocassemos os resultados casados entre parenteses. Então, seria o seguinte código.</p>
+<p>O “segredo” básico deste aplicativo, está na forma como a expressão casa com a string. Supomos o mesmo exemplo da imagem acima, mas ao invés de trocar a cor de fundo, colocassemos os resultados casados entre parenteses. Então, seria o seguinte código.</p>
 
 <div><pre class="prettyprint">
 "jonatas".gsub(/[a]+/,"(\\&amp;)")  
@@ -908,7 +908,7 @@ span.match {
 "jon&lt;span class='match'&gt;a&lt;/span&gt;t&lt;span..."
 </pre></div>
 
-<p>Colocando &quot;tudo isso&quot; em um servidor sinatra temos:</p>
+<p>Colocando “tudo isso” em um servidor sinatra temos:</p>
 
 <div><pre class="prettyprint">
 require 'rubygems'
@@ -925,7 +925,7 @@ post "/match" do
 end
 </pre></div>
 
-<p>E na view views/index.erb temos: </p>
+<p>E na view views/index.erb temos:</p>
 
 <div><pre class="prettyprint">
 &lt;html&gt;
@@ -956,6 +956,7 @@ end
 <p>E acabou! é só isso, extremamente simples e funcional!</p>
 
 <p>ps: Visite também <a href="http://rubular.com">http://rubular.com</a> para usufruir desta mesma funcionalidade.</p>
+
 
 </div>
 <hr>

@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -642,39 +642,42 @@ caramba no meu setup e workflow do dia a dia.</p>
 Esse set de plugins que fiz o fork foi uma dica do
 <a href="https://twitter.com/nandosousafr">@nandosousafr</a> que me apresentou logo que comecei a trabalhar na <a href="http://resultadosdigitais.com.br">Resultados Digitais</a>.</p>
 
-<h2 id="como-mapleader"><code>,</code> como mapleader</h2>
+<h2 id="-como-mapleader"><code class="language-plaintext highlighter-rouge">,</code> como mapleader</h2>
 
-<p>No vim têm esse conceito de <a href="http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_()">map keys</a> com <strong>leader</strong>.</p>
+<p>No vim têm esse conceito de <a href="http://vim.wikia.com/wiki/Mapping_keys_in_Vim_-_Tutorial_\(\)">map keys</a> com <strong>leader</strong>.</p>
 
 <p>O leader funciona como um tecla mágica que têm um timeout esperando a próxima
-tecla, se não acontecer ela é invalidada. Então se você digitar <code>&lt;esc&gt;leader</code> e
-não seguir com o comando, logo seu <code>&lt;leader&gt;</code> é esquecido.</p>
+tecla, se não acontecer ela é invalidada. Então se você digitar <code class="language-plaintext highlighter-rouge">&lt;esc&gt;leader</code> e
+não seguir com o comando, logo seu <code class="language-plaintext highlighter-rouge">&lt;leader&gt;</code> é esquecido.</p>
 
 <p>Lembrando que mapleader é uma variável do vim e por padrão é a a barra
-invertida: <code>\\</code>.</p>
+invertida: <code class="language-plaintext highlighter-rouge">\\</code>.</p>
 
-<p>Nesse caso ele usa <code>,</code> como leader. Então quando eu um mapeamento no vim:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">map &lt;Leader&gt;f :call &lt;SID&gt;JumpToFile()&lt;CR&gt;
-</code></pre></div>
-<p>Isso quer dizer que quando eu estiver usando o editor e usar <code>&lt;esc&gt;,f</code> ele
-vai chamar a função <code>JumpToFile()</code> que deve estar em algum plugin ou faz parte do vim.</p>
+<p>Nesse caso ele usa <code class="language-plaintext highlighter-rouge">,</code> como leader. Então quando eu um mapeamento no vim:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>map &lt;Leader&gt;f :call &lt;SID&gt;JumpToFile()&lt;CR&gt;
+</code></pre></div></div>
+
+<p>Isso quer dizer que quando eu estiver usando o editor e usar <code class="language-plaintext highlighter-rouge">&lt;esc&gt;,f</code> ele
+vai chamar a função <code class="language-plaintext highlighter-rouge">JumpToFile()</code> que deve estar em algum plugin ou faz parte do vim.</p>
 
 <p>Então se eu fizer um mapeamento:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">map &lt;Leader&gt;rr :!ruby %&lt;CR&gt;
-</code></pre></div>
-<p>Quer dizer que quero rodar um script ruby com o arquivo atual que é
-compilado em tempo real através da variável <code>%</code>.</p>
 
-<script type="text/javascript" src="https://asciinema.org/a/39560.js"
-id="asciicast-39560" async></script>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>map &lt;Leader&gt;rr :!ruby %&lt;CR&gt;
+</code></pre></div></div>
+
+<p>Quer dizer que quero rodar um script ruby com o arquivo atual que é
+compilado em tempo real através da variável <code class="language-plaintext highlighter-rouge">%</code>.</p>
+
+<script type="text/javascript" src="https://asciinema.org/a/39560.js" id="asciicast-39560" async=""></script>
 
 <h2 id="splits-multijanela">Splits, multijanela</h2>
 
 <p>No final do vídeo anterior faço um split da tela horizontal e existem várias
 maneiras de fazer isso.</p>
 
-<p>A gerência de janelas é data por <code>&lt;ctrl-w&gt;&lt;disposition&gt;</code> onde <code>&lt;disposition&gt;</code>
-pode ser <code>s</code> ou <code>n</code> para horizontal ou <code>v</code> para vertical. Use <code>&lt;ctrl&gt;ww</code>
+<p>A gerência de janelas é data por <code class="language-plaintext highlighter-rouge">&lt;ctrl-w&gt;&lt;disposition&gt;</code> onde <code class="language-plaintext highlighter-rouge">&lt;disposition&gt;</code>
+pode ser <code class="language-plaintext highlighter-rouge">s</code> ou <code class="language-plaintext highlighter-rouge">n</code> para horizontal ou <code class="language-plaintext highlighter-rouge">v</code> para vertical. Use <code class="language-plaintext highlighter-rouge">&lt;ctrl&gt;ww</code>
 para navegar entre as janelas do split. Também é possível clicar para focar em uma janela específica.</p>
 
 <p>Eu me sinto muito confortável trabalhar e acompanhar o contexto de múltiplos arquivos de interesse.</p>
@@ -682,18 +685,17 @@ para navegar entre as janelas do split. Também é possível clicar para focar e
 <p>No vídeo abaixo exploro algumas navegabilidades basicas entre arquivos em um projeto rails.</p>
 
 <ul>
-<li><code>&lt;esc&gt;:Rmodel</code> vai para os modelos</li>
-<li><code>&lt;esc&gt;:Runittest</code> vai para os testes do modelo</li>
-<li><code>&lt;esc&gt;gf</code> go file: vai para arquivo/definição contextos diversos - até mesmo nas gems</li>
-<li><code>&lt;esc&gt;bf</code> back file: volta para contexto anterior</li>
-<li><code>&lt;esc&gt;,f</code> busca palavra sobre o cursor dentro do diretório</li>
-<li><code>&lt;esc&gt;A</code> alterna entre model e teste</li>
-<li><code>&lt;esc&gt;AS</code> divide a tela horizontalmente entre model e teste</li>
-<li><code>&lt;esc&gt;AV</code> divide a tela verticalmente entre model e teste</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;esc&gt;:Rmodel</code> vai para os modelos</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;esc&gt;:Runittest</code> vai para os testes do modelo</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;esc&gt;gf</code> go file: vai para arquivo/definição contextos diversos - até mesmo nas gems</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;esc&gt;bf</code> back file: volta para contexto anterior</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;esc&gt;,f</code> busca palavra sobre o cursor dentro do diretório</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;esc&gt;A</code> alterna entre model e teste</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;esc&gt;AS</code> divide a tela horizontalmente entre model e teste</li>
+  <li><code class="language-plaintext highlighter-rouge">&lt;esc&gt;AV</code> divide a tela verticalmente entre model e teste</li>
 </ul>
 
-<script type="text/javascript" src="https://asciinema.org/a/39561.js"
-id="asciicast-39561" async></script>
+<script type="text/javascript" src="https://asciinema.org/a/39561.js" id="asciicast-39561" async=""></script>
 
 <p>E aí já pensou em dar uma chance para o VIM no seu workflow com Ruby e Rails?</p>
 
@@ -708,7 +710,8 @@ id="asciicast-39561" async></script>
 <p>Abaixo fiz um live coding com ruby puro observando meus vícios de linguagem no
 blog:</p>
 
-<script type="text/javascript" src="https://asciinema.org/a/39562.js" id="asciicast-39562" async></script>
+<script type="text/javascript" src="https://asciinema.org/a/39562.js" id="asciicast-39562" async=""></script>
+
 
 </div>
 <hr>

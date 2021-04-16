@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -410,7 +410,8 @@
 <h2 id="conferindo-o-nome-do-disco-sdcard">Conferindo o nome do disco sdcard</h2>
 
 <p>No mac utilizei o aplicativo diskutil para descobrir qual era o meu sdcard.</p>
-<div class="highlight"><pre><code class="language-" data-lang="">➜ diskutil list
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ diskutil list
 /dev/disk0
 #:                       TYPE NAME                    SIZE       IDENTIFIER
 0:      GUID_partition_scheme                        *500.1 GB   disk0
@@ -421,50 +422,66 @@
 #:                       TYPE NAME                    SIZE       IDENTIFIER
 0:     FDisk_partition_scheme                        *7.8 GB     disk1
 1:                 DOS_FAT_32 BONE DEBIAN             7.8 GB     disk1s1
-</code></pre></div>
+</code></pre></div></div>
+
 <h2 id="formatar-o-sdcard">Formatar o sdcard</h2>
 
-<p>Utilizei o próprio aplicativo &quot;Utilitário de disco&quot; que vem instalado no Mac para formatar o disco. Utilizei a extensão MSDOS-FAT convencional.</p>
+<p>Utilizei o próprio aplicativo “Utilitário de disco” que vem instalado no Mac para formatar o disco. Utilizei a extensão MSDOS-FAT convencional.</p>
 
-<h2 id="instalar-imagem-no-cart-o">Instalar imagem no cartão</h2>
+<h2 id="instalar-imagem-no-cartão">Instalar imagem no cartão</h2>
 
 <p>Para instalar o nova imagem do sistema eu usei um sdcard de 8GB.</p>
 
 <p>No meu macbook eu baixei a <a href="http://debian.beagleboard.org/images/bone-debian-7.4-2014-03-27-2gb.img.xz">imagem</a> com extensão .img.xz então tive que utilizar um programa chamado xz para descompactar a imagem:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">brew install xz
-</code></pre></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install xz
+</code></pre></div></div>
+
 <p>Depois disso descompactei a imagem no disco:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">xz -dkv bone-debian-7.4-2014-03-27-2gb.img.xz 
-</code></pre></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>xz -dkv bone-debian-7.4-2014-03-27-2gb.img.xz 
+</code></pre></div></div>
+
 <p>E após isso usei o aplicativo dd para escrever a imagem no sdcard.</p>
-<div class="highlight"><pre><code class="language-" data-lang="">➜ sudo dd bs=1m if=./bone-debian-7.4-2014-03-27-2gb.img of=/dev/disk1
-</code></pre></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜ sudo dd bs=1m if=./bone-debian-7.4-2014-03-27-2gb.img of=/dev/disk1
+</code></pre></div></div>
+
 <p>Se você receber uma mensagem como esta:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">dd: /dev/disk1: Resource busy
-</code></pre></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dd: /dev/disk1: Resource busy
+</code></pre></div></div>
+
 <p>Então é melhor desmontar o disco antes de executar o comando dd.</p>
-<div class="highlight"><pre><code class="language-" data-lang="">sudo umountDisk /dev/disk1
-</code></pre></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo umountDisk /dev/disk1
+</code></pre></div></div>
+
 <p>Após terminar de escrever a imagem de 1,7 GB você deve ver uma mensagem assim:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">1700+0 records in
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1700+0 records in
 1700+0 records out
 1782579200 bytes transferred in 1476.053213 secs (1207666 bytes/sec)
-</code></pre></div>
+</code></pre></div></div>
+
 <p>Aqui demorou aproximadamente 24 minutos e depende da velocidade do sdcard e do tamanho da imagem para efetuar a gravação.</p>
 
 <p>Neste momento você pode ejetar o sdcard e remover o sdcard com segurança para colocar no Beaglebone.</p>
 
 <p>Ao reiniciar o beaglebone black e reconectar observei o boot via TTL:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">Debian GNU/Linux 7 beaglebone ttyO0
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Debian GNU/Linux 7 beaglebone ttyO0
 
 default username:password is [debian:temppwd]
 
 Support/FAQ: http://elinux.org/Beagleboard:BeagleBoneBlack_Debian
 
 The IP Address for usb0 is: 192.168.7.2
-</code></pre></div>
+</code></pre></div></div>
+
 <p>Fazendo o login via ssh:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">➜  ~  ssh debian@192.168.7.2 
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>➜  ~  ssh debian@192.168.7.2 
 The authenticity of host '192.168.7.2 (192.168.7.2)' can't be established.
 RSA key fingerprint is 20:8e:11:cb:98:2b:b1:f1:56:ec:3c:1a:2a:d4:e8:e5.
 Are you sure you want to continue connecting (yes/no)? yes
@@ -488,8 +505,10 @@ Administrator. It usually boils down to these three things:
 
 [sudo] password for debian:
 root@beaglebone:/home/debian#
-</code></pre></div>
+</code></pre></div></div>
+
 <p>Gostei das lições do administrador :)</p>
+
 
 </div>
 <hr>

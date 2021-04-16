@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -173,13 +173,13 @@
   </h1>
 </div>
 <div class="content">
-    <p>I&#39;m having a lot of fun with automated code rewrite.</p>
+    <p>I’m having a lot of fun with automated code rewrite.</p>
 
-<p>I&#39;d like to create something that I can implement an experiment,
-change some code and run some test to check if it&#39;s working.</p>
+<p>I’d like to create something that I can implement an experiment,
+change some code and run some test to check if it’s working.</p>
 
 <p>I worked on a simple script to speed up the test suite automatically
-replaces <code>create</code> with <code>build_stubbed</code>, and it worked. You can check the first
+replaces <code class="language-plaintext highlighter-rouge">create</code> with <code class="language-plaintext highlighter-rouge">build_stubbed</code>, and it worked. You can check the first
 part of my novel in my
 <a href="https://ideia.me/adventures-on-automated-code-replacement">Adventures on automated code replacement</a>.</p>
 
@@ -188,32 +188,35 @@ forgot something or if we can improve something, or remove some code.</p>
 
 <p>So, let me list a few ideas I already worked on.</p>
 
-<h2 id="replace-factorygirl-create-with-build_stubbed">Replace <code>FactoryGirl.create</code> with <code>build_stubbed</code></h2>
+<h2 id="replace-factorygirlcreate-with-build_stubbed">Replace <code class="language-plaintext highlighter-rouge">FactoryGirl.create</code> with <code class="language-plaintext highlighter-rouge">build_stubbed</code></h2>
 
 <p>This is a small improvement that fabricates an object but does not make it
 touches in the database and make specs run faster.</p>
 
 <h2 id="remove-extra-options-described-in-rspec-blocks">Remove extra options described in RSpec blocks</h2>
 
-<p>Lets imagine you&#39;re using <a href="https://github.com/avantoss/timecop-rspec#usage">timecop-rspec</a>
+<p>Lets imagine you’re using <a href="https://github.com/avantoss/timecop-rspec#usage">timecop-rspec</a>
 gem and you have a case like this:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">it 'travels but check nothing', travel: Time.new(2014, 11, 15) do
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>it 'travels but check nothing', travel: Time.new(2014, 11, 15) do
   expect(something).to be :ok
 end
-</code></pre></div>
-<p>But the <code>travel</code> was forgotten there and is not being used. Then we can remove
-the <code>travel</code> block and run the spec and check if it works.</p>
-<div class="highlight"><pre><code class="language-" data-lang="">it 'travels but check nothing' do
+</code></pre></div></div>
+
+<p>But the <code class="language-plaintext highlighter-rouge">travel</code> was forgotten there and is not being used. Then we can remove
+the <code class="language-plaintext highlighter-rouge">travel</code> block and run the spec and check if it works.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>it 'travels but check nothing' do
   expect(something).to be :ok
 end
-</code></pre></div>
+</code></pre></div></div>
 <h2 id="testing">Testing</h2>
 
 <p>If the test passes, the script can make the change official.</p>
 
 <h2 id="problems">Problems</h2>
 
-<p>My actual script replaced it with all occurrences at one time. Then, it&#39;s a bit weird
+<p>My actual script replaced it with all occurrences at one time. Then, it’s a bit weird
 and is not so powerful because sometimes we have a few cases that can work and
 others not. Ideally, it should run one change each time and check if that change
 works.</p>
@@ -222,8 +225,8 @@ works.</p>
 
 <p>I also did another very similar script for
 <a href="https://github.com/evrone/factory_girl-seeds">factory_girl-seeds</a> and in at that time
-the way I was trying to automate the replacement of <code>FactoryGirl.create</code> to use
-<code>seed</code> instead. It was a bit bugged because <code>seed</code> method does not support traits and
+the way I was trying to automate the replacement of <code class="language-plaintext highlighter-rouge">FactoryGirl.create</code> to use
+<code class="language-plaintext highlighter-rouge">seed</code> instead. It was a bit bugged because <code class="language-plaintext highlighter-rouge">seed</code> method does not support traits and
 recognize extra attributes as keys for each kind of record needed.</p>
 
 <h2 id="the-engine">The engine</h2>
@@ -235,7 +238,7 @@ if the spec works.</p>
 <h3 id="criteria-for-keep-the-change">Criteria for keep the change</h3>
 
 <p>The criteria should be related to keep or not keep that change. If the test
-passes but it&#39;s degrading the performance, or the improvement is insignificant.</p>
+passes but it’s degrading the performance, or the improvement is insignificant.</p>
 
 <h3 id="run-a-command-to-test-the-change">Run a command to test the change</h3>
 
@@ -244,8 +247,8 @@ passes but it&#39;s degrading the performance, or the improvement is insignifica
 <p>It can be:</p>
 
 <ul>
-<li>Run a spec</li>
-<li>Execute a command</li>
+  <li>Run a spec</li>
+  <li>Execute a command</li>
 </ul>
 
 <p>One thing I found very weak in my current implementations that I was always
@@ -253,8 +256,8 @@ running the entire file and I could try to run some specs in cascade. Then I
 think it should follow some directives:</p>
 
 <ul>
-<li>It should fail fast as possible</li>
-<li>It should run test changes in cascade trying to check the nearest scope first
+  <li>It should fail fast as possible</li>
+  <li>It should run test changes in cascade trying to check the nearest scope first
 and then run the entire spec in a second moment to avoid big
 queries and exhaustive machine consumption with noneffective changes.</li>
 </ul>
@@ -267,31 +270,39 @@ workers that can be replacing and reporting the results and even build a third
 meta-experiment to check if two examples are compatible.</p>
 
 <p>Example:</p>
-<div class="highlight"><pre><code class="language-" data-lang="">describe User, travel: '2020-02-02' do
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>describe User, travel: '2020-02-02' do
   let(:user) { create(user, twitter: 'jonatasdp')}
   it { expect(user).to be_valid }
 end
-</code></pre></div>
+</code></pre></div></div>
+
 <p>Lets imagine the experiments in action:</p>
 
-<p><strong>Remove <code>travel</code></strong></p>
-<div class="highlight"><pre><code class="language-" data-lang="">describe User do
+<p><strong>Remove <code class="language-plaintext highlighter-rouge">travel</code></strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>describe User do
   let(:user) { create(user, twitter: 'jonatasdp') }
   it { expect(user).to be_valid }
 end
-</code></pre></div>
-<p><strong>Replace <code>create</code> with <code>build_stubbed</code></strong></p>
-<div class="highlight"><pre><code class="language-" data-lang="">describe User do
+</code></pre></div></div>
+
+<p><strong>Replace <code class="language-plaintext highlighter-rouge">create</code> with <code class="language-plaintext highlighter-rouge">build_stubbed</code></strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>describe User do
   let(:user) { build_stubbed(user, twitter: 'jonatasdp') }
   it { expect(user).to be_valid }
 end
-</code></pre></div>
-<p><strong>Remove extra parameters from FactoryGirl <code>create</code> or <code>build_stubbed</code></strong></p>
-<div class="highlight"><pre><code class="language-" data-lang="">describe User do
+</code></pre></div></div>
+
+<p><strong>Remove extra parameters from FactoryGirl <code class="language-plaintext highlighter-rouge">create</code> or <code class="language-plaintext highlighter-rouge">build_stubbed</code></strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>describe User do
   let(:user) { build_stubbed(user) }
   it { expect(user).to be_valid }
 end
-</code></pre></div>
+</code></pre></div></div>
+
 <h3 id="learning-from-mistakes">Learning from mistakes</h3>
 
 <p>It can start reporting the success and failures with the current
@@ -305,18 +316,18 @@ the following components:</p>
 <h3 id="experiment">Experiment</h3>
 
 <ul>
-<li>Receives the file</li>
-<li>Defines the rules</li>
-<li>Manipulates the code</li>
-<li>Report the experiment created</li>
+  <li>Receives the file</li>
+  <li>Defines the rules</li>
+  <li>Manipulates the code</li>
+  <li>Report the experiment created</li>
 </ul>
 
 <h3 id="executor">Executor</h3>
 
 <ul>
-<li>Executes the experiment created</li>
-<li>Report lessons learned</li>
-<li>Make the change official or build 
+  <li>Executes the experiment created</li>
+  <li>Report lessons learned</li>
+  <li>Make the change official or build 
 successive experiment to divide and conquer multiple rules.</li>
 </ul>
 
@@ -326,6 +337,7 @@ successive experiment to divide and conquer multiple rules.</li>
 
 <p>Navigate in all the files and prepare the work to the divide and conquer with 
 the experiment with the files.</p>
+
 
 </div>
 <hr>

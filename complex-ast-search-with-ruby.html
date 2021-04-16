@@ -88,14 +88,14 @@
            </ul>
           </li>
           <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projetos<b class="caret"></b></a>
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
             <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">2017-2018: Fast</a></li>
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
             <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Desenhe com pixel</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
             <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://churumelas.ideia.me">2012: Desafie-se no churumelas</a></li>
-            <li><a href="/camera-overlay">2012: Fotografia com Camera Overlay </a></li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
            </ul>
           </li>
           
@@ -863,14 +863,14 @@ was showing the RuboCop node pattern in action.</p>
 <p>Well, I take it as a personal challenge to write a small compiler and isolate
 the node pattern language to learn about compilers and scratch my own itch.</p>
 
-<p>RuboCop seems too much to what I&#39;d like to do and I start discovering how to
+<p>RuboCop seems too much to what I’d like to do and I start discovering how to
 build these functions along the way.</p>
 
-<p>I started working on fast: <a href="https://github.com/jonatas/fast/">https://github.com/jonatas/fast/</a>.</p>
+<p>I started working on fast: https://github.com/jonatas/fast/.</p>
 
 <p>Instead of keep piling tutorials and blog posts on my own domain, I decided to create one dedicated documentation to the library, and here we are:</p>
 
-<p><a href="https://jonatas.github.io/fast/">https://jonatas.github.io/fast/</a></p>
+<p>https://jonatas.github.io/fast/</p>
 
 <p>I created a few tutorials showing how to
 <a href="https://jonatas.github.io/fast/similarity_tutorial/">identify code similarity</a>
@@ -879,18 +879,19 @@ that can replace code and keep running the test suite.</p>
 
 <p>If the test passes, it tries a new refactor and keep refactoring.</p>
 
-<p>I&#39;m thrilled with all the work I dedicated here and during this week I
+<p>I’m thrilled with all the work I dedicated here and during this week I
 <a href="https://github.com/jonatas/fast/pull/11">implemented a new feature</a>
-that I&#39;d like to show here.</p>
+that I’d like to show here.</p>
 
 <p>Basically, the current function is able to use custom ruby methods to leverage
 complexity in AST search.</p>
 
-<p>With the new syntax, it&#39;s possible to use embedded methods in the middle of the
+<p>With the new syntax, it’s possible to use embedded methods in the middle of the
 expressions that also matches nodes or inner elements.</p>
 
-<p>Let&#39;s take a look in some code example:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">class</span> <span class="nc">Example</span>
+<p>Let’s take a look in some code example:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Example</span>
   <span class="k">def</span> <span class="nf">first_method</span>
   <span class="k">end</span>
   <span class="k">def</span> <span class="nf">second_method</span>
@@ -898,11 +899,13 @@ expressions that also matches nodes or inner elements.</p>
   <span class="k">def</span> <span class="nf">first_method</span> <span class="c1"># repeated</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre></div>
+</code></pre></div></div>
+
 <p>How can we build a search to find the repeated method?</p>
 
-<p>With a simple search of <code>def</code> we have the following results:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">fast <span class="s1">'def '</span> example.rb                                                                                                                                                                                                                                                                                                                                                                                                                                    21:30:40
+<p>With a simple search of <code class="language-plaintext highlighter-rouge">def</code> we have the following results:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fast <span class="s1">'def '</span> example.rb                                                                                                                                                                                                                                                                                                                                                                                                                                    21:30:40
 <span class="c"># example.rb:2</span>
 def first_method
   end
@@ -912,40 +915,47 @@ def second_method
 <span class="c"># example.rb:6</span>
 def first_method <span class="c"># repeated</span>
   end
-</code></pre></div>
+</code></pre></div></div>
+
 <p>If I know the method name I can simply say it:</p>
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">fast <span class="s1">'(def first_method)'</span> example.rb                                                                                                                                                                                                                                                                                                                                                                                                                       21:30:56
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fast <span class="s1">'(def first_method)'</span> example.rb                                                                                                                                                                                                                                                                                                                                                                                                                       21:30:56
 <span class="c"># example.rb:2</span>
 def first_method
   end
 <span class="c"># example.rb:6</span>
 def first_method <span class="c"># repeated</span>
   end
-</code></pre></div>
-<p>But how can I collect the method names to discover if they&#39;re repeated?</p>
+</code></pre></div></div>
+<p>But how can I collect the method names to discover if they’re repeated?</p>
 
 <p>Using <a href="https://jonatas.github.io/fast/syntax/#is-for-capture-current-expression">Fast.capture</a>
-It can be easily found. Let&#39;s see how I could do it in the old way?</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="no">Fast</span><span class="p">.</span><span class="nf">capture</span><span class="p">(</span><span class="no">Fast</span><span class="p">.</span><span class="nf">ast_from_file</span><span class="p">(</span><span class="s2">"example.rb"</span><span class="p">),</span> <span class="s2">"(def $_)"</span><span class="p">)</span>
+It can be easily found. Let’s see how I could do it in the old way?</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">capture</span><span class="p">(</span><span class="no">Fast</span><span class="p">.</span><span class="nf">ast_from_file</span><span class="p">(</span><span class="s2">"example.rb"</span><span class="p">),</span> <span class="s2">"(def $_)"</span><span class="p">)</span>
 <span class="c1"># =&gt; [:first_method, :second_method, :first_method]</span>
-</code></pre></div>
-<p>Great! But I&#39;d like to pick only the third element that is the first duplicated.</p>
+</code></pre></div></div>
 
-<p>How can I make it happen? How to ignore the <code>second_method</code> and the first
-<code>first_method</code>?</p>
+<p>Great! But I’d like to pick only the third element that is the first duplicated.</p>
 
-<p>We need to build a small method that can record the method name and collect unique methods. When it founds some method that is already registered. It can target this as a &quot;match&quot;. Let&#39;s implement the method and use it inside our
+<p>How can I make it happen? How to ignore the <code class="language-plaintext highlighter-rouge">second_method</code> and the first
+<code class="language-plaintext highlighter-rouge">first_method</code>?</p>
+
+<p>We need to build a small method that can record the method name and collect unique methods. When it founds some method that is already registered. It can target this as a “match”. Let’s implement the method and use it inside our
 expression:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">duplicated</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">duplicated</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span>
   <span class="vi">@methods</span> <span class="o">||=</span> <span class="p">[]</span>
   <span class="n">already_exists</span> <span class="o">=</span> <span class="vi">@methods</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span>
   <span class="vi">@methods</span> <span class="o">&lt;&lt;</span> <span class="n">method_name</span>
   <span class="n">already_exists</span>
 <span class="k">end</span>
-</code></pre></div>
+</code></pre></div></div>
+
 <p>The method simply receives a symbol and check if it was previously included in
 the array. Now, we can use the method:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">duplicated</span> <span class="ss">:a</span>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">duplicated</span> <span class="ss">:a</span>
 <span class="c1"># =&gt; false</span>
 <span class="n">duplicated</span> <span class="ss">:a</span>
 <span class="c1"># =&gt; true</span>
@@ -955,19 +965,23 @@ the array. Now, we can use the method:</p>
 <span class="c1"># =&gt; false</span>
 <span class="n">duplicated</span> <span class="ss">:b</span>
 <span class="c1"># =&gt; true</span>
-</code></pre></div><div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">search_file</span><span class="p">(</span> <span class="s1">'(def #duplicated)'</span><span class="p">,</span> <span class="s1">'example.rb'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">search_file</span><span class="p">(</span> <span class="s1">'(def #duplicated)'</span><span class="p">,</span> <span class="s1">'example.rb'</span><span class="p">)</span>
 <span class="c1"># (def :first_method</span>
 <span class="c1">#  (args) nil)</span>
-</code></pre></div>
+</code></pre></div></div>
+
 <p>Keep in mind that if you rerun the same search, it will not work because we
-need to reset the <code>@methods</code> variable.</p>
+need to reset the <code class="language-plaintext highlighter-rouge">@methods</code> variable.</p>
 
 <p>The <a href="https://github.com/jonatas/fast/blob/master/lib/fast.rb#L382">MethodCall</a>
-will simply take the argument, no matter if it&#39;s a node or some inner element.
+will simply take the argument, no matter if it’s a node or some inner element.
 It will depend on where the function is placed in the DSL.</p>
 
-<p>If we want to match with the node, it needs to be written and validating the <code>def</code> internally. Example:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">duplicated_def</span> <span class="n">node</span>
+<p>If we want to match with the node, it needs to be written and validating the <code class="language-plaintext highlighter-rouge">def</code> internally. Example:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">duplicated_def</span> <span class="n">node</span>
   <span class="k">return</span> <span class="kp">false</span> <span class="k">unless</span> <span class="n">node</span><span class="p">.</span><span class="nf">type</span> <span class="o">==</span> <span class="ss">:def</span>
   <span class="n">method_name</span><span class="p">,</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="nf">children</span>
   <span class="vi">@methods</span> <span class="o">||=</span> <span class="p">[]</span>
@@ -975,16 +989,20 @@ It will depend on where the function is placed in the DSL.</p>
   <span class="vi">@methods</span> <span class="o">&lt;&lt;</span> <span class="n">method_name</span>
   <span class="n">already_exists</span>
 <span class="k">end</span>
-</code></pre></div>
+</code></pre></div></div>
+
 <p>We created a guard clause to avoid match other node types. As the method call
 will receive the node inline with the expression, we can even remove the parens
 from the expression:</p>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">search_file</span><span class="p">(</span> <span class="s1">'#duplicated_def'</span><span class="p">,</span> <span class="s1">'example.rb'</span><span class="p">)</span>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">search_file</span><span class="p">(</span> <span class="s1">'#duplicated_def'</span><span class="p">,</span> <span class="s1">'example.rb'</span><span class="p">)</span>
 <span class="p">(</span><span class="k">def</span> <span class="ss">:first_method</span>
   <span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="kp">nil</span><span class="p">)</span>
-</code></pre></div>
-<p>That&#39;s all I have for today! I&#39;m a bit bored with my tool, and I&#39;m also working
+</code></pre></div></div>
+
+<p>That’s all I have for today! I’m a bit bored with my tool, and I’m also working
 to <a href="https://github.com/rubocop-hq/rubocop/pull/6686">extract the node pattern from RuboCop to a separated library</a>.</p>
+
 
 </div>
 <hr>
