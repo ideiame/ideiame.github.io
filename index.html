@@ -165,180 +165,60 @@
   <div class="span12">
     
 <p>
-  [pt-BR]
+  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
   <br />
-  Olá, sou o Jônatas Davi Paganini e esse é meu blog. Sou programador, tenho alguns projetos no <a href="https://github.com/jonatas">github</a> e escrevo livremente <a href="/">aqui no ideia.me</a>.
-  <br />
-  [en]
-  <br />
-  Hello there, my name is Jônatas Davi Paganini and this is my blog. I'm
-  developer and I have a few projects on <a href="https://github.com/jonatas">github</a>
-  and I freely write <a href="/">here at ideia.me</a>.
+  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
+  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
 </p>
 <p>Check my
-  <a href="/talks">talks</a> or connect via
+  <a href="/talks">talks</a> or connect with me via
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
   <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
   <a href="https://github.com/jonatas" target="_blank">github</a> /
   <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
   <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
-  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
-  <a href="http://soundcloud.com/jonatasdp" target="_blank">soundcloud</a> /
   <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
   <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
 </p>
 
 <hr />
 
-<h1 class="post"><a class="post" href="/complex-ast-search-with-ruby"> Complex AST search with Ruby</a></h1>
-<p>I previously wrote a post about <a href="/search-in-ruby-ast">search in ruby ast</a> and I
-was showing the RuboCop node pattern in action.</p>
+<h1 class="post"><a class="post" href="/my-first-week-at-timescale"> My first week at Timescale</a></h1>
+<p>I’m thrilled to announce that I joined <a href="https://www.timescale.com">Timescale</a> as a developer advocate. My first week ended with a lot of excitement about what comes next.</p>
 
-<p>Well, I take it as a personal challenge to write a small compiler and isolate
-the node pattern language to learn about compilers and scratch my own itch.</p>
+<p>I love working with Postgresql. It was always my brainless choice for any backend project I worked on that needs a relational database.</p>
 
-<p>RuboCop seems too much to what I’d like to do and I start discovering how to
-build these functions along the way.</p>
+<p>At university, I refused the student license to learn paid databases because I already knew Postgres :)</p>
 
-<p>I started working on fast: https://github.com/jonatas/fast/.</p>
+<p>As Postgresql evolved with the community, it now contains dozens of unique features to benefit and stick with the same technology.</p>
 
-<p>Instead of keep piling tutorials and blog posts on my own domain, I decided to create one dedicated documentation to the library, and here we are:</p>
+<p>When I saw the fantastic work that Timescale is doing, I feel that it was a unique opportunity to learn more and have a broad impact on the community.</p>
 
-<p>https://jonatas.github.io/fast/</p>
+<p>I love public speaking, pair programming, and live coding. I’ll continue inspiring more people to try new concepts, building content to empower the community, and master Postgres and time series on SQL.</p>
 
-<p>I created a few tutorials showing how to
-<a href="https://jonatas.github.io/fast/similarity_tutorial/">identify code similarity</a>
-and <a href="https://jonatas.github.io/fast/experiments/">create dynamic experiments</a>
-that can replace code and keep running the test suite.</p>
+<p>I worked for almost five years in financial markets. I never had the opportunity to put the market data on a database because it was too slow to digest the incoming events from the financial markets. The infrastructure was so poor and expensive that plain CSV per day split by stock symbol’ was always the most reasonable choice.</p>
 
-<p>If the test passes, it tries a new refactor and keep refactoring.</p>
+<p>Indeed <a href="https://docs.timescale.com/latest/using-timescaledb/hypertables">hypertables</a> allows you to do something similar with <a href="https://docs.timescale.com/latest/using-timescaledb/data-tiering">data tiering</a>, allowing the user to set different <a href="https://docs.timescale.com/latest/using-timescaledb/data-retention">retention policies</a> to accommodate the data based on the algorithmic needs.</p>
 
-<p>I’m thrilled with all the work I dedicated here and during this week I
-<a href="https://github.com/jonatas/fast/pull/11">implemented a new feature</a>
-that I’d like to show here.</p>
+<p>On average, a single stock can generate hundreds of events per second. It becomes very slow as sometimes the “rain” of events becomes a “thunderstorm” as the market heats with the news. How the algorithms digest data is essential to real-time decisions. It’s a vital attribute of a high frequency for trading systems.</p>
 
-<p>Basically, the current function is able to use custom ruby methods to leverage
-complexity in AST search.</p>
+<p>Today, almost every business has its associated events, and they need to track the information for some days while the information is still “hot”. Later, this information is less relevant and serves as historical data. Example:</p>
 
-<p>With the new syntax, it’s possible to use embedded methods in the middle of the
-expressions that also matches nodes or inner elements.</p>
+<p>Let’s get a Department of Transport and Main Roads: their main target is to offer the most efficient traffic flow in the streets. If they need to access some information, the essential is the freshest information. The previous days can flow through some aggregation system that saves the volume of cars per hour/minute.</p>
 
-<p>Let’s take a look in some code example:</p>
+<p>Timeseries data is everywhere as an event happens at a specific point in time.  Creating advanced technology to better digest and store the data in a long-term perspective seems pretty exciting to me. Life events will never go away. They’ll be around forever. Postgresql, at the same time, is open source, reliable, and incredibly fast.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Example</span>
-  <span class="k">def</span> <span class="nf">first_method</span>
-  <span class="k">end</span>
-  <span class="k">def</span> <span class="nf">second_method</span>
-  <span class="k">end</span>
-  <span class="k">def</span> <span class="nf">first_method</span> <span class="c1"># repeated</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div></div>
+<p>I’m proud to start working closer to these great minds.</p>
 
-<p>How can we build a search to find the repeated method?</p>
+<p>People with a laser focus on building high performant algorithms, which commit to open source and make the Postgresql database better and widely adopted, work on issues that all companies need.</p>
 
-<p>With a simple search of <code class="language-plaintext highlighter-rouge">def</code> we have the following results:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fast <span class="s1">'def '</span> example.rb                                                                                                                                                                                                                                                                                                                                                                                                                                    21:30:40
-<span class="c"># example.rb:2</span>
-def first_method
-  end
-<span class="c"># example.rb:4</span>
-def second_method
-  end
-<span class="c"># example.rb:6</span>
-def first_method <span class="c"># repeated</span>
-  end
-</code></pre></div></div>
-
-<p>If I know the method name I can simply say it:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>fast <span class="s1">'(def first_method)'</span> example.rb                                                                                                                                                                                                                                                                                                                                                                                                                       21:30:56
-<span class="c"># example.rb:2</span>
-def first_method
-  end
-<span class="c"># example.rb:6</span>
-def first_method <span class="c"># repeated</span>
-  end
-</code></pre></div></div>
-<p>But how can I collect the method names to discover if they’re repeated?</p>
-
-<p>Using <a href="https://jonatas.github.io/fast/syntax/#is-for-capture-current-expression">Fast.capture</a>
-It can be easily found. Let’s see how I could do it in the old way?</p>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">capture</span><span class="p">(</span><span class="no">Fast</span><span class="p">.</span><span class="nf">ast_from_file</span><span class="p">(</span><span class="s2">"example.rb"</span><span class="p">),</span> <span class="s2">"(def $_)"</span><span class="p">)</span>
-<span class="c1"># =&gt; [:first_method, :second_method, :first_method]</span>
-</code></pre></div></div>
-
-<p>Great! But I’d like to pick only the third element that is the first duplicated.</p>
-
-<p>How can I make it happen? How to ignore the <code class="language-plaintext highlighter-rouge">second_method</code> and the first
-<code class="language-plaintext highlighter-rouge">first_method</code>?</p>
-
-<p>We need to build a small method that can record the method name and collect unique methods. When it founds some method that is already registered. It can target this as a “match”. Let’s implement the method and use it inside our
-expression:</p>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">duplicated</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span>
-  <span class="vi">@methods</span> <span class="o">||=</span> <span class="p">[]</span>
-  <span class="n">already_exists</span> <span class="o">=</span> <span class="vi">@methods</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span>
-  <span class="vi">@methods</span> <span class="o">&lt;&lt;</span> <span class="n">method_name</span>
-  <span class="n">already_exists</span>
-<span class="k">end</span>
-</code></pre></div></div>
-
-<p>The method simply receives a symbol and check if it was previously included in
-the array. Now, we can use the method:</p>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">duplicated</span> <span class="ss">:a</span>
-<span class="c1"># =&gt; false</span>
-<span class="n">duplicated</span> <span class="ss">:a</span>
-<span class="c1"># =&gt; true</span>
-<span class="n">duplicated</span> <span class="ss">:a</span>
-<span class="c1"># =&gt; true</span>
-<span class="n">duplicated</span> <span class="ss">:b</span>
-<span class="c1"># =&gt; false</span>
-<span class="n">duplicated</span> <span class="ss">:b</span>
-<span class="c1"># =&gt; true</span>
-</code></pre></div></div>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">search_file</span><span class="p">(</span> <span class="s1">'(def #duplicated)'</span><span class="p">,</span> <span class="s1">'example.rb'</span><span class="p">)</span>
-<span class="c1"># (def :first_method</span>
-<span class="c1">#  (args) nil)</span>
-</code></pre></div></div>
-
-<p>Keep in mind that if you rerun the same search, it will not work because we
-need to reset the <code class="language-plaintext highlighter-rouge">@methods</code> variable.</p>
-
-<p>The <a href="https://github.com/jonatas/fast/blob/master/lib/fast.rb#L382">MethodCall</a>
-will simply take the argument, no matter if it’s a node or some inner element.
-It will depend on where the function is placed in the DSL.</p>
-
-<p>If we want to match with the node, it needs to be written and validating the <code class="language-plaintext highlighter-rouge">def</code> internally. Example:</p>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">duplicated_def</span> <span class="n">node</span>
-  <span class="k">return</span> <span class="kp">false</span> <span class="k">unless</span> <span class="n">node</span><span class="p">.</span><span class="nf">type</span> <span class="o">==</span> <span class="ss">:def</span>
-  <span class="n">method_name</span><span class="p">,</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="nf">children</span>
-  <span class="vi">@methods</span> <span class="o">||=</span> <span class="p">[]</span>
-  <span class="n">already_exists</span> <span class="o">=</span> <span class="vi">@methods</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="n">method_name</span><span class="p">)</span>
-  <span class="vi">@methods</span> <span class="o">&lt;&lt;</span> <span class="n">method_name</span>
-  <span class="n">already_exists</span>
-<span class="k">end</span>
-</code></pre></div></div>
-
-<p>We created a guard clause to avoid match other node types. As the method call
-will receive the node inline with the expression, we can even remove the parens
-from the expression:</p>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">search_file</span><span class="p">(</span> <span class="s1">'#duplicated_def'</span><span class="p">,</span> <span class="s1">'example.rb'</span><span class="p">)</span>
-<span class="p">(</span><span class="k">def</span> <span class="ss">:first_method</span>
-  <span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="kp">nil</span><span class="p">)</span>
-</code></pre></div></div>
-
-<p>That’s all I have for today! I’m a bit bored with my tool, and I’m also working
-to <a href="https://github.com/rubocop-hq/rubocop/pull/6686">extract the node pattern from RuboCop to a separated library</a>.</p>
+<p>I’m feeling truly aligned with the company vision and grateful for all the support I’m getting here. \o/</p>
 
 <hr />
 
 <ul class="posts">
+ 
+  <li><span class="post_date">17 Apr 2021</span> &raquo;<a class="post" href="/my-first-week-at-timescale">My first week at Timescale</a></li>
  
   <li><span class="post_date">23 Feb 2019</span> &raquo;<a class="post" href="/complex-ast-search-with-ruby">Complex AST search with Ruby</a></li>
  

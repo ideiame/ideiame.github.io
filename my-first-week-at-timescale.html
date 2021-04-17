@@ -3,7 +3,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Google code playground</title>
+    <title>My first week at Timescale</title>
     
     <meta name="author" content="Jônatas Davi Paganini">
 
@@ -160,7 +160,7 @@
 <div class="page-header">
     <h1>
        <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
-       Google code playground <small><br/>14/02/2010
+       My first week at Timescale <small><br/>17/04/2021
     
       <span class="categories">
         
@@ -170,58 +170,35 @@
   </h1>
 </div>
 <div class="content">
-    <h1 id="diverta-se-no-google-code-playground">Diverta-se no google code playground</h1>
+    <p>I’m thrilled to announce that I joined <a href="https://www.timescale.com">Timescale</a> as a developer advocate. My first week ended with a lot of excitement about what comes next.</p>
 
-<p>Esta semana vi uma twittada sobre o <a href="http://code.google.com/apis/ajax/playground">google code playground</a>, e como mostra o printscreen abaixo, funciona mesmo! Acredito que esta plataforma pode ser realmente útil, e apartir dos exemplos prontos e rodando, se torna mais fácil das pessoas começarem a usar. Na imagem abaixo, estou <a href="http://www.consultoria-lingua.com">consultando o blog</a> da minha noiva Angela Maria Meili, veja o site dela em <a href="http://www.consultoria-lingua.com">www.consultoria-lingua.com</a>.</p>
+<p>I love working with Postgresql. It was always my brainless choice for any backend project I worked on that needs a relational database.</p>
 
-<p><img src="/images/google_code_playground.jpg" alt="playground-printscreen" /></p>
+<p>At university, I refused the student license to learn paid databases because I already knew Postgres :)</p>
 
-<p>Brincando mais um pouco, vamos embutir este serviço <a href="http://savedbythegoog.appspot.com/?id=3ccfc6e0bc3ed8159f3869fd773001b3551370c3">nesta página</a>:</p>
+<p>As Postgresql evolved with the community, it now contains dozens of unique features to benefit and stick with the same technology.</p>
 
-<div><pre class="prettyprint">
-&lt;script src="http://www.google.com/jsapi" type="text/javascript"&gt;&lt;/script&gt;
-&lt;script type="text/javascript"&gt;
-google.load("gdata", "1.x", { packages : ["blogger"] });
-&lt;/script&gt;
-&lt;script type="text/javascript"&gt;
-  function _run() {
+<p>When I saw the fantastic work that Timescale is doing, I feel that it was a unique opportunity to learn more and have a broad impact on the community.</p>
 
-  var bloggerService =
-      new google.gdata.blogger.BloggerService('com.appspot.interactivesampler');
-  
-  var feedUri = "http://www.consultoria-lingua.com/feeds/posts/default?alt=rss";
-  var handleBlogFeed = function(blogFeedRoot) {
-     var author = blogFeedRoot.feed.getAuthors();
-     var authorName = author[0].getName().getValue();
-     var authorUri = author[0].getUri().getValue();
-     var blogEntries = blogFeedRoot.feed.getEntries();
-     var html = '&lt;h1&gt;&lt;a href="' + authorUri + '"&gt;' + 
-                authorName + '&lt;/a&gt;&lt;/h1&gt;';
-     
-     for (var i = 0, blogEntry; blogEntry = blogEntries[i]; i++) {
-        var blogTitle = blogEntry.getTitle().getText();
-        var blogURL = blogEntry.getHtmlLink().getHref();
-         
-        html += '&lt;li&gt;&lt;a href="' + blogURL + '" target="_blank"&gt;'
-             + blogTitle + '&lt;/a&gt;&lt;/li&gt;'
-        
-     };
-    document.body.innerHTML = html;
-  };
-  var handleError = function(error) {
-    document.body.innerHTML = '&lt;pre&gt;' + error + '&lt;/pre&gt;';
-  };
-  bloggerService.getBlogFeed(feedUri, handleBlogFeed, handleError);
-  
-}
-google.setOnLoadCallback(_run);
-  &lt;/script&gt;
-&lt;body style="font-family: Arial;border: 0 none;"&gt;
-Carregando...
-&lt;/body&gt;
-</pre></div>
+<p>I love public speaking, pair programming, and live coding. I’ll continue inspiring more people to try new concepts, building content to empower the community, and master Postgres and time series on SQL.</p>
 
-<p>Com poucas linhas de javascript puro, foi possível usufruir dos serviços do blogger. Estão disponíveis serviços de diversas Apis.</p>
+<p>I worked for almost five years in financial markets. I never had the opportunity to put the market data on a database because it was too slow to digest the incoming events from the financial markets. The infrastructure was so poor and expensive that plain CSV per day split by stock symbol’ was always the most reasonable choice.</p>
+
+<p>Indeed <a href="https://docs.timescale.com/latest/using-timescaledb/hypertables">hypertables</a> allows you to do something similar with <a href="https://docs.timescale.com/latest/using-timescaledb/data-tiering">data tiering</a>, allowing the user to set different <a href="https://docs.timescale.com/latest/using-timescaledb/data-retention">retention policies</a> to accommodate the data based on the algorithmic needs.</p>
+
+<p>On average, a single stock can generate hundreds of events per second. It becomes very slow as sometimes the “rain” of events becomes a “thunderstorm” as the market heats with the news. How the algorithms digest data is essential to real-time decisions. It’s a vital attribute of a high frequency for trading systems.</p>
+
+<p>Today, almost every business has its associated events, and they need to track the information for some days while the information is still “hot”. Later, this information is less relevant and serves as historical data. Example:</p>
+
+<p>Let’s get a Department of Transport and Main Roads: their main target is to offer the most efficient traffic flow in the streets. If they need to access some information, the essential is the freshest information. The previous days can flow through some aggregation system that saves the volume of cars per hour/minute.</p>
+
+<p>Timeseries data is everywhere as an event happens at a specific point in time.  Creating advanced technology to better digest and store the data in a long-term perspective seems pretty exciting to me. Life events will never go away. They’ll be around forever. Postgresql, at the same time, is open source, reliable, and incredibly fast.</p>
+
+<p>I’m proud to start working closer to these great minds.</p>
+
+<p>People with a laser focus on building high performant algorithms, which commit to open source and make the Postgresql database better and widely adopted, work on issues that all companies need.</p>
+
+<p>I’m feeling truly aligned with the company vision and grateful for all the support I’m getting here. \o/</p>
 
 
 </div>
@@ -229,20 +206,20 @@ Carregando...
 
 <div class="share-page">
   Compartilhar &rarr;
-  <a href="https://twitter.com/intent/tweet?text=Google code playground&url=https://ideia.me/google-code-playground&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
-  <a href="https://facebook.com/sharer.php?u=https://ideia.me/google-code-playground" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
-  <a href="https://plus.google.com/share?url=https://ideia.me/google-code-playground" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
+  <a href="https://twitter.com/intent/tweet?text=My first week at Timescale&url=https://ideia.me/my-first-week-at-timescale&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Compartilhar on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=https://ideia.me/my-first-week-at-timescale" rel="nofollow" target="_blank" title="Compartilhar no Facebook">Facebook</a>
+  <a href="https://plus.google.com/share?url=https://ideia.me/my-first-week-at-timescale" rel="nofollow" target="_blank" title="Compartilhar no Google+">Google+</a>
 </div>
 <hr>
 <div class="pagination">
     
       <span class="prev">
-        <a href="/estorias-bonitas-vs-testes-unitarios" title="Estórias Bonitas vs Testes Unitários">&larr; Before</a>
+        <a href="/complex-ast-search-with-ruby" title="Complex AST search with Ruby">&larr; Before</a>
       </span>
     
     | <span><a href="/archive.html">Archive</a></span> |
     
-    <span class="next"><a href="/leiaute-iphone" title="Leiaute para iPhone no Ideia.me">Next &rarr;</a></span>
+    <span class="next disabled"><a>Next &rarr;</a>
     
 </div>
 <hr>

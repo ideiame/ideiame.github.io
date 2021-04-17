@@ -9,6 +9,7 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/my-first-week-at-timescale
 https://ideia.me/complex-ast-search-with-ruby
 https://ideia.me/image-processing-with-rmagick
 https://ideia.me/retrospective-2018
