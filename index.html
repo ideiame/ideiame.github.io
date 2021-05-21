@@ -183,55 +183,113 @@
 
 <hr />
 
-<h1 class="post"><a class="post" href="/my-first-month-at-timescale"> My first month at Timescale</a></h1>
-<p>Time flies, and here I am to share a bit more about my first-month adventures working on a genuinely open source company.</p>
+<h1 class="post"><a class="post" href="/ssh-connection-refused"> SSH connection refused</a></h1>
+<p>When I’m playing with my Raspberry Pi, I install a new version of the system, and then ssh does not work. I’m constantly googling around this, and here are my steps to check it. Look at the error:</p>
 
-<p>I’m so excited that sometimes it is hard to resist as today is midnight, and here I am on my iTerm full screen with my Vim and my thoughts. What a mind blowing month!</p>
-
-<p>I’m humbly revamping my SQL skills and especially getting to know how cool is all the features that Timescale brings to Postgresql.</p>
-
-<p>I started contributing to our <a href="http://docs.timescale.com">docs</a>, and my first contribution was a few next steps in the <a href="https://docs.timescale.com/timescaledb/latest/quick-start/ruby/">ruby tutorial</a>.</p>
-
-<p>I love benchmarks, and now I’m working with <a href="https://github.com/timescale/tsbs">tsbs</a>,
-that looks very interesting and widely used by serious players to compare databases performance’ for several types of time-series data.</p>
-
-<p>Here is a small 7 minutes test from my MacBook Pro M1 running tsbs and inserting
-100 million rows on a table with 10 different column metrics + time and identifier:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Summary:
-loaded 1036800000 metrics in 437.451sec with 8 workers (mean rate 2370091.68 metrics/sec)
-loaded 103680000 rows in 437.451sec with 8 workers (mean rate 237009.17 rows/sec)
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ssh jonatas@rpi
+ssh: connect to host rpi port 22: Connection refused
 </code></pre></div></div>
 
-<p>2.3 million metrics per second looks quite impressive for a small MacBook 13
-inches, no? The funny part is that I was working and using the computer in parallel, and it was far from allocating all the CPU/IO resources.</p>
+<p>Let’s see what we can do to overcome it.</p>
 
-<p>It also is refreshing what I know about GoLang, and it’s pretty cool to remember how simple it is to work with Go and how winning is the architecture of the go applications.</p>
+<h2 id="configuring-etchosts-for-fun">Configuring <code class="language-plaintext highlighter-rouge">/etc/hosts</code> for fun</h2>
 
-<p>I’m also happy with the opportunity to review PRs on tsbs and better understand how other database systems work. This week I reviewed a few contributions from Redis collaborators and learned a lot GoLang and the tsbs project.</p>
+<p>It’s a bit out of topic, but I love to share how I organize my development environment, and the first tip is: use <code class="language-plaintext highlighter-rouge">/etc/hosts</code> to map IPs that you use often.</p>
 
-<p>One Aha moment this month was learning about the <a href="https://blog.timescale.com/blog/how-we-made-distinct-queries-up-to-8000x-faster-on-postgresql/">SkipScan</a>
-that is a feature that improves the performance of <code class="language-plaintext highlighter-rouge">DISTINCT</code> queries 
-incrementally jumping from one ordered value to the next without
-reading all of the rows in between. It’s precise to one type of query,
-but it’s widely used in various kinds of applications, and the improvements
-makes it 8000x times faster 🚀</p>
+<p>Here is my <code class="language-plaintext highlighter-rouge">rpi</code> name pointing to my Raspberry Pi  IP in the local network:</p>
 
-<p>The most exciting part of this feature is that it affects the Postgres query
-plan and not only <a href="https://docs.timescale.com/timescaledb/latest/overview/core-concepts/hypertables-and-chunks/">hypertables</a>.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep rpi /etc/hosts
+192.168.53.156  rpi
+</code></pre></div></div>
 
-<p>It’s interesting to see that the SkipScan draft was already in the community for a few years, but it’s pretty hard to orchestrate it with all other community contributions. It also makes me think how cool and powerful it is to build extensions that can be natively expanding and replacing some core components
-for specific optimizations. I’m a bit far from understanding the code itself but happy to see the opportunity we have when we have a reliable plug-and-play architecture like Postgres offers.</p>
+<p>At my Raspberry Pi, I already have used <code class="language-plaintext highlighter-rouge">sudo apt install openssh-server</code>, but when I try to connect, this is what I get:</p>
 
-<p>A few days ago, I started my data nerd project to “save the internet in my pocket”, intrigued to explore how people are writing in the engineering blogs. I also use it as a playground to feed my curiosity and get up-to-date with Postgresql’s text searches. My research still in progress, but all results are available. Feel free to contribute with ideas or feedback!</p>
+<p>Checking the network with simple ping:</p>
 
-<p><a href="https://github.com/jonatas/blog-sniffer">github.com/jonatas/blog-sniffer</a>.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ping rpi 
+PING rpi (192.168.53.156): 56 data bytes
+64 bytes from 192.168.53.156: icmp_seq=0 ttl=64 time=19.967 ms
+64 bytes from 192.168.53.156: icmp_seq=1 ttl=64 time=18.345 ms
+</code></pre></div></div>
 
-<p>Scrapping is power! Data is power! You can find both code and research results so you can try it yourself ;)</p>
+<h2 id="checking-what-is-the-ssh-port-configured-in-your-raspberry">Checking what is the SSH Port configured in your Raspberry</h2>
+
+<p>On the Raspberry Pi, the first step is to check the ssh configuration port.
+It’s a file <code class="language-plaintext highlighter-rouge">/etc/ssh/ssh_config</code>, and we’re going to use the <code class="language-plaintext highlighter-rouge">grep</code> command again to search for <code class="language-plaintext highlighter-rouge">Port</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grep Port /etc/ssh/ssh_config
+#   Port 22
+</code></pre></div></div>
+
+<p>If the port is commented like in my case, starting with <code class="language-plaintext highlighter-rouge">#</code>, that means it’s
+using the default port. If you have like <code class="language-plaintext highlighter-rouge">Port  221</code>, probably you should
+consider adding <code class="language-plaintext highlighter-rouge">-p 221</code> to your ssh command.</p>
+
+<h2 id="checking-ssh-service-status">Checking SSH service status</h2>
+
+<p>Now, let’s understand the why. <code class="language-plaintext highlighter-rouge">sudo service &lt;name&gt; status</code> can help to understand what’s going on:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo service ssh status
+</code></pre></div></div>
+
+<p>Checking the output:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Process: 2916 ExecStart=/usr/sbin/sshd -D $SSHD_OPTS (code=exited, status=0/SUCCESS)
+  Process: 2915 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+ Main PID: 2916 (code=exited, status=0/SUCCESS)
+mai 21 15:35:33 rpi-3 sshd[2922]: error: Could not load host key: /etc/ssh/ssh_host_ecdsa_key
+mai 21 15:35:33 rpi-3 sshd[2922]: error: Could not load host key: /etc/ssh/ssh_host_ed25519_key
+mai 21 15:35:33 rpi-3 sshd[2922]: fatal: No supported key exchange algorithms [preauth]
+mai 21 15:36:09 rpi-3 sshd[2925]: error: Could not load host key: /etc/ssh/ssh_host_rsa_key
+mai 21 15:36:09 rpi-3 sshd[2925]: error: Could not load host key: /etc/ssh/ssh_host_ecdsa_key
+mai 21 15:36:09 rpi-3 sshd[2925]: error: Could not load host key: /etc/ssh/ssh_host_ed25519_key
+mai 21 15:36:09 rpi-3 sshd[2925]: fatal: No supported key exchange algorithms [preauth]
+mai 21 15:36:31 rpi-3 systemd[1]: Stopping OpenBSD Secure Shell server...
+mai 21 15:36:31 rpi-3 sshd[2916]: Received signal 15; terminating.
+mai 21 15:36:31 rpi-3 systemd[1]: Stopped OpenBSD Secure Shell server.
+</code></pre></div></div>
+
+<p>A <code class="language-plaintext highlighter-rouge">fatal</code> error in the output!</p>
+
+<p>It means that it does not have the initial credentials in the machine. Let’s add
+it with <code class="language-plaintext highlighter-rouge">ssh-keygen -A</code>:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo ssh-keygen -A
+ssh-keygen: generating new host keys: RSA DSA
+ECDSA ED25519
+</code></pre></div></div>
+<p>Done! Now let’s restart the ssh service:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo service ssh restart
+</code></pre></div></div>
+
+<p>Rechecking the service status:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo service ssh status
+● ssh.service - OpenBSD Secure Shell server
+   Loaded: loaded (/lib/systemd/system/ssh.service; enabled; vendor preset: enabled)
+   Active: active (running) since Fri 2021-05-21 15:42:57 -03; 2s ago
+  Process: 2101 ExecReload=/bin/kill -HUP $MAINPID (code=exited, status=0/SUCCESS)
+  Process: 2095 ExecReload=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+  Process: 3405 ExecStartPre=/usr/sbin/sshd -t (code=exited, status=0/SUCCESS)
+ Main PID: 3406 (sshd)
+    Tasks: 1 (limit: 2029)
+   CGroup: /system.slice/ssh.service
+           └─3406 /usr/sbin/sshd -D
+
+mai 21 15:42:57 rpi-3 systemd[1]: Starting OpenBSD Secure Shell server...
+mai 21 15:42:57 rpi-3 sshd[3406]: Server listening on 0.0.0.0 port 22.
+mai 21 15:42:57 rpi-3 sshd[3406]: Server listening on :: port 22.
+mai 21 15:42:57 rpi-3 systemd[1]: Started OpenBSD Secure Shell server.
+</code></pre></div></div>
+
+<p>Now it works! 🚀</p>
 
 <hr />
 
 <ul class="posts">
+ 
+  <li><span class="post_date">21 May 2021</span> &raquo;<a class="post" href="/ssh-connection-refused">SSH connection refused</a></li>
  
   <li><span class="post_date">14 May 2021</span> &raquo;<a class="post" href="/my-first-month-at-timescale">My first month at Timescale</a></li>
  

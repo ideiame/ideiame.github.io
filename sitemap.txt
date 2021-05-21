@@ -9,6 +9,7 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/ssh-connection-refused
 https://ideia.me/my-first-month-at-timescale
 https://ideia.me/my-first-week-at-timescale
 https://ideia.me/complex-ast-search-with-ruby
