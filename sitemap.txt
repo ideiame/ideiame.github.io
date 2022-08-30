@@ -9,6 +9,7 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/writing-plans
 https://ideia.me/pgconfbr-talk
 https://ideia.me/time-series-benchmark-timescaledb-raspberry-pi
 https://ideia.me/ssh-connection-refused

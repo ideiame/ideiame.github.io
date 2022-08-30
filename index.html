@@ -183,694 +183,268 @@
 
 <hr />
 
-<h1 class="post"><a class="post" href="/pgconfbr-talk"> PGConf Brasil</a></h1>
-<p>Na minha palestra da <a href="https://www.pgconf.com.br/2022/">PGConf Brazil 2022</a>.
-falei sobre a “Vida Zen no Terminal”. Então resolvi compartilhar aqui um pouco
-dos aprendizados que compartilhei pois são dicas práticas que podem ser úteis
-para quem adora o terminal, ou gostaria de iniciar.</p>
-
-<p>Bom, eu trabalho com programação desde que meus 17 anos de idade.</p>
-
-<p>Quando eu comecei, tudo que eu tinha era o terminal! Então de alguma forma, a
-vida sem interface gráfica parecia muito mais fácil e focada do que nos dias
-atuais.</p>
-
-<p>O terminal é aquela tela sem graça que não faz nada que você não peça. Ela não
-interage com você se você não interagir. Ela não te notifica. Ela não te distrai.
-Então, essa é a parte Zen do terminal. Você é o monge da montanha encantada e só
-depende de você para meditar e concentrar naquilo que precisa fazer.</p>
-
-<p>Eu gosto muito da ideia de concentrar e no fim isso me leva a trabalhar menos.</p>
-
-<p>Menos horas na frente do computador e mais liberdade pra estudar e evoluir.
-Por isso é importante aprender a viver longe do ambiente de distrações ou pelo
-menos criar um espaço sem distrações para o foco total em programar.</p>
-
-<p>Sou muito feliz ter usado sistemas baseados em unix desde o início da minha
-carreira e de fato nunca consegui literalmente me livrar do terminal.</p>
-
-<p>Resolvi organizar esse material para mostrar as coisas que percebi durante anos
-pareando e ajudando pessoas a se distraírem menos no terminal :D</p>
-
-<p>Meu objetivo aqui é mostrar dicas relacionadas a usar o terminal e ferramentas
-que podem te ajudar a ser feliz por aqui.</p>
-
-<p>O foco central dessa sessão é mostrar o psql, mas também iremos ir e voltar
-em várias outras ferramentas.</p>
-
-<h2 id="terminal-intro">Terminal intro</h2>
-
-<p>Vamos começar com um breve introdução ao terminal. Eu não vou ficar fazendo um
-tutorial de cada detalhe do terminal nem contando a história dele mas gostaria de
-mostrar algumas coisas que vão te fazer entender melhor o fluxo de trabalho.</p>
-
-<p>Então, a primeira coisa, é entender o cursor. Quando você entra, você tem que
-sempre localizar onde ele está. Geralmente ele está piscando.
-E seu foco se move juntamente com o cursor. O cursor sempre é a última informação
-da tela, aparecendo mais a baixo e o que vem depois dele é sempre o espaço restante da tela.</p>
-
-<p>O terminal também é conhecido como <strong>linha de comando</strong> pois é ali que você
-interage com o computador da maneira mais rudimentar. A linha de comando nada
-mais é que um REPL -&gt; Read, Eval e Print Line, ou seja, ele lê a informação que
-você digita quando você digita um comando e dá um enter, então valida e compila,
-e imprime de volta o resultado do comando.</p>
-
-<p>Então vamos começar descobrindo quem sou eu com o <code class="language-plaintext highlighter-rouge">whoami</code> que é o primeiro
-comando que vocês irão aprender :D</p>
-
-<p>Então, <code class="language-plaintext highlighter-rouge">whoami</code> retornou esse nome aí pra mim, dizendo meu nome. Agora, já
-complicando um pouco mais, vou introduzir aqui um comando echo que é um comando
-que basicamente imprime o que eu estou pedindo:</p>
-
-<pre><code class="language-fish">echo (whoami) você está no seu (hostname)
-jonatasdp você está no seu MacBook-Pro
-</code></pre>
-
-<p>Como vocês podem ver, eu usei essa sintaxe entre parenteses e basicamente ela
-executou uma linha de comando aninhada e o returno foi injetado no código.</p>
-
-<p>Aí, nesse momento, você deve já usa o terminal deve estar pensando, esse cara
-está maluco, já confundindo a cabeça das pessoas navegando entre multiplos
-shells. Então como vocês podem ver no topo do meu terminal, eu troquei meu
-terminal pra usar o fish ao invés do bash. Bash é o terminal padrão, mas ele é
-muito rudimentar e eu acabo usando mais o fish.</p>
-
-<p>Para não complicar muito essa palestra, irei usar o bash e facilitar a vida de
-vocês, mas se você nao adotou ainda um, eu gosto muito do fish, quando alguma
-coisa não dá certo, eu entro dentro do shell novamente.</p>
-
-<p>Lembrando que o terminal é uma matrix, então você pode ter várias inceptions
-aqui. Você pode abrir um <a href="https://fishshell.com">fish shell</a>,
-e dentro dele abrir um bash e aí abrir um outro bash ou fish dentro 
-da sessão que você já está rodando.</p>
-
-<p>Você pode até acabar em outro computador executando coisas em uma cloud se você
-não perceber onde está e tudo isso torna as coisas mais difíceis se você não
-prestar atenção.</p>
-
-<p>Existem várias ferramentas que permitem alterar esse comportamento e também
-existem aplicativos no terminal que permitem você navegar com o cursor para
-lugares diferentes. A variável <code class="language-plaintext highlighter-rouge">PS1</code> pode te ajudar caso queira alterar esse
-comportamento.</p>
-
-<h3 id="ergonomia-dos-comandos">Ergonomia dos comandos</h3>
-
-<p>Um comando geralmente é uma instrução que o terminal irá processar. Geralmente
-trata-se de outro software que pode ser chamado pela linha de comando.</p>
-
-<p>O comando geralmente tem a seguinte sintaxe:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;comando&gt; &lt;*argumentos&gt;
-</code></pre></div></div>
-
-<p>Cada comando ocupa uma linha e se você quiser fazer vários comandos na mesma
-linha, é possível com <code class="language-plaintext highlighter-rouge">;</code> para dividir eles. Ou seja:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"olá mundo."</span>
-<span class="nb">echo</span> <span class="s2">"seja bem vindo."</span>
-</code></pre></div></div>
-<p>é o mesmo que:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"olá mundo."</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">"seja bem vindo."</span>
-</code></pre></div></div>
-
-<p>Os comandos podem também conter argumentos especiais, que geralmente começam com
-um traço ou o sinal de menos <code class="language-plaintext highlighter-rouge">-</code> seguido de uma letra, ou dois traços e uma
-palavra.</p>
-
-<p>Então, se eu quisesse unir as linhas anteriores, pensaria, hmm, só preciso usar
-o <code class="language-plaintext highlighter-rouge">\n</code> ali e consigo usar uma única linha no echo.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"olá mundo.</span><span class="se">\n</span><span class="s2">seja bem vindo."</span>
-</code></pre></div></div>
-
-<p>Mas infelizmente o comando não irá quebrar linha naturalmente. Nesse caso é
-necessário que o <code class="language-plaintext highlighter-rouge">echo</code> tenha um parâmetro especial <code class="language-plaintext highlighter-rouge">-e</code>:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"olá mundo.</span><span class="se">\n</span><span class="s2">seja bem vindo."</span>
-</code></pre></div></div>
-
-<p>No bash, também é possível reusar informações através do uso de variáveis.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">nome</span><span class="o">=</span><span class="s1">'fulano'</span>
-<span class="nb">echo</span> <span class="s2">"bem vindo </span><span class="nv">$nome</span><span class="s2">"</span>
-</code></pre></div></div>
-<p>E também é possível calcular expressões matemáticas com o comando <code class="language-plaintext highlighter-rouge">expr</code>:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">A</span><span class="o">=</span>1<span class="p">;</span> <span class="nv">B</span><span class="o">=</span>2<span class="p">;</span> <span class="nb">echo </span>A + B <span class="o">=</span> <span class="si">$(</span><span class="nb">expr</span> <span class="nv">$A</span> + <span class="nv">$B</span><span class="si">)</span>
-</code></pre></div></div>
-
-<p>O comando também pode conversar com outros comandos através dos operadores. Por
-exemplo, o <code class="language-plaintext highlighter-rouge">&gt;</code> permite enviar os dados para uma saída diferente da saída da tela.</p>
-
-<p>O <code class="language-plaintext highlighter-rouge">echo</code> imprime para tela, então no exemplo abaixo estou enviando o conteúdo do
-resultado para o arquivo <strong>ola.txt</strong>.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'olá mundo'</span> <span class="o">&gt;</span> ola.txt
-</code></pre></div></div>
-
-<p>O <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> permite adicionar mais dados no mesmo arquivo enquanto o <code class="language-plaintext highlighter-rouge">&gt;</code> sempre
-recria o arquivo, mesmo que ele exista.</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'bem vindo'</span> <span class="o">&gt;&gt;</span> ola.txt
-</code></pre></div></div>
-
-<p>Agora, o arquivo tem duas linhas:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'bem vindo'</span> <span class="o">&gt;&gt;</span> ola.txt
-</code></pre></div></div>
-
-<p>Ou pode receber informações de outros comandos com o <code class="language-plaintext highlighter-rouge">|</code>:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>ola.txt | <span class="nb">grep </span>vindo
-</code></pre></div></div>
-
-<p>O comando irá filtrar apenas as linhas do resultado do <code class="language-plaintext highlighter-rouge">cat</code> que contenham a
-palavra <code class="language-plaintext highlighter-rouge">vindo</code>.</p>
-
-<h3 id="atalhos-importantes">Atalhos importantes</h3>
-
-<p>Pra você sobreviver na linha de comando é necessário aprender atalhos para
-ganhar tempo. Isso não quer dizer que você não consiga viver sem, mas eles vão
-te dar mais liberdade e fluidez para seguir uma vida mais sana.</p>
-
-<h3 id="terminal-readline">Terminal readline</h3>
-
-<p>Esse programa que roda quando você digita no terminal, geralmente é o
-<a href="https://tiswww.case.edu/php/chet/readline/rltop.html">readline</a> e ele suporta
-uma série de atalhos que podem ajudar a editar os comandos mais rápidos.</p>
-
-<p>Atalhos de navegação:</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">ctrl-a</code> - move cursor para o começo da linha</li>
-  <li><code class="language-plaintext highlighter-rouge">ctrl-e</code> - move cursor para o fim da linha</li>
-  <li><code class="language-plaintext highlighter-rouge">ctrl-b</code> - move cursor para trás</li>
-  <li><code class="language-plaintext highlighter-rouge">ctrl-f</code> - move cursor  para frente</li>
-  <li><code class="language-plaintext highlighter-rouge">ctrl ←</code> ou <code class="language-plaintext highlighter-rouge">esc-b</code> -  volta uma palavra</li>
-  <li><code class="language-plaintext highlighter-rouge">ctrl →</code> ou <code class="language-plaintext highlighter-rouge">esc-f</code> ou <code class="language-plaintext highlighter-rouge">esc-l</code> - avança uma palavra</li>
-</ul>
-
-<p>Atalhos de edição:</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">ctrl-r</code> - Usa o histórico de forma reversa</li>
-  <li><code class="language-plaintext highlighter-rouge">ctrl-d</code> - remove uma letra</li>
-  <li><code class="language-plaintext highlighter-rouge">ctrl-w</code> - remove uma palavra</li>
-  <li><code class="language-plaintext highlighter-rouge">esc-backspace</code> - apaga palavra</li>
-</ul>
-
-<p>Também existem muitas variáveis úteis que se tornam atalhos importantes para
-navegar e resolver problemas mais rápidos na linha de comando:</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">!$</code> último argumento da linha anterior</li>
-  <li><code class="language-plaintext highlighter-rouge">!!</code> último comando</li>
-  <li><code class="language-plaintext highlighter-rouge">$OLDPWD</code> último diretorio</li>
-  <li><code class="language-plaintext highlighter-rouge">$PATH</code> diretórios oficiais para buscar comandos</li>
-  <li><code class="language-plaintext highlighter-rouge">$USER</code> nome do usuário</li>
-  <li><code class="language-plaintext highlighter-rouge">$HOME</code> caminho para o diretório do usuário</li>
-</ul>
-
-<h2 id="process-matrix">Process matrix</h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">ctrl-z</code> envia processo para background</li>
-  <li><code class="language-plaintext highlighter-rouge">fg</code> resgata processo em background</li>
-  <li><code class="language-plaintext highlighter-rouge">echo $0</code> verifica qual shell está usando</li>
-</ul>
-
-<h2 id="history">history</h2>
-
-<p>O history é muito legal para encontrar comandos que você digitou no passado e
-também re-executar eles com facilidade.</p>
-
-<table>
-  <tbody>
-    <tr>
-      <td>history</td>
-      <td>grep psql</td>
-    </tr>
-  </tbody>
-</table>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!&lt;numero-do-comando&gt;
-</code></pre></div></div>
-
-<p>Ou usar o <code class="language-plaintext highlighter-rouge">&lt;ctrl-r&gt;</code> e buscar pelo comando.</p>
-
-<h3 id="man">man</h3>
-
-<p>man é o manual de tudo na linha de comando. Então se você precisa entender a
-especificação de um determinado comando é a forma mais rápida de aprender e
-verificar como ele funciona.</p>
-
-<h3 id="tldr">tldr</h3>
-
-<p>Eu gosto muito do tldr pq eu geralmente não lembro dos comandos e eu só preciso
-de um exemplo pra seguir fazendo o que eu preciso, então, o TLDR que é um
-acronimo para Too Long Don’t Read, é super útil para me dar o exemplo certo na
-hora certa.</p>
-
-<p>Exemplo buscando por exemplos do <code class="language-plaintext highlighter-rouge">sed</code>:</p>
-
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> tldr <span class="nb">sed
-
-sed
-
-</span>Edit text <span class="k">in </span>a scriptable manner.
-More information: &lt;https://ss64.com/osx/sed.html&gt;.
-
-- Replace the first occurrence of a string <span class="k">in </span>a file, and print the result:
-    <span class="nb">sed</span> <span class="s1">'s/find/replace/'</span> filename
-
-- Replace all occurrences of an extended regular expression <span class="k">in </span>a file:
-    <span class="nb">sed</span> <span class="nt">-E</span> <span class="s1">'s/regular_expression/replace/g'</span> filename
-
-- Replace all occurrences of a string <span class="o">[</span>i]n a file, overwriting the file <span class="o">(</span>i.e. <span class="k">in</span><span class="nt">-place</span><span class="o">)</span>:
-    <span class="nb">sed</span> <span class="nt">-i</span> <span class="s1">''</span> <span class="s1">'s/find/replace/g'</span> filename
-
-- Replace only on lines matching the line pattern:
-    <span class="nb">sed</span> <span class="s1">'/line_pattern/s/find/replace/'</span> filename
-
-- Print only text between n-th line till the next empty line:
-    <span class="nb">sed</span> <span class="nt">-n</span> <span class="s1">'line_number,/^$/p'</span> filename
-
-- Apply multiple find-replace expressions to a file:
-    <span class="nb">sed</span> <span class="nt">-e</span> <span class="s1">'s/find/replace/'</span> <span class="nt">-e</span> <span class="s1">'s/find/replace/'</span> filename
-
-- Replace separator <span class="sb">`</span>/<span class="sb">`</span> by any other character not used <span class="k">in </span>the find or replace patterns, e.g. <span class="sb">`</span><span class="c">#`:</span>
-    <span class="nb">sed</span> <span class="s1">'s#find#replace#'</span> filename
-
-- <span class="o">[</span>d]elete the line at the specific line number <span class="o">[</span>i]n a file, overwriting the file:
-    <span class="nb">sed</span> <span class="nt">-i</span> <span class="s1">''</span> <span class="s1">'line_numberd'</span> filename
-</code></pre></div></div>
-
-<p>Bem mais objetivo que ler o <a href="https://linux.die.net/man/1/sed">manual do sed</a>.</p>
-
-<h2 id="gexec-pra-rodar-comandos-a-partir-da-query-anterior"><code class="language-plaintext highlighter-rouge">\gexec</code> pra rodar comandos a partir da query anterior</h2>
-
-<p>Para reutilizar comandos sql gerados pelo próprio sql então vamos começar
-gerando uns dados só pra se divertir.</p>
-
-<p>Imagina que eu posso digitar:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="mi">1</span><span class="p">;</span>
-</code></pre></div></div>
-<p>Mas também posso digitar uma string com sql dentro do select.</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="s1">'SELECT 1'</span><span class="p">;</span>
-</code></pre></div></div>
-<p>Agora, se eu quiser fazer algo mais dinâmico, posso gerar várias linhas:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">a</span> <span class="k">from</span> <span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="n">a</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>E gerar comandos SQLs a partir dessa sequência:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="s1">'select '</span><span class="o">||</span><span class="n">a</span> <span class="k">from</span> <span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="n">a</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>Pra pegar esse último output e executar como SQL é só usar o <code class="language-plaintext highlighter-rouge">\gexec</code>.
-Exemplo completo:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">db</span><span class="o">=#</span> <span class="k">select</span> <span class="s1">'select '</span><span class="o">||</span><span class="n">a</span> <span class="k">from</span> <span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="n">a</span><span class="p">;</span>
-<span class="err">┌───────────┐</span>
-<span class="err">│</span> <span class="o">?</span><span class="k">column</span><span class="o">?</span>  <span class="err">│</span>
-<span class="err">├───────────┤</span>
-<span class="err">│</span> <span class="k">select</span> <span class="mi">1</span>  <span class="err">│</span>
-<span class="err">│</span> <span class="k">select</span> <span class="mi">2</span>  <span class="err">│</span>
-<span class="err">│</span> <span class="k">select</span> <span class="mi">3</span>  <span class="err">│</span>
-<span class="err">│</span> <span class="k">select</span> <span class="mi">4</span>  <span class="err">│</span>
-<span class="err">│</span> <span class="k">select</span> <span class="mi">5</span>  <span class="err">│</span>
-<span class="err">│</span> <span class="k">select</span> <span class="mi">6</span>  <span class="err">│</span>
-<span class="err">│</span> <span class="k">select</span> <span class="mi">7</span>  <span class="err">│</span>
-<span class="err">│</span> <span class="k">select</span> <span class="mi">8</span>  <span class="err">│</span>
-<span class="err">│</span> <span class="k">select</span> <span class="mi">9</span>  <span class="err">│</span>
-<span class="err">│</span> <span class="k">select</span> <span class="mi">10</span> <span class="err">│</span>
-<span class="err">└───────────┘</span>
-<span class="p">(</span><span class="mi">10</span> <span class="k">rows</span><span class="p">)</span>
-
-<span class="n">db</span><span class="o">=#</span> <span class="err">\</span><span class="n">gexec</span>
-<span class="err">┌──────────┐</span>
-<span class="err">│</span> <span class="o">?</span><span class="k">column</span><span class="o">?</span> <span class="err">│</span>
-<span class="err">├──────────┤</span>
-<span class="err">│</span>        <span class="mi">1</span> <span class="err">│</span>
-<span class="err">└──────────┘</span>
-<span class="p">(</span><span class="mi">1</span> <span class="k">row</span><span class="p">)</span>
-
-<span class="err">┌──────────┐</span>
-<span class="err">│</span> <span class="o">?</span><span class="k">column</span><span class="o">?</span> <span class="err">│</span>
-<span class="err">├──────────┤</span>
-<span class="err">│</span>        <span class="mi">2</span> <span class="err">│</span>
-<span class="err">└──────────┘</span>
-<span class="p">(</span><span class="mi">1</span> <span class="k">row</span><span class="p">)</span>
-
-<span class="p">....</span> <span class="n">v</span><span class="err">á</span><span class="n">rias</span> <span class="n">linhas</span> <span class="n">aqui</span><span class="p">...</span>
-<span class="err">┌──────────┐</span>
-<span class="err">│</span> <span class="o">?</span><span class="k">column</span><span class="o">?</span> <span class="err">│</span>
-<span class="err">├──────────┤</span>
-<span class="err">│</span>        <span class="mi">9</span> <span class="err">│</span>
-<span class="err">└──────────┘</span>
-<span class="p">(</span><span class="mi">1</span> <span class="k">row</span><span class="p">)</span>
-
-<span class="err">┌──────────┐</span>
-<span class="err">│</span> <span class="o">?</span><span class="k">column</span><span class="o">?</span> <span class="err">│</span>
-<span class="err">├──────────┤</span>
-<span class="err">│</span>       <span class="mi">10</span> <span class="err">│</span>
-<span class="err">└──────────┘</span>
-<span class="p">(</span><span class="mi">1</span> <span class="k">row</span><span class="p">)</span>
-
-</code></pre></div></div>
-
-<h2 id="output">Output</h2>
-
-<p>Se você quiser salvar os resultados da query em um arquivo ao invés de exibir no
-terminal pode usar as seguintes opções:</p>
+<h1 class="post"><a class="post" href="/writing-plans"> Writing plans</a></h1>
+<p>I’m starting this “writing plan” as a way to encourage myself to write more
+at my blog and keep practicing putting my thoughts out there.</p>
+
+<p>My idea is work on three different categories to just keep practively sharing
+things about my expertise and learnings.</p>
+
+<p>In the last few years I stuck a bit on sharing, and even now, it’s being hard to
+prolific write and dump my thoughts on the web. Now, I’m tryng to commit myself
+by writing this blog post.</p>
+
+<p>When I started this text, the name was only calendar.md and I was not sure if
+I’d dump the blog text titles in my calendar directly.</p>
+
+<p>I dediced to have full domain of my plan and use a plain text instead of events
+with a proposed date ready.</p>
+
+<p>Afraid of commiting to a date, I keep escaping from the idea to be commited to
+myself and share my thoughts. The thoughs I have are the only property that
+nobody can take from me.</p>
+
+<p>My experiences makes me this unique perspective from the world, that only the
+perceptions from my world can prove.</p>
+
+<p>My past, my feelings, my context. What I did and how I did. Every action rolls
+out a new future of our life. If I don’t write now, probably I’ll not write
+later. If I don’t write tomorrow, probably I’ll not write next week.</p>
+
+<p>We need to practice to get a real taste of everything we want.</p>
+
+<p>This are the common arguments that makes me feel good about the decision to
+write.</p>
+
+<p>Today I’m commiting myself to try to open a space on my agenda and make it for
+writing. I’m always trying to spend a good time thinking but I don’t too many
+opportunities to share it with friends either find someone interested in hearing
+me. Yes, writing is for these kind of lonely people that need to write to the
+walls and publish their thoughts to other people that will may read it or not.</p>
+
+<p>Writing is like blindly speak, you don’t know if someone is really hearing you.
+You don’t know if it makes effect on the readers and what will make them reply
+to you or give some feedback about it.</p>
+
+<p>I always advocate that if I write I can always use it as a power. A source that
+proves I already dedicated time to think about something.</p>
+
+<p>I’m very often learning and thinking about communication, our language and how
+we interact as species. What is the human behaviour and how people become excellent.
+Through several layers of evolution, everyone needs to work out to evolve in what
+they want.</p>
+
+<p>If you aspire to excel in some activity, you’ll need to go harder as the best of their areas are. Nobody is special and only the exercise
+will make it improve. If things are easy and you’re talented on that area, you
+can work out in other areas and keep evolving as a whole.</p>
+
+<p>We can always develop ourselves. I love communication and I’d like to master on
+this topic. To be productive about learning and improving my communication, I
+decided to write my communication. It allows me to validate my thoughts and
+easily sort and quailify the importance of my words as I speak.</p>
+
+<p>I’m often going back and forth and moving chunks of my writings to build a
+better story. I often cut off parts that does not make sense. Should I talk
+about this? Is it the right moment? Am I diffusing from the target communication?
+What is the target? Should I need to just follow a single target?</p>
+
+<p>While I write about my plannings and how to write, I mix my feelings wether I’m
+putting the words in the right place. Qualify and choose what should be where is
+one of the hardest thing during the writing phase.</p>
+
+<p>I keep suppressing myself and sometimes stuck on writing just because I don’t
+have courage enough to say what I want to say. I shut up myself just for the
+sake of nothing. Judging that I don’t have the right words or I don’t have
+anything important to say.</p>
+
+<p>Instead of silence, communicate. Nobody has your point of view. If you think it
+can be useful to someone else in the world, say it, write it. Speak about it and
+pay attention on your own discourse. See the composition of words that you use
+for communicating and start qualifying the accuracy of the word with your real
+intention.</p>
+
+<p>Here are my criterias to reword the text:</p>
 
 <ol>
-  <li><code class="language-plaintext highlighter-rouge">\g &lt;arquivo&gt;</code> envia ultima query para um arquivo.</li>
-  <li><code class="language-plaintext highlighter-rouge">\o &lt;arquivo&gt;</code> concatena os resultados para um arquivo.</li>
+  <li>Am I merchandizing/lying/not sure here?</li>
+  <li>Am I talking about the subject or giving my personal opinion?</li>
+  <li>Am I deprecating other people’s opinion?</li>
+  <li>Am I biased? Can I use more specific words?</li>
 </ol>
 
-<p>Uma dica para quem está gostando de se aprofundar nos comandos é dar uma olhada no site 
-https://psql-tips.org que contém uma série de exemplos de como evoluir nos
-comandos.</p>
+<p>I love to preserve my right of editing what I think. In the end, more I think,
+deeper I go and better words I’ll have for writing.</p>
 
-<h2 id="explicar-consultas">Explicar consultas</h2>
+<p>Two minutes after starting this section I did several rewordings to make it more
+engaging to read. Also, to make it more precise.</p>
 
-<p>Eu gosto muito do <code class="language-plaintext highlighter-rouge">psql -E</code> que ajuda você a entender os comandos com a barra
-invertida. Por exemplo <code class="language-plaintext highlighter-rouge">\dt</code> vai listar as tabelas, e com o <code class="language-plaintext highlighter-rouge">-E</code> você pode entender
-que query o psql usou para mostrar os resultados.</p>
+<p>If you have true attention on what you’re reading, probably your mind is engaged
+in what comes next as mine. And this is the difference of plain attention and
+interest than random processing the meaning of some words in sequence.</p>
 
-<p>Exemplo:</p>
+<p>Sometimes I feel my writings are made to nobody. I feel no one really cares about
+what I write and maybe this text will never reach someone. Do you see my ability
+of mixing my personal feelings, thoughts and describing behavior?</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="err">\</span><span class="n">dt</span>
-<span class="o">*********</span> <span class="n">QUERY</span> <span class="o">**********</span>
-<span class="k">SELECT</span> <span class="n">n</span><span class="p">.</span><span class="n">nspname</span> <span class="k">as</span> <span class="nv">"Schema"</span><span class="p">,</span>
-  <span class="k">c</span><span class="p">.</span><span class="n">relname</span> <span class="k">as</span> <span class="nv">"Name"</span><span class="p">,</span>
-  <span class="k">CASE</span> <span class="k">c</span><span class="p">.</span><span class="n">relkind</span> <span class="k">WHEN</span> <span class="s1">'r'</span> <span class="k">THEN</span> <span class="s1">'table'</span> <span class="k">WHEN</span> <span class="s1">'v'</span> <span class="k">THEN</span> <span class="s1">'view'</span> <span class="k">WHEN</span> <span class="s1">'m'</span> <span class="k">THEN</span> <span class="s1">'materialized view'</span> <span class="k">WHEN</span> <span class="s1">'i'</span> <span class="k">THEN</span> <span class="s1">'index'</span> <span class="k">WHEN</span> <span class="s1">'S'</span> <span class="k">THEN</span> <span class="s1">'sequence'</span> <span class="k">WHEN</span> <span class="s1">'s'</span> <span class="k">THEN</span> <span class="s1">'special'</span> <span class="k">WHEN</span> <span class="s1">'t'</span> <span class="k">THEN</span> <span class="s1">'TOAST table'</span> <span class="k">WHEN</span> <span class="s1">'f'</span> <span class="k">THEN</span> <span class="s1">'foreign table'</span> <span class="k">WHEN</span> <span class="s1">'p'</span> <span class="k">THEN</span> <span class="s1">'partitioned table'</span> <span class="k">WHEN</span> <span class="s1">'I'</span> <span class="k">THEN</span> <span class="s1">'partitioned index'</span> <span class="k">END</span> <span class="k">as</span> <span class="nv">"Type"</span><span class="p">,</span>
-  <span class="n">pg_catalog</span><span class="p">.</span><span class="n">pg_get_userbyid</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">relowner</span><span class="p">)</span> <span class="k">as</span> <span class="nv">"Owner"</span>
-<span class="k">FROM</span> <span class="n">pg_catalog</span><span class="p">.</span><span class="n">pg_class</span> <span class="k">c</span>
-     <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">pg_catalog</span><span class="p">.</span><span class="n">pg_namespace</span> <span class="n">n</span> <span class="k">ON</span> <span class="n">n</span><span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="k">c</span><span class="p">.</span><span class="n">relnamespace</span>
-     <span class="k">LEFT</span> <span class="k">JOIN</span> <span class="n">pg_catalog</span><span class="p">.</span><span class="n">pg_am</span> <span class="n">am</span> <span class="k">ON</span> <span class="n">am</span><span class="p">.</span><span class="n">oid</span> <span class="o">=</span> <span class="k">c</span><span class="p">.</span><span class="n">relam</span>
-<span class="k">WHERE</span> <span class="k">c</span><span class="p">.</span><span class="n">relkind</span> <span class="k">IN</span> <span class="p">(</span><span class="s1">'r'</span><span class="p">,</span><span class="s1">'p'</span><span class="p">,</span><span class="s1">''</span><span class="p">)</span>
-      <span class="k">AND</span> <span class="n">n</span><span class="p">.</span><span class="n">nspname</span> <span class="o">&lt;&gt;</span> <span class="s1">'pg_catalog'</span>
-      <span class="k">AND</span> <span class="n">n</span><span class="p">.</span><span class="n">nspname</span> <span class="o">!~</span> <span class="s1">'^pg_toast'</span>
-      <span class="k">AND</span> <span class="n">n</span><span class="p">.</span><span class="n">nspname</span> <span class="o">&lt;&gt;</span> <span class="s1">'information_schema'</span>
-  <span class="k">AND</span> <span class="n">pg_catalog</span><span class="p">.</span><span class="n">pg_table_is_visible</span><span class="p">(</span><span class="k">c</span><span class="p">.</span><span class="n">oid</span><span class="p">)</span>
-<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">;</span>
-<span class="o">**************************</span>
+<p>You can have several guesses talking about the effects of your message, but to
+master on communication means you’ll need to target your message to some specific
+audience. Re-read the text thinking like them, wearing their hat. Then, reword
+to match their communication style.</p>
 
-                <span class="n">List</span> <span class="k">of</span> <span class="n">relations</span>
-<span class="err">┌────────┬──────────────────┬───────┬───────────┐</span>
-<span class="err">│</span> <span class="k">Schema</span> <span class="err">│</span>       <span class="n">Name</span>       <span class="err">│</span> <span class="k">Type</span>  <span class="err">│</span>   <span class="k">Owner</span>   <span class="err">│</span>
-<span class="err">├────────┼──────────────────┼───────┼───────────┤</span>
-<span class="err">│</span> <span class="k">public</span> <span class="err">│</span> <span class="n">example</span>          <span class="err">│</span> <span class="k">table</span> <span class="err">│</span> <span class="n">jonatasdp</span> <span class="err">│</span>
-<span class="err">│</span> <span class="k">public</span> <span class="err">│</span> <span class="n">another_table</span>    <span class="err">│</span> <span class="k">table</span> <span class="err">│</span> <span class="n">jonatasdp</span> <span class="err">│</span>
-<span class="err">└────────┴──────────────────┴───────┴───────────┘</span>
-<span class="p">(</span><span class="mi">2</span> <span class="k">rows</span><span class="p">)</span>
-</code></pre></div></div>
+<p>Making an average of your writings will make you reach the average. If you’re
+not interested in the average, then you can write freely and simply loose most
+part of your readers because the lack of interest of because you haven’t matched
+your audience objectives.</p>
 
-<p>Lembrando que o -E vai funcionar apenas para comandos que envolvem queries.</p>
+<p>Even if your audience is really curious about you, mixing your ideas during your
+writings will really difuse the attention of your audience.</p>
 
-<h2 id="transformando-linhas-em-colunas">Transformando linhas em colunas</h2>
+<p>Think about the text that you’re reading now. It started with the promise of a
+guy to get back writing, mixing his feelings and thoughts about communication
+with the promise of communicating.</p>
 
-<p>No caso de linhas muito longas, será difícil de visualizar no terminal, então
-vale a pena usar o <code class="language-plaintext highlighter-rouge">\x on</code> para trocar o formato do output.</p>
+<p>The title is undefined and the filename is <code class="language-plaintext highlighter-rouge">calendar.md</code>. I’ll probably rename
+it to <code class="language-plaintext highlighter-rouge">writing-calendar</code> or <code class="language-plaintext highlighter-rouge">writing commitment</code>.</p>
 
-<p>Exemplo o <code class="language-plaintext highlighter-rouge">\x</code>. Observe o output:</p>
+<p>If I need to put a sub-title on this section, I’d probably use <strong>meta writing</strong>
+inspired by the <code class="language-plaintext highlighter-rouge">meta programming</code> concept. As it reminds me that it’s a recursive
+objectives to reflect about the subject.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">table</span> <span class="n">pings</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">;</span>
-<span class="err">┌─</span><span class="p">[</span> <span class="n">RECORD</span> <span class="mi">1</span> <span class="p">]</span><span class="err">──────────────────────┐</span>
-<span class="err">│</span> <span class="n">t</span>    <span class="err">│</span> <span class="mi">2022</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span><span class="p">.</span><span class="mi">439023</span> <span class="err">│</span>
-<span class="err">│</span> <span class="n">ms</span>   <span class="err">│</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0031</span>                     <span class="err">│</span>
-<span class="err">│</span> <span class="k">host</span> <span class="err">│</span> <span class="n">google</span><span class="p">.</span><span class="n">com</span>                 <span class="err">│</span>
-<span class="err">└──────┴────────────────────────────┘</span>
-</code></pre></div></div>
+<p>The subject is very clear in my mind. It’s <strong>writing about writing</strong>. Because it’s a
+profession. There are professional writers everywhere and maybe I can become
+one.</p>
 
-<p>O <code class="language-plaintext highlighter-rouge">\x</code> serve para trocar o modo de visualização de tabelas em linhas ou colunas,
-de forma expandida ou não. Se você não usar argumentos o psql alterna o
-parâmetro entre <code class="language-plaintext highlighter-rouge">on</code> e <code class="language-plaintext highlighter-rouge">off</code> automaticamente.</p>
+<p>Practicing is the key to start and here is my very first boldly verbosed
+discourse that works as a promise that I’ll commit to write more.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">db</span><span class="o">=#</span> <span class="err">\</span><span class="n">x</span>
-<span class="n">Expanded</span> <span class="n">display</span> <span class="k">is</span> <span class="k">off</span><span class="p">.</span>
-<span class="n">db</span><span class="o">=#</span> <span class="k">table</span> <span class="n">pings</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">;</span>
-<span class="err">┌────────────────────────────┬────────┬────────────┐</span>
-<span class="err">│</span>             <span class="n">t</span>              <span class="err">│</span>   <span class="n">ms</span>   <span class="err">│</span>    <span class="k">host</span>    <span class="err">│</span>
-<span class="err">├────────────────────────────┼────────┼────────────┤</span>
-<span class="err">│</span> <span class="mi">2022</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span><span class="p">.</span><span class="mi">439023</span> <span class="err">│</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0031</span> <span class="err">│</span> <span class="n">google</span><span class="p">.</span><span class="n">com</span> <span class="err">│</span>
-<span class="err">└────────────────────────────┴────────┴────────────┘</span>
-<span class="p">(</span><span class="mi">1</span> <span class="k">row</span><span class="p">)</span>
-</code></pre></div></div>
+<h2 id="topics">Topics</h2>
 
-<p>Também é possível usar o <code class="language-plaintext highlighter-rouge">\x auto</code> que irá mudar a visão automaticamente para
-mostrar colunas em linhas caso o conteúdo tenha muitas colunas ou valores muito
-longos que quebrem o layout da tela.</p>
+<p>My plan is use the blog for sharing knowledge, thoughts and ideas. Here is my
+outline of the subjects I’d like to talk, which I hope to be updating frequently,
+especially to add links for the topics I’m publishing.</p>
 
-<h3 id="psql-comandos-com-">psql comandos com <code class="language-plaintext highlighter-rouge">\</code></h3>
+<p>In the bottom of this file, you can find a <strong>Updates</strong> section with all my
+future edits and you can also watch them one by one at the
+<a href="https://github.com/jonatas/ideia.me.git">ideia.me</a>.</p>
 
-<p>O psql tem vários comandos que começam com a barra invertida e eles se tornam
-extremamente úteis para não ter que lembrar de todos os comandos. Então é só
-lembrar do <code class="language-plaintext highlighter-rouge">?</code> para listar esse help com todos os comandos com barra invertida.</p>
+<p>I plan to write small posts that I can publish often and target people that have
+a short span of attention. This is also atomic tips that can be split and reused
+from bigger context. They will work in both ways, often being the seed and
+inspiration to go further and work on larger topics.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\?
-</code></pre></div></div>
+<h4 id="tools">Tools</h4>
 
-<p>Aqui você pode relembrar sempre que precisar de um atalho rápido. Um detalhe
-importante quando você ver esse <code class="language-plaintext highlighter-rouge">:</code> na última linha da explicação, isso
-significa que o pager está em ação. O more é um utilitário de pager assim como o <code class="language-plaintext highlighter-rouge">less</code>.</p>
+<p>I love terminal and years pass and the shell is still very present on my life.
+I still edit the stuff on vim and use shell scripts for my automation. I’ll be
+sharing short posts about my time-saver tools’.</p>
 
-<p>Então vamos aprender um pouco sobre estes dois amiguinhos agora.</p>
+<p>Planned posts here are:</p>
+<ul>
+  <li>psql tips and tricks</li>
+  <li>how to use Timescale</li>
+</ul>
 
-<p>Esse comando vai listar todos os comandos com uma explicação.</p>
+<h4 id="programming-researches-and-projects">Programming Researches and Projects</h4>
 
-<p>Segue a lista de saída:</p>
+<p>I don’t code that often, but I’d like to document the progress of interests
+like:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">db</span><span class="o">=#</span> <span class="err">\</span><span class="o">?</span>
-<span class="k">General</span>
-  <span class="err">\</span><span class="n">copyright</span>             <span class="k">show</span> <span class="n">PostgreSQL</span> <span class="k">usage</span> <span class="k">and</span> <span class="n">distribution</span> <span class="n">terms</span>
-  <span class="err">\</span><span class="n">crosstabview</span> <span class="p">[</span><span class="n">COLUMNS</span><span class="p">]</span> <span class="k">execute</span> <span class="n">query</span> <span class="k">and</span> <span class="n">display</span> <span class="n">results</span> <span class="k">in</span> <span class="n">crosstab</span>
-  <span class="err">\</span><span class="n">errverbose</span>            <span class="k">show</span> <span class="n">most</span> <span class="n">recent</span> <span class="n">error</span> <span class="n">message</span> <span class="k">at</span> <span class="n">maximum</span> <span class="n">verbosity</span>
-  <span class="err">\</span><span class="k">g</span> <span class="p">[(</span><span class="k">OPTIONS</span><span class="p">)]</span> <span class="p">[</span><span class="n">FILE</span><span class="p">]</span>  <span class="k">execute</span> <span class="n">query</span> <span class="p">(</span><span class="k">and</span> <span class="n">send</span> <span class="n">results</span> <span class="k">to</span> <span class="n">file</span> <span class="k">or</span> <span class="o">|</span><span class="n">pipe</span><span class="p">);</span>
-                         <span class="err">\</span><span class="k">g</span> <span class="k">with</span> <span class="k">no</span> <span class="n">arguments</span> <span class="k">is</span> <span class="n">equivalent</span> <span class="k">to</span> <span class="n">a</span> <span class="n">semicolon</span>
-  <span class="err">\</span><span class="n">gdesc</span>                 <span class="k">describe</span> <span class="k">result</span> <span class="k">of</span> <span class="n">query</span><span class="p">,</span> <span class="k">without</span> <span class="n">executing</span> <span class="n">it</span>
-  <span class="err">\</span><span class="n">gexec</span>                 <span class="k">execute</span> <span class="n">query</span><span class="p">,</span> <span class="k">then</span> <span class="k">execute</span> <span class="k">each</span> <span class="n">value</span> <span class="k">in</span> <span class="n">its</span> <span class="k">result</span>
-  <span class="err">\</span><span class="n">gset</span> <span class="p">[</span><span class="k">PREFIX</span><span class="p">]</span>         <span class="k">execute</span> <span class="n">query</span> <span class="k">and</span> <span class="n">store</span> <span class="n">results</span> <span class="k">in</span> <span class="n">psql</span> <span class="n">variables</span>
-  <span class="err">\</span><span class="n">gx</span> <span class="p">[(</span><span class="k">OPTIONS</span><span class="p">)]</span> <span class="p">[</span><span class="n">FILE</span><span class="p">]</span> <span class="k">as</span> <span class="err">\</span><span class="k">g</span><span class="p">,</span> <span class="n">but</span> <span class="n">forces</span> <span class="n">expanded</span> <span class="k">output</span> <span class="k">mode</span>
-  <span class="err">\</span><span class="n">q</span>                     <span class="n">quit</span> <span class="n">psql</span>
-  <span class="err">\</span><span class="n">watch</span> <span class="p">[</span><span class="n">SEC</span><span class="p">]</span>           <span class="k">execute</span> <span class="n">query</span> <span class="k">every</span> <span class="n">SEC</span> <span class="n">seconds</span>
+<ul>
+  <li><strong>**Abstract Syntax Tree</strong>**: I’m often exploring my desire of adapting
+<a href="https://github.com/jonatas/fast">ffast</a> to work with SQL. My adventures and
+challenges adapting fast is a thing that will be my log and research about how
+it’s done and how I’m going to improve this thing.</li>
+  <li><strong>Datasets</strong>: I’m often looking for the open datasets to explore with Timescale.</li>
+  <li><strong>Time series dataset</strong>: what if I turn X into a timeseries dataset? I’m often
+  exploring new ideas of turning information into timeseries data.</li>
+</ul>
 
-<span class="n">Help</span>
-  <span class="err">\</span><span class="o">?</span> <span class="p">[</span><span class="n">commands</span><span class="p">]</span>          <span class="k">show</span> <span class="n">help</span> <span class="k">on</span> <span class="n">backslash</span> <span class="n">commands</span>
-  <span class="err">\</span><span class="o">?</span> <span class="k">options</span>             <span class="k">show</span> <span class="n">help</span> <span class="k">on</span> <span class="n">psql</span> <span class="n">command</span><span class="o">-</span><span class="n">line</span> <span class="k">options</span>
-  <span class="err">\</span><span class="o">?</span> <span class="n">variables</span>           <span class="k">show</span> <span class="n">help</span> <span class="k">on</span> <span class="n">special</span> <span class="n">variables</span>
-  <span class="err">\</span><span class="n">h</span> <span class="p">[</span><span class="n">NAME</span><span class="p">]</span>              <span class="n">help</span> <span class="k">on</span> <span class="n">syntax</span> <span class="k">of</span> <span class="k">SQL</span> <span class="n">commands</span><span class="p">,</span> <span class="o">*</span> <span class="k">for</span> <span class="k">all</span> <span class="n">commands</span>
+<h4 id="personal-wins">Personal wins</h4>
 
-<span class="n">Query</span> <span class="n">Buffer</span>
-  <span class="err">\</span><span class="n">e</span> <span class="p">[</span><span class="n">FILE</span><span class="p">]</span> <span class="p">[</span><span class="n">LINE</span><span class="p">]</span>       <span class="n">edit</span> <span class="n">the</span> <span class="n">query</span> <span class="n">buffer</span> <span class="p">(</span><span class="k">or</span> <span class="n">file</span><span class="p">)</span> <span class="k">with</span> <span class="k">external</span> <span class="n">editor</span>
-  <span class="err">\</span><span class="n">ef</span> <span class="p">[</span><span class="n">FUNCNAME</span> <span class="p">[</span><span class="n">LINE</span><span class="p">]]</span>  <span class="n">edit</span> <span class="k">function</span> <span class="n">definition</span> <span class="k">with</span> <span class="k">external</span> <span class="n">editor</span>
-  <span class="err">\</span><span class="n">ev</span> <span class="p">[</span><span class="n">VIEWNAME</span> <span class="p">[</span><span class="n">LINE</span><span class="p">]]</span>  <span class="n">edit</span> <span class="k">view</span> <span class="n">definition</span> <span class="k">with</span> <span class="k">external</span> <span class="n">editor</span>
-  <span class="err">\</span><span class="n">p</span>                     <span class="k">show</span> <span class="n">the</span> <span class="n">contents</span> <span class="k">of</span> <span class="n">the</span> <span class="n">query</span> <span class="n">buffer</span>
-  <span class="err">\</span><span class="n">r</span>                     <span class="k">reset</span> <span class="p">(</span><span class="n">clear</span><span class="p">)</span> <span class="n">the</span> <span class="n">query</span> <span class="n">buffer</span>
-  <span class="err">\</span><span class="n">s</span> <span class="p">[</span><span class="n">FILE</span><span class="p">]</span>              <span class="n">display</span> <span class="n">history</span> <span class="k">or</span> <span class="n">save</span> <span class="n">it</span> <span class="k">to</span> <span class="n">file</span>
-  <span class="err">\</span><span class="n">w</span> <span class="n">FILE</span>                <span class="k">write</span> <span class="n">query</span> <span class="n">buffer</span> <span class="k">to</span> <span class="n">file</span>
+<p>I quit drinking several years ago, then became vegetarian, and finally I quit
+smoking. I’m now living with less anxiety and more self awareness. Yoga,
+medidation, calming down and using my consciousnes changed my life completely.</p>
 
-<span class="k">Input</span><span class="o">/</span><span class="k">Output</span>
-  <span class="err">\</span><span class="k">copy</span> <span class="p">...</span>              <span class="n">perform</span> <span class="k">SQL</span> <span class="k">COPY</span> <span class="k">with</span> <span class="k">data</span> <span class="n">stream</span> <span class="k">to</span> <span class="n">the</span> <span class="n">client</span> <span class="k">host</span>
-  <span class="err">\</span><span class="n">echo</span> <span class="p">[</span><span class="o">-</span><span class="n">n</span><span class="p">]</span> <span class="p">[</span><span class="n">STRING</span><span class="p">]</span>    <span class="k">write</span> <span class="n">string</span> <span class="k">to</span> <span class="n">standard</span> <span class="k">output</span> <span class="p">(</span><span class="o">-</span><span class="n">n</span> <span class="k">for</span> <span class="k">no</span> <span class="n">newline</span><span class="p">)</span>
-  <span class="err">\</span><span class="n">i</span> <span class="n">FILE</span>                <span class="k">execute</span> <span class="n">commands</span> <span class="k">from</span> <span class="n">file</span>
-  <span class="err">\</span><span class="n">ir</span> <span class="n">FILE</span>               <span class="k">as</span> <span class="err">\</span><span class="n">i</span><span class="p">,</span> <span class="n">but</span> <span class="k">relative</span> <span class="k">to</span> <span class="k">location</span> <span class="k">of</span> <span class="k">current</span> <span class="n">script</span>
-  <span class="err">\</span><span class="n">o</span> <span class="p">[</span><span class="n">FILE</span><span class="p">]</span>              <span class="n">send</span> <span class="k">all</span> <span class="n">query</span> <span class="n">results</span> <span class="k">to</span> <span class="n">file</span> <span class="k">or</span> <span class="o">|</span><span class="n">pipe</span>
-  <span class="err">\</span><span class="n">qecho</span> <span class="p">[</span><span class="o">-</span><span class="n">n</span><span class="p">]</span> <span class="p">[</span><span class="n">STRING</span><span class="p">]</span>   <span class="k">write</span> <span class="n">string</span> <span class="k">to</span> <span class="err">\</span><span class="n">o</span> <span class="k">output</span> <span class="n">stream</span> <span class="p">(</span><span class="o">-</span><span class="n">n</span> <span class="k">for</span> <span class="k">no</span> <span class="n">newline</span><span class="p">)</span>
-  <span class="err">\</span><span class="n">warn</span> <span class="p">[</span><span class="o">-</span><span class="n">n</span><span class="p">]</span> <span class="p">[</span><span class="n">STRING</span><span class="p">]</span>    <span class="k">write</span> <span class="n">string</span> <span class="k">to</span> <span class="n">standard</span> <span class="n">error</span> <span class="p">(</span><span class="o">-</span><span class="n">n</span> <span class="k">for</span> <span class="k">no</span> <span class="n">newline</span><span class="p">)</span>
+<ol>
+  <li>How addiction affected my life?</li>
+  <li>How co-dependencies can drive your friendship and relationship?</li>
+  <li>Thoughts about my seamless switch my ergodox keyboard to macbook without that
+many typos?</li>
+</ol>
 
-<span class="n">Conditional</span>
-  <span class="err">\</span><span class="n">if</span> <span class="n">EXPR</span>               <span class="k">begin</span> <span class="n">conditional</span> <span class="n">block</span>
-  <span class="err">\</span><span class="n">elif</span> <span class="n">EXPR</span>             <span class="n">alternative</span> <span class="n">within</span> <span class="k">current</span> <span class="n">conditional</span> <span class="n">block</span>
-  <span class="err">\</span><span class="k">else</span>                  <span class="k">final</span> <span class="n">alternative</span> <span class="n">within</span> <span class="k">current</span> <span class="n">conditional</span> <span class="n">block</span>
-  <span class="err">\</span><span class="n">endif</span>                 <span class="k">end</span> <span class="n">conditional</span> <span class="n">block</span>
+<h4 id="thoughts">Thoughts</h4>
 
-<span class="n">Informational</span>
-  <span class="p">(</span><span class="k">options</span><span class="p">:</span> <span class="n">S</span> <span class="o">=</span> <span class="k">show</span> <span class="k">system</span> <span class="n">objects</span><span class="p">,</span> <span class="o">+</span> <span class="o">=</span> <span class="n">additional</span> <span class="n">detail</span><span class="p">)</span>
-  <span class="err">\</span><span class="n">d</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span>                 <span class="n">list</span> <span class="n">tables</span><span class="p">,</span> <span class="n">views</span><span class="p">,</span> <span class="k">and</span> <span class="n">sequences</span>
-  <span class="err">\</span><span class="n">d</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span>  <span class="n">NAME</span>           <span class="k">describe</span> <span class="k">table</span><span class="p">,</span> <span class="k">view</span><span class="p">,</span> <span class="n">sequence</span><span class="p">,</span> <span class="k">or</span> <span class="k">index</span>
-  <span class="err">\</span><span class="n">da</span><span class="p">[</span><span class="n">S</span><span class="p">]</span>  <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">aggregates</span>
-  <span class="err">\</span><span class="n">dA</span><span class="p">[</span><span class="o">+</span><span class="p">]</span>  <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="k">access</span> <span class="n">methods</span>
-  <span class="err">\</span><span class="n">dAc</span><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">AMPTRN</span> <span class="p">[</span><span class="n">TYPEPTRN</span><span class="p">]]</span>  <span class="n">list</span> <span class="k">operator</span> <span class="n">classes</span>
-  <span class="err">\</span><span class="n">dAf</span><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">AMPTRN</span> <span class="p">[</span><span class="n">TYPEPTRN</span><span class="p">]]</span>  <span class="n">list</span> <span class="k">operator</span> <span class="n">families</span>
-  <span class="err">\</span><span class="n">dAo</span><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">AMPTRN</span> <span class="p">[</span><span class="n">OPFPTRN</span><span class="p">]]</span>   <span class="n">list</span> <span class="n">operators</span> <span class="k">of</span> <span class="k">operator</span> <span class="n">families</span>
-  <span class="err">\</span><span class="n">dAp</span><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">AMPTRN</span> <span class="p">[</span><span class="n">OPFPTRN</span><span class="p">]]</span>   <span class="n">list</span> <span class="n">support</span> <span class="n">functions</span> <span class="k">of</span> <span class="k">operator</span> <span class="n">families</span>
-  <span class="err">\</span><span class="n">db</span><span class="p">[</span><span class="o">+</span><span class="p">]</span>  <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">tablespaces</span>
-  <span class="err">\</span><span class="n">dc</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">conversions</span>
-  <span class="err">\</span><span class="n">dC</span><span class="p">[</span><span class="o">+</span><span class="p">]</span>  <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">casts</span>
-  <span class="err">\</span><span class="n">dd</span><span class="p">[</span><span class="n">S</span><span class="p">]</span>  <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="k">show</span> <span class="k">object</span> <span class="n">descriptions</span> <span class="k">not</span> <span class="n">displayed</span> <span class="n">elsewhere</span>
-  <span class="err">\</span><span class="n">dD</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">domains</span>
-  <span class="err">\</span><span class="n">ddp</span>    <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="k">default</span> <span class="k">privileges</span>
-  <span class="err">\</span><span class="n">dE</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="k">foreign</span> <span class="n">tables</span>
-  <span class="err">\</span><span class="n">des</span><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="k">foreign</span> <span class="n">servers</span>
-  <span class="err">\</span><span class="n">det</span><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="k">foreign</span> <span class="n">tables</span>
-  <span class="err">\</span><span class="n">deu</span><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="k">user</span> <span class="n">mappings</span>
-  <span class="err">\</span><span class="n">dew</span><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="k">foreign</span><span class="o">-</span><span class="k">data</span> <span class="n">wrappers</span>
-  <span class="err">\</span><span class="n">df</span><span class="p">[</span><span class="n">anptw</span><span class="p">][</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">FUNCPTRN</span> <span class="p">[</span><span class="n">TYPEPTRN</span> <span class="p">...]]</span>
-                         <span class="n">list</span> <span class="p">[</span><span class="k">only</span> <span class="n">agg</span><span class="o">/</span><span class="n">normal</span><span class="o">/</span><span class="k">procedure</span><span class="o">/</span><span class="k">trigger</span><span class="o">/</span><span class="n">window</span><span class="p">]</span> <span class="n">functions</span>
-  <span class="err">\</span><span class="n">dF</span><span class="p">[</span><span class="o">+</span><span class="p">]</span>  <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="nb">text</span> <span class="k">search</span> <span class="n">configurations</span>
-  <span class="err">\</span><span class="n">dFd</span><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="nb">text</span> <span class="k">search</span> <span class="n">dictionaries</span>
-  <span class="err">\</span><span class="n">dFp</span><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="nb">text</span> <span class="k">search</span> <span class="n">parsers</span>
-  <span class="err">\</span><span class="n">dFt</span><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="nb">text</span> <span class="k">search</span> <span class="n">templates</span>
-  <span class="err">\</span><span class="n">dg</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">roles</span>
-  <span class="err">\</span><span class="n">di</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">indexes</span>
-  <span class="err">\</span><span class="n">dl</span>                    <span class="n">list</span> <span class="k">large</span> <span class="n">objects</span><span class="p">,</span> <span class="n">same</span> <span class="k">as</span> <span class="err">\</span><span class="n">lo_list</span>
-  <span class="err">\</span><span class="n">dL</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="k">procedural</span> <span class="n">languages</span>
-  <span class="err">\</span><span class="n">dm</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">materialized</span> <span class="n">views</span>
-  <span class="err">\</span><span class="n">dn</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">schemas</span>
-  <span class="err">\</span><span class="k">do</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">OPPTRN</span> <span class="p">[</span><span class="n">TYPEPTRN</span> <span class="p">[</span><span class="n">TYPEPTRN</span><span class="p">]]]</span>
-                         <span class="n">list</span> <span class="n">operators</span>
-  <span class="err">\</span><span class="k">dO</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">collations</span>
-  <span class="err">\</span><span class="n">dp</span>     <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="k">table</span><span class="p">,</span> <span class="k">view</span><span class="p">,</span> <span class="k">and</span> <span class="n">sequence</span> <span class="k">access</span> <span class="k">privileges</span>
-  <span class="err">\</span><span class="n">dP</span><span class="p">[</span><span class="n">itn</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>    <span class="n">list</span> <span class="p">[</span><span class="k">only</span> <span class="k">index</span><span class="o">/</span><span class="k">table</span><span class="p">]</span> <span class="n">partitioned</span> <span class="n">relations</span> <span class="p">[</span><span class="n">n</span><span class="o">=</span><span class="n">nested</span><span class="p">]</span>
-  <span class="err">\</span><span class="n">drds</span> <span class="p">[</span><span class="n">ROLEPTRN</span> <span class="p">[</span><span class="n">DBPTRN</span><span class="p">]]</span> <span class="n">list</span> <span class="n">per</span><span class="o">-</span><span class="k">database</span> <span class="k">role</span> <span class="n">settings</span>
-  <span class="err">\</span><span class="n">dRp</span><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">replication</span> <span class="n">publications</span>
-  <span class="err">\</span><span class="n">dRs</span><span class="p">[</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">replication</span> <span class="n">subscriptions</span>
-  <span class="err">\</span><span class="n">ds</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">sequences</span>
-  <span class="err">\</span><span class="n">dt</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">tables</span>
-  <span class="err">\</span><span class="n">dT</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="k">data</span> <span class="n">types</span>
-  <span class="err">\</span><span class="n">du</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">roles</span>
-  <span class="err">\</span><span class="n">dv</span><span class="p">[</span><span class="n">S</span><span class="o">+</span><span class="p">]</span> <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">views</span>
-  <span class="err">\</span><span class="n">dx</span><span class="p">[</span><span class="o">+</span><span class="p">]</span>  <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">extensions</span>
-  <span class="err">\</span><span class="n">dX</span>     <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">extended</span> <span class="k">statistics</span>
-  <span class="err">\</span><span class="n">dy</span><span class="p">[</span><span class="o">+</span><span class="p">]</span>  <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">event</span> <span class="n">triggers</span>
-  <span class="err">\</span><span class="n">l</span><span class="p">[</span><span class="o">+</span><span class="p">]</span>   <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">list</span> <span class="n">databases</span>
-  <span class="err">\</span><span class="n">sf</span><span class="p">[</span><span class="o">+</span><span class="p">]</span>  <span class="n">FUNCNAME</span>       <span class="k">show</span> <span class="n">a</span> <span class="k">function</span><span class="s1">'s definition
-  </span><span class="se">\s</span><span class="s1">v[+]  VIEWNAME       show a view'</span><span class="n">s</span> <span class="n">definition</span>
-  <span class="err">\</span><span class="n">z</span>      <span class="p">[</span><span class="n">PATTERN</span><span class="p">]</span>      <span class="n">same</span> <span class="k">as</span> <span class="err">\</span><span class="n">dp</span>
+<ul>
+  <li><strong>leadership</strong>: I’m always reflecting about the leader attributes and how to find
+  my way to always be a good leader at work and compassionate with myself.</li>
+  <li><strong>communication</strong>: I love the communication design’. How people architect the
+  message and create good content driving the reader with an exciting message.</li>
+  <li><strong>career</strong>: I hope to dump several thoughts about career as I spend most part of
+  my life working. If I cannot stop to reason about it, I’m probably a slave.</li>
+  <li><strong>memories from my old days</strong>: back to the young me and be conscious about the
+   mental model upgrades.</li>
+  <li><strong>interviewing</strong>: I was often involved on interviewing people and recruiting is
+   always something that catches my attention. I specially love to analyse the
+   communication from recruiters and how they sell the job opportunities.
+   I’m often trying to optimize my communication with them and have all clear
+   trasparency about what opportunities I’m open to. I often skip the why I’m not open/interested on their invites, instead I
+   just say I’m not interested. I eventually outline the reasons in my mind
+   and probably it would worth to share with them.</li>
+  <li>
+    <p><strong>writing better CV</strong>: I’m always reviwing my friends CVs’ and helping them to
+   better describe their past experience. How to qualify the experiences in a
+   way that they can be interesting and engaging to learn about their past.
+   This is communication optimization and also involves a lot of review self
+   knowledge and how we should prioritize ourselves.</p>
+  </li>
+  <li>tech jobs and roles: what you can do and what every IT profession does?</li>
+  <li>future: what will happen with the professions from now</li>
+  <li>plans: work on what you need not what you want</li>
+</ul>
 
-<span class="n">Formatting</span>
-  <span class="err">\</span><span class="n">a</span>                     <span class="n">toggle</span> <span class="k">between</span> <span class="n">unaligned</span> <span class="k">and</span> <span class="n">aligned</span> <span class="k">output</span> <span class="k">mode</span>
-  <span class="err">\</span><span class="k">C</span> <span class="p">[</span><span class="n">STRING</span><span class="p">]</span>            <span class="k">set</span> <span class="k">table</span> <span class="n">title</span><span class="p">,</span> <span class="k">or</span> <span class="n">unset</span> <span class="n">if</span> <span class="k">none</span>
-  <span class="err">\</span><span class="n">f</span> <span class="p">[</span><span class="n">STRING</span><span class="p">]</span>            <span class="k">show</span> <span class="k">or</span> <span class="k">set</span> <span class="n">field</span> <span class="n">separator</span> <span class="k">for</span> <span class="n">unaligned</span> <span class="n">query</span> <span class="k">output</span>
-  <span class="err">\</span><span class="n">H</span>                     <span class="n">toggle</span> <span class="n">HTML</span> <span class="k">output</span> <span class="k">mode</span> <span class="p">(</span><span class="n">currently</span> <span class="k">off</span><span class="p">)</span>
-  <span class="err">\</span><span class="n">pset</span> <span class="p">[</span><span class="n">NAME</span> <span class="p">[</span><span class="n">VALUE</span><span class="p">]]</span>   <span class="k">set</span> <span class="k">table</span> <span class="k">output</span> <span class="k">option</span>
-                         <span class="p">(</span><span class="n">border</span><span class="o">|</span><span class="n">columns</span><span class="o">|</span><span class="n">csv_fieldsep</span><span class="o">|</span><span class="n">expanded</span><span class="o">|</span><span class="n">fieldsep</span><span class="o">|</span>
-                         <span class="n">fieldsep_zero</span><span class="o">|</span><span class="n">footer</span><span class="o">|</span><span class="n">format</span><span class="o">|</span><span class="n">linestyle</span><span class="o">|</span><span class="k">null</span><span class="o">|</span>
-                         <span class="n">numericlocale</span><span class="o">|</span><span class="n">pager</span><span class="o">|</span><span class="n">pager_min_lines</span><span class="o">|</span><span class="n">recordsep</span><span class="o">|</span>
-                         <span class="n">recordsep_zero</span><span class="o">|</span><span class="n">tableattr</span><span class="o">|</span><span class="n">title</span><span class="o">|</span><span class="n">tuples_only</span><span class="o">|</span>
-                         <span class="n">unicode_border_linestyle</span><span class="o">|</span><span class="n">unicode_column_linestyle</span><span class="o">|</span>
-                         <span class="n">unicode_header_linestyle</span><span class="p">)</span>
-  <span class="err">\</span><span class="n">t</span> <span class="p">[</span><span class="k">on</span><span class="o">|</span><span class="k">off</span><span class="p">]</span>            <span class="k">show</span> <span class="k">only</span> <span class="k">rows</span> <span class="p">(</span><span class="n">currently</span> <span class="k">off</span><span class="p">)</span>
-  <span class="err">\</span><span class="n">T</span> <span class="p">[</span><span class="n">STRING</span><span class="p">]</span>            <span class="k">set</span> <span class="n">HTML</span> <span class="o">&lt;</span><span class="k">table</span><span class="o">&gt;</span> <span class="n">tag</span> <span class="n">attributes</span><span class="p">,</span> <span class="k">or</span> <span class="n">unset</span> <span class="n">if</span> <span class="k">none</span>
-  <span class="err">\</span><span class="n">x</span> <span class="p">[</span><span class="k">on</span><span class="o">|</span><span class="k">off</span><span class="o">|</span><span class="n">auto</span><span class="p">]</span>       <span class="n">toggle</span> <span class="n">expanded</span> <span class="k">output</span> <span class="p">(</span><span class="n">currently</span> <span class="n">auto</span><span class="p">)</span>
+<h4 id="priorities">Priorities</h4>
 
-<span class="k">Connection</span>
-  <span class="err">\</span><span class="k">c</span><span class="p">[</span><span class="n">onnect</span><span class="p">]</span> <span class="err">{</span><span class="p">[</span><span class="n">DBNAME</span><span class="o">|-</span> <span class="k">USER</span><span class="o">|-</span> <span class="k">HOST</span><span class="o">|-</span> <span class="n">PORT</span><span class="o">|-</span><span class="p">]</span> <span class="o">|</span> <span class="n">conninfo</span><span class="err">}</span>
-                         <span class="k">connect</span> <span class="k">to</span> <span class="k">new</span> <span class="k">database</span> <span class="p">(</span><span class="n">currently</span> <span class="nv">"playground"</span><span class="p">)</span>
-  <span class="err">\</span><span class="n">conninfo</span>              <span class="n">display</span> <span class="n">information</span> <span class="n">about</span> <span class="k">current</span> <span class="k">connection</span>
-  <span class="err">\</span><span class="k">encoding</span> <span class="p">[</span><span class="k">ENCODING</span><span class="p">]</span>   <span class="k">show</span> <span class="k">or</span> <span class="k">set</span> <span class="n">client</span> <span class="k">encoding</span>
-  <span class="err">\</span><span class="n">password</span> <span class="p">[</span><span class="n">USERNAME</span><span class="p">]</span>   <span class="n">securely</span> <span class="n">change</span> <span class="n">the</span> <span class="n">password</span> <span class="k">for</span> <span class="n">a</span> <span class="k">user</span>
+<p>Life is short. I’m always valuating if I’m using my time properly.</p>
 
-<span class="n">Operating</span> <span class="k">System</span>
-  <span class="err">\</span><span class="n">cd</span> <span class="p">[</span><span class="n">DIR</span><span class="p">]</span>              <span class="n">change</span> <span class="n">the</span> <span class="k">current</span> <span class="n">working</span> <span class="n">directory</span>
-  <span class="err">\</span><span class="n">setenv</span> <span class="n">NAME</span> <span class="p">[</span><span class="n">VALUE</span><span class="p">]</span>   <span class="k">set</span> <span class="k">or</span> <span class="n">unset</span> <span class="n">environment</span> <span class="k">variable</span>
-  <span class="err">\</span><span class="n">timing</span> <span class="p">[</span><span class="k">on</span><span class="o">|</span><span class="k">off</span><span class="p">]</span>       <span class="n">toggle</span> <span class="n">timing</span> <span class="k">of</span> <span class="n">commands</span> <span class="p">(</span><span class="n">currently</span> <span class="k">off</span><span class="p">)</span>
-  <span class="err">\</span><span class="o">!</span> <span class="p">[</span><span class="n">COMMAND</span><span class="p">]</span>           <span class="k">execute</span> <span class="n">command</span> <span class="k">in</span> <span class="n">shell</span> <span class="k">or</span> <span class="k">start</span> <span class="n">interactive</span> <span class="n">shell</span>
+<p>I often get myself deeply thinking about my priorities and commitment. Because
+of that I think about go deeper into prioritization.</p>
 
-<span class="n">Variables</span>
-  <span class="err">\</span><span class="n">prompt</span> <span class="p">[</span><span class="nb">TEXT</span><span class="p">]</span> <span class="n">NAME</span>    <span class="n">prompt</span> <span class="k">user</span> <span class="k">to</span> <span class="k">set</span> <span class="n">internal</span> <span class="k">variable</span>
-  <span class="err">\</span><span class="k">set</span> <span class="p">[</span><span class="n">NAME</span> <span class="p">[</span><span class="n">VALUE</span><span class="p">]]</span>    <span class="k">set</span> <span class="n">internal</span> <span class="k">variable</span><span class="p">,</span> <span class="k">or</span> <span class="n">list</span> <span class="k">all</span> <span class="n">if</span> <span class="k">no</span> <span class="k">parameters</span>
-  <span class="err">\</span><span class="n">unset</span> <span class="n">NAME</span>            <span class="n">unset</span> <span class="p">(</span><span class="k">delete</span><span class="p">)</span> <span class="n">internal</span> <span class="k">variable</span>
+<ul>
+  <li>how to sort the things you need to do?</li>
+  <li>cleaning up your priorities list.</li>
+  <li>rewording and reclassifying your priorities.</li>
+  <li>setting up rules for planning and execution.</li>
+</ul>
 
-<span class="k">Large</span> <span class="n">Objects</span>
-  <span class="err">\</span><span class="n">lo_export</span> <span class="n">LOBOID</span> <span class="n">FILE</span>
-  <span class="err">\</span><span class="n">lo_import</span> <span class="n">FILE</span> <span class="p">[</span><span class="k">COMMENT</span><span class="p">]</span>
-  <span class="err">\</span><span class="n">lo_list</span>
-  <span class="err">\</span><span class="n">lo_unlink</span> <span class="n">LOBOID</span>      <span class="k">large</span> <span class="k">object</span> <span class="n">operations</span>
-</code></pre></div></div>
+<h3 id="onboarding">Onboarding</h3>
 
-<p>São muitas opções mesmo! apenas comandos internos do psql e são super úteis para
-navegar em qualquer detalhe do banco de dados sem ter que abrir o pgadmin 🤐</p>
+<p>I’m glad that I got involved with the employee experience. I welcomed hundreds
+of people in the last few years. I’m often engaging my friends to do the same
+and expose the opportunities in the onboarding domain as a new category of
+challenges that fast growing companies are facing when they start hiring
+aggressively.</p>
 
-<h2 id="configurações">Configurações</h2>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">\</span><span class="n">pset</span> <span class="n">numericlocale</span> <span class="o">#</span> <span class="n">Locale</span><span class="o">-</span><span class="n">adjusted</span> <span class="nb">numeric</span> <span class="k">output</span> <span class="k">is</span> <span class="k">on</span><span class="p">.</span>
-<span class="err">\</span><span class="k">set</span> <span class="n">io_timing_track</span> <span class="o">#</span> <span class="n">useful</span> <span class="k">to</span> <span class="k">explain</span> <span class="n">queries</span>
-</code></pre></div></div>
-
-<h2 id="print-set-com-pset">Print set com <code class="language-plaintext highlighter-rouge">\pset</code></h2>
-
-<p>O pset ou printset é muito parecido com o <code class="language-plaintext highlighter-rouge">\set</code> que funciona para qualquer
-cliente do postgresql mas é focado em print. Ou seja, ele vai te ajudar a
-formatar a saída de dados do formato que você espera.</p>
-
-<p>Um exemplo da comunidade que adorei e nunca tinha usado é o override para
-valores nulos.
-Por exemplo, se você usar:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">null</span><span class="p">;</span>
-<span class="o">?</span><span class="k">column</span><span class="o">?</span>
-</code></pre></div></div>
-
-<p>então fica difícil de entender que a linha em branco quer dizer nulo:</p>
-
-<p>Aí você pode reconfigurar o null para exibir algo de sua preferência:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\pset null '&lt;nulo&gt;'
-Null display is "&lt;nulo&gt;".
-db=# select null;
-?column?
-&lt;nulo&gt;
-</code></pre></div></div>
-
-<p>Lembrando que é unicode também, e você pode ter os seus próprios emojis
-pra tornar tudo mais divertido:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="err">\</span><span class="n">pset</span> <span class="k">null</span> <span class="s1">'🙈'</span>
-<span class="k">Null</span> <span class="n">display</span> <span class="k">is</span> <span class="nv">"🙈"</span><span class="p">.</span>
-</code></pre></div></div>
-
-<p>Adoro esse macaquinho, bora testar ;)</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">null</span><span class="p">;</span>
-<span class="o">?</span><span class="k">column</span><span class="o">?</span>
-<span class="err">🙈</span>
-</code></pre></div></div>
-
-<h2 id="watch-para-assistir-queries"><code class="language-plaintext highlighter-rouge">\watch</code> para assistir queries</h2>
-
-<p>O comando <code class="language-plaintext highlighter-rouge">\watch</code> é  incrível pra evitar você ficar repetindo o mesmo comando e
-permite vc criar um mini-dashboard, literalmente assistindo uma determinada
-query.</p>
-
-<p>Então se você executou uma query como:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">tabela</span> <span class="k">order</span> <span class="k">by</span> <span class="n">id</span> <span class="k">desc</span> <span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
-</code></pre></div></div>
-<p>Este comando irá mostrar os últimos dez registros da tabela.</p>
-
-<p>Muitas vezes você quer ficar assistindo o comando e vendo novos registros, então
-fica freneticamente acessando o histórico e reexecutando a consulta.</p>
-
-<p>Você pode usar o <code class="language-plaintext highlighter-rouge">\gexec</code> para fazer o mesmo e evitar redigitar a query ou
-acessar o histórico.</p>
-
-<h2 id="aprenda-mais">Aprenda mais</h2>
-
-<p>O site <a href="https://psql-tips.org">psql-tips.org</a> é muito bom para aprender mais
-sobre psql. A Lætitia Avrot tem uma palestra muito boa chamada
-<a href="https://www.youtube.com/watch?v=2oFbnJDlwIw"><code class="language-plaintext highlighter-rouge">psql</code> is awesome!</a> com várias
-dicas práticas para aprender mais.
-Se você estiver com dúvidas como instalar o psql, pode ver esse tutorial da
-timescale <a href="https://docs.timescale.com/timescaledb/latest/how-to-guides/connecting/psql/#install-psql-on-macos">how to install psql</a>
-que contém detalhes sobre como instalar nos principais sistemas operacionais.</p>
-
-<p>Gostou do conteúdo, faltou algum comando essencial?
-Me chama no <a href="https://twitter.com/jonatasdp">twitter</a> ou <a href="https://br.linkedin.com/in/jonatasdp">linkedin</a>.</p>
-
-<p>O conteúdo da minha palestra também foi publicado no github. Você pode ver no
-repositório <a href="https://github.com/jonatas/pgconfbr2022-talk">pgconfbr2022-talk</a>.</p>
+<ul>
+  <li><strong>empathy</strong>: how can I provoke emotions in the old hands to welcome newcomers with
+  compassion. Later, how can I proactively drive newcomers with compassion?
+  encourage them to support and build solid bridges and a trustful connection?</li>
+  <li><strong>structure</strong>: how to organize the onboarding activities to build a solid program
+  that can be easy to learn and bond real connection with team members?</li>
+  <li><strong>encouragement</strong>: how to unlock newcomers bias and let them develop healthy
+  habits to not get affected by the impostor syndrome?</li>
+  <li><strong>being yourself</strong>: convincing yourself about your identity and improving your
+  power by respecting your nature. How to conquer confidence to just expose
+  your ideas with no fear?</li>
+  <li><strong>activities</strong>: ideas to try with newcomers and old hands. Programs that you can
+  build at your company and practical exercises you can try with your team to
+  build up more connection and knowledge sharing.</li>
+</ul>
 
 <hr />
 
 <ul class="posts">
+ 
+  <li><span class="post_date">30 Aug 2022</span> &raquo;<a class="post" href="/writing-plans">Writing plans</a></li>
  
   <li><span class="post_date">29 Aug 2022</span> &raquo;<a class="post" href="/pgconfbr-talk">PGConf Brasil</a></li>
  
