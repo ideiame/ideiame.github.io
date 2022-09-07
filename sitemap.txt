@@ -9,6 +9,7 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/using-the-timescale-gem-with-ruby
 https://ideia.me/writing-plans
 https://ideia.me/pgconfbr-talk
 https://ideia.me/time-series-benchmark-timescaledb-raspberry-pi
