@@ -367,7 +367,8 @@ generate some fake data to just understand how to use it.</p>
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p>In the background, the following query is being executed:</p>
+<p>The <code class="language-plaintext highlighter-rouge">create_continuous_aggregates</code> method is available in the connection scope that is the same of the Rails Migrations.
+In the background, the following query is being executed:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">ohlc_1m</span>
 <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
