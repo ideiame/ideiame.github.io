@@ -9,6 +9,7 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/identify-your-needs-and-feelings
 https://ideia.me/timescale-continuous-aggregates-with-ruby
 https://ideia.me/tips-to-duplicate-massive-time-series-data-on-postgresql
 https://ideia.me/using-the-timescale-gem-with-ruby
