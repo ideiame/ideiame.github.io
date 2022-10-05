@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Load error - libpq no such file</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
+
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) {
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       }
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="https://github.com/jonatas">Github</a></li>
+              <li><a href="https://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="https://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="https://www.meetup.com/Floripa-on-Rails/members/185190193/">Meetup</a></li>
+              <li><a href="https://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
+            <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
+            <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Load error - libpq no such file <small><br/>05/10/2022
+    
+      <span class="categories">
+        
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>This week I was updating my <a href="https://github.com/timescale/timescaledb">TimescaleDB extension</a> locally on my Macbook M1, and it seems I broke other stuff as I ended up in a recursive upgrade of extra tools.</p>
+
+<p>I end up facing the following error:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Library not loaded: '/usr/local/opt/postgresql/lib/libpq.5.dylib' (LoadError)
+</code></pre></div></div>
+
+<p>Basically, TimescaleDB 2.8 brew formula <a href="https://github.com/timescale/homebrew-tap/pull/24">needs the postgresql@14</a> version.
+Postgres 14 version used the latest homebrew using the latest Apple Development Utilities, forcing me to restart my computer and wait for 20 minutes to finally release it.</p>
+
+<p>After everything was fresh and new, my application stopped working.</p>
+
+<p>As the code depends on ActiveRecord using Postgresql and a new version was built, the old version links were not available anymore.</p>
+
+<p>Here is the entire error message:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/.../.rbenv/versions/.../lib/ruby/gems/.../gems/pg-1.4.3/lib/pg.rb:49:in `require': dlopen(/Users/jonatasdp/.rbenv/versions/.../lib/ruby/gems/.../gems/pg-1.4.3/lib/pg_ext.bundle, 0x0009): Library not loaded: '/usr/local/opt/postgresql/lib/libpq.5.dylib' (LoadError)
+  Referenced from: '.../.rbenv/versions/.../lib/ruby/gems/.../gems/pg-1.4.3/lib/pg_ext.bundle'
+  Reason: tried: '/usr/local/opt/postgresql/lib/libpq.5.dylib' (no such file), '/usr/local/lib/libpq.5.dylib' (no such file), '/usr/lib/libpq.5.dylib' (no such file), '/usr/local/Cellar/postgresql@14/14.5_5/lib/libpq.5.dylib' (no such file), '/usr/local/lib/libpq.5.dylib' (no such file), '/usr/lib/libpq.5.dylib' (no such file) - /.../.rbenv/versions/.../lib/ruby/gems/.../gems/pg-1.4.3/lib/pg_ext.bundle
+</code></pre></div></div>
+
+<h2 id="solution-to-fix-libpq-no-such-file-on-mac">Solution to fix libpq no such file on Mac</h2>
+
+<p>To solve the issue, I just reinstalled the gem pg.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem install pg
+</code></pre></div></div>
+
+<p>Ready! It’s back to work!</p>
+
+<p>If the previous command still does not work for you, try to reinstall it:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gem uninstall pg
+gem install pg
+</code></pre></div></div>
+
+<p>If it is still not working, try to reinstall libpq:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>brew install libpq
+gem install pg -- --with-pg-config=/usr/local/opt/libpq/bin/pg_config
+</code></pre></div></div>
+
+<p>If you’re fighting with dependencies, you’re not alone! Check <a href="https://stackoverflow.com/questions/3116015/how-to-install-postgresqls-pg-gem-on-ubuntu">this StackOverflow issue</a> for more details.</p>
+
+<p>Happy coding!</p>
+
+
+</div>
+<hr>
+
+<div class="share-page">
+  Share &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Load error - libpq no such file&url=https://ideia.me/libpq-no-such-file-load-error&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Share on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=https://ideia.me/libpq-no-such-file-load-error" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://ideia.me/libpq-no-such-file-load-error" rel="nofollow" target="_blank" title="Share on Linkedin">Linkedin</a>
+</div>
+<hr>
+<div class="pagination">
+    
+      <span class="prev">
+        <a href="/identify-your-needs-and-feelings" title="Identify Your Needs And Feelings">&larr; Before</a>
+      </span>
+    
+    | <span><a href="/archive.html">Archive</a></span> |
+    
+    <span class="next disabled"><a>Next &rarr;</a>
+    
+</div>
+<hr>
+
+<p>
+  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
+  <br />
+  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
+  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
+</p>
+<p>Check my
+  <a href="/talks">talks</a> or connect with me via
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+  <script type='text/javascript'>
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+      var pageTracker = _gat._getTracker("UA-12893758-1");
+      pageTracker._trackPageview();
+     } catch(err) {}
+    </script>
+</html>
+
