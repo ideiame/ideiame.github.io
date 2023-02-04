@@ -9,6 +9,7 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/hierarchical-continuous-aggregates-with-ruby
 https://ideia.me/activerecord-update-without-primary-key
 https://ideia.me/libpq-no-such-file-load-error
 https://ideia.me/identify-your-needs-and-feelings
