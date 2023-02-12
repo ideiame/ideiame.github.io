@@ -10,6 +10,7 @@ https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
 https://ideia.me/two-ways-to-notify-new-data-from-timescaledb-continuous-aggregates
+https://ideia.me/life-before-and-after-gpt
 https://ideia.me/hierarchical-continuous-aggregates-with-ruby
 https://ideia.me/activerecord-update-without-primary-key
 https://ideia.me/libpq-no-such-file-load-error
