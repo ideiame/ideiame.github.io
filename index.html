@@ -219,6 +219,20 @@
   <span class="nv">"volume"</span> <span class="nb">float</span>
 <span class="p">);</span>
 </code></pre></div></div>
+
+<h3 id="creating-a-hypertable">Creating a hypertable</h3>
+
+<p>To create a hypertable in TimescaleDB, we use the create_hypertable function. This function takes the name of the table we want to convert to a hypertable, the name of the time column, and an optional argument chunk_time_interval that specifies the duration of each chunk.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'ticks'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">,</span> <span class="n">chunk_time_interval</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">'1 day'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>In the above code, we create a hypertable named ticks using the create_hypertable function. The hypertable is created based on the ticks table and is partitioned on the time column. We set the chunk_time_interval parameter to INTERVAL ‘1 day’ to specify that each chunk should contain data for a single day.</p>
+
+<p>By using hypertables, we can improve the performance of our time-series data queries, as TimescaleDB can efficiently index and manage large volumes of time-series data.</p>
+
+<h3 id="creating-the-continuous-aggregate">Creating the continuous aggregate</h3>
+
 <p>Now, let’s create a continuous aggregate materialized view that aggregates the tick data on a 10 second time interval:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_10s</span>
