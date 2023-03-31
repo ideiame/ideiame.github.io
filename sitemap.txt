@@ -9,6 +9,8 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/sirva-sua-comunidade
+https://ideia.me/serve-your-community
 https://ideia.me/two-ways-to-notify-new-data-from-timescaledb-continuous-aggregates
 https://ideia.me/life-before-and-after-gpt
 https://ideia.me/hierarchical-continuous-aggregates-with-ruby

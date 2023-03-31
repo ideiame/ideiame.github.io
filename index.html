@@ -193,247 +193,89 @@
 
 <hr />
 
-<h1 class="post"><a class="post" href="/two-ways-to-notify-new-data-from-timescaledb-continuous-aggregates"> Two ways to notify new data from Timescaledb Continuous Aggregates</a></h1>
-<p>As a Developer Advocate at Timescale, I have a unique opportunity to work with the community and teach people how to use TimescaleDB. Recently, a community member asked about a way to publish the results of the continuous aggregate to a messaging system. This sparked my interest, and I challenged myself to come up with a solution.</p>
+<h1 class="post"><a class="post" href="/sirva-sua-comunidade"> Sirva Sua Comunidade</a></h1>
+<p>Nos últimos anos, me sinto muito “sortudo” com todas as aprovações que recebi
+para falar em conferências e participar ativamente de diferentes comunidades de tecnologia.
+Muitas vezes converso com pessoas que reclamam por não receberem aprovações para falar.
+Observando os argumentos, decidi escrever sobre os aprendizados que obtive ao
+enviar propostas nos últimos 8 anos.</p>
 
-<p>In this article, I will share my approach to the problem. First, I will introduce the basics of materialized views with continuous aggregates in TimescaleDB. Then, I will show how to use a trigger-based solution to publish the results to a messaging system. Finally, I will demonstrate how to use background jobs to achieve the same result.</p>
+<p>O principal recurso que você tem para ser aprovado é a sua própria experiência e reputação,
+e muitas vezes sua reputação não corresponde às necessidades reais da comunidade. Resumindo,
+aqui está a minha aposta: <strong>Sirva sua comunidade</strong>. Tente propor valor para a
+comunidade e não o que você quer compartilhar com eles. Se você for convidado para liderar
+uma sessão de abertura, talvez você já esteja um passo à frente e poderá
+compartilhar pensamentos mais inspiradores. Caso contrário, esteja a serviço de sua comunidade.</p>
 
-<h2 id="introduction">Introduction</h2>
+<p>Agora, vamos mergulhar mais a fundo em algumas perguntas para melhor atender sua comunidade e
+obter mais aprovações para participações em palestras públicas.</p>
 
-<p>For a long time, working with real-time data in SQL databases was a cumbersome task, but it’s now easier with TimescaleDB. This article explains how to create materialized views with continuous aggregates to process real-time data.</p>
+<h2 id="eu-tenho-alguma-reputação-real-para-falar-sobre-este-tópico">Eu tenho alguma reputação real para falar sobre este tópico?</h2>
 
-<p>We will use stock tick data to demonstrate the process. The following code creates a table to store the tick data and a materialized view with continuous aggregates to generate candlesticks:</p>
+<p>Estimo que elaborei mais de 50 propostas para conferências e acabei
+enviando para dezenas delas e sendo aprovado em algumas.</p>
 
-<p>If you’ve worked with real-time data before, you’re probably aware of the challenges it presents. Real-time data is a fast-moving stream of information, and it requires near-instant processing to make the most out of it. However, this is often difficult to achieve with SQL databases, which are traditionally designed to handle slower moving, more static data.</p>
+<p>Comecei minha experiência em falar em público dando palestras internamente no meu local de trabalho, depois em pequenos
+encontros e, em seguida, fui para conferências de verdade. Essa foi a evolução até eu chegar
+no meu primeiro grande palco com centenas de pessoas.</p>
 
-<p>Enter TimescaleDB, a powerful and flexible extension of PostgreSQL designed to handle high-velocity time-series data. Among its many features, TimescaleDB enables developers to create materialized views with continuous aggregates to process real-time data with ease. In this article, we will explore how to leverage these capabilities to build a real-time data pipeline for processing stock tick data.</p>
+<p>Compartilhando minha experiência pessoal, aprendi muito com cada palestra que dei. Em algumas, fiquei mais nervoso do que o esperado, em outras, o público se mostrou mais engajado do que eu imaginava. O importante é continuar aprendendo e melhorando.</p>
 
-<h2 id="building-a-real-time-data-pipeline">Building a Real-Time Data Pipeline</h2>
+<h2 id="como-servir-minha-comunidade">Como servir minha comunidade</h2>
 
-<p>In this section, we will walk through an example of how to build a real-time data pipeline using TimescaleDB. Let’s assume we have a table of stock tick data, which includes the timestamp of the trade, the stock symbol, the price, and the volume.</p>
+<p>Palestras não são sobre você. São sobre as necessidades da comunidade. Se você não está
+sendo aprovado, não é porque seu tópico não é bom o suficiente ou você não tem
+a experiência necessária, é porque você está propondo um tópico que não se encaixa no público.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nv">"ticks"</span> <span class="p">(</span>
-  <span class="nv">"time"</span> <span class="nb">timestamp</span> <span class="k">with</span> <span class="nb">time</span> <span class="k">zone</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span> 
-  <span class="nv">"symbol"</span> <span class="nb">text</span><span class="p">,</span> 
-  <span class="nv">"price"</span> <span class="nb">decimal</span><span class="p">,</span> 
-  <span class="nv">"volume"</span> <span class="nb">float</span>
-<span class="p">);</span>
-</code></pre></div></div>
+<p>Uma das melhores maneiras de entender as necessidades da comunidade é encontrar uma comunidade que
+você realmente gosta e participar do processo de revisão.</p>
 
-<h3 id="creating-a-hypertable">Creating a hypertable</h3>
+<p>Se você ajudar a revisar as propostas de conferências, depois de analisar vários
+trabalhos, você entenderá que escolher as propostas é um trabalho difícil.</p>
 
-<p>To create a hypertable in TimescaleDB, we use the create_hypertable function. This function takes the name of the table we want to convert to a hypertable, the name of the time column, and an optional argument chunk_time_interval that specifies the duration of each chunk.</p>
+<p>Eventos de tecnologia são projetados para serem <strong>I</strong>nclusivos, <strong>I</strong>nstrutivos e <strong>I</strong>nspiradores.
+Cada conferência precisa dessa mistura para receber pessoas de todos os níveis e garantir
+que todos obtenham a combinação do triplo <strong>I</strong>.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'ticks'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">,</span> <span class="n">chunk_time_interval</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">'1 day'</span><span class="p">);</span>
-</code></pre></div></div>
+<p>Ser <strong>inclusivo</strong> significa trazer tópicos para todos os níveis. Iniciantes
+são aqueles que precisam de mais apoio, pois estão começando suas carreiras e, se você
+não tem uma grande experiência em falar em público, eles são o público perfeito para você.</p>
 
-<p>In the above code, we create a hypertable named ticks using the create_hypertable function. The hypertable is created based on the ticks table and is partitioned on the time column. We set the chunk_time_interval parameter to INTERVAL ‘1 day’ to specify that each chunk should contain data for a single day.</p>
+<p>Ser instrutivo significa que as pessoas voltarão para casa com um novo conhecimento que
+você vai compartilhar. Então, primeiro, pergunte-se o que aprendeu que
+potencialmente outras pessoas poderiam se beneficiar. Não precisa ser complexo ou
+pesado. Geralmente tento observar que tipo de experiências, dicas e truques me trouxeram entusiasmo e sucesso e compartilhar isso com os outros.</p>
 
-<p>By using hypertables, we can improve the performance of our time-series data queries, as TimescaleDB can efficiently index and manage large volumes of time-series data.</p>
+<p>Ser inspirador é especialmente importante quando você está dando uma palestra principal. Essas palestras geralmente definem o tom de uma conferência, então traga energia e inspiração para sua apresentação. Quanto mais você ensaiar e refinar seus objetivos de comunicação, melhor estará equipado para inspirar seu público.</p>
 
-<h3 id="creating-the-continuous-aggregate">Creating the continuous aggregate</h3>
+<p>Nas minhas palestras, percebi que combinar minha experiência pessoal com uma mensagem motivadora e informações valiosas tem um impacto positivo no público. Às vezes, as pessoas vêm até mim após uma palestra para agradecer ou fazer perguntas, e isso é uma grande satisfação.</p>
 
-<p>Now, let’s create a continuous aggregate materialized view that aggregates the tick data on a 10 second time interval:</p>
+<p>Perguntas para validar sua proposta</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_10s</span>
-<span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
-<span class="k">SELECT</span> 
-  <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'10s'</span><span class="p">,</span> <span class="nb">time</span><span class="p">),</span>
-  <span class="nv">"ticks"</span><span class="p">.</span><span class="nv">"symbol"</span><span class="p">,</span>
-  <span class="n">toolkit_experimental</span><span class="p">.</span><span class="n">candlestick_agg</span><span class="p">(</span><span class="nb">time</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">volume</span><span class="p">)</span> <span class="k">as</span> <span class="n">candlestick</span>
-<span class="k">FROM</span> <span class="nv">"ticks"</span>
-<span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
-<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
-<span class="k">WITH</span> <span class="k">DATA</span><span class="p">;</span>
-</code></pre></div></div>
+<p>Algumas perguntas importantes que você deve se fazer ao elaborar sua proposta de palestra são:</p>
 
-<p>The above view calculates the candlestick data for the 10-second interval using the candlestick_agg function from the TimescaleDB toolkit. We group the data by the 10-second interval and the stock symbol, and we order the result by the interval start time.</p>
+<ul>
+  <li>O público precisa da minha palestra?</li>
+  <li>Meu tema é relevante para o público?</li>
+  <li>Quem eu espero inspirar com minha proposta?</li>
+  <li>Qual é o resultado para a comunidade?</li>
+  <li>O que o público será capaz de fazer após a minha apresentação?</li>
+  <li>Essas perguntas podem ajudá-lo a garantir que sua palestra seja relevante e significativa para a comunidade que você deseja atender. Ao longo do tempo, desenvolvi minhas próprias perguntas para garantir que minhas palestras sejam valiosas para meu público.</li>
+</ul>
 
-<p>Next, we can create a continuous aggregate materialized view that aggregates the 10-second candlestick data on a 1-minute time interval:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_1m</span>
-<span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span> <span class="p">)</span> <span class="k">AS</span>
-<span class="k">SELECT</span> 
-  <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1m'</span><span class="p">,</span> <span class="nv">"time_bucket"</span><span class="p">),</span>
-  <span class="n">symbol</span><span class="p">,</span>
-  <span class="n">toolkit_experimental</span><span class="p">.</span><span class="k">rollup</span><span class="p">(</span><span class="n">candlestick</span><span class="p">)</span> <span class="k">as</span> <span class="n">candlestick</span> 
-<span class="k">FROM</span> <span class="nv">"candlestick_10s"</span>
-<span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
-<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
-<span class="k">WITH</span> <span class="k">NO</span> <span class="k">DATA</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>The above view rolls up the 10-second candlestick data into the 1-minute intervals using the rollup function from the TimescaleDB toolkit. We group the data by the 1-minute interval and the stock symbol, and we order the result by the interval start time.</p>
-
-<p>Finally, we can create a continuous aggregate materialized view that aggregates the 1-minute candlestick data on a 5-minute time interval:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_5m</span>
-<span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
-<span class="k">SELECT</span> 
-  <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'5m'</span><span class="p">,</span> <span class="nv">"time_bucket"</span><span class="p">),</span>
-  <span class="n">symbol</span><span class="p">,</span>
-  <span class="n">toolkit_experimental</span><span class="p">.</span><span class="k">rollup</span><span class="p">(</span><span class="n">candlestick</span><span class="p">)</span> <span class="k">as</span> <span class="n">candlestick</span>
-<span class="k">FROM</span> <span class="nv">"candlestick_1m"</span>
-<span class="k">GROUP</span> <span class="k">BY</span>
-</code></pre></div></div>
-
-<h2 id="trigger-based-solution-to-notify-new-row">Trigger-based solution to notify new row</h2>
-
-<p>To notify when a new row is added to the ticks table, we can use a trigger to send a notification to a listening client. Here’s how to create the trigger:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">FUNCTION</span> <span class="n">notify_new_row</span><span class="p">()</span> <span class="k">RETURNS</span> <span class="k">TRIGGER</span> <span class="k">AS</span> <span class="err">$$</span>
-  <span class="k">DECLARE</span>
-  <span class="n">threshold</span> <span class="n">INTERVAL</span> <span class="p">:</span><span class="o">=</span> <span class="n">INTERVAL</span> <span class="s1">'0 seconds'</span><span class="p">;</span>
-  <span class="n">candlestick</span> <span class="n">record</span><span class="p">;</span>
-<span class="k">BEGIN</span>
-  <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">candlestick_1m</span>
-  <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">time_bucket</span> <span class="k">DESC</span> <span class="k">LIMIT</span> <span class="mi">1</span>
-  <span class="k">INTO</span> <span class="n">candlestick</span><span class="p">;</span>
-  <span class="n">IF</span> <span class="p">(</span><span class="k">NEW</span><span class="p">.</span><span class="nb">time</span> <span class="o">-</span> <span class="n">m1</span><span class="p">.</span><span class="n">time_bucket</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">threshold</span> <span class="k">THEN</span>
-    <span class="n">PERFORM</span> <span class="n">pg_notify</span><span class="p">(</span><span class="s1">'m1'</span><span class="p">,</span> <span class="n">row_to_json</span><span class="p">(</span><span class="n">m1</span><span class="p">)::</span><span class="nb">text</span><span class="p">);</span>
-  <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
-  <span class="k">RETURN</span> <span class="k">NEW</span><span class="p">;</span>
-<span class="k">END</span><span class="p">;</span>
-<span class="err">$$</span> <span class="k">LANGUAGE</span> <span class="n">plpgsql</span><span class="p">;</span>
-
-<span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="n">notify_new_row_trigger</span>
-<span class="k">AFTER</span> <span class="k">INSERT</span> <span class="k">ON</span> <span class="n">ticks</span>
-<span class="k">FOR</span> <span class="k">EACH</span> <span class="k">ROW</span>
-<span class="k">EXECUTE</span> <span class="k">FUNCTION</span> <span class="n">notify_new_row</span><span class="p">();</span>
-</code></pre></div></div>
-
-<p>The <code class="language-plaintext highlighter-rouge">notify_new_row</code> function selects the latest <code class="language-plaintext highlighter-rouge">candlestick_1m</code> row and compares its time_bucket value to the time value of the newly inserted row in the ticks table. If the difference is greater than or equal to the specified threshold, the function sends a notification to a listening client using the pg_notify function.</p>
-
-<p>The <code class="language-plaintext highlighter-rouge">notify_new_row_trigger</code> trigger executes the <code class="language-plaintext highlighter-rouge">notify_new_row</code> function for each new row inserted into the ticks table.</p>
-
-<p>With the above solution, we can keep track of newly inserted rows and notify our clients in real-time.</p>
-
-<h2 id="background-jobs-to-publish-the-results-to-a-messaging-system">Background Jobs to publish the results to a messaging system</h2>
-
-<p>To make the process of publishing the results of a continuous aggregate to a messaging system more efficient, we can use background jobs. Instead of inserting each new candlestick into a notifications table and then listening for changes, we can use TimescaleDB’s job scheduling system to run a job that sends a notification each time a new candlestick is generated. Here’s how to create the background jobs:</p>
-
-<h3 id="define-the-background-job">Define the Background Job</h3>
-
-<p>So far, we’ve seen how to create materialized views with continuous aggregates to process real-time data. However, one critical aspect of real-time data pipelines is the ability to execute background jobs. TimescaleDB offers a powerful job scheduling system that enables developers to run complex jobs in the background.</p>
-
-<p>In our example, we will create two background jobs: one to simulate the stock tick data and another to notify us when a new candlestick is generated. A few other will run to feed the continuous aggregates materialized views.</p>
-
-<p>First, let’s create a procedure to simulate the tick data:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">simulate_tick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
-<span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
-<span class="k">DECLARE</span>
-  <span class="n">candlestick</span> <span class="n">record</span> <span class="p">:</span><span class="o">=</span> <span class="k">null</span><span class="p">;</span>
-<span class="k">BEGIN</span>
-  <span class="k">EXECUTE</span> <span class="s1">'INSERT INTO ticks
-    SELECT now(), $1,
-      (random()*30)::int,
-      100*(random()*10)::int'</span>
-    <span class="k">USING</span> <span class="n">config</span><span class="o">-&gt;&gt;</span><span class="s1">'symbol'</span><span class="p">;</span>
-<span class="k">END</span>
-<span class="err">$$</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>The procedure takes in a configuration object that specifies the stock symbol to use. It generates random tick data for the specified symbol and inserts it into the ticks table.</p>
-
-<h2 id="schedule-the-background-job">Schedule the background job</h2>
-
-<p>Next, let’s create a background job to run the procedure every second for two different symbols:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'simulate_tick'</span><span class="p">,</span> <span class="s1">'1s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"symbol": "APPL"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-<span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'simulate_tick'</span><span class="p">,</span> <span class="s1">'0.5s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"symbol": "GOOG"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-</code></pre></div></div>
-
-<p>The above code schedules the <code class="language-plaintext highlighter-rouge">simulate_tick</code> procedure to run every second for the APPL symbol and every 0.5 seconds for the GOOG symbol.</p>
-
-<p>Now, let’s create a procedure to notify us when a new candlestick is generated:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">notify_new_candlestick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
-<span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
-<span class="k">DECLARE</span>
-  <span class="n">view_name</span> <span class="nb">TEXT</span> <span class="p">:</span><span class="o">=</span> <span class="n">config</span> <span class="o">-&gt;&gt;</span> <span class="s1">'view_name'</span><span class="p">;</span>
-  <span class="n">last_row</span> <span class="n">RECORD</span><span class="p">;</span>
-<span class="k">BEGIN</span>
-  <span class="k">EXECUTE</span> <span class="n">format</span><span class="p">(</span><span class="s1">'SELECT * FROM %I ORDER BY time_bucket DESC LIMIT 1'</span><span class="p">,</span> <span class="n">view_name</span><span class="p">)</span>
-  <span class="k">INTO</span> <span class="n">last_row</span><span class="p">;</span>
-  <span class="n">PERFORM</span> <span class="n">pg_notify</span><span class="p">(</span><span class="n">view_name</span><span class="p">,</span> <span class="n">row_to_json</span><span class="p">(</span><span class="n">last_row</span><span class="p">)::</span><span class="nb">text</span><span class="p">);</span>
-<span class="k">END</span>
-<span class="err">$$</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>The procedure takes in a configuration object that specifies the name of the view to monitor. It retrieves the most recent candlestick from the specified view and sends a notification with the view name and the JSON representation of the candlestick.</p>
-
-<p>Finally, let’s create background jobs to monitor the three materialized views we created earlier:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'notify_new_candlestick'</span><span class="p">,</span> <span class="s1">'10s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"view_name": "candlestick_10s"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-<span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'notify_new_candlestick'</span><span class="p">,</span> <span class="s1">'1m'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"view_name": "candlestick_1m"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-<span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'notify_new_candlestick'</span><span class="p">,</span> <span class="s1">'5m'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"view_name": "candlestick_5m"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-</code></pre></div></div>
-<p>he above code schedules the notify_new_candlestick procedure to run every 10 seconds for the 10-second candlestick view, every minute for the 1-minute candlestick view, and every 5 minutes for the 5-minute candlestick view.</p>
-
-<p>To listen for notifications, we can use the LISTEN command:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">LISTEN</span> <span class="n">candlestick_10s</span><span class="p">;</span>
-<span class="k">LISTEN</span> <span class="n">candlestick_1m</span><span class="p">;</span>
-<span class="k">LISTEN</span> <span class="n">candlestick_5m</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>With the LISTEN command in place, we can use the NOTIFY command to receive notifications whenever a new candlestick is generated:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">notify_new_candlestick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
-<span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
-<span class="k">DECLARE</span>
-  <span class="n">view_name</span> <span class="nb">TEXT</span> <span class="p">:</span><span class="o">=</span> <span class="n">config</span> <span class="o">-&gt;&gt;</span> <span class="s1">'view_name'</span><span class="p">;</span>
-  <span class="n">last_row</span> <span class="n">RECORD</span><span class="p">;</span>
-<span class="k">BEGIN</span>
-  <span class="k">EXECUTE</span> <span class="n">format</span><span class="p">(</span><span class="s1">'SELECT * FROM %I ORDER BY time_bucket DESC LIMIT 1'</span><span class="p">,</span> <span class="n">view_name</span><span class="p">)</span>
-  <span class="k">INTO</span> <span class="n">last_row</span><span class="p">;</span>
-  <span class="n">PERFORM</span> <span class="n">pg_notify</span><span class="p">(</span><span class="n">view_name</span><span class="p">,</span> <span class="n">row_to_json</span><span class="p">(</span><span class="n">last_row</span><span class="p">)::</span><span class="nb">text</span><span class="p">);</span>
-<span class="k">END</span>
-<span class="err">$$</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>First, let’s create a procedure to simulate the tick data:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">simulate_tick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
-<span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
-<span class="k">DECLARE</span>
-  <span class="n">candlestick</span> <span class="n">record</span> <span class="p">:</span><span class="o">=</span> <span class="k">null</span><span class="p">;</span>
-<span class="k">BEGIN</span>
-  <span class="k">EXECUTE</span> <span class="s1">'INSERT INTO ticks
-    SELECT now(), $1,
-      (random()*30)::int,
-      100*(random()*10)::int'</span>
-    <span class="k">USING</span> <span class="n">config</span><span class="o">-&gt;&gt;</span><span class="s1">'symbol'</span><span class="p">;</span>
-<span class="k">END</span>
-<span class="err">$$</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>The procedure takes in a configuration object that specifies the stock symbol to use. It generates random tick data for the specified symbol and inserts it into the ticks table.</p>
-
-<p>Next, let’s create a background job to run the procedure every second for two different symbols:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'simulate_tick'</span><span class="p">,</span> <span class="s1">'1s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"symbol": "APPL"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-<span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'simulate_tick'</span><span class="p">,</span> <span class="s1">'0.5s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"symbol": "GOOG"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-</code></pre></div></div>
-
-<p>The above code schedules the <code class="language-plaintext highlighter-rouge">simulate_tick</code> procedure to run every second for the APPL symbol and every 0.5 seconds for the GOOG symbol.</p>
-
-<p>With this procedure in place, we can simulate real-time data and test our <a href="https://docs.timescale.com/timescaledb/latest/how-to-guides/continuous-aggregates/hierarchical-continuous-aggregates/">hierarchical continuous aggregates</a>.</p>
-
-<h2 id="conclusion">Conclusion</h2>
-
-<p>In this article, we explored how to use materialized views with continuous aggregates to process real-time data in TimescaleDB. We covered the basics of creating and managing materialized views and showed how to use continuous aggregates to generate hierarchical views of time-series data.</p>
-
-<p>We also demonstrated how to execute background jobs in TimescaleDB to simulate real-time data and send notifications when new data is generated. By using materialized views and continuous aggregates, we can gain real-time insights into our data and make better-informed decisions.</p>
-
-<p>With the above solutions, we can publish the results of <a href="https://docs.timescale.com/timescaledb/latest/overview/core-concepts/continuous-aggregates/">continuous aggregates</a> to a messaging system and keep our data pipelines real-time.</p>
-
-<p>If you’re interested in learning more about TimescaleDB or have questions about the solutions presented in this article, please don’t hesitate to reach out. Join the <a href="https://www.timescale.com/community/">Timescale community</a> and talk directly to me. I’m happy to help!</p>
+<p>Em resumo, estar a serviço da comunidade e ter em mente os objetivos de
+inclusão, instrução e inspiração ao propor uma palestra são essenciais para
+aumentar suas chances de ser aprovado em conferências e eventos. Sua experiência
+pessoal e estilo de apresentação únicos também contribuirão para o sucesso de
+suas palestras.</p>
 
 <hr />
 
 <ul class="posts">
+ 
+  <li><span class="post_date">30 Mar 2023</span> &raquo;<a class="post" href="/sirva-sua-comunidade">Sirva Sua Comunidade</a></li>
+ 
+  <li><span class="post_date">30 Mar 2023</span> &raquo;<a class="post" href="/serve-your-community">Serve Your Community</a></li>
  
   <li><span class="post_date">12 Feb 2023</span> &raquo;<a class="post" href="/two-ways-to-notify-new-data-from-timescaledb-continuous-aggregates">Two ways to notify new data from Timescaledb Continuous Aggregates</a></li>
  
