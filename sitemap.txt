@@ -8,6 +8,7 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/sonification-device
 https://ideia.me/sirva-sua-comunidade
 https://ideia.me/serve-your-community
 https://ideia.me/two-ways-to-notify-new-data-from-timescaledb-continuous-aggregates
