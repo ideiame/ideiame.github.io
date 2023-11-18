@@ -8,6 +8,7 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/fast-supports-sql
 https://ideia.me/sonification-device
 https://ideia.me/dispositivo-sonificacao
 https://ideia.me/sirva-sua-comunidade
