@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NV80WM9HT0"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-NV80WM9HT0');
+</script>
+
+    <script async
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1171230226237014"
+crossorigin="anonymous"></script>
+
+    <meta charset="utf-8">
+    <title>Building a SQL formatter with Fast</title>
+    
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
+    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
+
+    <script src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) {
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       }
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <a href="/">
+            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+           </button>
+       </div>
+   <div class="navbar-collapse collapse" id="navbar-main">
+     <ul class="nav navbar-nav">
+      <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="swatch-menu">
+              <li><a href="https://github.com/jonatas">Github</a></li>
+              <li><a href="https://twitter.com/jonatasdp">Twitter</a></li>
+              <li><a href="https://instagram.com/jonatasdp">Instagram</a></li>
+              <li><a href="https://www.meetup.com/Floripa-on-Rails/members/185190193/">Meetup</a></li>
+              <li><a href="https://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
+              <li><a href="https://facebook.com/jonatas.paganini">Facebook</a></li>
+              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
+           </ul>
+          </li>
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
+            <ul class="dropdown-menu">
+            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
+            <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
+            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
+            <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
+            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
+            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
+           </ul>
+          </li>
+          
+          
+          
+
+
+  
+    
+      
+      	
+      	<li><a href="/archive">Arquivo</a></li>
+      	
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/categories">Categorias</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+      	
+      	<li><a href="/pages">Pages</a></li>
+      	
+      
+    
+  
+    
+      
+    
+  
+    
+      
+    
+  
+    
+  
+    
+      
+    
+  
+
+
+
+          </ul>
+        </div>
+      </div>
+     </div>
+    </div>
+    <div class="container">
+      
+<div class="page-header">
+    <h1>
+       <img class="thumb img-circle" src="https://avatars0.githubusercontent.com/u/15484?s=50" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic"></img>
+       Building a SQL formatter with Fast <small><br/>21/11/2023
+    
+      <span class="categories">
+        
+       </span>
+     
+     </small>
+  </h1>
+</div>
+<div class="content">
+    <p>Now that <a href="/fast-supports-sql">fast supports SQL</a>, I will share a few of my exploring toys.</p>
+
+<p>The first is a SQL formatter where you can get some keywords upcased.</p>
+
+<p>My idea is that when I input:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">name</span> <span class="k">from</span> <span class="n">weather_data</span> <span class="k">order</span> <span class="k">by</span> <span class="mi">1</span> <span class="k">asc</span>
+</code></pre></div></div>
+
+<p>it will output</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span> <span class="k">FROM</span> <span class="n">weather_data</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span> <span class="k">ASC</span>
+</code></pre></div></div>
+
+<p>Let’s start understanding every part of the challenge and how to make a generic code that can work with any SQL :)</p>
+
+<h2 id="getting-into-ast-tokens">Getting into AST tokens</h2>
+
+<p>PgQuery is very powerful and can also give you a list of scanned tokens, which contains the classification of each AST node.</p>
+
+<p>As Fast translates the nodes to another class, the scanned tokens stay in the root of the AST inside the source_buffer.</p>
+
+<p>You can access it using the following process:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ast</span> <span class="o">=</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">parse_sql</span><span class="p">(</span><span class="s2">"select name from weather_data order by 1 asc"</span><span class="p">)</span>
+<span class="n">ast</span><span class="p">.</span><span class="nf">loc</span><span class="p">.</span><span class="nf">expression</span><span class="p">.</span><span class="nf">source_buffer</span><span class="p">.</span><span class="nf">tokens</span>
+<span class="c1"># =&gt; [</span>
+<span class="c1">#      &lt;PgQuery::ScanToken: start: 0, end: 6, token: :SELECT, keyword_kind: :RESERVED_KEYWORD&gt;,</span>
+<span class="c1">#      &lt;PgQuery::ScanToken: start: 7, end: 11, token: :NAME_P, keyword_kind: :UNRESERVED_KEYWORD&gt;,</span>
+<span class="c1">#      &lt;PgQuery::ScanToken: start: 12, end: 16, token: :FROM, keyword_kind: :RESERVED_KEYWORD&gt;,</span>
+<span class="c1">#      &lt;PgQuery::ScanToken: start: 17, end: 29, token: :IDENT, keyword_kind: :NO_KEYWORD&gt;,</span>
+<span class="c1">#      &lt;PgQuery::ScanToken: start: 30, end: 35, token: :ORDER, keyword_kind: :RESERVED_KEYWORD&gt;,</span>
+<span class="c1">#      &lt;PgQuery::ScanToken: start: 36, end: 38, token: :BY, keyword_kind: :UNRESERVED_KEYWORD&gt;,</span>
+<span class="c1">#      &lt;PgQuery::ScanToken: start: 39, end: 40, token: :ICONST, keyword_kind: :NO_KEYWORD&gt;,</span>
+<span class="c1">#      &lt;PgQuery::ScanToken: start: 41, end: 44, token: :ASC, keyword_kind: :RESERVED_KEYWORD&gt;</span>
+<span class="c1">#  ]</span>
+</code></pre></div></div>
+
+<p>Then, you can note the <code class="language-plaintext highlighter-rouge">:RESERVED_KEYWORD</code> which represents some of the words.
+We also see that <code class="language-plaintext highlighter-rouge">:BY</code> is a proper candidate to keep upcased.</p>
+
+<p>Now, let’s build a shortcut that can allow you to do it.</p>
+
+<p>You can create a <code class="language-plaintext highlighter-rouge">Fastfile</code> that will be automatically loaded by fast in the
+command line.</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Format SQL</span>
+<span class="no">Fast</span><span class="p">.</span><span class="nf">shortcut</span> <span class="ss">:format_sql</span> <span class="k">do</span>
+  <span class="nb">require</span> <span class="s1">'fast/sql'</span>
+  <span class="n">file</span> <span class="o">=</span> <span class="no">ARGV</span><span class="p">.</span><span class="nf">last</span>
+  <span class="nb">method</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">exist?</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="p">?</span> <span class="ss">:parse_sql_file</span> <span class="p">:</span> <span class="ss">:parse_sql</span>
+  <span class="n">ast</span> <span class="o">=</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">public_send</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
+  <span class="n">ast</span> <span class="o">=</span> <span class="n">ast</span><span class="p">.</span><span class="nf">first</span> <span class="k">if</span> <span class="n">ast</span><span class="p">.</span><span class="nf">is_a?</span> <span class="no">Array</span>
+  <span class="n">eligible_kw</span> <span class="o">=</span> <span class="p">[</span><span class="ss">:RESERVED_KEYWORD</span><span class="p">]</span>
+  <span class="n">eligible_tokens</span> <span class="o">=</span> <span class="p">[</span><span class="ss">:BY</span><span class="p">]</span>
+
+  <span class="n">output</span> <span class="o">=</span> <span class="no">Fast</span><span class="o">::</span><span class="no">SQL</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span> <span class="n">ast</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">root</span><span class="o">|</span>
+    <span class="n">sb</span> <span class="o">=</span> <span class="n">root</span><span class="p">.</span><span class="nf">loc</span><span class="p">.</span><span class="nf">expression</span><span class="p">.</span><span class="nf">source_buffer</span>
+    <span class="n">sb</span><span class="p">.</span><span class="nf">tokens</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">token</span><span class="o">|</span>
+      <span class="k">if</span> <span class="n">eligible_kw</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="nf">keyword_kind</span><span class="p">)</span> <span class="o">||</span> <span class="n">eligible_tokens</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="nf">token</span><span class="p">)</span>
+        <span class="n">range</span> <span class="o">=</span> <span class="no">Parser</span><span class="o">::</span><span class="no">Source</span><span class="o">::</span><span class="no">Range</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">sb</span><span class="p">,</span> <span class="n">token</span><span class="p">.</span><span class="nf">start</span><span class="p">,</span> <span class="n">token</span><span class="p">.</span><span class="nf">end</span><span class="p">)</span>
+        <span class="n">replace</span><span class="p">(</span><span class="n">range</span><span class="p">,</span> <span class="n">range</span><span class="p">.</span><span class="nf">source</span><span class="p">.</span><span class="nf">upcase</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+  <span class="nb">require</span> <span class="s1">'fast/cli'</span>
+  <span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">highlight</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="ss">sql: </span><span class="kp">true</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<p>Using the <a href="https://jonatas.github.io/fast/shortcuts/">shortcuts</a> you can easily
+organize your prototyping scripts.</p>
+
+<p>I’m also documenting it in the <a href="https://jonatas.github.io/fast/sql-support/#format-sql">sql support page</a>.</p>
+
+<p>I also created a video showing how I implemented  this and walking you through
+more details.</p>
+
+<div class="video-container">
+       <iframe width="560" height="420" frameborder="0" allowfullscreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" src="https://www.youtube.com/embed/o0FkOvJqKgs?color=white&amp;theme=light">
+       </iframe>
+    </div>
+
+<p>This is a small toy, not a production case. But, it’s made to have fun.</p>
+
+<p>It can help you prototype a search for your custom case or allow you to experiment with that!</p>
+
+<p>You don’t need to use fast for any of this, but if you use the lib for anything and want to share, feel free to reach out!</p>
+
+<p>This is my personal playground for automated refactoring and code analysis. I see an excellent opportunity to expand/integrate the Ruby + SQL community, as Postgresql is also the default choice for too many Ruby developers. I’m happy to be organizing some conveniences for the Ruby+SQL ecosystem, and I’m so grateful to see too many great people already improving the toolings around this corner, too :)</p>
+
+<p>I am happy to connect via <a href="https://www.linkedin.com/in/jonatasdp">linkedin</a> or open an issue on <a href="https://github.com/jonatas/fast">fast</a>.</p>
+
+<p>Happy coding!</p>
+
+
+</div>
+<hr>
+
+<div class="share-page">
+  Share &rarr;
+  <a href="https://twitter.com/intent/tweet?text=Building a SQL formatter with Fast&url=https://ideia.me/building-a-sql-formatter-with-fast&via=jonatasdp&related=jonatasdp" rel="nofollow"title="Share on twitter">Twitter</a>
+  <a href="https://facebook.com/sharer.php?u=https://ideia.me/building-a-sql-formatter-with-fast" rel="nofollow" target="_blank" title="Share on Facebook">Facebook</a>
+  <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://ideia.me/building-a-sql-formatter-with-fast" rel="nofollow" target="_blank" title="Share on Linkedin">Linkedin</a>
+</div>
+<hr>
+<div class="pagination">
+    
+      <span class="prev">
+        <a href="/fast-supports-sql" title="Fast supports SQL from Postgresql!">&larr; Before</a>
+      </span>
+    
+    | <span><a href="/archive.html">Archive</a></span> |
+    
+    <span class="next disabled"><a>Next &rarr;</a>
+    
+</div>
+<hr>
+
+<p>
+  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
+  <br />
+  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
+  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
+</p>
+<p>Check my
+  <a href="/talks">talks</a> or connect with me via
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+  </body>
+</html>
+
