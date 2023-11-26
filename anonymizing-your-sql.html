@@ -188,12 +188,12 @@ crossorigin="anonymous"></script>
 
 <p>Let’s take a basic SQL query as an example:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">name</span> <span class="k">from</span> <span class="n">weather_data</span> <span class="k">order</span> <span class="k">by</span> <span class="mi">1</span> <span class="k">asc</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span> <span class="k">FROM</span> <span class="n">weather_data</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span> <span class="k">ASC</span>
 </code></pre></div></div>
 
 <p>Our goal is to transform it into:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span> <span class="k">FROM</span> <span class="n">x1</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span> <span class="k">ASC</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">something</span> <span class="k">FROM</span> <span class="n">somewhere</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span> <span class="k">ASC</span>
 </code></pre></div></div>
 
 <p>The anonymize here is very basic, but it can go further, replacing not just table names, but column names and all identifiers.</p>
@@ -581,6 +581,7 @@ models.</p>
 <p>The power and flexibility of using AST and Fast for anonymizing SQL data open up new horizons in data privacy and security 🫶</p>
 
 <p>I encourage you to experiment with the code and adapt it to your specific needs. If you have questions or insights, feel free to reach out. For more insights into manipulating SQL with Fast, revisit my <a href="https://ideia.me/building-a-sql-formatter-with-fast">previous post on building a SQL formatter</a>.</p>
+
 
 </div>
 <hr>
