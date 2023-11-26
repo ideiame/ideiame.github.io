@@ -193,105 +193,414 @@ crossorigin="anonymous"></script>
 
 <hr />
 
-<h1 class="post"><a class="post" href="/building-a-sql-formatter-with-fast"> Building a SQL formatter with Fast</a></h1>
-<p>Now that <a href="/fast-supports-sql">fast supports SQL</a>, I will share a few of my exploring toys.</p>
+<h1 class="post"><a class="post" href="/anonymizing-your-sql"> Anonymize your SQL statements</a></h1>
+<p>As a community manager at Timescale, I frequently engage with our vibrant community, helping members tackle a variety of SQL-related challenges. One common concern that arises is the need to share SQL queries for collaboration or troubleshooting, without exposing sensitive data. Recognizing this need, I’ve embarked on developing a tool to anonymize SQL data effectively.</p>
 
-<p>The first is a SQL formatter where you can get some keywords upcased.</p>
+<p>Following my previous work on a SQL formatter, this new venture focuses on SQL anonymization - transforming sensitive database identifiers into non-sensitive equivalents while retaining the query’s structure and logic.</p>
 
-<p>My idea is that when I input:</p>
+<p>In the realm of data management and privacy, anonymizing SQL data is an essential practice. Building on the capabilities of <a href="/fast-supports-sql">Fast, which now supports SQL</a>, I’m excited to share my explorations in this field.</p>
+
+<p>Let’s take a basic SQL query as an example:</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">name</span> <span class="k">from</span> <span class="n">weather_data</span> <span class="k">order</span> <span class="k">by</span> <span class="mi">1</span> <span class="k">asc</span>
 </code></pre></div></div>
 
-<p>it will output</p>
+<p>Our goal is to transform it into:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span> <span class="k">FROM</span> <span class="n">weather_data</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span> <span class="k">ASC</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">name</span> <span class="k">FROM</span> <span class="n">x1</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span> <span class="k">ASC</span>
 </code></pre></div></div>
 
-<p>Let’s start understanding every part of the challenge and how to make a generic code that can work with any SQL :)</p>
+<p>The anonymize here is very basic, but it can go further, replacing not just table names, but column names and all identifiers.</p>
 
-<h2 id="getting-into-ast-tokens">Getting into AST tokens</h2>
+<h2 id="understanding-ast-tokens">Understanding AST Tokens</h2>
 
-<p>PgQuery is very powerful and can also give you a list of scanned tokens, which contains the classification of each AST node.</p>
+<p>The best way to start is with a hands-on example. Here’s a SQL script that showcases a range of interconnected database objects, such as tables and views:</p>
 
-<p>As Fast translates the nodes to another class, the scanned tokens stay in the root of the AST inside the source_buffer.</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nv">"ticks"</span> <span class="p">(</span><span class="nv">"time"</span> <span class="nb">timestamp</span> <span class="k">with</span> <span class="nb">time</span> <span class="k">zone</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span> <span class="nv">"symbol"</span> <span class="nb">text</span><span class="p">,</span> <span class="nv">"price"</span> <span class="nb">decimal</span><span class="p">,</span> <span class="nv">"volume"</span> <span class="nb">float</span><span class="p">);</span>
 
-<p>You can access it using the following process:</p>
+<span class="k">SELECT</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'ticks'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">,</span> <span class="n">chunk_time_interval</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">'1 day'</span><span class="p">);</span>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ast</span> <span class="o">=</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">parse_sql</span><span class="p">(</span><span class="s2">"select name from weather_data order by 1 asc"</span><span class="p">)</span>
-<span class="n">ast</span><span class="p">.</span><span class="nf">loc</span><span class="p">.</span><span class="nf">expression</span><span class="p">.</span><span class="nf">source_buffer</span><span class="p">.</span><span class="nf">tokens</span>
-<span class="c1"># =&gt; [</span>
-<span class="c1">#      &lt;PgQuery::ScanToken: start: 0, end: 6, token: :SELECT, keyword_kind: :RESERVED_KEYWORD&gt;,</span>
-<span class="c1">#      &lt;PgQuery::ScanToken: start: 7, end: 11, token: :NAME_P, keyword_kind: :UNRESERVED_KEYWORD&gt;,</span>
-<span class="c1">#      &lt;PgQuery::ScanToken: start: 12, end: 16, token: :FROM, keyword_kind: :RESERVED_KEYWORD&gt;,</span>
-<span class="c1">#      &lt;PgQuery::ScanToken: start: 17, end: 29, token: :IDENT, keyword_kind: :NO_KEYWORD&gt;,</span>
-<span class="c1">#      &lt;PgQuery::ScanToken: start: 30, end: 35, token: :ORDER, keyword_kind: :RESERVED_KEYWORD&gt;,</span>
-<span class="c1">#      &lt;PgQuery::ScanToken: start: 36, end: 38, token: :BY, keyword_kind: :UNRESERVED_KEYWORD&gt;,</span>
-<span class="c1">#      &lt;PgQuery::ScanToken: start: 39, end: 40, token: :ICONST, keyword_kind: :NO_KEYWORD&gt;,</span>
-<span class="c1">#      &lt;PgQuery::ScanToken: start: 41, end: 44, token: :ASC, keyword_kind: :RESERVED_KEYWORD&gt;</span>
-<span class="c1">#  ]</span>
+<span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_1m</span>
+<span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
+<span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1m'</span><span class="p">,</span> <span class="nb">time</span><span class="p">),</span>
+       <span class="nv">"ticks"</span><span class="p">.</span><span class="nv">"symbol"</span><span class="p">,</span>
+       <span class="n">candlestick_agg</span><span class="p">(</span><span class="nb">time</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">volume</span><span class="p">)</span> <span class="k">as</span> <span class="n">candlestick</span>
+<span class="k">FROM</span> <span class="nv">"ticks"</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
+<span class="k">WITH</span> <span class="k">DATA</span><span class="p">;</span>
+
+<span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_1h</span>
+<span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span> <span class="p">)</span> <span class="k">AS</span>
+<span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1 hour'</span><span class="p">,</span> <span class="nv">"time_bucket"</span><span class="p">),</span>
+       <span class="n">symbol</span><span class="p">,</span>
+       <span class="k">rollup</span><span class="p">(</span><span class="n">candlestick</span><span class="p">)</span> <span class="k">as</span> <span class="n">candlestick</span> 
+<span class="k">FROM</span> <span class="nv">"candlestick_1m"</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
+<span class="k">WITH</span> <span class="k">NO</span> <span class="k">DATA</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>Then, you can note the <code class="language-plaintext highlighter-rouge">:RESERVED_KEYWORD</code> which represents some of the words.
-We also see that <code class="language-plaintext highlighter-rouge">:BY</code> is a proper candidate to keep upcased.</p>
+<p>Which should be represented with anonymized references but keep all the example
+with consistent references.</p>
 
-<p>Now, let’s build a shortcut that can allow you to do it.</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">x1</span> <span class="p">(</span><span class="nv">"time"</span> <span class="nb">timestamp</span> <span class="k">with</span> <span class="nb">time</span> <span class="k">zone</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span> <span class="nv">"symbol"</span> <span class="nb">text</span><span class="p">,</span> <span class="nv">"price"</span> <span class="nb">decimal</span><span class="p">,</span> <span class="nv">"volume"</span> <span class="nb">float</span><span class="p">);</span>
 
-<p>You can create a <code class="language-plaintext highlighter-rouge">Fastfile</code> that will be automatically loaded by fast in the
-command line.</p>
+<span class="k">SELECT</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'x1'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">,</span> <span class="n">chunk_time_interval</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">'1 day'</span><span class="p">);</span>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Format SQL</span>
-<span class="no">Fast</span><span class="p">.</span><span class="nf">shortcut</span> <span class="ss">:format_sql</span> <span class="k">do</span>
-  <span class="nb">require</span> <span class="s1">'fast/sql'</span>
-  <span class="n">file</span> <span class="o">=</span> <span class="no">ARGV</span><span class="p">.</span><span class="nf">last</span>
-  <span class="nb">method</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">exist?</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="p">?</span> <span class="ss">:parse_sql_file</span> <span class="p">:</span> <span class="ss">:parse_sql</span>
-  <span class="n">ast</span> <span class="o">=</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">public_send</span><span class="p">(</span><span class="nb">method</span><span class="p">,</span> <span class="n">file</span><span class="p">)</span>
-  <span class="n">ast</span> <span class="o">=</span> <span class="n">ast</span><span class="p">.</span><span class="nf">first</span> <span class="k">if</span> <span class="n">ast</span><span class="p">.</span><span class="nf">is_a?</span> <span class="no">Array</span>
-  <span class="n">eligible_kw</span> <span class="o">=</span> <span class="p">[</span><span class="ss">:RESERVED_KEYWORD</span><span class="p">]</span>
-  <span class="n">eligible_tokens</span> <span class="o">=</span> <span class="p">[</span><span class="ss">:BY</span><span class="p">]</span>
+<span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">x3</span>
+<span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
+<span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1m'</span><span class="p">,</span> <span class="nb">time</span><span class="p">),</span>
+       <span class="n">x1</span><span class="p">.</span><span class="nv">"symbol"</span><span class="p">,</span>
+       <span class="n">candlestick_agg</span><span class="p">(</span><span class="nb">time</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">volume</span><span class="p">)</span> <span class="k">as</span> <span class="n">candlestick</span>
+<span class="k">FROM</span> <span class="n">x1</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
+<span class="k">WITH</span> <span class="k">DATA</span><span class="p">;</span>
 
-  <span class="n">output</span> <span class="o">=</span> <span class="no">Fast</span><span class="o">::</span><span class="no">SQL</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="s1">'_'</span><span class="p">,</span> <span class="n">ast</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">root</span><span class="o">|</span>
-    <span class="n">sb</span> <span class="o">=</span> <span class="n">root</span><span class="p">.</span><span class="nf">loc</span><span class="p">.</span><span class="nf">expression</span><span class="p">.</span><span class="nf">source_buffer</span>
-    <span class="n">sb</span><span class="p">.</span><span class="nf">tokens</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">token</span><span class="o">|</span>
-      <span class="k">if</span> <span class="n">eligible_kw</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="nf">keyword_kind</span><span class="p">)</span> <span class="o">||</span> <span class="n">eligible_tokens</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="n">token</span><span class="p">.</span><span class="nf">token</span><span class="p">)</span>
-        <span class="n">range</span> <span class="o">=</span> <span class="no">Parser</span><span class="o">::</span><span class="no">Source</span><span class="o">::</span><span class="no">Range</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">sb</span><span class="p">,</span> <span class="n">token</span><span class="p">.</span><span class="nf">start</span><span class="p">,</span> <span class="n">token</span><span class="p">.</span><span class="nf">end</span><span class="p">)</span>
-        <span class="n">replace</span><span class="p">(</span><span class="n">range</span><span class="p">,</span> <span class="n">range</span><span class="p">.</span><span class="nf">source</span><span class="p">.</span><span class="nf">upcase</span><span class="p">)</span>
-      <span class="k">end</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-  <span class="nb">require</span> <span class="s1">'fast/cli'</span>
-  <span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">highlight</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="ss">sql: </span><span class="kp">true</span><span class="p">)</span>
-<span class="k">end</span>
+<span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">x5</span>
+<span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span> <span class="p">)</span> <span class="k">AS</span>
+<span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1 hour'</span><span class="p">,</span> <span class="nv">"time_bucket"</span><span class="p">),</span>
+       <span class="n">symbol</span><span class="p">,</span>
+       <span class="k">rollup</span><span class="p">(</span><span class="n">candlestick</span><span class="p">)</span> <span class="k">as</span> <span class="n">candlestick</span>
+<span class="k">FROM</span> <span class="n">x4</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
+<span class="k">WITH</span> <span class="k">NO</span> <span class="k">DATA</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>Using the <a href="https://jonatas.github.io/fast/shortcuts/">shortcuts</a> you can easily
-organize your prototyping scripts.</p>
+<p>The output example is just anonymizing table names. Column names, aliases,
+view names and other scenarios could also reveal business information.</p>
 
-<p>I’m also documenting it in the <a href="https://jonatas.github.io/fast/sql-support/#format-sql">sql support page</a>.</p>
+<p>This script presents a complex scenario with hierarchical views referencing in
+cascade.</p>
 
-<p>I also created a video showing how I implemented  this and walking you through
-more details.</p>
+<p>If you want to go deep, watch my live coding session exploring this topic.</p>
 
 <div class="video-container">
-       <iframe width="560" height="420" frameborder="0" allowfullscreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" src="https://www.youtube.com/embed/o0FkOvJqKgs?color=white&amp;theme=light">
+       <iframe width="560" height="420" frameborder="0" allowfullscreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" src="https://www.youtube.com/embed/FIXME?color=white&amp;theme=light">
        </iframe>
     </div>
 
-<p>This is a small toy, not a production case. But, it’s made to have fun.</p>
+<p>The short steps to cover this small scenario anonymizing table and view names are:</p>
 
-<p>It can help you prototype a search for your custom case or allow you to experiment with that!</p>
+<ol>
+  <li><strong>Parsing SQL with AST</strong>: Using Fast, we begin by parsing the SQL file into an AST, providing us with a structured format for manipulation.</li>
+</ol>
 
-<p>You don’t need to use fast for any of this, but if you use the lib for anything and want to share, feel free to reach out!</p>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'bundler/inline'</span>
 
-<p>This is my personal playground for automated refactoring and code analysis. I see an excellent opportunity to expand/integrate the Ruby + SQL community, as Postgresql is also the default choice for too many Ruby developers. I’m happy to be organizing some conveniences for the Ruby+SQL ecosystem, and I’m so grateful to see too many great people already improving the toolings around this corner, too :)</p>
+<span class="n">gemfile</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">gem</span> <span class="s1">'ffast'</span><span class="p">,</span> <span class="ss">path: </span><span class="s1">'../fast'</span>
+  <span class="n">gem</span> <span class="s1">'pry'</span>
+<span class="k">end</span>
 
-<p>I am happy to connect via <a href="https://www.linkedin.com/in/jonatasdp">linkedin</a> or open an issue on <a href="https://github.com/jonatas/fast">fast</a>.</p>
+<span class="nb">require</span> <span class="s1">'fast'</span>
+<span class="nb">require</span> <span class="s1">'fast/sql'</span>
 
-<p>Happy coding!</p>
+<span class="n">ast</span> <span class="o">=</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">parse_sql_file</span><span class="p">(</span><span class="s1">'file.sql'</span><span class="p">)</span>
+
+<span class="nb">binding</span><span class="p">.</span><span class="nf">pry</span>
+</code></pre></div></div>
+
+<p>Observing the entire ast structure:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">ast</span>
+<span class="o">=&gt;</span> <span class="p">[</span><span class="n">s</span><span class="p">(</span><span class="ss">:create_stmt</span><span class="p">,</span>
+  <span class="n">s</span><span class="p">(</span><span class="ss">:relation</span><span class="p">,</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:relname</span><span class="p">,</span> <span class="s2">"ticks"</span><span class="p">),</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:inh</span><span class="p">,</span> <span class="kp">true</span><span class="p">),</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:relpersistence</span><span class="p">,</span> <span class="s2">"p"</span><span class="p">)),</span>
+  <span class="n">s</span><span class="p">(</span><span class="ss">:table_elts</span><span class="p">,</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:column_def</span><span class="p">,</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:colname</span><span class="p">,</span> <span class="s2">"time"</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:type_name</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:names</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"pg_catalog"</span><span class="p">)),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"timestamptz"</span><span class="p">))),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:type_oid</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:typemod</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:inhcount</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:is_local</span><span class="p">,</span> <span class="kp">true</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:coll_oid</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:constraints</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:constraint</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:contype</span><span class="p">,</span> <span class="ss">:CONSTR_NOTNULL</span><span class="p">),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:old_pktable_oid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)))),</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:column_def</span><span class="p">,</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:colname</span><span class="p">,</span> <span class="s2">"symbol"</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:type_name</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:names</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">))),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:type_oid</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:typemod</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:inhcount</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:is_local</span><span class="p">,</span> <span class="kp">true</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:coll_oid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:column_def</span><span class="p">,</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:colname</span><span class="p">,</span> <span class="s2">"price"</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:type_name</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:names</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"pg_catalog"</span><span class="p">)),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"numeric"</span><span class="p">))),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:type_oid</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:typemod</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:inhcount</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:is_local</span><span class="p">,</span> <span class="kp">true</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:coll_oid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:column_def</span><span class="p">,</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:colname</span><span class="p">,</span> <span class="s2">"volume"</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:type_name</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:names</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"pg_catalog"</span><span class="p">)),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"float8"</span><span class="p">))),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:type_oid</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:typemod</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:inhcount</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:is_local</span><span class="p">,</span> <span class="kp">true</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:coll_oid</span><span class="p">,</span> <span class="mi">0</span><span class="p">))),</span>
+  <span class="n">s</span><span class="p">(</span><span class="ss">:oncommit</span><span class="p">,</span> <span class="ss">:ONCOMMIT_NOOP</span><span class="p">)),</span>
+ <span class="n">s</span><span class="p">(</span><span class="ss">:select_stmt</span><span class="p">,</span>
+  <span class="n">s</span><span class="p">(</span><span class="ss">:target_list</span><span class="p">,</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:res_target</span><span class="p">,</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:val</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:func_call</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:funcname</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"create_hypertable"</span><span class="p">))),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:args</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:a_const</span><span class="p">,</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"ticks"</span><span class="p">))),</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:a_const</span><span class="p">,</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"time"</span><span class="p">))),</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:named_arg_expr</span><span class="p">,</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:arg</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:type_cast</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:arg</span><span class="p">,</span>
+                    <span class="n">s</span><span class="p">(</span><span class="ss">:a_const</span><span class="p">,</span>
+                      <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span>
+                        <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"1 day"</span><span class="p">)))),</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:type_name</span><span class="p">,</span>
+                    <span class="n">s</span><span class="p">(</span><span class="ss">:names</span><span class="p">,</span>
+                      <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                        <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"pg_catalog"</span><span class="p">)),</span>
+                      <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                        <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"interval"</span><span class="p">))),</span>
+                    <span class="n">s</span><span class="p">(</span><span class="ss">:type_oid</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                    <span class="n">s</span><span class="p">(</span><span class="ss">:typemod</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)))),</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="s2">"chunk_time_interval"</span><span class="p">),</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:argnumber</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:funcformat</span><span class="p">,</span> <span class="ss">:COERCE_EXPLICIT_CALL</span><span class="p">)))))),</span>
+ <span class="n">s</span><span class="p">(</span><span class="ss">:create_table_as_stmt</span><span class="p">,</span>
+  <span class="n">s</span><span class="p">(</span><span class="ss">:query</span><span class="p">,</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:select_stmt</span><span class="p">,</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:target_list</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:res_target</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:val</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:func_call</span><span class="p">,</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:funcname</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"time_bucket"</span><span class="p">))),</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:args</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:a_const</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span>
+                    <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"1m"</span><span class="p">))),</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:column_ref</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:fields</span><span class="p">,</span>
+                    <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                      <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"time"</span><span class="p">))))),</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:funcformat</span><span class="p">,</span> <span class="ss">:COERCE_EXPLICIT_CALL</span><span class="p">)))),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:res_target</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:val</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:column_ref</span><span class="p">,</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:fields</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"ticks"</span><span class="p">)),</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"symbol"</span><span class="p">)))))),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:res_target</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="s2">"candlestick"</span><span class="p">),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:val</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:func_call</span><span class="p">,</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:funcname</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"candlestick_agg"</span><span class="p">))),</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:args</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:column_ref</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:fields</span><span class="p">,</span>
+                    <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                      <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"time"</span><span class="p">)))),</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:column_ref</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:fields</span><span class="p">,</span>
+                    <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                      <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"price"</span><span class="p">)))),</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:column_ref</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:fields</span><span class="p">,</span>
+                    <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                      <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"volume"</span><span class="p">))))),</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:funcformat</span><span class="p">,</span> <span class="ss">:COERCE_EXPLICIT_CALL</span><span class="p">))))),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:from_clause</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:range_var</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:relname</span><span class="p">,</span> <span class="s2">"ticks"</span><span class="p">),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:inh</span><span class="p">,</span> <span class="kp">true</span><span class="p">),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:relpersistence</span><span class="p">,</span> <span class="s2">"p"</span><span class="p">))),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:group_clause</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:a_const</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:ival</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:ival</span><span class="p">,</span> <span class="mi">1</span><span class="p">))),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:a_const</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:ival</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:ival</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:sort_clause</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:sort_by</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:node</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:a_const</span><span class="p">,</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:ival</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:ival</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:sortby_dir</span><span class="p">,</span> <span class="ss">:SORTBY_DEFAULT</span><span class="p">),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:sortby_nulls</span><span class="p">,</span> <span class="ss">:SORTBY_NULLS_DEFAULT</span><span class="p">))))),</span>
+  <span class="n">s</span><span class="p">(</span><span class="ss">:into</span><span class="p">,</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:rel</span><span class="p">,</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:relname</span><span class="p">,</span> <span class="s2">"candlestick_1m"</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:inh</span><span class="p">,</span> <span class="kp">true</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:relpersistence</span><span class="p">,</span> <span class="s2">"p"</span><span class="p">)),</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:options</span><span class="p">,</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:def_elem</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:defnamespace</span><span class="p">,</span> <span class="s2">"timescaledb"</span><span class="p">),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:defname</span><span class="p">,</span> <span class="s2">"continuous"</span><span class="p">),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:defaction</span><span class="p">,</span> <span class="ss">:DEFELEM_UNSPEC</span><span class="p">))),</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:on_commit</span><span class="p">,</span> <span class="ss">:ONCOMMIT_NOOP</span><span class="p">)),</span>
+  <span class="n">s</span><span class="p">(</span><span class="ss">:objtype</span><span class="p">,</span> <span class="ss">:OBJECT_MATVIEW</span><span class="p">)),</span>
+ <span class="n">s</span><span class="p">(</span><span class="ss">:create_table_as_stmt</span><span class="p">,</span>
+  <span class="n">s</span><span class="p">(</span><span class="ss">:query</span><span class="p">,</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:select_stmt</span><span class="p">,</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:target_list</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:res_target</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:val</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:func_call</span><span class="p">,</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:funcname</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"time_bucket"</span><span class="p">))),</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:args</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:a_const</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span>
+                    <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"1 hour"</span><span class="p">))),</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:column_ref</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:fields</span><span class="p">,</span>
+                    <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                      <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"time_bucket"</span><span class="p">))))),</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:funcformat</span><span class="p">,</span> <span class="ss">:COERCE_EXPLICIT_CALL</span><span class="p">)))),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:res_target</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:val</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:column_ref</span><span class="p">,</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:fields</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"symbol"</span><span class="p">)))))),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:res_target</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:name</span><span class="p">,</span> <span class="s2">"candlestick"</span><span class="p">),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:val</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:func_call</span><span class="p">,</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:funcname</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"rollup"</span><span class="p">))),</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:args</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:column_ref</span><span class="p">,</span>
+                  <span class="n">s</span><span class="p">(</span><span class="ss">:fields</span><span class="p">,</span>
+                    <span class="n">s</span><span class="p">(</span><span class="ss">:string</span><span class="p">,</span>
+                      <span class="n">s</span><span class="p">(</span><span class="ss">:sval</span><span class="p">,</span> <span class="s2">"candlestick"</span><span class="p">))))),</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:funcformat</span><span class="p">,</span> <span class="ss">:COERCE_EXPLICIT_CALL</span><span class="p">))))),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:from_clause</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:range_var</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:relname</span><span class="p">,</span> <span class="s2">"candlestick_1m"</span><span class="p">),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:inh</span><span class="p">,</span> <span class="kp">true</span><span class="p">),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:relpersistence</span><span class="p">,</span> <span class="s2">"p"</span><span class="p">))),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:group_clause</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:a_const</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:ival</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:ival</span><span class="p">,</span> <span class="mi">1</span><span class="p">))),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:a_const</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:ival</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:ival</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:sort_clause</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:sort_by</span><span class="p">,</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:node</span><span class="p">,</span>
+            <span class="n">s</span><span class="p">(</span><span class="ss">:a_const</span><span class="p">,</span>
+              <span class="n">s</span><span class="p">(</span><span class="ss">:ival</span><span class="p">,</span>
+                <span class="n">s</span><span class="p">(</span><span class="ss">:ival</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:sortby_dir</span><span class="p">,</span> <span class="ss">:SORTBY_DEFAULT</span><span class="p">),</span>
+          <span class="n">s</span><span class="p">(</span><span class="ss">:sortby_nulls</span><span class="p">,</span> <span class="ss">:SORTBY_NULLS_DEFAULT</span><span class="p">))))),</span>
+  <span class="n">s</span><span class="p">(</span><span class="ss">:into</span><span class="p">,</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:rel</span><span class="p">,</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:relname</span><span class="p">,</span> <span class="s2">"candlestick_1h"</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:inh</span><span class="p">,</span> <span class="kp">true</span><span class="p">),</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:relpersistence</span><span class="p">,</span> <span class="s2">"p"</span><span class="p">)),</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:options</span><span class="p">,</span>
+      <span class="n">s</span><span class="p">(</span><span class="ss">:def_elem</span><span class="p">,</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:defnamespace</span><span class="p">,</span> <span class="s2">"timescaledb"</span><span class="p">),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:defname</span><span class="p">,</span> <span class="s2">"continuous"</span><span class="p">),</span>
+        <span class="n">s</span><span class="p">(</span><span class="ss">:defaction</span><span class="p">,</span> <span class="ss">:DEFELEM_UNSPEC</span><span class="p">))),</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:on_commit</span><span class="p">,</span> <span class="ss">:ONCOMMIT_NOOP</span><span class="p">),</span>
+    <span class="n">s</span><span class="p">(</span><span class="ss">:skip_data</span><span class="p">,</span> <span class="kp">true</span><span class="p">)),</span>
+  <span class="n">s</span><span class="p">(</span><span class="ss">:objtype</span><span class="p">,</span> <span class="ss">:OBJECT_MATVIEW</span><span class="p">))]</span>
+</code></pre></div></div>
+
+<ol>
+  <li><strong>Identifying sensitive data</strong>: Use Fast to identify sensitive elements such as table names within the AST.</li>
+</ol>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">relnames</span> <span class="o">=</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">search</span><span class="p">(</span><span class="s2">"(relname $_)"</span><span class="p">,</span> <span class="n">ast</span><span class="p">).</span><span class="nf">grep</span><span class="p">(</span><span class="no">String</span><span class="p">).</span><span class="nf">uniq</span>
+<span class="c1"># =&gt; ["ticks", "candlestick_1m", "candlestick_1h"]</span>
+</code></pre></div></div>
+
+<ol>
+  <li><strong>Anonymizing Data</strong>: We then replace these elements with generic placeholders. The anonymization process involves
+replacing identified elements in the AST with ‘x’ followed by a unique number.</li>
+</ol>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pattern</span> <span class="o">=</span> <span class="s2">"{relname (sval {</span><span class="si">#{</span><span class="n">relnames</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:inspect</span><span class="p">).</span><span class="nf">join</span><span class="p">(</span><span class="s1">' '</span><span class="p">)</span><span class="si">}</span><span class="s2">})}"</span>
+<span class="nb">puts</span> <span class="s2">"searching with </span><span class="si">#{</span><span class="n">pattern</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="n">content</span> <span class="o">=</span> <span class="no">Fast</span><span class="o">::</span><span class="no">SQL</span><span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">ast</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">node</span><span class="o">|</span>
+  <span class="n">new_name</span> <span class="o">=</span> <span class="n">memo</span><span class="p">[</span><span class="n">node</span><span class="p">.</span><span class="nf">source</span><span class="p">.</span><span class="nf">tr</span><span class="p">(</span><span class="sx">%|"'|</span><span class="p">,</span> <span class="s1">''</span><span class="p">)]</span> <span class="o">||=</span> <span class="s2">"x</span><span class="si">#{</span><span class="n">memo</span><span class="p">.</span><span class="nf">size</span><span class="si">}</span><span class="s2">"</span>
+  <span class="n">new_name</span> <span class="o">=</span> <span class="s2">"'</span><span class="si">#{</span><span class="n">new_name</span><span class="si">}</span><span class="s2">'"</span> <span class="k">if</span> <span class="n">node</span><span class="p">.</span><span class="nf">type</span> <span class="o">==</span> <span class="ss">:sval</span>
+  <span class="n">replace</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="nf">loc</span><span class="p">.</span><span class="nf">expression</span><span class="p">,</span> <span class="n">new_name</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div></div>
+
+<ol>
+  <li><strong>Visualizing Changes</strong>: <code class="language-plaintext highlighter-rouge">Fast.highlight</code> is employed to color-code and display the changes for better understanding.</li>
+</ol>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">highlight</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="ss">sql: </span><span class="kp">true</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Transform sensitive SQL data into anonymized &amp; shareable code allow community to
+bring more complex scenarios closer to production using such idea.</p>
+
+<p>It can also serve as a third eye to see the data structures from a blind spot.
+Allowing you to understand standards that repeats over different business
+models.</p>
+
+<p>Small shortcuts can also be introduced into your security culture and enables safe sharing of SQL queries within the community.</p>
+
+<p>The power and flexibility of using AST and Fast for anonymizing SQL data open up new horizons in data privacy and security 🫶</p>
+
+<p>I encourage you to experiment with the code and adapt it to your specific needs. If you have questions or insights, feel free to reach out. For more insights into manipulating SQL with Fast, revisit my <a href="https://ideia.me/building-a-sql-formatter-with-fast">previous post on building a SQL formatter</a>.</p>
 
 <hr />
 
 <ul class="posts">
+ 
+  <li><span class="post_date">26 Nov 2023</span> &raquo;<a class="post" href="/anonymizing-your-sql">Anonymize your SQL statements</a></li>
  
   <li><span class="post_date">21 Nov 2023</span> &raquo;<a class="post" href="/building-a-sql-formatter-with-fast">Building a SQL formatter with Fast</a></li>
  
