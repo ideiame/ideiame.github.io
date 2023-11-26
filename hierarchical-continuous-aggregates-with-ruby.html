@@ -654,7 +654,7 @@ objects into a bigger timeframe.</p>
     <span class="c1"># ... previous code remains the same</span>
 
     <span class="n">scope</span> <span class="ss">:rollup</span><span class="p">,</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="ss">timeframe: </span><span class="s1">'1h'</span><span class="p">)</span> <span class="k">do</span>
-      <span class="n">bucket</span> <span class="o">=</span> <span class="sx">%|time_bucket('#{timeframe}', "time_bucket")|</span>
+      <span class="n">bucket</span> <span class="o">=</span> <span class="sx">%|time_bucket('</span><span class="si">#{</span><span class="n">timeframe</span><span class="si">}</span><span class="sx">', "time_bucket")|</span>
       <span class="nb">select</span><span class="p">(</span><span class="n">bucket</span><span class="p">,</span><span class="s2">"symbol"</span><span class="p">,</span>
             <span class="s2">"toolkit_experimental.rollup(candlestick) as candlestick"</span><span class="p">)</span>
       <span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>

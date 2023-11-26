@@ -595,8 +595,8 @@ the 32 and 64 bits parity:</p>
 <p>And, then we just need to use <code class="language-plaintext highlighter-rouge">.Value()</code> to rescue the uint64 value again.</p>
 
 <div class="language-diff highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">@@ -268,12 +290,12 @@</span> func (l *CommonBenchmarkRunner) timeToSleep(workerNum uint, startedWorkAt time.T
-
- // summary prints the summary of statistics from loading
+<span class="err">
+</span> // summary prints the summary of statistics from loading
  func (l *CommonBenchmarkRunner) summary(took time.Duration) {
 <span class="gd">-       metricRate := float64(l.metricCnt) / took.Seconds()
 </span><span class="gi">+       metricRate := float64(l.metricCnt.Value()) / took.Seconds()
