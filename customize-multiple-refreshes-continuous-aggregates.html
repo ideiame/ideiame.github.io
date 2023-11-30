@@ -186,9 +186,7 @@ crossorigin="anonymous"></script>
 
 <p>Imagine you have a <code class="language-plaintext highlighter-rouge">metrics</code> hypertable in TimescaleDB and you’re aggregating this data over different time intervals: hourly, daily, and weekly. Managing these aggregations can get complex, especially when you want to refresh them in a specific sequence.</p>
 
-<h2 id="step-by-step-solution">Step-by-Step Solution</h2>
-
-<h3 id="1-setting-up-the-hypertable">1: Setting up the hypertable</h3>
+<h3 id="setting-up-the-hypertable">Setting up the hypertable</h3>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">metrics</span> <span class="p">(</span>
   <span class="nb">time</span> <span class="n">timestamptz</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
@@ -198,7 +196,7 @@ crossorigin="anonymous"></script>
 <span class="k">SELECT</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'metrics'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">);</span>
 </code></pre></div></div>
 
-<h3 id="2-setting-up-caggs">2: Setting up CAGGS</h3>
+<h3 id="setting-up-caggs">Setting up CAGGS</h3>
 
 <p>Now, it’s time to set up our continuous aggregates. We create three materialized views for our <code class="language-plaintext highlighter-rouge">metrics</code> table: <code class="language-plaintext highlighter-rouge">metrics_by_hour</code>, <code class="language-plaintext highlighter-rouge">metrics_by_day</code>, and <code class="language-plaintext highlighter-rouge">metrics_by_week</code>. These views will aggregate data over their respective time intervals.</p>
 
@@ -227,7 +225,7 @@ crossorigin="anonymous"></script>
 <span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1 week'</span><span class="p">,</span> <span class="n">bucket</span><span class="p">)</span> <span class="k">AS</span> <span class="n">bucket</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="k">count</span><span class="p">)</span> <span class="k">AS</span> <span class="k">count</span> <span class="k">FROM</span> <span class="n">metrics_by_day</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">;</span>
 </code></pre></div></div>
 
-<h2 id="the-power-of-recursive-in-sql">The Power of RECURSIVE in SQL</h2>
+<h2 id="the-power-of-recursive-in-sql">The power of RECURSIVE in SQL</h2>
 
 <p>Before we dive into the practical application, let’s understand a critical piece of the puzzle: the use of <code class="language-plaintext highlighter-rouge">RECURSIVE</code> in SQL. This concept might be new to some, so I’ll walk through an example to shed light on its functionality.</p>
 
@@ -268,7 +266,7 @@ crossorigin="anonymous"></script>
 
 <p>With the recursive CTE in place, we can now proceed to the next step: implementing a custom refresh policy for our continuous aggregates. This policy ensures that each aggregate is refreshed in the correct sequence, respecting their hierarchical dependencies.</p>
 
-<h3 id="step-2-building-a-cascading-refresh-policy">Step 2: Building a cascading refresh policy</h3>
+<h3 id="building-a-cascading-refresh-policy">Building a cascading refresh policy</h3>
 
 <p>To ensure our aggregates are refreshed in the right order, we’ll write a procedure that refreshes each aggregate in sequence. This is crucial because our daily aggregate depends on the hourly one, and the weekly aggregate depends on the daily one.</p>
 
@@ -305,7 +303,7 @@ crossorigin="anonymous"></script>
 
 <p>With our functions ready, we use TimescaleDB’s job scheduling feature to run these functions at regular intervals. This step is where the “magic happens” - our database is now self-managing, continuously updating our aggregate views and inserting new data.</p>
 
-<h3 id="step-3-automated-data-insertion-for-testing">Step 3: Automated data insertion for testing</h3>
+<h3 id="automated-data-insertion-for-testing">Automated data insertion for testing</h3>
 
 <p><a href="https://docs.timescale.com/api/latest/actions/">Actions</a> are amazing to develop small POCs and can be handy to detach long processing to a background worker.</p>
 
@@ -348,11 +346,11 @@ crossorigin="anonymous"></script>
 
 <p>All of this can be explored using <code class="language-plaintext highlighter-rouge">psql</code>, PostgreSQL’s interactive terminal. I’m a big fan of the simplicity and power of single-file SQL scripts for learning and experimentation. You can easily run these scripts in <code class="language-plaintext highlighter-rouge">psql</code> to see how TimescaleDB handles continuous aggregates and background jobs.</p>
 
-<h3 id="the-power-of-continuous-aggregates">The Power of Continuous Aggregates</h3>
+<h3 id="the-power-of-continuous-aggregates-caggs">The power of Continuous Aggregates (CAGGs)</h3>
 
 <p>Continuous aggregates in TimescaleDB offer incredible flexibility. You can rewrite the rules for how and when your data is aggregated, making it fit your specific use case. They’re a testament to the power of open-source databases in handling time-series data effectively.</p>
 
-<h3 id="see-it-in-action">See It in Action</h3>
+<h3 id="see-it-in-action">See it in action</h3>
 
 <p>You can find the complete SQL script for this procedure <a href="https://github.com/jonatas/sql-snippets/blob/master/cagg-refresh-cascade.sql">here</a>. Note, the last line has a <code class="language-plaintext highlighter-rouge">\watch</code> which assumes you’ll run it using <code class="language-plaintext highlighter-rouge">psql</code>.</p>
 
