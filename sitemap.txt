@@ -8,6 +8,7 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/customize-multiple-refreshes-continuous-aggregates
 https://ideia.me/anonymizing-your-sql
 https://ideia.me/building-a-sql-formatter-with-fast
 https://ideia.me/fast-supports-sql
