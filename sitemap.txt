@@ -8,6 +8,8 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/semantic-fields-of-mind
+https://ideia.me/retrospective-2023
 https://ideia.me/customize-multiple-refreshes-continuous-aggregates
 https://ideia.me/anonymizing-your-sql
 https://ideia.me/building-a-sql-formatter-with-fast

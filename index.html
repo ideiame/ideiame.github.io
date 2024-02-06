@@ -193,196 +193,118 @@ crossorigin="anonymous"></script>
 
 <hr />
 
-<h1 class="post"><a class="post" href="/customize-multiple-refreshes-continuous-aggregates"> Customize multiple refreshes for continuous aggregates</a></h1>
-<p>TimescaleDB, an open-source time-series database optimized for fast ingest and complex queries, offers a unique feature called Continuous Aggregates (CAGGs). These CAGGs are game-changers in how we handle time-series data, allowing for real-time aggregate views that are automatically refreshed. In this post, we’ll explore how to create a custom refresh policy for hierarchical continuous aggregates and delve into the flexibility and simplicity TimescaleDB offers.</p>
+<h1 class="post"><a class="post" href="/semantic-fields-of-mind"> Semantic fields of the mind</a></h1>
+<p>Thursday night, I arrived from Athens and past weekend I had the most insightful
+update in my mindset until now. I’ll refer here as semantic fields.</p>
 
-<h2 id="the-scenario">The scenario</h2>
+<p>The main idea of semantic fields rules important aspects of our brain, and mixed
+with a group of words that can floats to different directions but still share
+the same space. Our beliefs are clustered by some key aspect of the communication,
+given understanding of what each word means on a context.</p>
 
-<p>Imagine you have a <code class="language-plaintext highlighter-rouge">metrics</code> hypertable in TimescaleDB and you’re aggregating this data over different time intervals: hourly, daily, and weekly. Managing these aggregations can get complex, especially when you want to refresh them in a specific sequence.</p>
+<p>Let’s dive into some practical examples. What cold means? If you ask it for a
+person in a tropical country, the temperature will vary from 10 to 20 Celsius
+degrees is already cold. While for non-tropical folks, answers will vary too.</p>
 
-<h3 id="setting-up-the-hypertable">Setting up the hypertable</h3>
+<p>Cold is a valuation, a belief that someones has about some experience they have.
+If you throw a tropicalist into a ice bath, they’ll not die, it will just expand
+the semantic field for the meaning of cold. I had exactly this experience by
+jumping into a lake in Athens and it as 9 Celsius degrees outside.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">metrics</span> <span class="p">(</span>
-  <span class="nb">time</span> <span class="n">timestamptz</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
-  <span class="n">device_id</span> <span class="nb">int</span><span class="p">,</span>
-  <span class="n">value</span> <span class="nb">float</span>
-<span class="p">);</span>
-<span class="k">SELECT</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'metrics'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">);</span>
-</code></pre></div></div>
+<p>If you just distrust your valuation system (be careful, don’t die), you’ll end
+up opening and expanding your thoughts to a new system that can distrust and
+revalidate it, recursively expanding it the infinite.</p>
 
-<h3 id="setting-up-caggs">Setting up CAGGS</h3>
+<p>Distrusting all your beliefs is hard because you need to throw your entire
+memory system in the trash and burn calories to reprocess everything all the time.
+It costs energy and time but here is the magic to feel alive.</p>
 
-<p>Now, it’s time to set up our continuous aggregates. We create three materialized views for our <code class="language-plaintext highlighter-rouge">metrics</code> table: <code class="language-plaintext highlighter-rouge">metrics_by_hour</code>, <code class="language-plaintext highlighter-rouge">metrics_by_day</code>, and <code class="language-plaintext highlighter-rouge">metrics_by_week</code>. These views will aggregate data over their respective time intervals.</p>
+<p>Stop giving same answers, think about all words, use active listening all the time,
+and <strong>never ever hurt anyone</strong> with words or thoughts because it’s all about learning
+more about your own annoying brain.</p>
 
-<p>The hourly view goes to raw data:</p>
+<p>I’m a big fan of conscientiology studies and I fall in love with my partner
+after spending a night at her apartment, craving to see all her books but just
+stuck over the consentiongram. It’s a book/resume with several questions to
+score levels of conscious to all aspects of your life and valuate yourself
+on your self conscious journey.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">metrics_by_hour</span>
-<span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
-<span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1 hour'</span><span class="p">,</span> <span class="nb">time</span><span class="p">)</span> <span class="k">AS</span> <span class="n">bucket</span><span class="p">,</span>
-<span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
-<span class="k">FROM</span> <span class="n">metrics</span>
-<span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">;</span>
-</code></pre></div></div>
+<p>The neovocabluary proposed by the conscientiology studies expanded my capacity
+of reasoning. Understanding new semantic connections leverages the speed of
+acquiring complex subjects through different fields.</p>
 
-<p>The daily view reuses hourly data:</p>
+<p>During the last few years I’m practicing fast listening through any media I can.
+Depending the density of the subject, I can easily go with 3x and still get
+bored and often feel I got nothing new out of it.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">metrics_by_day</span> <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
-<span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1 day'</span><span class="p">,</span> <span class="n">bucket</span><span class="p">)</span> <span class="k">AS</span> <span class="n">bucket</span><span class="p">,</span>
-  <span class="k">sum</span><span class="p">(</span><span class="k">count</span><span class="p">)</span> <span class="k">AS</span> <span class="k">count</span>
-<span class="k">FROM</span> <span class="n">metrics_by_hour</span>
-<span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">;</span>
-</code></pre></div></div>
+<p>The problem of being superficial and avoid expanding knowledge with
+neovocabularies is that you’re forced to keep surrounding the
+topic because the lack of words. My daily shame to find the right word in English
+is fadding out as I work out on my muscle memory and speed up my process
+reinforcing new vocabularies varying on exotic topics.</p>
 
-<p>The week view reuses daily data:</p>
+<p>I’m so pleased that now I feel my brain just using faster switches between 
+different semantic contexts to build communication as RAG (Retrieval-Augmented-Generation) bless us
+exploring the knowledge of all our languages together. Chains are interconnecting
+new synapses faster than I ever experienced.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">metrics_by_week</span> <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
-<span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1 week'</span><span class="p">,</span> <span class="n">bucket</span><span class="p">)</span> <span class="k">AS</span> <span class="n">bucket</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="k">count</span><span class="p">)</span> <span class="k">AS</span> <span class="k">count</span> <span class="k">FROM</span> <span class="n">metrics_by_day</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">;</span>
-</code></pre></div></div>
+<p>My next steps exploring these topics is to discover the new limits for the
+beliefs that affects my mind more often. My first curiosity and research goes
+over the construction of a pragmatic process to help therapists to build custom
+models/neovocabularies to their patients.</p>
 
-<h2 id="the-power-of-recursive-in-sql">The power of RECURSIVE in SQL</h2>
+<p>My own research to find a therapist online was a profound struggle. Filtering
+near by therapists in the internet led me to a large group of professionals with
+a very shallow and repetitive vocabulary that never ever caught my attention
+either “spoke my language”. My theory is that the attraction
+of forces, especially on intentional relationships, like go to a therapy or buy a
+product, is highly magnetized by the semantic field match.</p>
 
-<p>Before we dive into the practical application, let’s understand a critical piece of the puzzle: the use of <code class="language-plaintext highlighter-rouge">RECURSIVE</code> in SQL. This concept might be new to some, so I’ll walk through an example to shed light on its functionality.</p>
+<p>a buyer/seller in general, are ruled by this semantic fields that can
+fields are attracted magnetized bringing an alignment with the patient belief.</p>
 
-<p>Kudos to <a href="https://twitter.com/fabriziomello">@fabriziomello</a> that shared the recursive SQL code which was used as a guide to find the right continuous aggregates order.</p>
+<p>Neuro-marketing is spreading alternative messages to see what hooks the
+masses. Brands are massively taking over this techniques as as holy books did
+in the past with religions, they’ll keep the main message simple and introduce
+neovocabularies later, as gifts of knowledge for avid members.</p>
 
-<p>Consider the following SQL snippet:</p>
+<p>Memorizing names and going deep into new concepts and vocabularies needs energy
+and movement and remember that inertia rules the universe.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">WITH</span> <span class="k">RECURSIVE</span> <span class="n">caggs</span> <span class="k">AS</span> <span class="p">(</span>
-    <span class="k">SELECT</span> <span class="n">mat_hypertable_id</span><span class="p">,</span> <span class="n">parent_mat_hypertable_id</span><span class="p">,</span> <span class="n">user_view_name</span>
-    <span class="k">FROM</span> <span class="n">_timescaledb_catalog</span><span class="p">.</span><span class="n">continuous_agg</span>
-    <span class="k">WHERE</span> <span class="n">user_view_name</span> <span class="o">=</span> <span class="s1">'metrics_by_week'</span>
-    <span class="k">UNION</span> <span class="k">ALL</span>
-    <span class="k">SELECT</span> <span class="n">continuous_agg</span><span class="p">.</span><span class="n">mat_hypertable_id</span><span class="p">,</span> <span class="n">continuous_agg</span><span class="p">.</span><span class="n">parent_mat_hypertable_id</span><span class="p">,</span> <span class="n">continuous_agg</span><span class="p">.</span><span class="n">user_view_name</span>
-    <span class="k">FROM</span> <span class="n">_timescaledb_catalog</span><span class="p">.</span><span class="n">continuous_agg</span>
-    <span class="k">JOIN</span> <span class="n">caggs</span> <span class="k">ON</span> <span class="n">caggs</span><span class="p">.</span><span class="n">parent_mat_hypertable_id</span> <span class="o">=</span> <span class="n">continuous_agg</span><span class="p">.</span><span class="n">mat_hypertable_id</span>
-<span class="p">)</span>
-<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">caggs</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">mat_hypertable_id</span><span class="p">;</span>
-</code></pre></div></div>
+<p>My self-commitment is to be in movement, being present in time as the most
+incredible human to everything that orbits around me.
+I’m ready to have a closer relationship with the nature, and also my nature,
+fearlessly investigating anything that stops me from this commitment, being humble,
+vulnerable, ready for change, ready for the future.</p>
 
-<p>In this snippet, we are using a <code class="language-plaintext highlighter-rouge">WITH RECURSIVE</code> query to create a Common Table Expression (CTE) named <code class="language-plaintext highlighter-rouge">caggs</code>. The recursive part of this CTE does two things:</p>
-<ol>
-  <li>Initially, it selects data from the <code class="language-plaintext highlighter-rouge">_timescaledb_catalog.continuous_agg</code> table where our continuous aggregate view is <code class="language-plaintext highlighter-rouge">metrics_by_week</code>.</li>
-  <li>Then, it recursively joins this data with the same catalog table to find all related continuous aggregates. This is crucial for understanding the hierarchy of our aggregates.</li>
-</ol>
+<p>This is my own neo-vocabulary, a space I’m opening for health and abundant living.
+Words for my own cure, building blocks that can feed my mind and believe in a better world.</p>
 
-<p>The result is a neatly organized list of continuous aggregates along with their parent-child relationships. Understanding this relationship is key to setting up a custom refresh policy that respects the dependency chain.</p>
+<p>I love books and how they expand my vocabulary and mindset.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">┌───────────────────┬──────────────────────────┬─────────────────┐</span>
-<span class="err">│</span> <span class="n">mat_hypertable_id</span> <span class="err">│</span> <span class="n">parent_mat_hypertable_id</span> <span class="err">│</span> <span class="n">user_view_name</span>  <span class="err">│</span>
-<span class="err">├───────────────────┼──────────────────────────┼─────────────────┤</span>
-<span class="err">│</span>               <span class="mi">148</span> <span class="err">│</span>                          <span class="err">│</span> <span class="n">metrics_by_hour</span> <span class="err">│</span>
-<span class="err">│</span>               <span class="mi">149</span> <span class="err">│</span>                      <span class="mi">148</span> <span class="err">│</span> <span class="n">metrics_by_day</span>  <span class="err">│</span>
-<span class="err">│</span>               <span class="mi">150</span> <span class="err">│</span>                      <span class="mi">149</span> <span class="err">│</span> <span class="n">metrics_by_week</span> <span class="err">│</span>
-<span class="err">└───────────────────┴──────────────────────────┴─────────────────┘</span>
-</code></pre></div></div>
+<p>I’m now on “Can’t Hurt Me” from David Goggins is master on semantic fields of
+discipline, giving up on all body pain to find new limits of the mind.</p>
 
-<h2 id="implementing-the-custom-refresh-policy">Implementing the custom refresh policy</h2>
+<p>Here’s a list of last few books that are highly correlated to the mindshift I’m having now:</p>
 
-<p>With the recursive CTE in place, we can now proceed to the next step: implementing a custom refresh policy for our continuous aggregates. This policy ensures that each aggregate is refreshed in the correct sequence, respecting their hierarchical dependencies.</p>
-
-<h3 id="building-a-cascading-refresh-policy">Building a cascading refresh policy</h3>
-
-<p>To ensure our aggregates are refreshed in the right order, we’ll write a procedure that refreshes each aggregate in sequence. This is crucial because our daily aggregate depends on the hourly one, and the weekly aggregate depends on the daily one.</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">refresh_all_caggs</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
-<span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
-<span class="k">DECLARE</span>
-    <span class="n">_cagg</span> <span class="n">RECORD</span><span class="p">;</span>
-<span class="k">BEGIN</span>
-    <span class="k">FOR</span> <span class="n">_cagg</span> <span class="k">IN</span>
-        <span class="k">WITH</span> <span class="k">RECURSIVE</span> <span class="n">caggs</span> <span class="k">AS</span> <span class="p">(</span>
-            <span class="k">SELECT</span> <span class="n">mat_hypertable_id</span><span class="p">,</span> <span class="n">parent_mat_hypertable_id</span><span class="p">,</span> <span class="n">user_view_name</span>
-            <span class="k">FROM</span> <span class="n">_timescaledb_catalog</span><span class="p">.</span><span class="n">continuous_agg</span>
-            <span class="k">WHERE</span> <span class="n">user_view_name</span> <span class="o">=</span> <span class="s1">'metrics_by_week'</span>
-            <span class="k">UNION</span> <span class="k">ALL</span>
-            <span class="k">SELECT</span> <span class="n">continuous_agg</span><span class="p">.</span><span class="n">mat_hypertable_id</span><span class="p">,</span> <span class="n">continuous_agg</span><span class="p">.</span><span class="n">parent_mat_hypertable_id</span><span class="p">,</span> <span class="n">continuous_agg</span><span class="p">.</span><span class="n">user_view_name</span>
-            <span class="k">FROM</span> <span class="n">_timescaledb_catalog</span><span class="p">.</span><span class="n">continuous_agg</span>
-            <span class="k">JOIN</span> <span class="n">caggs</span> <span class="k">ON</span> <span class="n">caggs</span><span class="p">.</span><span class="n">parent_mat_hypertable_id</span> <span class="o">=</span> <span class="n">continuous_agg</span><span class="p">.</span><span class="n">mat_hypertable_id</span>
-        <span class="p">)</span>
-        <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">caggs</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">mat_hypertable_id</span>
-    <span class="n">LOOP</span>
-        <span class="k">EXECUTE</span> <span class="n">format</span><span class="p">(</span><span class="s1">'CALL refresh_continuous_aggregate(%L, NULL, NULL)'</span><span class="p">,</span> <span class="n">_cagg</span><span class="p">.</span><span class="n">user_view_name</span><span class="p">);</span>
-        <span class="k">COMMIT</span><span class="p">;</span>
-    <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
-<span class="k">END</span><span class="p">;</span>
-<span class="err">$$</span><span class="p">;</span>
-</code></pre></div></div>
-
-<h3 id="scheduling-the-jobs">Scheduling the jobs</h3>
-
-<p>Now, just schedule the function to run every 5 seconds:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'refresh_all_caggs'</span><span class="p">,</span> <span class="s1">'5 seconds'</span><span class="p">);</span>
-</code></pre></div></div>
-
-<p>With our functions ready, we use TimescaleDB’s job scheduling feature to run these functions at regular intervals. This step is where the “magic happens” - our database is now self-managing, continuously updating our aggregate views and inserting new data.</p>
-
-<h3 id="automated-data-insertion-for-testing">Automated data insertion for testing</h3>
-
-<p><a href="https://docs.timescale.com/api/latest/actions/">Actions</a> are amazing to develop small POCs and can be handy to detach long processing to a background worker.</p>
-
-<p>To test our setup, we’ll create another custom action that inserts random metrics into our <code class="language-plaintext highlighter-rouge">metrics</code> table. This action simulates real-time data insertion, helping us see our continuous aggregates in action.</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">FUNCTION</span> <span class="n">insert_random_metrics</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
-<span class="k">RETURNS</span> <span class="n">VOID</span> <span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
-<span class="k">DECLARE</span>
-    <span class="n">last_time</span> <span class="n">timestamptz</span><span class="p">;</span>
-    <span class="n">interval_value</span> <span class="n">interval</span> <span class="k">DEFAULT</span> <span class="s1">'1 minute'</span><span class="p">;</span> <span class="c1">-- default interval</span>
-<span class="k">BEGIN</span>
-    <span class="c1">-- Attempt to fetch the most recent timestamp from the metrics table</span>
-    <span class="k">SELECT</span> <span class="k">INTO</span> <span class="n">last_time</span> <span class="k">MAX</span><span class="p">(</span><span class="nb">time</span><span class="p">)</span> <span class="k">FROM</span> <span class="n">metrics</span><span class="p">;</span>
-
-    <span class="c1">-- If no data is found, default to one week ago</span>
-    <span class="n">IF</span> <span class="n">last_time</span> <span class="k">IS</span> <span class="k">NULL</span> <span class="k">THEN</span>
-        <span class="n">last_time</span> <span class="p">:</span><span class="o">=</span> <span class="n">now</span><span class="p">()</span> <span class="o">-</span> <span class="n">interval</span> <span class="s1">'1 week'</span><span class="p">;</span>
-    <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
-
-    <span class="c1">-- Check if an interval is provided in the config and use it if available</span>
-    <span class="n">IF</span> <span class="n">config</span> <span class="o">?</span> <span class="s1">'interval'</span> <span class="k">THEN</span>
-        <span class="n">interval_value</span> <span class="p">:</span><span class="o">=</span> <span class="p">(</span><span class="n">config</span> <span class="o">-&gt;&gt;</span> <span class="s1">'interval'</span><span class="p">)::</span><span class="n">interval</span><span class="p">;</span>
-    <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
-
-    <span class="c1">-- Insert new data starting from the determined timestamp</span>
-    <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">metrics</span> <span class="p">(</span><span class="nb">time</span><span class="p">,</span> <span class="n">device_id</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
-    <span class="k">VALUES</span> <span class="p">(</span><span class="n">last_time</span> <span class="o">+</span> <span class="n">interval_value</span><span class="p">,</span> <span class="n">trunc</span><span class="p">(</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)::</span><span class="nb">int</span><span class="p">,</span> <span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">);</span>
-<span class="k">END</span><span class="p">;</span>
-<span class="err">$$</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>After creating the function, you can schedule it to run at regular intervals using TimescaleDB’s job scheduling system. In this case, as we’re just wanting results fast as possible, we’ll insert a new row every second with data starting from a week ago and appending 35 min from the previous time.</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'insert_random_metrics'</span><span class="p">,</span> <span class="s1">'1 second'</span><span class="p">,</span> <span class="s1">'{"interval": "35 minutes"}'</span><span class="p">);</span>
-</code></pre></div></div>
-
-<p>We’ve also made this function flexible, allowing us to specify the interval between data points using a JSONB payload.</p>
-
-<h3 id="exploring-with-psql">Exploring with psql</h3>
-
-<p>All of this can be explored using <code class="language-plaintext highlighter-rouge">psql</code>, PostgreSQL’s interactive terminal. I’m a big fan of the simplicity and power of single-file SQL scripts for learning and experimentation. You can easily run these scripts in <code class="language-plaintext highlighter-rouge">psql</code> to see how TimescaleDB handles continuous aggregates and background jobs.</p>
-
-<h3 id="the-power-of-continuous-aggregates-caggs">The power of Continuous Aggregates (CAGGs)</h3>
-
-<p>Continuous aggregates in TimescaleDB offer incredible flexibility. You can rewrite the rules for how and when your data is aggregated, making it fit your specific use case. They’re a testament to the power of open-source databases in handling time-series data effectively.</p>
-
-<h3 id="see-it-in-action">See it in action</h3>
-
-<p>You can find the complete SQL script for this procedure <a href="https://github.com/jonatas/sql-snippets/blob/master/cagg-refresh-cascade.sql">here</a>. Note, the last line has a <code class="language-plaintext highlighter-rouge">\watch</code> which assumes you’ll run it using <code class="language-plaintext highlighter-rouge">psql</code>.</p>
-
-<p>To truly appreciate the beauty of this setup, check out this <a href="https://asciinema.org/a/624234">asciinema recording</a> where I walk through the entire process. It’s a great way to see these concepts in action.</p>
-
-<p><a href="https://asciinema.org/a/624234" target="_blank"><img src="https://asciinema.org/a/624234.svg" /></a></p>
-
-<p>TimescaleDB’s continuous aggregates and background actions offer a level of flexibility and ease of use that’s hard to match. I love it and it reminds me how good is the life working with Postgresql. Simple, easy. No secrets behind the scenes.</p>
-
-<p>I love how I can simply have everything in a sql which I can simply type <code class="language-plaintext highlighter-rouge">psql playground -f my-poc.sql</code> and see things in action.</p>
-
-<p>Whether you’re aggregating data over various time intervals or building custom refresh policies, TimescaleDB simplifies the process, allowing you to focus on what’s important - your data.</p>
-
-<p>Happy coding!</p>
+<ul>
+  <li>Man’s search for meaning</li>
+  <li>You’re the placebo</li>
+  <li>700 Conscientiology Experiments</li>
+  <li>Moral Decision Making</li>
+  <li>Surely You’re Joking Mr. Feynman!</li>
+  <li>When breathe becomes air</li>
+  <li>Limiteless</li>
+  <li>Dopamination</li>
+</ul>
 
 <hr />
 
 <ul class="posts">
+ 
+  <li><span class="post_date">05 Feb 2024</span> &raquo;<a class="post" href="/semantic-fields-of-mind">Semantic fields of the mind</a></li>
+ 
+  <li><span class="post_date">20 Dec 2023</span> &raquo;<a class="post" href="/retrospective-2023">Retrospective 2023</a></li>
  
   <li><span class="post_date">30 Nov 2023</span> &raquo;<a class="post" href="/customize-multiple-refreshes-continuous-aggregates">Customize multiple refreshes for continuous aggregates</a></li>
  

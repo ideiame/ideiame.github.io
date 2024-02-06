@@ -2,1036 +2,1050 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
  <url>
   <loc>http://ideia.me/</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>1</priority>
  </url>
  
  <url>
+  <loc>http://ideia.me/semantic-fields-of-mind</loc>
+  <lastmod>2024-02-05</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8</priority>
+ </url>
+ 
+ <url>
+  <loc>http://ideia.me/retrospective-2023</loc>
+  <lastmod>2024-02-05</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8</priority>
+ </url>
+ 
+ <url>
   <loc>http://ideia.me/customize-multiple-refreshes-continuous-aggregates</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/anonymizing-your-sql</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/building-a-sql-formatter-with-fast</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/fast-supports-sql</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/sonification-device</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/dispositivo-sonificacao</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/sirva-sua-comunidade</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/serve-your-community</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/two-ways-to-notify-new-data-from-timescaledb-continuous-aggregates</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/life-before-and-after-gpt</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/hierarchical-continuous-aggregates-with-ruby</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/activerecord-update-without-primary-key</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/libpq-no-such-file-load-error</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/identify-your-needs-and-feelings</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/timescale-continuous-aggregates-with-ruby</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/tips-to-duplicate-massive-time-series-data-on-postgresql</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/using-the-timescale-gem-with-ruby</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/writing-plans</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/pgconfbr-talk</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/time-series-benchmark-timescaledb-raspberry-pi</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/ssh-connection-refused</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/my-first-month-at-timescale</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/my-first-week-at-timescale</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/complex-ast-search-with-ruby</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/image-processing-with-rmagick</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/retrospective-2018</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/retrospective-2017</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/customize-rubocop-layout-class-structure-cop</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/the-dynamic-experiment-initiative</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/adventures-on-automated-code-replacement</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/my-nomad-life</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/parsing-ruby-code</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/search-in-ruby-ast</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/ruby-puzzle-gridlock</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/trabalhar-sozinho-ou-contribuir</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/the-dev-conf-sp-2016</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/pessoas-codigos-comunicacao</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/introducao-linguagem-ruby</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/programar-e-uma-droga</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/tdc-online</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/google-cloud-platform</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/automate-first</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/lorenzo-ideia-me-no-ar</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/comecando-com-go-lang</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/vim-basico-para-ruby</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/fish-shell</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/buscando-com-silver-searcher-aka-ag</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/um-ano-na-resultados-digitais</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/podcast-boa-noite-lorenzo</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/vida-de-bike</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/railsrumble-2015</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/coffeescript-rocks</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/from-linux-to-os-x</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/tutorial-programacao-3D-openscad</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/6-meses-na-resultados-digitais</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/TDC-SP-here-we-go</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/vida-de-busao</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/perguntas-do-meu-filho-de-3-anos</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/tres-meses-na-resultados-digitais</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/produto-ou-servico</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/primeiro-mes-na-resultados-digitais</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/primeira-semana-na-resultados-digitais</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/retrospectiva-2014</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/blog-da-inventto</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/raspibian-sem-mouse</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/coisas-legais-para-fazer-com-o-rpi</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/bone-debian-rodando-no-beaglebone-black</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/como-gerar-um-video-de-fotos-sequenciais</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/rotative-timelapse</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/desenvolvemos-seu-invento</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/retrospectiva-2013</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/re-inventto-esta-no-ar</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/railsrumble-vem-ai</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/diversidade-e-riqueza</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/site-arteterapia-no-ar</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/o-que-tira-meu-tempo</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/pensando-no-futuro</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/bliss-ideia-me-no-ar</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/o-que-ando-ideiando</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/fim-de-semana-bliss</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/git-post-receive</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/migrando-estilo-para-twitter-bootstrap</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/observando-a-memoria-ruby</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/experiencias-meteor</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/pixel-no-ar</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/flu-ideia-me-no-ar</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/concentracao-na-era-da-distracao</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/retro-2012</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/moving-the-homeoffice</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/efetivamente</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/meu-filho-ja-vai-fazer-um-ano</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/arteterapia-begins</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/churumelas-no-ar</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/rails-rumble-se-foi-e-churumelas-esta-no-ar</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/rails-rumble-ideias</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/os-programadores-do-futuro</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/disciplina-no-home-office</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/galaxy-note-n7000</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/update-ou-upgrade-parte-2</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/cursando-aulas-da-stanford</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/terminal-life</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/update-ou-upgrade</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/usabilidade-versus-simplicidade</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/camera-overlay-open-source</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/chave-dicotomica-android</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/pequenas-decisoes-grandes-mudancas</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/camera-overlay</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/sinceridade-nao-faz-mal-a-ninguem</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/ingles-legal</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/problemas-no-software</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/cognitividade-da-interface</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/ipad-chegou</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/palestra-sobre-ruby-e-rails</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/sh-legal</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/sistemas-operacionais-gerencia-processador-pt1</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/javascript-legal</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/iteracao-legal</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/coffeescript-legal</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/servicos-google-api</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/linguagens-e-o-mundo</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/google-legal</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/ruby-legal</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/google-buzz-api-no-ideiame</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/find-exec</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/curriculo-jonatas-davi-paganini</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/diario-de-um-feriado</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/novas-cores-no-site</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/weborb-active-record</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/a-importancia-dos-baby-steps</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/helplate</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/modos-so</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/cartao-de-visitas</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/regexp-com-grep</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/inspecionando-formulas-em-ruby</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/regexp-maravilha</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/sql-comentado</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/postgresql-tricks</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/inspecionando-regexp-com-sinatra</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/leiaute-iphone</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/google-code-playground</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/estorias-bonitas-vs-testes-unitarios</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/rml-resume-markup-language</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/de-volta-ao-tex</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/bom-dia-a-dia</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/portfolio</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/curriculo</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
  
  <url>
   <loc>http://ideia.me/prototipo-site</loc>
-  <lastmod>2023-11-30</lastmod>
+  <lastmod>2024-02-05</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
  </url>
