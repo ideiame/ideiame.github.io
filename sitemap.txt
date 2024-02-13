@@ -8,6 +8,7 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/2024-02-13-semantic-fields-through-ages
 https://ideia.me/semantic-fields-of-mind
 https://ideia.me/retrospective-2023
 https://ideia.me/customize-multiple-refreshes-continuous-aggregates
