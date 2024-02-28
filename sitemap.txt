@@ -9,7 +9,6 @@ https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
 https://ideia.me/permaculture-and-programming
-https://ideia.me/self-host-or-cloud-native
 https://ideia.me/semantic-fields-through-ages
 https://ideia.me/semantic-fields-of-mind
 https://ideia.me/retrospective-2023
