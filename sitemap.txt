@@ -8,6 +8,7 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/community-is-not-for-sale
 https://ideia.me/permaculture-and-programming
 https://ideia.me/semantic-fields-through-ages
 https://ideia.me/semantic-fields-of-mind
