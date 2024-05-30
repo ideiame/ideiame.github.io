@@ -198,62 +198,62 @@ crossorigin="anonymous"></script>
 <hr />
 
 <h1 class="post"><a class="post" href="/grepping-sql-code-like-a-boss"> Grepping SQL Code like a boss</a></h1>
-<p>This month I’m traveling to Poland to present at Lambda Days 2024.</p>
+<p>Here’s the outline of the content of my talk in Poland I presented at the
+<a href="https://lambdadays.com/2024">Lambda Days 2024</a>.</p>
 
-<p>The talk is about how to grep SQL code like a boss. I will show you how to 
-build your own tools to search and refactor SQL code.</p>
+<p>My talk is a research which I call “grepping SQL code like a boss”.
+Introducing a set of tooling that can not only search but also refactor SQL code like a boss.</p>
 
-<p>The talk is a mix of Ruby and SQL code examples. I will show you how to use the
+<p>This is most of the talk outline for those folks that want to learn more about the topic.</p>
+
+<p>It will be a mix of Ruby and SQL code examples. I will show you how to use the
 <code class="language-plaintext highlighter-rouge">fast</code> gem to build your own tools to search and refactor SQL code.</p>
 
 <p>The <code class="language-plaintext highlighter-rouge">fast</code> gem is a tool that leverages ASTs to provide advanced search and
 refactoring capabilities. It already supports Ruby and recently I introduced
 support for SQL code.</p>
 
-<h1 id="2-decades-in-the-terminal">2 decades in the terminal</h1>
+<p>My main intent is not “sell” my library but the idea behind it. You can easily
+build something similar in your language or even to your SQL dialect.</p>
+
+<h2 id="2-decades-in-the-terminal">2 decades in the terminal</h2>
 
 <p>Yes, not only the presentation was made in the terminal, but I build my entire
-carreer in the terminal.</p>
-
-<p>IO is simple and easy. I can focus on the content and not the tools.</p>
+carreer in the terminal. IO is simple and easy. I can focus on the content and not the tools.</p>
 
 <p>I’m already familiar with this toolset and I can build my own tools to help me
 and enhance my productivity.</p>
 
-<h1 id="learn-simple-tools-with-single-proposal">Learn simple tools with single proposal</h1>
+<h2 id="learn-simple-tools-with-single-proposal">Learn simple tools with single proposal</h2>
 
 <p>I love how unix tools are simple and have a single proposal. My favorite minimalist
-examples from unix:</p>
+examples from unix like <code class="language-plaintext highlighter-rouge">cat head wc sort uniq grep sed echo</code>.</p>
 
-<ul>
-  <li>cat</li>
-  <li>head</li>
-  <li>wc</li>
-  <li>sort</li>
-  <li>uniq</li>
-  <li>grep</li>
-  <li>sed</li>
-  <li>echo</li>
-</ul>
-
-<p>Let’s navigate into count the topics of talk in the terminal</p>
+<p>Markdown is a great example of simplification. Look how easy it to navigate into
+count the topics of talk in the terminal:</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'^# '</span> talk-sql.md | <span class="nb">wc</span> <span class="nt">-l</span> <span class="c"># =&gt; 60</span>
 </code></pre></div></div>
 
-<p>Let’s count the examples of Ruby and SQL code in the talk:</p>
+<p>Now, going deep in regular expressions we can also count the examples of Ruby, SQL
+and so on…</p>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'```ruby'</span> talk-sql.md | <span class="nb">wc</span> <span class="nt">-l</span> <span class="c"># =&gt; 29</span>
 <span class="nb">grep</span> <span class="s1">'```sql'</span> talk-sql.md | <span class="nb">wc</span> <span class="nt">-l</span> <span class="c"># =&gt; 5</span>
 <span class="nb">grep</span> <span class="s1">'```bash'</span> talk-sql.md | <span class="nb">wc</span> <span class="nt">-l</span> <span class="c"># =&gt; 9</span>
 </code></pre></div></div>
 
+<p>Now, let me share a past project that encouraged me to follow and continue
+investing on this idea.</p>
+
 <h2 id="todo-kill-pr-review-checklist">TODO: kill PR review checklist</h2>
 
-<p>Now, let me talk about my experience onboarding developers. I onboarded 300+
+<p>I had a very extensive experience onboarding developers. I onboarded 300+
 backend developers in 5 years.</p>
 
-<p>One of the most boring things is the PR review checklist.</p>
+<p>One of the most boring things on onboarding is align the quality expectations,
+and that’s why the review process involves CI with lots of linters plus a huge
+PR review checklist. You can expect things like:</p>
 
 <ul class="task-list">
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Check the code style</li>
@@ -267,9 +267,13 @@ backend developers in 5 years.</p>
   <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Check the requirements</li>
 </ul>
 
-<p>So, I decided to kill the PR review checklist and introduce a new way to onboard
-developers. Introducing a set of custom linters related to our business domain
-and guide developers to use the right framework components.</p>
+<p>So, I was eager to reduce the friction of introducing newcomers by helping them
+to have less things to get ready for the first Pull Request. The plan started
+automating item by item, so the newcomer does not have to face “Don’t use A
+insted of B” while they’re not even familiar with the codebase.</p>
+
+<p>Introducing a set of custom linters related to the business domain was the way to
+properly guide developers to use the right framework components.</p>
 
 <h3 id="automate-the-education">Automate the education</h3>
 
@@ -280,10 +284,10 @@ developers taking into personal consideration the feedback.</p>
 <p>It also allows the developers to have more interesting conversations during the
 review instead of few drawn by the checklist and other bureaucracies.</p>
 
-<h1 id="build-smart-stuff-with-simple-tools">Build smart stuff with simple tools</h1>
+<h2 id="build-smart-stuff-with-simple-tools">Build smart stuff with simple tools</h2>
 
-<p>AST brings the most primitive stage of compilers into scene. Tagging word/token by
-token, it simply structures code into tree format.</p>
+<p>AST brings the most primitive stage of compilers into scene. Tagging word by word
+or token by token, it simply structures code into tree format.</p>
 
 <p>You really don’t need advanced tools to build smart stuff. You can build most of
 it with simple tools.</p>
@@ -291,20 +295,23 @@ it with simple tools.</p>
 <h2 id="im-a-rubyist">I’m a Rubyist</h2>
 
 <p>Yes, I’m a Rubyist. I love Ruby. I love the community. I love the language.
-I started the fast gem to grep Ruby code like a boss. Now I’m extending it to
+I started the fast gem to grep Ruby code like a boss. Recently, I extended it to
 SQL.</p>
 
-<blockquote>
-  <p>Youtube: “Grepping Ruby code like a boss” talk in Ruby Kaigi 2020</p>
-</blockquote>
+<p>You can check my previous talk on <a href="https://youtube.com/watch?v=YczrZQC9aP8">youtube</a>
+which I was grepping Ruby code like a boss. This was for Ruby Kaigi 2020 which I
+couldn’t come because of the lock down but I was able to record and participate
+remotely.</p>
 
-<p>I also maintain the timescaledb ruby gem: github.com/jonatas/timescaledb</p>
+<p>I also maintain the timescaledb ruby gem which wraps all TimescaleDB SQL
+features into simple macros: github.com/jonatas/timescaledb</p>
 
 <h2 id="im-becoming-a-postgrist">I’m becoming a Postgrist</h2>
 
 <p>I’m a Rubyist, I’m not sure this word exists, but I’m coining the term Postgrist.
-I’m learning a lot about PostgreSQL and TimescaleDB.
-I split my time between community management and developer advocacy.</p>
+I’m learning a lot about PostgreSQL and TimescaleDB.</p>
+
+<p>I split my time between community management and developer advocacy.</p>
 
 <h2 id="adventures-with-fast">Adventures with fast</h2>
 
@@ -320,15 +327,24 @@ a base prototype for SQL linters or refactoring tools.</p>
   </li>
 </ul>
 
-<h1 id="the-value-of-trying">The Value of Trying</h1>
+<p>You can just use exactly the same syntax for building node patterns both on sql
+and Ruby. The trees are different but follow the same structure, so it’s a
+matter of learning the new node types and you’re ready to go.</p>
 
-<h3 id="experimenting--growth">Experimenting = growth</h3>
+<h2 id="the-value-of-trying">The Value of Trying</h2>
+
+<p>I really believe in the value of trying. I’m a researcher, trying new things. I’m always
+scratching my own itch.</p>
+
+<blockquote>
+  <p>Experimenting = growth</p>
+</blockquote>
 
 <blockquote>
   <p>Growth only happens when you learn from your experiments.</p>
 </blockquote>
 
-<p>I built a tool to grep Ruby &amp; SQL code like a boss.</p>
+<p>I built a tool named fast to grep Ruby &amp; SQL code like a boss.</p>
 
 <ul>
   <li>My journey with “compilers”, ASTs, and code analysis</li>
@@ -336,7 +352,7 @@ a base prototype for SQL linters or refactoring tools.</p>
   <li>Advanced search and refactoring</li>
 </ul>
 
-<h1 id="the-power-of-regex">The Power of Regex</h1>
+<h2 id="the-power-of-regex">The Power of Regex</h2>
 
 <blockquote>
   <p>Regular expressions are a powerful tool for searching and manipulating text.
@@ -346,7 +362,7 @@ They are widely used in text editors, programming languages, and other tools.</p
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"1 + 2"</span><span class="p">.</span><span class="nf">scan</span><span class="p">(</span><span class="sr">/\d+/</span><span class="p">)</span> <span class="c1"># =&gt; ["1", "2"]</span>
 </code></pre></div></div>
 
-<h1 id="regex-operators">Regex operators</h1>
+<h2 id="regex-operators">Regex operators</h2>
 
 <p>A few operators to remind how it works:</p>
 
@@ -361,30 +377,31 @@ They are widely used in text editors, programming languages, and other tools.</p
   <li><code class="language-plaintext highlighter-rouge">{}</code> - quantifier</li>
 </ul>
 
-<h1 id="limitations-of-regex">Limitations of Regex</h1>
+<h2 id="limitations-of-regex">Limitations of Regex</h2>
 
 <blockquote>
   <p>Regex can be difficult to use for complex searches and refactoring tasks.</p>
 </blockquote>
 
-<ul>
-  <li>Include/exclude context</li>
-  <li>Nested contexts and scenarios</li>
-  <li>Capture groups</li>
-</ul>
+<p>If you need to build a “search and fix” scenario, example, if you find the
+target code, maybe it’s in the wrong context. So, several times, the Regular
+Expressions cannot be the silver bullet for targetting text.</p>
 
-<h1 id="when-regex-is-not-enough">When Regex is not enough</h1>
+<p>Capturing and reusing previous information, ignoring other undesired scenarios.
+Nested contexts and scenarios plays a big role on refactoring, several times
+needing to capture groups of information.</p>
 
 <p>Sometimes, regex is not enough to solve complex problems. If you’re trying to
 parse a programming language, you need to deal with nested structures.</p>
 
-<p>Now, it’s time to start exploring how to build your own Regular Expression Engine for the AST.</p>
+<p>Now, it’s time to start exploring on how to build a micro-engine for a derived
+Regular Expression language that can match elements directly from the AST.</p>
 
-<h1 id="the-ast-advantage">The AST Advantage</h1>
+<h2 id="the-ast-advantage">The AST Advantage</h2>
 
 <p>Abstract Syntax Trees are made for programming language internals. It provides a
 more powerful and flexible way to search and manipulate code. In this example,
-I’m using the <code class="language-plaintext highlighter-rouge">fast</code> gem which uses <code class="language-plaintext highlighter-rouge">ruby-parser</code> to parse the Ruby code.</p>
+I’m using the <code class="language-plaintext highlighter-rouge">ffast</code> gem which uses <code class="language-plaintext highlighter-rouge">ruby-parser</code> to parse the Ruby code.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1"</span><span class="p">).</span><span class="nf">type</span> <span class="c1"># =&gt; :int</span>
 <span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1"</span><span class="p">).</span><span class="nf">children</span> <span class="c1"># =&gt; [1]</span>
@@ -394,8 +411,8 @@ I’m using the <code class="language-plaintext highlighter-rouge">fast</code> g
 
 <h2 id="the-ast-in-ruby">The AST in Ruby</h2>
 
-<p>There’s an interesting way to represent the AST in Ruby. It’s called S-Expression.
-It’s a simple way to represent the AST in a human-readable format.</p>
+<p>There’s an interesting way to represent the AST in Ruby. It’s called S-Expression
+AKA string expression. It’s a simple way to represent the AST in a human-readable format.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1"</span><span class="p">)</span>
 </code></pre></div></div>
@@ -422,10 +439,10 @@ to search and refactor the code.</p>
   <span class="o">(</span>int 2<span class="o">))</span>
 </code></pre></div></div>
 
-<h2 id="the-ast-unify-code">The AST unify code</h2>
+<h2 id="search-in-the-ast">Search in the AST</h2>
 
-<p>The AST unifies the code syntax. It’s a common way to represent the code in a
-structured format. It’s like a JSON for the code. It’s a tree structure.</p>
+<p>The Abstract part of the Syntax Tree unifies the code syntax. It’s a common way
+to represent the code in a structured format.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1 + 2.0"</span><span class="p">).</span><span class="nf">search</span><span class="p">(</span><span class="s2">"int"</span><span class="p">)</span>        <span class="c1"># =&gt; [s(:int, 1)]</span>
 <span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1 + 2.0"</span><span class="p">).</span><span class="nf">search</span><span class="p">(</span><span class="s2">"(float _)"</span><span class="p">)</span>  <span class="c1"># =&gt; [s(:float, 2.0)]</span>
@@ -438,7 +455,7 @@ or combine with other operators.</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1 + 2.0"</span><span class="p">).</span><span class="nf">search</span><span class="p">(</span><span class="s2">"{int float}"</span><span class="p">)</span>  <span class="c1"># =&gt; [s(:int, 1), s(:float, 2.0)]</span>
 </code></pre></div></div>
-<h1 id="combine-patterns-in-the-expression">Combine patterns in the expression</h1>
+<h2 id="combining-node-patterns">Combining node patterns</h2>
 
 <p>Example matches integer or float, both should be positive values.</p>
 
@@ -450,7 +467,7 @@ or combine with other operators.</p>
   <p>Note that <code class="language-plaintext highlighter-rouge">.positive?</code> comes from the attempt to verify the method from the AST values.</p>
 </blockquote>
 
-<h1 id="fast---like-regex-but-for-the-ast">Fast - Like regex but for the AST</h1>
+<h2 id="fast---like-regex-but-for-the-ast">Fast - Like regex but for the AST</h2>
 
 <p>So, the node pattern expressions can be composed with:</p>
 
@@ -462,14 +479,15 @@ or combine with other operators.</p>
   <li>’[ this and that ]’</li>
   <li>‘_’ and ‘…’ for something or a node with children
 _ ‘$’ for captures
-_ ‘!’ to negate</li>
+_ ‘!’ to negate
+_ ‘#method’ to call a <code class="language-plaintext highlighter-rouge">method</code> with the node as param</li>
 </ul>
 
 <blockquote>
   <p>Try fast .finders</p>
 </blockquote>
 
-<h1 id="sql-support-in-fast">SQL Support in ‘fast’</h1>
+<h2 id="sql-support-in-fast">SQL Support in ‘fast’</h2>
 
 <p>Fast now can also <a href="https://jonatas.github.io/fast/sql-support/">parse SQL</a>
 from PostgreSQL. The AST conversion is very similar to what you have in the Ruby AST.</p>
@@ -514,7 +532,7 @@ refactoring methods.</p>
 good <code class="language-plaintext highlighter-rouge">clean_structure</code> for it to allow us to have a very easy to comprehend AST
 to build simple node patterns.</p>
 
-<h1 id="fastfile">Fastfile</h1>
+<h2 id="fastfile">Fastfile</h2>
 
 <p>The <code class="language-plaintext highlighter-rouge">Fastfile</code> can help to organize the dictionary of patterns in shortcuts.</p>
 
@@ -529,7 +547,7 @@ shortcut:</p>
 <p>So, if I want to repeat such search, I just need to say <code class="language-plaintext highlighter-rouge">fast .sql_parser</code> and
 it will reuse the shortcut name to output the matching results.</p>
 
-<h1 id="refactoring-operations">Refactoring operations</h1>
+<h2 id="refactoring-operations">Refactoring operations</h2>
 
 <p>The most complex part of the AST is rewriting it. Allowing you to refactor code
 from the AST just with a simple method call.</p>
@@ -539,13 +557,13 @@ from the AST just with a simple method call.</p>
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span>
   <span class="p">.</span><span class="nf">parse_sql</span><span class="p">(</span><span class="s2">"SELECT * FROM customers"</span><span class="p">)</span>
   <span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="s2">"relname"</span><span class="p">,</span> <span class="s2">"other_table"</span><span class="p">)</span>
-<span class="c1"># =&gt; "SELECT * FROM other_table"</span>
+  <span class="c1"># =&gt; "SELECT * FROM other_table"</span>
 </code></pre></div></div>
 
 <p>The replace method can also receive a block and build a much more complex
 scenario. The next example explores how to build a SQL formatter.</p>
 
-<h1 id="format-sql">Format SQL</h1>
+<h2 id="format-sql">Format SQL</h2>
 
 <p>I wrote a full blog post on <a href="/building-a-sql-formatter-with-fast">building a SQL formatter with fast</a>
 and the final shorcut looks like this:</p>
@@ -573,7 +591,7 @@ and the final shorcut looks like this:</p>
 <span class="k">end</span>
 </code></pre></div></div>
 
-<h1 id="anonymize-sql">Anonymize SQL</h1>
+<h2 id="anonymize-sql">Anonymize SQL</h2>
 
 <p>Another cool example on manipulating SQL via AST is <a href="/anonymizing-your-sql">anonymize it</a>.</p>
 
@@ -599,7 +617,7 @@ and the final shorcut looks like this:</p>
 <span class="k">end</span>
 </code></pre></div></div>
 
-<h1 id="my-latest-experiments-with-sql-ast">My latest experiments with SQL AST</h1>
+<h2 id="my-latest-experiments-with-sql-ast">My latest experiments with SQL AST</h2>
 
 <p>Now, let’s talk about my latest exciting project that is about
 <a href="https://github.com/timescale/timescaledb">TimescaleDB</a>
@@ -726,8 +744,8 @@ hypertable.</p>
 patterns and delegate part of it to my favorite programming language. So, let’s
 specify the methods:</p>
 
-<h1 id="the-call_time_bucket-pattern-will-just-pick-the-first-result-of-the">The <code class="language-plaintext highlighter-rouge">call_time_bucket</code> pattern will just pick the first result of the</h1>
-<p>expression given:</p>
+<p>The <code class="language-plaintext highlighter-rouge">#call_time_bucket</code> pattern will just pick the first result of the
+expression given:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">call_time_bucket</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
   <span class="n">node</span><span class="p">.</span><span class="nf">first</span><span class="p">(</span><span class="s1">'(func_call (funcname (string (sval "time_bucket")'</span><span class="p">)</span>
@@ -752,7 +770,7 @@ specify the methods:</p>
 standalone or be the implementation of a materialized view. So, next step is
 track what are the queries and what is the materialized views already available.</p>
 
-<h1 id="track-query-and-materialized">Track <code class="language-plaintext highlighter-rouge">@query</code> and <code class="language-plaintext highlighter-rouge">@materialized</code></h1>
+<h2 id="track-query-and-materialized">Track <code class="language-plaintext highlighter-rouge">@query</code> and <code class="language-plaintext highlighter-rouge">@materialized</code></h2>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1"># Previous pattern</span>
     <span class="n">search_all</span> <span class="n">pattern</span><span class="p">,</span> <span class="no">ARGV</span><span class="p">.</span><span class="nf">last</span><span class="p">,</span> <span class="ss">parallel: </span><span class="kp">false</span><span class="p">,</span> <span class="ss">on_result: </span><span class="o">-&gt;</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span> <span class="k">do</span>
@@ -836,7 +854,7 @@ that needs a new direction.</p>
 
 <p>Playing with toys from compiler level is fun and very powerful!</p>
 
-<h1 id="the-future">The future</h1>
+<h2 id="the-future">The future</h2>
 
 <p>My plan for the future is try to help the query planner in the ORM level.
 Integrate with the <a href="https://github.com/jonatas/timescaledb">timescaledb gem</a> to
