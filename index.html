@@ -199,7 +199,7 @@ crossorigin="anonymous"></script>
 
 <h1 class="post"><a class="post" href="/my-first-contribution-to-rubygems"> My First Contribution To Rubygems</a></h1>
 <p>With my sense of utility to the world, I had my first contribution to RubyGems
-<a href="new_pr">merged</a> 🎉</p>
+<a href="https://github.com/rubygems/rubygems.org/pull/4716">merged</a> 🎉</p>
 
 <p>It’s effectively just adding <a href="https://rubygems.org/gems/timescaledb">timescaledb gem</a> to the RubyGems server and
 it’s the beginning of a journey.</p>
@@ -207,7 +207,7 @@ it’s the beginning of a journey.</p>
 <p>It’s not just about adding a gem to the server, but opening a commitment path to
 maintain the work and keep it up-to-date.</p>
 
-<p>I created the <a href="ts-gem">timescaledb</a> gem to help Ruby developers to interact with
+<p>I created the <a href="https://rubygems.org/gems/timescaledb">timescaledb</a> gem to help Ruby developers to interact with
 TimescaleDB, a time-series database built on top of PostgreSQL. As I work as a
 Developer Advocate at Timescale, I created the library but never used it on a
 production case. Now, let’s take a look on what we have and how it will look
@@ -244,7 +244,7 @@ a gem that I created for another purpose.</p>
 </code></pre></div></div>
 
 <p>The version: 0 is used to store the total number of downloads for a gem.
-Let’s check the timescaledb gem downloads:</p>
+Let’s check the timescaledb gem downloads version by version:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">GemDownload</span><span class="p">.</span><span class="nf">where</span> <span class="ss">rubygem: </span><span class="no">Rubygem</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"timescaledb"</span><span class="p">)</span>
 <span class="c1"># GemDownload Load (19.0ms)  SELECT "gem_downloads".* FROM "gem_downloads" WHERE "gem_downloads"."rubygem_id" IN (SELECT "rubygems"."id" FROM "rubygems" WHERE "rubygems"."name" = 'timescaledb') /* loading for pp */ LIMIT 11</span>
@@ -262,7 +262,7 @@ Let’s check the timescaledb gem downloads:</p>
  <span class="s2">"..."</span><span class="p">]</span>
 </code></pre></div></div>
 
-<p>You can also check the counter version by version:</p>
+<p>You can also combine the counter version by version in a single query:</p>
 
 <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Rubygem</span>
   <span class="p">.</span><span class="nf">find_by</span><span class="p">(</span><span class="ss">name: </span><span class="s2">"timescaledb"</span><span class="p">)</span>
