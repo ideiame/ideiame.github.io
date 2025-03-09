@@ -69,26 +69,164 @@ src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pu
 crossorigin="anonymous"></script>
 
     <meta charset="utf-8">
-    <title>Talks @jonatasdp</title>
+    <title>Speaking @jonatasdp</title>
     
     <meta name="author" content="Jônatas Davi Paganini">
 
     <!-- Enable responsive viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-
-    <!-- Le styles -->
-    <link id="bootstrap" href="/css/bootstrap.css" rel="stylesheet">
-    <link id="bootstrap" href="/css/bootswatch.min.css" rel="stylesheet">
+    <!-- Modern stylesheet links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Poppins:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
     <link href="/css/nimbus-pygments.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+    <link href="/css/code-highlighting.css" rel="stylesheet">
 
-    <script src="/js/jquery.js"></script>
-    <script type="text/javascript" src="/js/bootstrap-dropdown.js"></script>
+    <!-- Style overrides for Prism -->
+    <style>
+      /* Override Prism default styles to fix text shadow issues */
+      code[class*="language-"],
+      pre[class*="language-"],
+      pre code,
+      .token {
+        text-shadow: none !important;
+        -webkit-text-shadow: none !important;
+        border: none !important;
+        background: none;
+      }
+      
+      /* Ensure proper background only on container elements */
+      pre[class*="language-"] {
+        background: var(--prism-background);
+      }
+      
+      .dark-mode pre[class*="language-"] {
+        background: var(--prism-background);
+      }
+    </style>
+
+    <!-- Modern JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-ruby.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-sql.min.js"></script>
     <div id="fb-root"></div>
+
+    <!-- Dark Mode Script -->
+    <script>
+      function detectColorScheme() {
+        const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        
+        if (isDarkMode) {
+          document.body.classList.add('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = true;
+        }
+        
+        // Listen for changes in the OS color scheme
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+          const newColorScheme = e.matches ? 'dark' : 'light';
+          if (newColorScheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            if (darkModeToggle) darkModeToggle.checked = true;
+          } else {
+            document.body.classList.remove('dark-mode');
+            if (darkModeToggle) darkModeToggle.checked = false;
+          }
+        });
+      }
+
+      // Add code block enhancements
+      function enhanceCodeBlocks() {
+        document.querySelectorAll('pre code').forEach((codeBlock, index) => {
+          // Get the parent pre element
+          const preElement = codeBlock.parentElement;
+          if (!preElement.classList.contains('enhanced')) {
+            preElement.classList.add('enhanced');
+            
+            // Create a wrapper div with the highlight class
+            const highlightDiv = document.createElement('div');
+            highlightDiv.className = 'highlight';
+            
+            // Insert the wrapper before the pre element
+            preElement.parentNode.insertBefore(highlightDiv, preElement);
+            
+            // Move the pre element inside the wrapper
+            highlightDiv.appendChild(preElement);
+            
+            // Get language class from code element
+            let language = '';
+            codeBlock.classList.forEach(className => {
+              if (className.startsWith('language-')) {
+                language = className.substring(9);
+              }
+            });
+            
+            // Auto-detect language if none is specified
+            if (!language) {
+              // Check for Ruby
+              if (codeBlock.textContent.includes('require') || 
+                  codeBlock.textContent.includes('def ') ||
+                  codeBlock.textContent.includes('class ') ||
+                  codeBlock.textContent.includes('module ') ||
+                  codeBlock.textContent.match(/\w+\s*=\s*\w+/g)) {
+                language = 'ruby';
+                codeBlock.classList.add('language-ruby');
+              }
+              // Check for SQL
+              else if (codeBlock.textContent.includes('SELECT') || 
+                       codeBlock.textContent.includes('FROM') ||
+                       codeBlock.textContent.includes('WHERE') ||
+                       codeBlock.textContent.includes('CREATE TABLE')) {
+                language = 'sql';
+                codeBlock.classList.add('language-sql');
+              }
+            }
+            
+            // If language is found, add it as a data attribute
+            if (language) {
+              highlightDiv.setAttribute('data-language', language);
+            }
+            
+            // Create copy button
+            const copyButton = document.createElement('button');
+            copyButton.className = 'copy-button';
+            copyButton.textContent = 'Copy';
+            copyButton.setAttribute('aria-label', 'Copy code to clipboard');
+            copyButton.onclick = function() {
+              navigator.clipboard.writeText(codeBlock.textContent)
+                .then(() => {
+                  copyButton.textContent = 'Copied!';
+                  copyButton.classList.add('copied');
+                  setTimeout(() => {
+                    copyButton.textContent = 'Copy';
+                    copyButton.classList.remove('copied');
+                  }, 2000);
+                })
+                .catch(err => {
+                  console.error('Could not copy text: ', err);
+                });
+            };
+            
+            // Add copy button to the highlight div
+            highlightDiv.appendChild(copyButton);
+          }
+        });
+      }
+      
+      // Initialize when DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        detectColorScheme();
+        enhanceCodeBlocks();
+      });
+    </script>
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -128,257 +266,2271 @@ crossorigin="anonymous"></script>
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-    <div class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
-        <div class="navbar-header">
-          <a href="/">
-            <img class="img-circle" alt="ideiame logo" style="padding-top: 6px" src="/images/ideiame.png"></a>
-            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-           </button>
-       </div>
-   <div class="navbar-collapse collapse" id="navbar-main">
-     <ul class="nav navbar-nav">
-      <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Social<b class="caret"></b></a>
-            <ul class="dropdown-menu" id="swatch-menu">
-              <li><a href="https://github.com/jonatas">Github</a></li>
-              <li><a href="https://twitter.com/jonatasdp">Twitter</a></li>
-              <li><a href="https://instagram.com/jonatasdp">Instagram</a></li>
-              <li><a href="https://www.meetup.com/Floripa-on-Rails/members/185190193/">Meetup</a></li>
-              <li><a href="https://www.slideshare.net/jonataspaganini/">SlideShare</a></li>
-              <li><a href="https://facebook.com/jonatas.paganini">Facebook</a></li>
-              <li><a href="https://www.youtube.com/user/jonatasdp">Youtube</a></li>
-           </ul>
-          </li>
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Projects<b class="caret"></b></a>
-            <ul class="dropdown-menu">
-            <li><a href="https://github.com/jonatas/fast">Fast</a></li>
-            <li><a href="http://torf.ideia.me">2015: True Or False Game</a></li>
-            <li><a href="http://github.com/jonatas/pixel.ideia.me">2013: Pixel art (collaborative) </a></li>
-            <li><a href="http://github.com/jonatas/trybliss">2013: Try Bliss</a</li>
-            <li><a href="http://github.com/jonatas/churumelas">2012: Regexp challenges</a></li>
-            <li><a href="/camera-overlay">2012: Camera Overlay </a></li>
-           </ul>
-          </li>
-          
-          
-          
-
-
-  
-    
-      
-      	
-      	<li><a href="/archive">Arquivo</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/categories">Categorias</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-      	
-      	<li><a href="/pages">Pages</a></li>
-      	
-      
-    
-  
-    
-      
-    
-  
-    
-      
-    
-  
-    
-  
-    
-      
-    
-  
-
-
-
+        <a class="navbar-brand py-0" href="/">
+          <img class="rounded-circle" alt="ideiame logo" src="/images/ideiame.png">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMain">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle py-1" href="#" id="pagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               Ideia.me 
+              </a>
+              <ul class="dropdown-menu shadow-sm" aria-labelledby="pagesDropdown">
+                <li><a class="dropdown-item" href="/archive">Archive</a></li>
+                <li><a class="dropdown-item" href="/talks">Talks</a></li>
+                <li><a class="dropdown-item" href="/categories">Categories</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="https://www.linkedin.com/in/jonatasdp"><i class="bi bi-linkedin"></i> Linkedin</a></li>
+                <li><a class="dropdown-item" href="https://github.com/jonatas"><i class="bi bi-github"></i> Github</a></li>
+                <li><a class="dropdown-item" href="https://twitter.com/jonatasdp"><i class="bi bi-twitter"></i> Twitter</a></li>
+                <li><a class="dropdown-item" href="https://instagram.com/jonatasdp"><i class="bi bi-instagram"></i> Instagram</a></li>
+                <li><a class="dropdown-item" href="https://www.youtube.com/user/jonatasdp"><i class="bi bi-youtube"></i> Youtube</a></li>
+              </ul>
+            </li>
           </ul>
+          
+          <div class="d-none d-md-block page-title-nav me-auto ms-2">
+            Speaking @jonatasdp
+          </div>
+          
+          <div class="form-check form-switch d-flex align-items-center ms-auto">
+            <input class="form-check-input me-1" type="checkbox" id="darkModeToggle">
+            <label class="form-check-label text-light" for="darkModeToggle">
+              <i class="bi bi-moon-stars"></i>
+            </label>
+          </div>
         </div>
       </div>
-     </div>
-    </div>
-    <div class="container">
+    </nav>
+    
+    <div class="container content-container mt-5 pt-5">
       
-<div class="page-header">
-  <h1>Talks @jonatasdp </h1>
+<div class="container page-container">
+  <div class="row">
+    <div class="col-lg-10 mx-auto">
+      <header class="page-header text-center mb-5 pt-3">
+        <h1 class="display-4 fw-bold">Speaking @jonatasdp</h1>
+        
+      </header>
+      
+      <div class="page-content">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+<link rel="stylesheet" href="/assets/css/talks.css" />
+
+<div class="talks-container">
+  <div class="talks-header">
+    <h1>Global Speaker, SQL Enthusiast, Developer Advocate</h1>
+  </div>
+  
+  <div class="talks-intro">
+    <p>From international conferences to local meetups, I share my passion for PostgreSQL, Ruby, TimescaleDB, and data science across the globe. Join me for practical insights, live coding, and real-world problem solving.</p>
+  </div>
+  
+  <div class="conference-carousel">
+    <div class="carousel-container">
+      
+      
+      
+        
+          <div class="carousel-slide" data-talk-date="2025-02-28">
+            <img src="/images/Krakow_Ruby_Community_Conference_Performance_workshop.jpg" alt="Leading the Performance Workshop" />
+            <div class="carousel-caption">
+              <h3>Ruby Community Conference</h3>
+              <p>Teaching PostgreSQL optimization techniques to Ruby developers</p>
+              <a href="#postgresql-performance-workshop-for-ruby-developers" class="carousel-link">View Event Details</a>
+            </div>
+          </div>
+        
+          <div class="carousel-slide" data-talk-date="2025-02-28">
+            <img src="/images/Krakow_Ruby_Community_Conference_Performance_workshop-full-room.jpg" alt="Full workshop room" />
+            <div class="carousel-caption">
+              <h3>Ruby Community Conference</h3>
+              <p>Engaging with a packed room of Ruby developers</p>
+              <a href="#postgresql-performance-workshop-for-ruby-developers" class="carousel-link">View Event Details</a>
+            </div>
+          </div>
+        
+          <div class="carousel-slide" data-talk-date="2025-02-28">
+            <img src="/images/Krakow_Ruby_Community_Conference_Jonatas_networking.jpg" alt="Networking at the conference" />
+            <div class="carousel-caption">
+              <h3>Ruby Community Conference</h3>
+              <p>Building connections in the Ruby community</p>
+              <a href="#postgresql-performance-workshop-for-ruby-developers" class="carousel-link">View Event Details</a>
+            </div>
+          </div>
+        
+          <div class="carousel-slide" data-talk-date="2025-02-28">
+            <img src="/images/Krakow_Ruby_Community_Conference_Jonatas_Scarf_Gift.jpg" alt="Receiving a gift from the community" />
+            <div class="carousel-caption">
+              <h3>Ruby Community Conference</h3>
+              <p>Heartwarming moment with the Krakow Ruby community</p>
+              <a href="#postgresql-performance-workshop-for-ruby-developers" class="carousel-link">View Event Details</a>
+            </div>
+          </div>
+        
+      
+        
+          <div class="carousel-slide" data-talk-date="2025-02-27">
+            <img src="/images/Krakow_Ruby_User_Group_Jonatas_Speaking.jpg" alt="Speaking at Krakow Ruby User Group" />
+            <div class="carousel-caption">
+              <h3>Krakow Ruby User Group</h3>
+              <p>Introducing TimescaleDB to the Ruby community</p>
+              <a href="#intro-to-the-timescaledb-gem" class="carousel-link">View Event Details</a>
+            </div>
+          </div>
+        
+          <div class="carousel-slide" data-talk-date="2025-02-27">
+            <img src="/images/Krakow_Ruby_User_Group_Jonatas_Speaking-profile-half-body.jpg" alt="Presenting at KRUG" />
+            <div class="carousel-caption">
+              <h3>Krakow Ruby User Group</h3>
+              <p>Sharing insights about time-series data in Ruby</p>
+              <a href="#intro-to-the-timescaledb-gem" class="carousel-link">View Event Details</a>
+            </div>
+          </div>
+        
+          <div class="carousel-slide" data-talk-date="2025-02-27">
+            <img src="/images/Krakow_Ruby_User_Group_Jonatas_Networking.jpg" alt="Networking at KRUG" />
+            <div class="carousel-caption">
+              <h3>Krakow Ruby User Group</h3>
+              <p>Engaging with the Ruby community in Krakow</p>
+              <a href="#intro-to-the-timescaledb-gem" class="carousel-link">View Event Details</a>
+            </div>
+          </div>
+        
+      
+        
+          <div class="carousel-slide" data-talk-date="2024-08-03">
+            <img src="/images/pgday-blumenau-2024-jonatas-speaking.jpg" alt="Speaking at PG Day Blumenau 2024" />
+            <div class="carousel-caption">
+              <h3>PG Day Blumenau</h3>
+              <p>Sharing insights about TimescaleDB optimization</p>
+              <a href="#high-speed-data-optimizing-postgresql-with-timescaledb" class="carousel-link">View Event Details</a>
+            </div>
+          </div>
+        
+          <div class="carousel-slide" data-talk-date="2024-08-03">
+            <img src="/images/pgconf-brazil-2024-audience.jpg" alt="PostgreSQL Conference Brazil Audience" />
+            <div class="carousel-caption">
+              <h3>PG Day Blumenau</h3>
+              <p>Engaging with the Brazilian PostgreSQL community</p>
+              <a href="#high-speed-data-optimizing-postgresql-with-timescaledb" class="carousel-link">View Event Details</a>
+            </div>
+          </div>
+        
+      
+        
+          <div class="carousel-slide" data-talk-date="2024-02-15">
+            <img src="/images/lambda-days-2023-jonatas-speaking.jpeg" alt="Speaking at Lambda Days 2024" />
+            <div class="carousel-caption">
+              <h3>Lambda Days 2024</h3>
+              <p>Sharing command-line techniques for SQL exploration</p>
+              <a href="#grepping-sql-code-like-a-boss" class="carousel-link">View Event Details</a>
+            </div>
+          </div>
+        
+          <div class="carousel-slide" data-talk-date="2024-02-15">
+            <img src="/images/jonatasdp-michal-marcin.jpeg" alt="With Michal and Marcin walking in Krakow" />
+            <div class="carousel-caption">
+              <h3>Lambda Days 2024</h3>
+              <p>Great discussions with my great ruby friends</p>
+              <a href="#grepping-sql-code-like-a-boss" class="carousel-link">View Event Details</a>
+            </div>
+          </div>
+        
+      
+        
+          <div class="carousel-slide" data-talk-date="2024-02-15">
+            <img src="/images/Krakow_Ruby_Community_Conference_Performance_Michal_Mariuz_conf_organizers.jpg" alt="With conference organizers in Krakow" />
+            <div class="carousel-caption">
+              <h3>Lambda Days 2024</h3>
+              <p>Great discussions with the conference organizers</p>
+              <a href="#the-power-of-mentoring-nurturing-growth-in-the-it-industry-panel-discussion" class="carousel-link">View Event Details</a>
+            </div>
+          </div>
+        
+      
+        
+          <div class="carousel-slide" data-talk-date="2023-09-23">
+            <img src="/images/pgday-bh-2023-panel.jpg" alt="Panel discussion at PGDay BH 2023" />
+            <div class="carousel-caption">
+              <h3>PGDay BH</h3>
+              <p>Participating in a panel discussion about PostgreSQL</p>
+              <a href="#real-time-analytics-with-postgresql-and-timescaledb" class="carousel-link">View Event Details</a>
+            </div>
+          </div>
+        
+          <div class="carousel-slide" data-talk-date="2023-09-23">
+            <img src="/images/pgday-bh-folks.jpg" alt="With the PostgreSQL community at PGDay BH" />
+            <div class="carousel-caption">
+              <h3>PGDay BH</h3>
+              <p>Great discussions with the Brazilian PostgreSQL community</p>
+              <a href="#real-time-analytics-with-postgresql-and-timescaledb" class="carousel-link">View Event Details</a>
+            </div>
+          </div>
+        
+      
+    </div>
+    <div class="carousel-nav">
+      <button class="carousel-button prev-button">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+      <button class="carousel-button next-button">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+    </div>
+  </div>
+  
+  <div class="global-impact">
+    <div class="stat-box">
+      <div class="stat-number" data-count="44">0</div>
+      <div class="stat-label">Total Talks</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number" data-count="37">0</div>
+      <div class="stat-label">Delivered</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number" data-count="9">0</div>
+      <div class="stat-label">Countries</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number" data-count="4">0</div>
+      <div class="stat-label">Continents</div>
+    </div>
+  </div>
+  
+  <div class="topic-filters">
+    <h3>Filter by Topic:</h3>
+    
+      <div class="topic-filter" data-topic="PostgreSQL" style="border: 2px solid #336791;">
+        PostgreSQL
+      </div>
+    
+      <div class="topic-filter" data-topic="Ruby" style="border: 2px solid #CC342D;">
+        Ruby
+      </div>
+    
+      <div class="topic-filter" data-topic="SQL" style="border: 2px solid #F29111;">
+        SQL
+      </div>
+    
+      <div class="topic-filter" data-topic="TimescaleDB" style="border: 2px solid #FF9E00;">
+        TimescaleDB
+      </div>
+    
+      <div class="topic-filter" data-topic="Data Science" style="border: 2px solid #4D77CF;">
+        Data Science
+      </div>
+    
+      <div class="topic-filter" data-topic="Functional Programming" style="border: 2px solid #5C21D4;">
+        Functional Programming
+      </div>
+    
+      <div class="topic-filter" data-topic="Data Modeling" style="border: 2px solid #8BC34A;">
+        Data Modeling
+      </div>
+    
+      <div class="topic-filter" data-topic="Data Processing" style="border: 2px solid #2196F3;">
+        Data Processing
+      </div>
+    
+      <div class="topic-filter" data-topic="Time Series" style="border: 2px solid #E91E63;">
+        Time Series
+      </div>
+    
+      <div class="topic-filter" data-topic="Command Line" style="border: 2px solid #795548;">
+        Command Line
+      </div>
+    
+      <div class="topic-filter" data-topic="Performance" style="border: 2px solid #FF5722;">
+        Performance
+      </div>
+    
+      <div class="topic-filter" data-topic="Audio" style="border: 2px solid #9C27B0;">
+        Audio
+      </div>
+    
+      <div class="topic-filter" data-topic="Data Visualization" style="border: 2px solid #009688;">
+        Data Visualization
+      </div>
+    
+      <div class="topic-filter" data-topic="AI" style="border: 2px solid #673AB7;">
+        AI
+      </div>
+    
+      <div class="topic-filter" data-topic="Analytics" style="border: 2px solid #FFC107;">
+        Analytics
+      </div>
+    
+      <div class="topic-filter" data-topic="Career" style="border: 2px solid #607D8B;">
+        Career
+      </div>
+    
+  </div>
+  
+  <div class="booking-section">
+    <h2 class="booking-heading">Invite Me to Speak at Your Event</h2>
+    <p class="booking-text">
+    I'm sharing my speaking journey to connect with event organizers and communities. Are you looking for a speaker on PostgreSQL, Ruby, TimescaleDB, or Data Science? I'm available for conferences, workshops, and meetups worldwide, especially if I'm already visiting your region. Let's create an engaging experience for your audience! Connect with me on <a href="https://www.linkedin.com/in/jonatasdp" target="_blank" rel="noopener">LinkedIn <i class="fab fa-linkedin"></i></a> to discuss speaking opportunities.</p>
+  </div>
+  
+  <h2 class="section-heading">Chronological Talk History</h2>
+  
+  <div class="year-filters">
+    
+    
+      <div class="year-filter" data-year=""></div>
+    
+    <div class="year-filter active" data-year="all">All Years</div>
+  </div>
+  
+  <div class="talks-grid">
+    
+    
+    
+    <!-- Group talks by title to identify series -->
+    
+    
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- This is a regular talk series with multiple instances -->
+        <div class="talk-card talk-series" data-topics="Ruby,TimescaleDB" data-year="2025" id="intro-to-the-timescaledb-gem">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/baltic-ruby/600/400" alt="Intro to the TimescaleDB gem" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Intro to the TimescaleDB gem</div>
+              
+                <div class="talk-card-event">Baltic Ruby</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Intro to the TimescaleDB gem</h3>
+            
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-Ruby">Ruby</div>
+              
+                <div class="talk-card-topic topic-TimescaleDB">TimescaleDB</div>
+              
+            </div>
+            
+            <div class="series-locations">
+              
+              
+                <div class="series-location-item past-event">
+                  <div class="series-date">February 27, 2025</div>
+                  <div class="series-location" data-emoji="🇵🇱">
+                    Krakow, Poland
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://krug.org.pl/events/1111" class="event-link" target="_blank">Krakow Ruby User Group</a></div>
+                    
+                  
+                  
+                </div>
+              
+                <div class="series-location-item ">
+                  <div class="series-date">March 27, 2025</div>
+                  <div class="series-location" data-emoji="🇪🇸">
+                    Madrid, Spain
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://madridrb.com" class="event-link" target="_blank">Madrid.rb Ruby User Group</a></div>
+                    
+                  
+                  
+                    <a href="https://madridrb.com" class="series-date-cta">Register <i class="fas fa-arrow-right"></i></a>
+                  
+                </div>
+              
+                <div class="series-location-item ">
+                  <div class="series-date">June 12, 2025</div>
+                  <div class="series-location" data-emoji="🇱🇻">
+                    Latvia, Riga
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://balticruby.org/" class="event-link" target="_blank">Baltic Ruby</a></div>
+                    
+                  
+                  
+                    <a href="https://balticruby.org/" class="series-date-cta">Register <i class="fas fa-arrow-right"></i></a>
+                  
+                </div>
+              
+            </div>
+            
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <span class="talk-card-info">Conference</span>
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- This is a regular talk series with multiple instances -->
+        <div class="talk-card talk-series" data-topics="PostgreSQL,Ruby,Performance" data-year="2025" id="postgresql-performance-workshop-for-ruby-developers">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/tropical-on-rails/600/400" alt="PostgreSQL Performance Workshop for Ruby Developers" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">PostgreSQL Performance Workshop for Ruby Developers</div>
+              
+                <div class="talk-card-event">Tropical on Rails</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title"><a href="https://github.com/timescale/postgresql-performance-for-rubyists/" class="github-title-link" target="_blank">PostgreSQL Performance Workshop for Ruby Developers <i class="fab fa-github" style="font-size: 0.7em; vertical-align: middle; opacity: 0.7;"></i></a></h3>
+            
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-PostgreSQL">PostgreSQL</div>
+              
+                <div class="talk-card-topic topic-Ruby">Ruby</div>
+              
+                <div class="talk-card-topic topic-Performance">Performance</div>
+              
+            </div>
+            
+            <div class="series-locations">
+              
+              
+                <div class="series-location-item past-event">
+                  <div class="series-date">February 28, 2025</div>
+                  <div class="series-location" data-emoji="🇵🇱">
+                    Krakow, Poland
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> Ruby Community Conference</div>
+                    
+                  
+                  
+                </div>
+              
+                <div class="series-location-item ">
+                  <div class="series-date">April 02, 2025</div>
+                  <div class="series-location" data-emoji="🇧🇷">
+                    São Paulo, Brazil
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://www.sympla.com.br/evento/workshop-tropical-2025-jonatas-paganini-postgresql-performance-workshop-for-ruby-developers/2838577?referrer=jonatas" class="event-link" target="_blank">Tropical on Rails</a></div>
+                    
+                  
+                  
+                    <a href="https://www.sympla.com.br/evento/workshop-tropical-2025-jonatas-paganini-postgresql-performance-workshop-for-ruby-developers/2838577?referrer=jonatas" class="series-date-cta">Register <i class="fas fa-arrow-right"></i></a>
+                  
+                </div>
+              
+            </div>
+            
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <span class="talk-card-info">Workshop</span>
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- This is a regular talk series with multiple instances -->
+        <div class="talk-card talk-series" data-topics="PostgreSQL,TimescaleDB,Analytics" data-year="2025" id="real-time-analytics-with-postgresql-and-timescaledb">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/dev-paraná/600/400" alt="Real Time Analytics with PostgreSQL and TimescaleDB" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Real Time Analytics with PostgreSQL and TimescaleDB</div>
+              
+                <div class="talk-card-event">Dev Paraná</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Real Time Analytics with PostgreSQL and TimescaleDB</h3>
+            
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-PostgreSQL">PostgreSQL</div>
+              
+                <div class="talk-card-topic topic-TimescaleDB">TimescaleDB</div>
+              
+                <div class="talk-card-topic topic-Analytics">Analytics</div>
+              
+            </div>
+            
+            <div class="series-locations">
+              
+              
+                <div class="series-location-item past-event">
+                  <div class="series-date">September 23, 2023</div>
+                  <div class="series-location" data-emoji="🇧🇷">
+                    Belo Horizonte, MG, Brazil
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://www.sympla.com.br/evento/pgday-2023-bh-puc-coreu-manha-predio-43-auditorio-3/1996398" class="event-link" target="_blank">PGDay BH</a></div>
+                    
+                  
+                  
+                </div>
+              
+                <div class="series-location-item ">
+                  <div class="series-date">March 10, 2025</div>
+                  <div class="series-location" data-emoji="🇧🇷">
+                    Cascavel, PR, Brazil
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://www.sympla.com.br/evento/devpr-na-estrada-cascavel/2830476" class="event-link" target="_blank">Dev Paraná</a></div>
+                    
+                  
+                  
+                    <a href="https://www.sympla.com.br/evento/devpr-na-estrada-cascavel/2830476" class="series-date-cta">Register <i class="fas fa-arrow-right"></i></a>
+                  
+                </div>
+              
+                <div class="series-location-item ">
+                  <div class="series-date">March 11, 2025</div>
+                  <div class="series-location" data-emoji="🇧🇷">
+                    Foz do Iguaçu, PR, Brazil
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://www.sympla.com.br/evento/devpr-na-estrada-foz-do-iguacu/2832078?" class="event-link" target="_blank">Dev Paraná</a></div>
+                    
+                  
+                  
+                    <a href="https://www.sympla.com.br/evento/devpr-na-estrada-foz-do-iguacu/2832078?" class="series-date-cta">Register <i class="fas fa-arrow-right"></i></a>
+                  
+                </div>
+              
+                <div class="series-location-item ">
+                  <div class="series-date">March 12, 2025</div>
+                  <div class="series-location" data-emoji="🇧🇷">
+                    Toledo, PR, Brazil
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://www.sympla.com.br/evento/devpr-na-estrada-toledo/2830488?" class="event-link" target="_blank">Dev Paraná</a></div>
+                    
+                  
+                  
+                    <a href="https://www.sympla.com.br/evento/devpr-na-estrada-toledo/2830488?" class="series-date-cta">Register <i class="fas fa-arrow-right"></i></a>
+                  
+                </div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+                  <div class="slides-container">
+                    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTcncQivyEhJ8oUwsLVFFWFEaIhvvUcI-20zVK9EwNdj7udCToetUHxCyK_sEOmOl1nkrvVjOMYmWWj/embed?start=false&amp;loop=false&amp;delayms=3000" width="100%" height="200" frameborder="0" loading="lazy" title="Real Time Analytics with PostgreSQL and TimescaleDB Slides" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
+                    </iframe>
+                  </div>
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <span class="talk-card-info">Conference</span>
+            
+            
+            
+              <a href="https://docs.google.com/presentation/d/e/2PACX-1vTcncQivyEhJ8oUwsLVFFWFEaIhvvUcI-20zVK9EwNdj7udCToetUHxCyK_sEOmOl1nkrvVjOMYmWWj/pub?start=false&amp;loop=false&amp;delayms=3000" target="_blank" class="slides-button">
+                <i class="fas fa-file-powerpoint"></i> View Slides <i class="fas fa-external-link-alt"></i>
+              </a>
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="PostgreSQL,PGVector" data-year="2024" id="introduction-to-pgvector">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/pgconf-brasil-2024/600/400" alt="Introduction to PGVector" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Introduction to PGVector</div>
+              
+                <div class="talk-card-event">PGConf Brasil 2024</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Introduction to PGVector</h3>
+            
+            <div class="series-date">September 07, 2024</div>
+            <div class="series-location" data-emoji="🇧🇷">
+              São Paulo, SP, Brazil
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-PostgreSQL">PostgreSQL</div>
+              
+                <div class="talk-card-topic topic-PGVector">PGVector</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+                  <div class="slides-container">
+                    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQq60_oaZDs1jnwZQ7CjpKeb_Uctp0x8uFOBiA2_-3c7RRrxsluj-Phbtx1HRBfaFKrTMSIl7FP-yVJ/embed?start=false&amp;loop=false&amp;delayms=3000" width="100%" height="200" frameborder="0" loading="lazy" title="Introduction to PGVector Slides" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
+                    </iframe>
+                  </div>
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <a href="https://pgconf.com.br/2024" target="_blank" class="talk-card-button">Event Details <i class="fas fa-arrow-right"></i></a>
+            
+            
+            
+              <a href="https://docs.google.com/presentation/d/e/2PACX-1vQq60_oaZDs1jnwZQ7CjpKeb_Uctp0x8uFOBiA2_-3c7RRrxsluj-Phbtx1HRBfaFKrTMSIl7FP-yVJ/pub?start=false&amp;loop=false&amp;delayms=3000" target="_blank" class="slides-button">
+                <i class="fas fa-file-powerpoint"></i> View Slides <i class="fas fa-external-link-alt"></i>
+              </a>
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="PostgreSQL,TimescaleDB" data-year="2024" id="high-speed-data-optimizing-postgresql-with-timescaledb">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/pg-day-blumenau/600/400" alt="High-speed data: Optimizing PostgreSQL with TimescaleDB" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">High-speed data: Optimizing PostgreSQL with TimescaleDB</div>
+              
+                <div class="talk-card-event">PG Day Blumenau</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">High-speed data: Optimizing PostgreSQL with TimescaleDB</h3>
+            
+            <div class="series-date">August 03, 2024</div>
+            <div class="series-location" data-emoji="🇧🇷">
+              Blumenau, SC, Brazil
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-PostgreSQL">PostgreSQL</div>
+              
+                <div class="talk-card-topic topic-TimescaleDB">TimescaleDB</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+                  <div class="slides-container">
+                    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQo71hgMkjjvbeYypz0oqpXJTqAi-TWSGLdNSN20apKQ4FXMZFI9-5M1TkHhv1x3x3r1hNeCKLFyNIQ/embed?start=false&amp;loop=false&amp;delayms=3000" width="100%" height="200" frameborder="0" loading="lazy" title="High-speed data: Optimizing PostgreSQL with TimescaleDB Slides" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
+                    </iframe>
+                  </div>
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <a href="https://www.sympla.com.br/evento/pgday-blumenau/2385178?" target="_blank" class="talk-card-button">Event Details <i class="fas fa-arrow-right"></i></a>
+            
+            
+            
+              <a href="https://docs.google.com/presentation/d/e/2PACX-1vQo71hgMkjjvbeYypz0oqpXJTqAi-TWSGLdNSN20apKQ4FXMZFI9-5M1TkHhv1x3x3r1hNeCKLFyNIQ/pub?start=false&amp;loop=false&amp;delayms=3000" target="_blank" class="slides-button">
+                <i class="fas fa-file-powerpoint"></i> View Slides <i class="fas fa-external-link-alt"></i>
+              </a>
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="PostgreSQL,PGVector" data-year="2024" id="vectorization-of-information-and-the-future-of-models-free-models-for-a-more-open-and-sustainable-future">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/dev-paraná/600/400" alt="Vectorization of information and the Future of models - free models for a more open and sustainable future" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Vectorization of information and the Future of models - free models for a more open and sustainable future</div>
+              
+                <div class="talk-card-event">Dev Paraná</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Vectorization of information and the Future of models - free models for a more open and sustainable future</h3>
+            
+            <div class="series-date">July 28, 2024</div>
+            <div class="series-location" data-emoji="🇧🇷">
+              Maringá, PR, Brazil
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-PostgreSQL">PostgreSQL</div>
+              
+                <div class="talk-card-topic topic-PGVector">PGVector</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+                  <div class="slides-container">
+                    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vSJcN9wVdw9HeAOdm1br8aSaPtbb4riTKzPiwfb8TGtM197OLPaA0g7nknWLW3969EtMWedKBZpGMRq/embed?start=false&amp;loop=false&amp;delayms=3000" width="100%" height="200" frameborder="0" loading="lazy" title="Vectorization of information and the Future of models - free models for a more open and sustainable future Slides" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
+                    </iframe>
+                  </div>
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <a href="https://devpr.org/" target="_blank" class="talk-card-button">Event Details <i class="fas fa-arrow-right"></i></a>
+            
+            
+            
+              <a href="https://docs.google.com/presentation/d/e/2PACX-1vSJcN9wVdw9HeAOdm1br8aSaPtbb4riTKzPiwfb8TGtM197OLPaA0g7nknWLW3969EtMWedKBZpGMRq/pub?start=false&amp;loop=false&amp;delayms=3000" target="_blank" class="slides-button">
+                <i class="fas fa-file-powerpoint"></i> View Slides <i class="fas fa-external-link-alt"></i>
+              </a>
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="Mentoring" data-year="2024" id="the-power-of-mentoring-nurturing-growth-in-the-it-industry-panel-discussion">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/lambda-days-2024/600/400" alt="The Power of Mentoring: Nurturing Growth in the IT Industry - panel discussion" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">The Power of Mentoring: Nurturing Growth in the IT Industry - panel discussion</div>
+              
+                <div class="talk-card-event">Lambda Days 2024 2024</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">The Power of Mentoring: Nurturing Growth in the IT Industry - panel discussion</h3>
+            
+            <div class="series-date">February 15, 2024</div>
+            <div class="series-location" data-emoji="🇵🇱">
+              Krakow, Poland
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-Mentoring">Mentoring</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <a href="https://www.lambdadays.org/lambdadays2024" target="_blank" class="talk-card-button">Event Details <i class="fas fa-arrow-right"></i></a>
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="SQL,Command Line" data-year="2024" id="grepping-sql-code-like-a-boss">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/lambda-days-2024/600/400" alt="Grepping SQL code like a boss" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Grepping SQL code like a boss</div>
+              
+                <div class="talk-card-event">Lambda Days 2024 2024</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Grepping SQL code like a boss</h3>
+            
+            <div class="series-date">February 15, 2024</div>
+            <div class="series-location" data-emoji="🇵🇱">
+              Krakow, Poland
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-SQL">SQL</div>
+              
+                <div class="talk-card-topic topic-Command-Line">Command Line</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <a href="https://ideia.me/grepping-sql-code-like-a-boss" target="_blank" class="talk-card-button">Event Details <i class="fas fa-arrow-right"></i></a>
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="PostgreSQL,TimescaleDB,Extensions" data-year="2023" id="introduction-to-timescaledb-extensions">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/code-island-summit/600/400" alt="Introduction to TimescaleDB extensions" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Introduction to TimescaleDB extensions</div>
+              
+                <div class="talk-card-event">Code Island Summit</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Introduction to TimescaleDB extensions</h3>
+            
+            <div class="series-date">November 25, 2023</div>
+            <div class="series-location" data-emoji="🇧🇷">
+              Florianópolis, SC, Brazil
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-PostgreSQL">PostgreSQL</div>
+              
+                <div class="talk-card-topic topic-TimescaleDB">TimescaleDB</div>
+              
+                <div class="talk-card-topic topic-Extensions">Extensions</div>
+              
+            </div>
+            
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <a href="https://summit.codeisland.com.br/" target="_blank" class="talk-card-button">Event Details <i class="fas fa-arrow-right"></i></a>
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- This is a regular talk series with multiple instances -->
+        <div class="talk-card talk-series" data-topics="PostgreSQL,TimescaleDB,Time Series" data-year="2023" id="intro-to-timeseries-data-with-postgresql-and-timescaledb">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/pg-day-xap/600/400" alt="Intro to timeseries data with PostgreSQL and TimescaleDB" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Intro to timeseries data with PostgreSQL and TimescaleDB</div>
+              
+                <div class="talk-card-event">PG Day XAP</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Intro to timeseries data with PostgreSQL and TimescaleDB</h3>
+            
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-PostgreSQL">PostgreSQL</div>
+              
+                <div class="talk-card-topic topic-TimescaleDB">TimescaleDB</div>
+              
+                <div class="talk-card-topic topic-Time-Series">Time Series</div>
+              
+            </div>
+            
+            <div class="series-locations">
+              
+              
+                <div class="series-location-item past-event">
+                  <div class="series-date">August 11, 2023</div>
+                  <div class="series-location" data-emoji="🇧🇷">
+                    Porto Alegre, RS, Brazil
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://www.sympla.com.br/evento/pgday-porto-alegre-2023/2057620" class="event-link" target="_blank">PG Day POA</a></div>
+                    
+                  
+                  
+                </div>
+              
+                <div class="series-location-item past-event">
+                  <div class="series-date">August 14, 2023</div>
+                  <div class="series-location" data-emoji="🇧🇷">
+                    São Paulo, SP, Brazil
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://www.sympla.com.br/evento/pgday-sao-paulo-2023/2044774" class="event-link" target="_blank">PG Day São Paulo</a></div>
+                    
+                  
+                  
+                </div>
+              
+                <div class="series-location-item past-event">
+                  <div class="series-date">August 16, 2023</div>
+                  <div class="series-location" data-emoji="🇧🇷">
+                    Belo Horizonte, MG, Brazil
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://www.sympla.com.br/evento/pgday-2023-bh-puc-coreu-manha-predio-43-auditorio-3/1996398" class="event-link" target="_blank">PG Day BH</a></div>
+                    
+                  
+                  
+                </div>
+              
+                <div class="series-location-item past-event">
+                  <div class="series-date">September 16, 2023</div>
+                  <div class="series-location" data-emoji="🇧🇷">
+                    Chapecó, SC, Brazil
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://pgdayxap.com.br/2023" class="event-link" target="_blank">PG Day XAP</a></div>
+                    
+                  
+                  
+                </div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <span class="talk-card-info">Conference</span>
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="PostgreSQL" data-year="2023" id="panel-about-postgresql">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/pg-day-floripa/600/400" alt="Panel about PostgreSQL" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Panel about PostgreSQL</div>
+              
+                <div class="talk-card-event">PG Day Floripa</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Panel about PostgreSQL</h3>
+            
+            <div class="series-date">September 02, 2023</div>
+            <div class="series-location" data-emoji="🇧🇷">
+              Florianópolis, SC, Brazil
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-PostgreSQL">PostgreSQL</div>
+              
+            </div>
+            
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <a href="https://www.sympla.com.br/evento/pgday-floripa/2071983" target="_blank" class="talk-card-button">Event Details <i class="fas fa-arrow-right"></i></a>
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="PostgreSQL,Career" data-year="2023" id="panel-about-postgresql-and-database-careers">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/pg-day-bh/600/400" alt="Panel about PostgreSQL and Database Careers" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Panel about PostgreSQL and Database Careers</div>
+              
+                <div class="talk-card-event">PG Day BH</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Panel about PostgreSQL and Database Careers</h3>
+            
+            <div class="series-date">August 16, 2023</div>
+            <div class="series-location" data-emoji="🇧🇷">
+              Belo Horizonte, MG, Brazil
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-PostgreSQL">PostgreSQL</div>
+              
+                <div class="talk-card-topic topic-Career">Career</div>
+              
+            </div>
+            
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <a href="https://www.sympla.com.br/evento/pgday-2023-bh-puc-coreu-manha-predio-43-auditorio-3/1996398" target="_blank" class="talk-card-button">Event Details <i class="fas fa-arrow-right"></i></a>
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- This is a regular talk series with multiple instances -->
+        <div class="talk-card talk-series" data-topics="Ruby,TimescaleDB,Time Series" data-year="2023" id="time-series-data-processing-with-ruby-and-timescaledb">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/rzeszów-ruby-user-group/600/400" alt="Time-series data processing with Ruby and TimescaleDB" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Time-series data processing with Ruby and TimescaleDB</div>
+              
+                <div class="talk-card-event">Rzeszów Ruby User Group</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Time-series data processing with Ruby and TimescaleDB</h3>
+            
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-Ruby">Ruby</div>
+              
+                <div class="talk-card-topic topic-TimescaleDB">TimescaleDB</div>
+              
+                <div class="talk-card-topic topic-Time-Series">Time Series</div>
+              
+            </div>
+            
+            <div class="series-locations">
+              
+              
+                <div class="series-location-item past-event">
+                  <div class="series-date">January 24, 2023</div>
+                  <div class="series-location" data-emoji="🌐">
+                    Online
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://events.geekle.us/ruby/" class="event-link" target="_blank">Ruby On Rails Global Summit</a></div>
+                    
+                  
+                  
+                </div>
+              
+                <div class="series-location-item past-event">
+                  <div class="series-date">June 12, 2023</div>
+                  <div class="series-location" data-emoji="🌐">
+                    Rzeszów, Poland
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="http://rrug.pl/meetup/2023/05/15/spotkanie35.html" class="event-link" target="_blank">Rzeszów Ruby User Group</a></div>
+                    
+                  
+                  
+                </div>
+              
+            </div>
+            
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <span class="talk-card-info">Meetup</span>
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="SQL,Functional Programming" data-year="2023" id="functional-programming-in-postgresql">
+          <div class="talk-card-header">
+            
+              <img src="https://img.youtube.com/vi/vX8i0Bcb08I/mqdefault.jpg" alt="Functional Programming in PostgreSQL" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Functional Programming in PostgreSQL</div>
+              
+                <div class="talk-card-event">Lambda Days 2023 2023</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Functional Programming in PostgreSQL</h3>
+            
+            <div class="series-date">June 05, 2023</div>
+            <div class="series-location" data-emoji="🇵🇱">
+              Krakow, Poland
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-SQL">SQL</div>
+              
+                <div class="talk-card-topic topic-Functional-Programming">Functional Programming</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+                  <div class="video-container">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/vX8i0Bcb08I" frameborder="0" allowfullscreen="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+                    </iframe>
+                  </div>
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <a href="https://www.lambdadays.org/lambdadays2023" target="_blank" class="talk-card-button">Event Details <i class="fas fa-arrow-right"></i></a>
+            
+            
+            
+            
+            
+              <a href="https://www.youtube.com/watch?v=vX8i0Bcb08I" target="_blank" class="video-button">
+                <i class="fab fa-youtube"></i> Watch Video <i class="fas fa-external-link-alt"></i>
+              </a>
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="PostgreSQL,Data Science,TimescaleDB" data-year="2023" id="data-science-with-postgresql-and-timescaledb">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/pgcon-ottawa/600/400" alt="Data Science with PostgreSQL and TimescaleDB" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Data Science with PostgreSQL and TimescaleDB</div>
+              
+                <div class="talk-card-event">PGCon Ottawa</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Data Science with PostgreSQL and TimescaleDB</h3>
+            
+            <div class="series-date">May 30, 2023</div>
+            <div class="series-location" data-emoji="🌐">
+              Ottawa, Canada
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-PostgreSQL">PostgreSQL</div>
+              
+                <div class="talk-card-topic topic-Data-Science">Data Science</div>
+              
+                <div class="talk-card-topic topic-TimescaleDB">TimescaleDB</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <a href="https://www.pgcon.org/2023/" target="_blank" class="talk-card-button">Event Details <i class="fas fa-arrow-right"></i></a>
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="TimescaleDB,Time Series,Data Modeling" data-year="2023" id="how-to-model-a-time-series-database-with-timescaledb">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/krakow-ruby-user-group/600/400" alt="How to model a Time Series database with TimescaleDB" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">How to model a Time Series database with TimescaleDB</div>
+              
+                <div class="talk-card-event">Krakow Ruby User Group</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title"><a href="https://github.com/jonatas/sql-data-science-training" class="github-title-link" target="_blank">How to model a Time Series database with TimescaleDB <i class="fab fa-github" style="font-size: 0.7em; vertical-align: middle; opacity: 0.7;"></i></a></h3>
+            
+            <div class="series-date">May 10, 2023</div>
+            <div class="series-location" data-emoji="🇵🇱">
+              Krakow, Poland
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-TimescaleDB">TimescaleDB</div>
+              
+                <div class="talk-card-topic topic-Time-Series">Time Series</div>
+              
+                <div class="talk-card-topic topic-Data-Modeling">Data Modeling</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+                  <div class="slides-container">
+                    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQ_WAHS3AWurvv9_9xcAsVd64hI-h6h_6H6TUb3N9F3LfkS3adKswI_H8KZueGzMbPkz8CjMCnNmpFn/embed?start=false&amp;loop=false&amp;delayms=3000" width="100%" height="200" frameborder="0" loading="lazy" title="How to model a Time Series database with TimescaleDB Slides" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true">
+                    </iframe>
+                  </div>
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <a href="https://krug.org.pl/events/1111" target="_blank" class="talk-card-button">Event Details <i class="fas fa-arrow-right"></i></a>
+            
+            
+            
+              <a href="https://docs.google.com/presentation/d/e/2PACX-1vQ_WAHS3AWurvv9_9xcAsVd64hI-h6h_6H6TUb3N9F3LfkS3adKswI_H8KZueGzMbPkz8CjMCnNmpFn/pub?start=false&amp;loop=false&amp;delayms=3000" target="_blank" class="slides-button">
+                <i class="fas fa-file-powerpoint"></i> View Slides <i class="fas fa-external-link-alt"></i>
+              </a>
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- This is a regular talk series with multiple instances -->
+        <div class="talk-card talk-series" data-topics="TimescaleDB,Audio,Data Visualization" data-year="2023" id="making-noise-with-timescaledb-and-sonic-pi">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/j-on-the-beach-2023/600/400" alt="Making noise with TimescaleDB and Sonic PI" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Making noise with TimescaleDB and Sonic PI</div>
+              
+                <div class="talk-card-event">J On The Beach 2023</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Making noise with TimescaleDB and Sonic PI</h3>
+            
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-TimescaleDB">TimescaleDB</div>
+              
+                <div class="talk-card-topic topic-Audio">Audio</div>
+              
+                <div class="talk-card-topic topic-Data-Visualization">Data Visualization</div>
+              
+            </div>
+            
+            <div class="series-locations">
+              
+              
+                <div class="series-location-item past-event">
+                  <div class="series-date">March 29, 2023</div>
+                  <div class="series-location" data-emoji="🌐">
+                    Online
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://www.youtube.com/live/Vfxp718OMtI?feature=share&amp;t=590" class="event-link" target="_blank">Ada Ruby Meetup</a></div>
+                    
+                  
+                  
+                </div>
+              
+                <div class="series-location-item past-event">
+                  <div class="series-date">May 10, 2023</div>
+                  <div class="series-location" data-emoji="🌐">
+                    Málaga, Spain
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://www.jonthebeach.com/workshops/Reality-of-global-warming.-Data-Science-with-Postgres-and-TimescaleDB" class="event-link" target="_blank">J On The Beach 2023</a></div>
+                    
+                  
+                  
+                </div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <span class="talk-card-info">Workshop</span>
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- This is a regular talk series with multiple instances -->
+        <div class="talk-card talk-series" data-topics="PostgreSQL,Data Science" data-year="2023" id="training-data-science-with-postgresql">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/j-on-the-beach-2023/600/400" alt="Training: Data Science with PostgreSQL" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Training: Data Science with PostgreSQL</div>
+              
+                <div class="talk-card-event">J On The Beach 2023</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title"><a href="https://github.com/jonatas/sql-data-science-training" class="github-title-link" target="_blank">Training: Data Science with PostgreSQL <i class="fab fa-github" style="font-size: 0.7em; vertical-align: middle; opacity: 0.7;"></i></a></h3>
+            
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-PostgreSQL">PostgreSQL</div>
+              
+                <div class="talk-card-topic topic-Data-Science">Data Science</div>
+              
+            </div>
+            
+            <div class="series-locations">
+              
+              
+                <div class="series-location-item past-event">
+                  <div class="series-date">February 22, 2023</div>
+                  <div class="series-location" data-emoji="🌐">
+                    Bengaluru, India
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://pgconf.in" class="event-link" target="_blank">PGConf India</a></div>
+                    
+                  
+                  
+                </div>
+              
+                <div class="series-location-item past-event">
+                  <div class="series-date">May 10, 2023</div>
+                  <div class="series-location" data-emoji="🌐">
+                    Málaga, Spain
+                  </div>
+                  
+                  
+                    
+                      <div class="series-event"><i class="fas fa-calendar-alt"></i> <a href="https://2023.jonthebeach.com/workshops/Introductory-Workshop-for-Sonification-Process.-Creating-noise-with-Time-Series-data" class="event-link" target="_blank">J On The Beach 2023</a></div>
+                    
+                  
+                  
+                </div>
+              
+            </div>
+            
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <span class="talk-card-info">Workshop</span>
+            
+            
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="PostgreSQL,Command Line" data-year="2023" id="psql-in-2023">
+          <div class="talk-card-header">
+            
+              <img src="https://img.youtube.com/vi/4Q4jOmHbDvU/mqdefault.jpg" alt="Psql in 2023" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Psql in 2023</div>
+              
+                <div class="talk-card-event">Scale 20x</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Psql in 2023</h3>
+            
+            <div class="series-date">March 09, 2023</div>
+            <div class="series-location" data-emoji="🌐">
+              Pasadena, California, USA
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-PostgreSQL">PostgreSQL</div>
+              
+                <div class="talk-card-topic topic-Command-Line">Command Line</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+                  <div class="video-container">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/4Q4jOmHbDvU" frameborder="0" allowfullscreen="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+                    </iframe>
+                  </div>
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <a href="https://www.socallinuxexpo.org/scale/20x/" target="_blank" class="talk-card-button">Event Details <i class="fas fa-arrow-right"></i></a>
+            
+            
+            
+            
+            
+              <a href="https://www.youtube.com/watch?v=4Q4jOmHbDvU" target="_blank" class="video-button">
+                <i class="fab fa-youtube"></i> Watch Video <i class="fas fa-external-link-alt"></i>
+              </a>
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="Ruby,SQL,Data Processing" data-year="2022" id="ruby-or-sql-where-to-process-your-data">
+          <div class="talk-card-header">
+            
+              <img src="https://img.youtube.com/vi/MXAtSZ5Szgk/mqdefault.jpg" alt="Ruby or SQL? Where to process your data?" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Ruby or SQL? Where to process your data?</div>
+              
+                <div class="talk-card-event">Ruby Conf Thailand</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Ruby or SQL? Where to process your data?</h3>
+            
+            <div class="series-date">October 20, 2022</div>
+            <div class="series-location" data-emoji="🌐">
+              Bangkok, Thailand
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-Ruby">Ruby</div>
+              
+                <div class="talk-card-topic topic-SQL">SQL</div>
+              
+                <div class="talk-card-topic topic-Data-Processing">Data Processing</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+                  <div class="video-container">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/MXAtSZ5Szgk" frameborder="0" allowfullscreen="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+                    </iframe>
+                  </div>
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <a href="https://rubyconfth.com" target="_blank" class="talk-card-button">Event Details <i class="fas fa-arrow-right"></i></a>
+            
+            
+            
+              <a href="https://docs.google.com/presentation/d/e/2PACX-1vST6o2xxkIuNddKwWeXgNENN2-Fcpwe2m9Ax-Z4j6q0V7vjX-GUISxAt6Oj75OFUZ7KQbSI3CLbKI3l/pub?start=false&amp;loop=false&amp;delayms=3000" target="_blank" class="slides-button">
+                <i class="fas fa-file-powerpoint"></i> View Slides <i class="fas fa-external-link-alt"></i>
+              </a>
+            
+            
+            
+              <a href="https://www.youtube.com/watch?v=MXAtSZ5Szgk" target="_blank" class="video-button">
+                <i class="fab fa-youtube"></i> Watch Video <i class="fas fa-external-link-alt"></i>
+              </a>
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="Ruby,TimescaleDB,Time Series" data-year="2022" id="processando-dados-temporais-com-ruby-e-timescaledb">
+          <div class="talk-card-header">
+            
+              <img src="https://img.youtube.com/vi/BeysighX6jY?start=6206/mqdefault.jpg" alt="Processando dados temporais com Ruby e TimescaleDB" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Processando dados temporais com Ruby e TimescaleDB</div>
+              
+                <div class="talk-card-event">Ada.rb</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Processando dados temporais com Ruby e TimescaleDB</h3>
+            
+            <div class="series-date">August 15, 2022</div>
+            <div class="series-location" data-emoji="🌐">
+              Online
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-Ruby">Ruby</div>
+              
+                <div class="talk-card-topic topic-TimescaleDB">TimescaleDB</div>
+              
+                <div class="talk-card-topic topic-Time-Series">Time Series</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+                  <div class="video-container">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/BeysighX6jY?start=6206" frameborder="0" allowfullscreen="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+                    </iframe>
+                  </div>
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <span class="talk-card-info">Meetup</span>
+            
+            
+            
+            
+            
+              <a href="https://www.youtube.com/watch?v=BeysighX6jY?start=6206" target="_blank" class="video-button">
+                <i class="fab fa-youtube"></i> Watch Video <i class="fas fa-external-link-alt"></i>
+              </a>
+            
+            
+            
+              <span class="language-badge">Portuguese</span>
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="PostgreSQL,Command Line" data-year="2022" id="zen-life-with-psql">
+          <div class="talk-card-header">
+            
+              <img src="https://img.youtube.com/vi/MzV6S_72E2g/mqdefault.jpg" alt="Zen Life with Psql" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Zen Life with Psql</div>
+              
+                <div class="talk-card-event">PGConf Brazil</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Zen Life with Psql</h3>
+            
+            <div class="series-date">March 24, 2022</div>
+            <div class="series-location" data-emoji="🇧🇷">
+              Brazil
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-PostgreSQL">PostgreSQL</div>
+              
+                <div class="talk-card-topic topic-Command-Line">Command Line</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+                  <div class="video-container">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/MzV6S_72E2g" frameborder="0" allowfullscreen="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+                    </iframe>
+                  </div>
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <span class="talk-card-info">Conference</span>
+            
+            
+            
+            
+            
+              <a href="https://www.youtube.com/watch?v=MzV6S_72E2g" target="_blank" class="video-button">
+                <i class="fab fa-youtube"></i> Watch Video <i class="fas fa-external-link-alt"></i>
+              </a>
+            
+            
+            
+              <span class="language-badge">Portuguese</span>
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="Ruby,Command Line,Code Search" data-year="2021" id="grepping-ruby-code-like-a-boss">
+          <div class="talk-card-header">
+            
+              <img src="https://img.youtube.com/vi/YczrZQC9aP8/mqdefault.jpg" alt="Grepping Ruby Code like a boss" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Grepping Ruby Code like a boss</div>
+              
+                <div class="talk-card-event">Ruby Kaigi 2020 Takeout</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Grepping Ruby Code like a boss</h3>
+            
+            <div class="series-date">September 08, 2021</div>
+            <div class="series-location" data-emoji="🌐">
+              Online
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-Ruby">Ruby</div>
+              
+                <div class="talk-card-topic topic-Command-Line">Command Line</div>
+              
+                <div class="talk-card-topic topic-Code-Search">Code Search</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+                  <div class="video-container">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/YczrZQC9aP8" frameborder="0" allowfullscreen="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+                    </iframe>
+                  </div>
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <a href="https://rubykaigi.org/2020" target="_blank" class="talk-card-button">Event Details <i class="fas fa-arrow-right"></i></a>
+            
+            
+            
+            
+            
+              <a href="https://www.youtube.com/watch?v=YczrZQC9aP8" target="_blank" class="video-button">
+                <i class="fab fa-youtube"></i> Watch Video <i class="fas fa-external-link-alt"></i>
+              </a>
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="TimescaleDB,Hasura,Visualization" data-year="2021" id="visualizing-timescaledb-compression-status-in-real-time-with-hasura">
+          <div class="talk-card-header">
+            
+              <img src="https://picsum.photos/seed/hasura-con/600/400" alt="Visualizing TimescaleDB compression status in real-time with Hasura" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">Visualizing TimescaleDB compression status in real-time with Hasura</div>
+              
+                <div class="talk-card-event">Hasura Con</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">Visualizing TimescaleDB compression status in real-time with Hasura</h3>
+            
+            <div class="series-date">June 23, 2021</div>
+            <div class="series-location" data-emoji="🌐">
+              Online
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-TimescaleDB">TimescaleDB</div>
+              
+                <div class="talk-card-topic topic-Hasura">Hasura</div>
+              
+                <div class="talk-card-topic topic-Visualization">Visualization</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+                  <div class="video-container">
+                    <iframe src="https://player.vimeo.com/video/569408772" width="100%" height="200" frameborder="0" loading="lazy" title="Visualizing TimescaleDB compression status in real-time with Hasura" allowfullscreen="">
+                    </iframe>
+                  </div>
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <span class="talk-card-info">Conference</span>
+            
+            
+            
+              <a href="https://docs.google.com/presentation/d/e/2PACX-1vQjFu7tCQtePB_1ZyU482W9O4myJWT7AG8pClC-0bpvbe4FFSmEGF-6DQvuRyA1ZHfsiIbb94ybrJMW/pub?start=false&amp;loop=false&amp;delayms=3000" target="_blank" class="slides-button">
+                <i class="fas fa-file-powerpoint"></i> View Slides <i class="fas fa-external-link-alt"></i>
+              </a>
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      
+    
+      
+      
+      
+      <!-- Special handling for annual conferences like Lambda Days -->
+      
+      
+      
+      
+        <!-- Regular single talk -->
+        <div class="talk-card past-event" data-topics="Data,Web Scraping" data-year="2021" id="from-code-to-data-live-coding-a-small-blog-scraper">
+          <div class="talk-card-header">
+            
+              <img src="https://img.youtube.com/vi/bFBXkNIY4hE/mqdefault.jpg" alt="From code to data: live-coding a small blog scraper" class="talk-card-thumbnail" />
+            
+            <div class="talk-card-overlay">
+              <div class="talk-card-title-top">From code to data: live-coding a small blog scraper</div>
+              
+                <div class="talk-card-event">Extract Summit</div>
+              
+            </div>
+          </div>
+          <div class="talk-card-body">
+            
+              <h3 class="talk-card-title">From code to data: live-coding a small blog scraper</h3>
+            
+            <div class="series-date">May 12, 2021</div>
+            <div class="series-location" data-emoji="🌐">
+              Online
+            </div>
+            <div class="talk-card-topics">
+              
+              
+                <div class="talk-card-topic topic-Data">Data</div>
+              
+                <div class="talk-card-topic topic-Web-Scraping">Web Scraping</div>
+              
+            </div>
+            
+            
+              <div class="talk-card-video">
+                
+                  <div class="video-container">
+                    <iframe width="100%" height="200" src="https://www.youtube.com/embed/bFBXkNIY4hE" frameborder="0" allowfullscreen="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share">
+                    </iframe>
+                  </div>
+                
+              </div>
+            
+          </div>
+          <div class="talk-card-footer">
+            
+              <span class="talk-card-info">Conference</span>
+            
+            
+            
+            
+            
+              <a href="https://www.youtube.com/watch?v=bFBXkNIY4hE" target="_blank" class="video-button">
+                <i class="fab fa-youtube"></i> Watch Video <i class="fas fa-external-link-alt"></i>
+              </a>
+            
+            
+            
+          </div>
+        </div>
+      
+    
+  </div>
+  <!-- End of the page -->
+
+<!-- Preload talks data for JavaScript calculations -->
+<script id="talks-data" type="application/json">
+[{"date":"2025-03-27","title":"Intro to the TimescaleDB gem","location":"Madrid, Spain","event":"Madrid.rb Ruby User Group","url":"https://madridrb.com","type":"meetup","topic":"Ruby, TimescaleDB","status":"Accepted","github":"https://github.com/timescale/timescaledb-ruby","media":{"slides":"2PACX-1vQ_WAHS3AWurvv9_9xcAsVd64hI-h6h_6H6TUb3N9F3LfkS3adKswI_H8KZueGzMbPkz8CjMCnNmpFn","youtube":"9KtsHQCECgM"}},{"date":"2025-02-27","title":"Intro to the TimescaleDB gem","location":"Krakow, Poland","event":"Krakow Ruby User Group","url":"https://krug.org.pl/events/1111","type":"meetup","topic":"Ruby, TimescaleDB","status":"Delivered","international":true,"language":"English","media":{"slides":"2PACX-1vTcncQivyEhJ8oUwsLVFFWFEaIhvvUcI-20zVK9EwNdj7udCToetUHxCyK_sEOmOl1nkrvVjOMYmWWj","images":[{"src":"/images/Krakow_Ruby_User_Group_Jonatas_Speaking.jpg","alt":"Speaking at Krakow Ruby User Group","caption":"Introducing TimescaleDB to the Ruby community"},{"src":"/images/Krakow_Ruby_User_Group_Jonatas_Speaking-profile-half-body.jpg","alt":"Presenting at KRUG","caption":"Sharing insights about time-series data in Ruby"},{"src":"/images/Krakow_Ruby_User_Group_Jonatas_Networking.jpg","alt":"Networking at KRUG","caption":"Engaging with the Ruby community in Krakow"}]},"github":"https://github.com/timescale/timescaledb-ruby"},{"date":"2025-03-12","title":"Real Time Analytics with PostgreSQL and TimescaleDB","location":"Toledo, PR, Brazil","event":"Dev Paraná","url":"https://www.sympla.com.br/evento/devpr-na-estrada-toledo/2830488?","type":"conference","topic":"PostgreSQL, TimescaleDB, Analytics","media":{"slides":"2PACX-1vTcncQivyEhJ8oUwsLVFFWFEaIhvvUcI-20zVK9EwNdj7udCToetUHxCyK_sEOmOl1nkrvVjOMYmWWj"},"status":"Accepted"},{"date":"2025-03-11","title":"Real Time Analytics with PostgreSQL and TimescaleDB","location":"Foz do Iguaçu, PR, Brazil","event":"Dev Paraná","url":"https://www.sympla.com.br/evento/devpr-na-estrada-foz-do-iguacu/2832078?","type":"conference","topic":"PostgreSQL, TimescaleDB, Analytics","media":{"slides":"2PACX-1vQq60_oaZDs1jnwZQ7CjpKeb_Uctp0x8uFOBiA2_-3c7RRrxsluj-Phbtx1HRBfaFKrTMSIl7FP-yVJ"},"status":"Accepted"},{"date":"2025-03-10","title":"Real Time Analytics with PostgreSQL and TimescaleDB","location":"Cascavel, PR, Brazil","event":"Dev Paraná","url":"https://www.sympla.com.br/evento/devpr-na-estrada-cascavel/2830476","type":"conference","topic":"PostgreSQL, TimescaleDB, Analytics","media":{"slides":"2PACX-1vQq60_oaZDs1jnwZQ7CjpKeb_Uctp0x8uFOBiA2_-3c7RRrxsluj-Phbtx1HRBfaFKrTMSIl7FP-yVJ"},"status":"Accepted"},{"date":"2025-02-28","title":"PostgreSQL Performance Workshop for Ruby Developers","location":"Krakow, Poland","event":"Ruby Community Conference","url":"","type":"workshop","topic":"PostgreSQL, Ruby, Performance","status":"Delivered","international":true,"media":{"images":[{"src":"/images/Krakow_Ruby_Community_Conference_Performance_workshop.jpg","alt":"Leading the Performance Workshop","caption":"Teaching PostgreSQL optimization techniques to Ruby developers"},{"src":"/images/Krakow_Ruby_Community_Conference_Performance_workshop-full-room.jpg","alt":"Full workshop room","caption":"Engaging with a packed room of Ruby developers"},{"src":"/images/Krakow_Ruby_Community_Conference_Jonatas_networking.jpg","alt":"Networking at the conference","caption":"Building connections in the Ruby community"},{"src":"/images/Krakow_Ruby_Community_Conference_Jonatas_Scarf_Gift.jpg","alt":"Receiving a gift from the community","caption":"Heartwarming moment with the Krakow Ruby community"}]},"github":"https://github.com/timescale/postgresql-performance-for-rubyists/"},{"date":"2025-04-02","title":"PostgreSQL Performance Workshop for Ruby Developers","location":"São Paulo, Brazil","event":"Tropical on Rails","url":"https://www.sympla.com.br/evento/workshop-tropical-2025-jonatas-paganini-postgresql-performance-workshop-for-ruby-developers/2838577?referrer=jonatas","type":"workshop","topic":"PostgreSQL, Ruby, Performance","status":"Accepted","github":"https://github.com/timescale/postgresql-performance-for-rubyists/"},{"date":"2025-06-12","title":"Intro to the TimescaleDB gem","location":"Latvia, Riga","event":"Baltic Ruby","url":"https://balticruby.org/","type":"conference","topic":"Ruby, TimescaleDB","status":"Accepted","international":true},{"date":"2024-08-03","title":"High-speed data: Optimizing PostgreSQL with TimescaleDB","location":"Blumenau, SC, Brazil","event":"PG Day Blumenau","url":"https://www.sympla.com.br/evento/pgday-blumenau/2385178?","type":"conference","topic":"PostgreSQL, TimescaleDB","status":"Delivered","media":{"slides":"2PACX-1vQo71hgMkjjvbeYypz0oqpXJTqAi-TWSGLdNSN20apKQ4FXMZFI9-5M1TkHhv1x3x3r1hNeCKLFyNIQ","images":[{"src":"/images/pgday-blumenau-2024-jonatas-speaking.jpg","alt":"Speaking at PG Day Blumenau 2024","caption":"Sharing insights about TimescaleDB optimization"},{"src":"/images/pgconf-brazil-2024-audience.jpg","alt":"PostgreSQL Conference Brazil Audience","caption":"Engaging with the Brazilian PostgreSQL community"}]}},{"date":"2024-02-15","title":"Grepping SQL code like a boss","location":"Krakow, Poland","event":"Lambda Days 2024","url":"https://ideia.me/grepping-sql-code-like-a-boss","type":"conference","topic":"SQL, Command Line","status":"Delivered","international":true,"media":{"images":[{"src":"/images/lambda-days-2023-jonatas-speaking.jpeg","alt":"Speaking at Lambda Days 2024","caption":"Sharing command-line techniques for SQL exploration"},{"src":"/images/jonatasdp-michal-marcin.jpeg","alt":"With Michal and Marcin walking in Krakow","caption":"Great discussions with my great ruby friends"}]}},{"date":"2024-02-15","title":"The Power of Mentoring: Nurturing Growth in the IT Industry - panel discussion","location":"Krakow, Poland","event":"Lambda Days 2024","url":"https://www.lambdadays.org/lambdadays2024","type":"panel","topic":"Mentoring","status":"Delivered","media":{"images":[{"src":"/images/Krakow_Ruby_Community_Conference_Performance_Michal_Mariuz_conf_organizers.jpg","alt":"With conference organizers in Krakow","caption":"Great discussions with the conference organizers"}]}},{"date":"2023-11-25","title":"Introduction to TimescaleDB extensions","location":"Florianópolis, SC, Brazil","event":"Code Island Summit","url":"https://summit.codeisland.com.br/","type":"conference","topic":"PostgreSQL, TimescaleDB, Extensions","status":"Delivered"},{"date":"2024-07-28","title":"Vectorization of information and the Future of models - free models for a more open and sustainable future","location":"Maringá, PR, Brazil","event":"Dev Paraná","url":"https://devpr.org/","type":"conference","topic":"PostgreSQL, PGVector","status":"Delivered","media":{"slides":"2PACX-1vSJcN9wVdw9HeAOdm1br8aSaPtbb4riTKzPiwfb8TGtM197OLPaA0g7nknWLW3969EtMWedKBZpGMRq"}},{"date":"2024-09-07","title":"Introduction to PGVector","location":"São Paulo, SP, Brazil","event":"PGConf Brasil 2024","url":"https://pgconf.com.br/2024","type":"conference","topic":"PostgreSQL, PGVector","status":"Delivered","media":{"slides":"2PACX-1vQq60_oaZDs1jnwZQ7CjpKeb_Uctp0x8uFOBiA2_-3c7RRrxsluj-Phbtx1HRBfaFKrTMSIl7FP-yVJ"}},{"date":"2023-09-23","title":"Real Time Analytics with PostgreSQL and TimescaleDB","location":"Belo Horizonte, MG, Brazil","event":"PGDay BH","url":"https://www.sympla.com.br/evento/pgday-2023-bh-puc-coreu-manha-predio-43-auditorio-3/1996398","type":"conference","topic":"PostgreSQL, TimescaleDB, Analytics","status":"Delivered","media":{"images":[{"src":"/images/pgday-bh-2023-panel.jpg","alt":"Panel discussion at PGDay BH 2023","caption":"Participating in a panel discussion about PostgreSQL"},{"src":"/images/pgday-bh-folks.jpg","alt":"With the PostgreSQL community at PGDay BH","caption":"Great discussions with the Brazilian PostgreSQL community"}]}},{"date":"2023-09-16","title":"Intro to timeseries data with PostgreSQL and TimescaleDB","location":"Chapecó, SC, Brazil","event":"PG Day XAP","url":"https://pgdayxap.com.br/2023","type":"conference","topic":"PostgreSQL, TimescaleDB, Time Series","status":"Delivered","media":{"images":[{"src":"/images/pgday-xap-jonatas-speaking.jpg","alt":"Speaking at PG Day XAP","caption":"Sharing TimescaleDB insights with the PostgreSQL community"}]}},{"date":"2023-09-02","title":"Panel about PostgreSQL","location":"Florianópolis, SC, Brazil","event":"PG Day Floripa","url":"https://www.sympla.com.br/evento/pgday-floripa/2071983","type":"panel","topic":"PostgreSQL","status":"Delivered"},{"date":"2023-08-16","title":"Intro to timeseries data with PostgreSQL and TimescaleDB","location":"Belo Horizonte, MG, Brazil","event":"PG Day BH","url":"https://www.sympla.com.br/evento/pgday-2023-bh-puc-coreu-manha-predio-43-auditorio-3/1996398","type":"conference","topic":"PostgreSQL, TimescaleDB, Time Series","status":"Delivered"},{"date":"2023-08-16","title":"Panel about PostgreSQL and Database Careers","location":"Belo Horizonte, MG, Brazil","event":"PG Day BH","url":"https://www.sympla.com.br/evento/pgday-2023-bh-puc-coreu-manha-predio-43-auditorio-3/1996398","type":"panel","topic":"PostgreSQL, Career","status":"Delivered"},{"date":"2023-08-14","title":"Intro to timeseries data with PostgreSQL and TimescaleDB","location":"São Paulo, SP, Brazil","event":"PG Day São Paulo","url":"https://www.sympla.com.br/evento/pgday-sao-paulo-2023/2044774","type":"conference","topic":"PostgreSQL, TimescaleDB, Time Series","status":"Delivered"},{"date":"2023-08-11","title":"Intro to timeseries data with PostgreSQL and TimescaleDB","location":"Porto Alegre, RS, Brazil","event":"PG Day POA","url":"https://www.sympla.com.br/evento/pgday-porto-alegre-2023/2057620","type":"conference","topic":"PostgreSQL, TimescaleDB, Time Series","status":"Delivered"},{"date":"2023-06-12","title":"Time-series data processing with Ruby and TimescaleDB","location":"Rzeszów, Poland","event":"Rzeszów Ruby User Group","url":"http://rrug.pl/meetup/2023/05/15/spotkanie35.html","type":"meetup","topic":"Ruby, TimescaleDB, Time Series","status":"Delivered","international":true},{"date":"2023-06-05","title":"Functional Programming in PostgreSQL","location":"Krakow, Poland","event":"Lambda Days 2023","url":"https://www.lambdadays.org/lambdadays2023","type":"conference","topic":"SQL, Functional Programming","status":"Delivered","international":true,"media":{"youtube":"vX8i0Bcb08I","images":[{"src":"/images/lambda-days-2023-jonatas-speaking.jpeg","alt":"Speaking at Lambda Days 2023","caption":"Presenting functional programming concepts in PostgreSQL"},{"src":"/images/lambda-days-friends-poland.jpeg","alt":"With friends at Lambda Days 2023","caption":"Building connections in the functional programming community"}]}},{"date":"2023-05-30","title":"Data Science with PostgreSQL and TimescaleDB","location":"Ottawa, Canada","event":"PGCon Ottawa","url":"https://www.pgcon.org/2023/","type":"workshop","topic":"PostgreSQL, Data Science, TimescaleDB","status":"Delivered","international":true,"media":{"images":[{"src":"/images/pgcon-ottawa-2023.jpeg","alt":"Speaking at PGCon Ottawa 2023","caption":"Delivering a workshop on Data Science with PostgreSQL"},{"src":"/images/jonatas-timescale-friends-pgcon-ottawa-2023.jpeg","alt":"With Timescale team at PGCon Ottawa","caption":"Great times with the Timescale team in Ottawa"},{"src":"/images/pgcon-2023-tshirt.jpeg","alt":"PGCon 2023 T-shirt","caption":"Memorable swag from PGCon 2023"},{"src":"/images/pgcon-toronto-2023-timescale-folks.jpeg","alt":"With Timescale team in Toronto","caption":"More great moments with the Timescale team"}]}},{"date":"2023-05-10","title":"How to model a Time Series database with TimescaleDB","location":"Krakow, Poland","event":"Krakow Ruby User Group","url":"https://krug.org.pl/events/1111","type":"meetup","topic":"TimescaleDB, Time Series, Data Modeling","status":"Delivered","media":{"slides":"2PACX-1vQ_WAHS3AWurvv9_9xcAsVd64hI-h6h_6H6TUb3N9F3LfkS3adKswI_H8KZueGzMbPkz8CjMCnNmpFn"},"github":"https://github.com/jonatas/sql-data-science-training"},{"date":"2023-05-10","title":"Making noise with TimescaleDB and Sonic PI","location":"Málaga, Spain","event":"J On The Beach 2023","url":"https://www.jonthebeach.com/workshops/Reality-of-global-warming.-Data-Science-with-Postgres-and-TimescaleDB","type":"workshop","topic":"TimescaleDB, Audio, Data Visualization","status":"Delivered","international":true,"media":{"images":[{"src":"/images/jonatasdp-jonthebeach-2023.jpeg","alt":"At J On The Beach 2023","caption":"Exploring the intersection of data and audio at J On The Beach"},{"src":"/images/running-malaga.jpeg","alt":"Running in Malaga","caption":"Enjoying the beautiful Malaga coastline during the conference"},{"src":"/images/jonatasdp-2023.jpeg","alt":"Portrait at J On The Beach 2023","caption":"Capturing moments at the conference"}]}},{"date":"2023-05-10","title":"Training: Data Science with PostgreSQL","location":"Málaga, Spain","event":"J On The Beach 2023","url":"https://2023.jonthebeach.com/workshops/Introductory-Workshop-for-Sonification-Process.-Creating-noise-with-Time-Series-data","type":"workshop","topic":"PostgreSQL, Data Science","status":"Delivered","international":true,"github":"https://github.com/jonatas/sql-data-science-training"},{"date":"2023-03-29","title":"Making noise with TimescaleDB and Sonic PI","location":"Online","event":"Ada Ruby Meetup","url":"https://www.youtube.com/live/Vfxp718OMtI?feature=share&t=590","type":"meetup","topic":"Ruby, TimescaleDB, Audio, Data Visualization","status":"Delivered","media":{"youtube":"Vfxp718OMtI"},"github":"https://gist.github.com/jonatas/63fddb570842b022c949d84c7291648d"},{"date":"2023-03-09","title":"Psql in 2023","location":"Pasadena, California, USA","event":"Scale 20x","url":"https://www.socallinuxexpo.org/scale/20x/","type":"conference","topic":"PostgreSQL, Command Line","status":"Delivered","international":true,"media":{"youtube":"4Q4jOmHbDvU","images":[{"src":"/images/jonatasdp-cliff-scale20x.jpeg","alt":"At Scale 20x in Pasadena","caption":"Exploring Pasadena during Scale 20x"},{"src":"/images/jonatasdp-bubba-gump.jpeg","alt":"At Bubba Gump in California","caption":"Enjoying local cuisine during the conference"}]}},{"date":"2023-02-22","title":"Training: Data Science with PostgreSQL","location":"Bengaluru, India","event":"PGConf India","url":"https://pgconf.in","type":"workshop","topic":"PostgreSQL, Data Science","status":"Delivered","international":true,"media":{"images":[{"src":"/images/pgconf-india-2023-jonatasdp-talk.jpg","alt":"Speaking at PGConf India 2023","caption":"Delivering the Data Science workshop at PGConf India"},{"src":"/images/pgconf-india-2023-with-timescale-folks.jpg","alt":"With Timescale team at PGConf India","caption":"Celebrating with the Timescale team in Bengaluru"},{"src":"/images/pgconf-india-2023-jonatas-and-friends.jpg","alt":"With friends at PGConf India","caption":"Building connections in the PostgreSQL community"},{"src":"/images/pgconf-india-2023-dinner-with-timescale-folks.jpg","alt":"Dinner with Timescale team in India","caption":"Enjoying dinner with the Timescale team in Bengaluru"}]}},{"date":"2023-01-24","title":"Time-series data processing with Ruby and TimescaleDB","location":"Online","event":"Ruby On Rails Global Summit","url":"https://events.geekle.us/ruby/","type":"conference","topic":"Ruby, TimescaleDB, Data Processing, Time Series","status":"Delivered","international":true,"github":"https://github.com/timescale/timescaledb-ruby"},{"date":"2022-10-20","title":"Ruby or SQL? Where to process your data?","location":"Bangkok, Thailand","event":"Ruby Conf Thailand","url":"https://rubyconfth.com","type":"conference","topic":"Ruby, SQL, Data Processing","status":"Delivered","international":true,"media":{"youtube":"MXAtSZ5Szgk","slides":"2PACX-1vST6o2xxkIuNddKwWeXgNENN2-Fcpwe2m9Ax-Z4j6q0V7vjX-GUISxAt6Oj75OFUZ7KQbSI3CLbKI3l","images":[{"src":"/images/rubyconf-thailand-2023-jonatas-speaking.jpg","alt":"Speaking at RubyConf Thailand","caption":"Discussing data processing strategies in Ruby and SQL"},{"src":"/images/jonatas-paganini-jeremy-evans-polished-ruby-book-rubyconf-thailand-2023.jpeg","alt":"With Jeremy Evans at RubyConf Thailand","caption":"Great discussions about Ruby optimization with Jeremy Evans"},{"src":"/images/jonatas-paganini-birthday-cake-rubyconf-thailand.jpeg","alt":"Birthday celebration at RubyConf Thailand","caption":"Celebrating my birthday with the Ruby community in Thailand"},{"src":"/images/jonatasdp-birthday-thailand-2022.jpg","alt":"Birthday celebration in Thailand","caption":"Another memorable moment from the birthday celebration"}]}},{"date":"2022-08-15","title":"Processando dados temporais com Ruby e TimescaleDB","location":"Online","event":"Ada.rb","url":"","type":"meetup","topic":"Ruby, TimescaleDB, Time Series","status":"Delivered","language":"Portuguese","media":{"youtube":"BeysighX6jY?start=6206"}},{"date":"2022-03-24","title":"Zen Life with Psql","location":"Brazil","event":"PGConf Brazil","url":"","type":"conference","topic":"PostgreSQL, Command Line","status":"Delivered","language":"Portuguese","media":{"youtube":"MzV6S_72E2g"}},{"date":"2021-09-08","title":"Grepping Ruby Code like a boss","location":"Online","event":"Ruby Kaigi 2020 Takeout","url":"https://rubykaigi.org/2020","type":"conference","topic":"Ruby, Command Line, Code Search","status":"Delivered","international":true,"media":{"youtube":"YczrZQC9aP8"}},{"date":"2021-06-23","title":"Visualizing TimescaleDB compression status in real-time with Hasura","location":"Online","event":"Hasura Con","url":"","type":"conference","topic":"TimescaleDB, Hasura, Visualization","status":"Delivered","international":true,"media":{"vimeo":"569408772","slides":"2PACX-1vQjFu7tCQtePB_1ZyU482W9O4myJWT7AG8pClC-0bpvbe4FFSmEGF-6DQvuRyA1ZHfsiIbb94ybrJMW"}},{"date":"2021-05-12","title":"From code to data: live-coding a small blog scraper","location":"Online","event":"Extract Summit","url":"","type":"conference","topic":"Data, Web Scraping","status":"Delivered","international":true,"media":{"youtube":"bFBXkNIY4hE"}}]
+</script>
+
+<script src="/assets/js/talks.js"></script>
+
+<script>
+  // Make talks data globally available immediately
+  window.talksJson = [{"date":"2025-03-27","title":"Intro to the TimescaleDB gem","location":"Madrid, Spain","event":"Madrid.rb Ruby User Group","url":"https://madridrb.com","type":"meetup","topic":"Ruby, TimescaleDB","status":"Accepted","github":"https://github.com/timescale/timescaledb-ruby","media":{"slides":"2PACX-1vQ_WAHS3AWurvv9_9xcAsVd64hI-h6h_6H6TUb3N9F3LfkS3adKswI_H8KZueGzMbPkz8CjMCnNmpFn","youtube":"9KtsHQCECgM"}},{"date":"2025-02-27","title":"Intro to the TimescaleDB gem","location":"Krakow, Poland","event":"Krakow Ruby User Group","url":"https://krug.org.pl/events/1111","type":"meetup","topic":"Ruby, TimescaleDB","status":"Delivered","international":true,"language":"English","media":{"slides":"2PACX-1vTcncQivyEhJ8oUwsLVFFWFEaIhvvUcI-20zVK9EwNdj7udCToetUHxCyK_sEOmOl1nkrvVjOMYmWWj","images":[{"src":"/images/Krakow_Ruby_User_Group_Jonatas_Speaking.jpg","alt":"Speaking at Krakow Ruby User Group","caption":"Introducing TimescaleDB to the Ruby community"},{"src":"/images/Krakow_Ruby_User_Group_Jonatas_Speaking-profile-half-body.jpg","alt":"Presenting at KRUG","caption":"Sharing insights about time-series data in Ruby"},{"src":"/images/Krakow_Ruby_User_Group_Jonatas_Networking.jpg","alt":"Networking at KRUG","caption":"Engaging with the Ruby community in Krakow"}]},"github":"https://github.com/timescale/timescaledb-ruby"},{"date":"2025-03-12","title":"Real Time Analytics with PostgreSQL and TimescaleDB","location":"Toledo, PR, Brazil","event":"Dev Paraná","url":"https://www.sympla.com.br/evento/devpr-na-estrada-toledo/2830488?","type":"conference","topic":"PostgreSQL, TimescaleDB, Analytics","media":{"slides":"2PACX-1vTcncQivyEhJ8oUwsLVFFWFEaIhvvUcI-20zVK9EwNdj7udCToetUHxCyK_sEOmOl1nkrvVjOMYmWWj"},"status":"Accepted"},{"date":"2025-03-11","title":"Real Time Analytics with PostgreSQL and TimescaleDB","location":"Foz do Iguaçu, PR, Brazil","event":"Dev Paraná","url":"https://www.sympla.com.br/evento/devpr-na-estrada-foz-do-iguacu/2832078?","type":"conference","topic":"PostgreSQL, TimescaleDB, Analytics","media":{"slides":"2PACX-1vQq60_oaZDs1jnwZQ7CjpKeb_Uctp0x8uFOBiA2_-3c7RRrxsluj-Phbtx1HRBfaFKrTMSIl7FP-yVJ"},"status":"Accepted"},{"date":"2025-03-10","title":"Real Time Analytics with PostgreSQL and TimescaleDB","location":"Cascavel, PR, Brazil","event":"Dev Paraná","url":"https://www.sympla.com.br/evento/devpr-na-estrada-cascavel/2830476","type":"conference","topic":"PostgreSQL, TimescaleDB, Analytics","media":{"slides":"2PACX-1vQq60_oaZDs1jnwZQ7CjpKeb_Uctp0x8uFOBiA2_-3c7RRrxsluj-Phbtx1HRBfaFKrTMSIl7FP-yVJ"},"status":"Accepted"},{"date":"2025-02-28","title":"PostgreSQL Performance Workshop for Ruby Developers","location":"Krakow, Poland","event":"Ruby Community Conference","url":"","type":"workshop","topic":"PostgreSQL, Ruby, Performance","status":"Delivered","international":true,"media":{"images":[{"src":"/images/Krakow_Ruby_Community_Conference_Performance_workshop.jpg","alt":"Leading the Performance Workshop","caption":"Teaching PostgreSQL optimization techniques to Ruby developers"},{"src":"/images/Krakow_Ruby_Community_Conference_Performance_workshop-full-room.jpg","alt":"Full workshop room","caption":"Engaging with a packed room of Ruby developers"},{"src":"/images/Krakow_Ruby_Community_Conference_Jonatas_networking.jpg","alt":"Networking at the conference","caption":"Building connections in the Ruby community"},{"src":"/images/Krakow_Ruby_Community_Conference_Jonatas_Scarf_Gift.jpg","alt":"Receiving a gift from the community","caption":"Heartwarming moment with the Krakow Ruby community"}]},"github":"https://github.com/timescale/postgresql-performance-for-rubyists/"},{"date":"2025-04-02","title":"PostgreSQL Performance Workshop for Ruby Developers","location":"São Paulo, Brazil","event":"Tropical on Rails","url":"https://www.sympla.com.br/evento/workshop-tropical-2025-jonatas-paganini-postgresql-performance-workshop-for-ruby-developers/2838577?referrer=jonatas","type":"workshop","topic":"PostgreSQL, Ruby, Performance","status":"Accepted","github":"https://github.com/timescale/postgresql-performance-for-rubyists/"},{"date":"2025-06-12","title":"Intro to the TimescaleDB gem","location":"Latvia, Riga","event":"Baltic Ruby","url":"https://balticruby.org/","type":"conference","topic":"Ruby, TimescaleDB","status":"Accepted","international":true},{"date":"2024-08-03","title":"High-speed data: Optimizing PostgreSQL with TimescaleDB","location":"Blumenau, SC, Brazil","event":"PG Day Blumenau","url":"https://www.sympla.com.br/evento/pgday-blumenau/2385178?","type":"conference","topic":"PostgreSQL, TimescaleDB","status":"Delivered","media":{"slides":"2PACX-1vQo71hgMkjjvbeYypz0oqpXJTqAi-TWSGLdNSN20apKQ4FXMZFI9-5M1TkHhv1x3x3r1hNeCKLFyNIQ","images":[{"src":"/images/pgday-blumenau-2024-jonatas-speaking.jpg","alt":"Speaking at PG Day Blumenau 2024","caption":"Sharing insights about TimescaleDB optimization"},{"src":"/images/pgconf-brazil-2024-audience.jpg","alt":"PostgreSQL Conference Brazil Audience","caption":"Engaging with the Brazilian PostgreSQL community"}]}},{"date":"2024-02-15","title":"Grepping SQL code like a boss","location":"Krakow, Poland","event":"Lambda Days 2024","url":"https://ideia.me/grepping-sql-code-like-a-boss","type":"conference","topic":"SQL, Command Line","status":"Delivered","international":true,"media":{"images":[{"src":"/images/lambda-days-2023-jonatas-speaking.jpeg","alt":"Speaking at Lambda Days 2024","caption":"Sharing command-line techniques for SQL exploration"},{"src":"/images/jonatasdp-michal-marcin.jpeg","alt":"With Michal and Marcin walking in Krakow","caption":"Great discussions with my great ruby friends"}]}},{"date":"2024-02-15","title":"The Power of Mentoring: Nurturing Growth in the IT Industry - panel discussion","location":"Krakow, Poland","event":"Lambda Days 2024","url":"https://www.lambdadays.org/lambdadays2024","type":"panel","topic":"Mentoring","status":"Delivered","media":{"images":[{"src":"/images/Krakow_Ruby_Community_Conference_Performance_Michal_Mariuz_conf_organizers.jpg","alt":"With conference organizers in Krakow","caption":"Great discussions with the conference organizers"}]}},{"date":"2023-11-25","title":"Introduction to TimescaleDB extensions","location":"Florianópolis, SC, Brazil","event":"Code Island Summit","url":"https://summit.codeisland.com.br/","type":"conference","topic":"PostgreSQL, TimescaleDB, Extensions","status":"Delivered"},{"date":"2024-07-28","title":"Vectorization of information and the Future of models - free models for a more open and sustainable future","location":"Maringá, PR, Brazil","event":"Dev Paraná","url":"https://devpr.org/","type":"conference","topic":"PostgreSQL, PGVector","status":"Delivered","media":{"slides":"2PACX-1vSJcN9wVdw9HeAOdm1br8aSaPtbb4riTKzPiwfb8TGtM197OLPaA0g7nknWLW3969EtMWedKBZpGMRq"}},{"date":"2024-09-07","title":"Introduction to PGVector","location":"São Paulo, SP, Brazil","event":"PGConf Brasil 2024","url":"https://pgconf.com.br/2024","type":"conference","topic":"PostgreSQL, PGVector","status":"Delivered","media":{"slides":"2PACX-1vQq60_oaZDs1jnwZQ7CjpKeb_Uctp0x8uFOBiA2_-3c7RRrxsluj-Phbtx1HRBfaFKrTMSIl7FP-yVJ"}},{"date":"2023-09-23","title":"Real Time Analytics with PostgreSQL and TimescaleDB","location":"Belo Horizonte, MG, Brazil","event":"PGDay BH","url":"https://www.sympla.com.br/evento/pgday-2023-bh-puc-coreu-manha-predio-43-auditorio-3/1996398","type":"conference","topic":"PostgreSQL, TimescaleDB, Analytics","status":"Delivered","media":{"images":[{"src":"/images/pgday-bh-2023-panel.jpg","alt":"Panel discussion at PGDay BH 2023","caption":"Participating in a panel discussion about PostgreSQL"},{"src":"/images/pgday-bh-folks.jpg","alt":"With the PostgreSQL community at PGDay BH","caption":"Great discussions with the Brazilian PostgreSQL community"}]}},{"date":"2023-09-16","title":"Intro to timeseries data with PostgreSQL and TimescaleDB","location":"Chapecó, SC, Brazil","event":"PG Day XAP","url":"https://pgdayxap.com.br/2023","type":"conference","topic":"PostgreSQL, TimescaleDB, Time Series","status":"Delivered","media":{"images":[{"src":"/images/pgday-xap-jonatas-speaking.jpg","alt":"Speaking at PG Day XAP","caption":"Sharing TimescaleDB insights with the PostgreSQL community"}]}},{"date":"2023-09-02","title":"Panel about PostgreSQL","location":"Florianópolis, SC, Brazil","event":"PG Day Floripa","url":"https://www.sympla.com.br/evento/pgday-floripa/2071983","type":"panel","topic":"PostgreSQL","status":"Delivered"},{"date":"2023-08-16","title":"Intro to timeseries data with PostgreSQL and TimescaleDB","location":"Belo Horizonte, MG, Brazil","event":"PG Day BH","url":"https://www.sympla.com.br/evento/pgday-2023-bh-puc-coreu-manha-predio-43-auditorio-3/1996398","type":"conference","topic":"PostgreSQL, TimescaleDB, Time Series","status":"Delivered"},{"date":"2023-08-16","title":"Panel about PostgreSQL and Database Careers","location":"Belo Horizonte, MG, Brazil","event":"PG Day BH","url":"https://www.sympla.com.br/evento/pgday-2023-bh-puc-coreu-manha-predio-43-auditorio-3/1996398","type":"panel","topic":"PostgreSQL, Career","status":"Delivered"},{"date":"2023-08-14","title":"Intro to timeseries data with PostgreSQL and TimescaleDB","location":"São Paulo, SP, Brazil","event":"PG Day São Paulo","url":"https://www.sympla.com.br/evento/pgday-sao-paulo-2023/2044774","type":"conference","topic":"PostgreSQL, TimescaleDB, Time Series","status":"Delivered"},{"date":"2023-08-11","title":"Intro to timeseries data with PostgreSQL and TimescaleDB","location":"Porto Alegre, RS, Brazil","event":"PG Day POA","url":"https://www.sympla.com.br/evento/pgday-porto-alegre-2023/2057620","type":"conference","topic":"PostgreSQL, TimescaleDB, Time Series","status":"Delivered"},{"date":"2023-06-12","title":"Time-series data processing with Ruby and TimescaleDB","location":"Rzeszów, Poland","event":"Rzeszów Ruby User Group","url":"http://rrug.pl/meetup/2023/05/15/spotkanie35.html","type":"meetup","topic":"Ruby, TimescaleDB, Time Series","status":"Delivered","international":true},{"date":"2023-06-05","title":"Functional Programming in PostgreSQL","location":"Krakow, Poland","event":"Lambda Days 2023","url":"https://www.lambdadays.org/lambdadays2023","type":"conference","topic":"SQL, Functional Programming","status":"Delivered","international":true,"media":{"youtube":"vX8i0Bcb08I","images":[{"src":"/images/lambda-days-2023-jonatas-speaking.jpeg","alt":"Speaking at Lambda Days 2023","caption":"Presenting functional programming concepts in PostgreSQL"},{"src":"/images/lambda-days-friends-poland.jpeg","alt":"With friends at Lambda Days 2023","caption":"Building connections in the functional programming community"}]}},{"date":"2023-05-30","title":"Data Science with PostgreSQL and TimescaleDB","location":"Ottawa, Canada","event":"PGCon Ottawa","url":"https://www.pgcon.org/2023/","type":"workshop","topic":"PostgreSQL, Data Science, TimescaleDB","status":"Delivered","international":true,"media":{"images":[{"src":"/images/pgcon-ottawa-2023.jpeg","alt":"Speaking at PGCon Ottawa 2023","caption":"Delivering a workshop on Data Science with PostgreSQL"},{"src":"/images/jonatas-timescale-friends-pgcon-ottawa-2023.jpeg","alt":"With Timescale team at PGCon Ottawa","caption":"Great times with the Timescale team in Ottawa"},{"src":"/images/pgcon-2023-tshirt.jpeg","alt":"PGCon 2023 T-shirt","caption":"Memorable swag from PGCon 2023"},{"src":"/images/pgcon-toronto-2023-timescale-folks.jpeg","alt":"With Timescale team in Toronto","caption":"More great moments with the Timescale team"}]}},{"date":"2023-05-10","title":"How to model a Time Series database with TimescaleDB","location":"Krakow, Poland","event":"Krakow Ruby User Group","url":"https://krug.org.pl/events/1111","type":"meetup","topic":"TimescaleDB, Time Series, Data Modeling","status":"Delivered","media":{"slides":"2PACX-1vQ_WAHS3AWurvv9_9xcAsVd64hI-h6h_6H6TUb3N9F3LfkS3adKswI_H8KZueGzMbPkz8CjMCnNmpFn"},"github":"https://github.com/jonatas/sql-data-science-training"},{"date":"2023-05-10","title":"Making noise with TimescaleDB and Sonic PI","location":"Málaga, Spain","event":"J On The Beach 2023","url":"https://www.jonthebeach.com/workshops/Reality-of-global-warming.-Data-Science-with-Postgres-and-TimescaleDB","type":"workshop","topic":"TimescaleDB, Audio, Data Visualization","status":"Delivered","international":true,"media":{"images":[{"src":"/images/jonatasdp-jonthebeach-2023.jpeg","alt":"At J On The Beach 2023","caption":"Exploring the intersection of data and audio at J On The Beach"},{"src":"/images/running-malaga.jpeg","alt":"Running in Malaga","caption":"Enjoying the beautiful Malaga coastline during the conference"},{"src":"/images/jonatasdp-2023.jpeg","alt":"Portrait at J On The Beach 2023","caption":"Capturing moments at the conference"}]}},{"date":"2023-05-10","title":"Training: Data Science with PostgreSQL","location":"Málaga, Spain","event":"J On The Beach 2023","url":"https://2023.jonthebeach.com/workshops/Introductory-Workshop-for-Sonification-Process.-Creating-noise-with-Time-Series-data","type":"workshop","topic":"PostgreSQL, Data Science","status":"Delivered","international":true,"github":"https://github.com/jonatas/sql-data-science-training"},{"date":"2023-03-29","title":"Making noise with TimescaleDB and Sonic PI","location":"Online","event":"Ada Ruby Meetup","url":"https://www.youtube.com/live/Vfxp718OMtI?feature=share&t=590","type":"meetup","topic":"Ruby, TimescaleDB, Audio, Data Visualization","status":"Delivered","media":{"youtube":"Vfxp718OMtI"},"github":"https://gist.github.com/jonatas/63fddb570842b022c949d84c7291648d"},{"date":"2023-03-09","title":"Psql in 2023","location":"Pasadena, California, USA","event":"Scale 20x","url":"https://www.socallinuxexpo.org/scale/20x/","type":"conference","topic":"PostgreSQL, Command Line","status":"Delivered","international":true,"media":{"youtube":"4Q4jOmHbDvU","images":[{"src":"/images/jonatasdp-cliff-scale20x.jpeg","alt":"At Scale 20x in Pasadena","caption":"Exploring Pasadena during Scale 20x"},{"src":"/images/jonatasdp-bubba-gump.jpeg","alt":"At Bubba Gump in California","caption":"Enjoying local cuisine during the conference"}]}},{"date":"2023-02-22","title":"Training: Data Science with PostgreSQL","location":"Bengaluru, India","event":"PGConf India","url":"https://pgconf.in","type":"workshop","topic":"PostgreSQL, Data Science","status":"Delivered","international":true,"media":{"images":[{"src":"/images/pgconf-india-2023-jonatasdp-talk.jpg","alt":"Speaking at PGConf India 2023","caption":"Delivering the Data Science workshop at PGConf India"},{"src":"/images/pgconf-india-2023-with-timescale-folks.jpg","alt":"With Timescale team at PGConf India","caption":"Celebrating with the Timescale team in Bengaluru"},{"src":"/images/pgconf-india-2023-jonatas-and-friends.jpg","alt":"With friends at PGConf India","caption":"Building connections in the PostgreSQL community"},{"src":"/images/pgconf-india-2023-dinner-with-timescale-folks.jpg","alt":"Dinner with Timescale team in India","caption":"Enjoying dinner with the Timescale team in Bengaluru"}]}},{"date":"2023-01-24","title":"Time-series data processing with Ruby and TimescaleDB","location":"Online","event":"Ruby On Rails Global Summit","url":"https://events.geekle.us/ruby/","type":"conference","topic":"Ruby, TimescaleDB, Data Processing, Time Series","status":"Delivered","international":true,"github":"https://github.com/timescale/timescaledb-ruby"},{"date":"2022-10-20","title":"Ruby or SQL? Where to process your data?","location":"Bangkok, Thailand","event":"Ruby Conf Thailand","url":"https://rubyconfth.com","type":"conference","topic":"Ruby, SQL, Data Processing","status":"Delivered","international":true,"media":{"youtube":"MXAtSZ5Szgk","slides":"2PACX-1vST6o2xxkIuNddKwWeXgNENN2-Fcpwe2m9Ax-Z4j6q0V7vjX-GUISxAt6Oj75OFUZ7KQbSI3CLbKI3l","images":[{"src":"/images/rubyconf-thailand-2023-jonatas-speaking.jpg","alt":"Speaking at RubyConf Thailand","caption":"Discussing data processing strategies in Ruby and SQL"},{"src":"/images/jonatas-paganini-jeremy-evans-polished-ruby-book-rubyconf-thailand-2023.jpeg","alt":"With Jeremy Evans at RubyConf Thailand","caption":"Great discussions about Ruby optimization with Jeremy Evans"},{"src":"/images/jonatas-paganini-birthday-cake-rubyconf-thailand.jpeg","alt":"Birthday celebration at RubyConf Thailand","caption":"Celebrating my birthday with the Ruby community in Thailand"},{"src":"/images/jonatasdp-birthday-thailand-2022.jpg","alt":"Birthday celebration in Thailand","caption":"Another memorable moment from the birthday celebration"}]}},{"date":"2022-08-15","title":"Processando dados temporais com Ruby e TimescaleDB","location":"Online","event":"Ada.rb","url":"","type":"meetup","topic":"Ruby, TimescaleDB, Time Series","status":"Delivered","language":"Portuguese","media":{"youtube":"BeysighX6jY?start=6206"}},{"date":"2022-03-24","title":"Zen Life with Psql","location":"Brazil","event":"PGConf Brazil","url":"","type":"conference","topic":"PostgreSQL, Command Line","status":"Delivered","language":"Portuguese","media":{"youtube":"MzV6S_72E2g"}},{"date":"2021-09-08","title":"Grepping Ruby Code like a boss","location":"Online","event":"Ruby Kaigi 2020 Takeout","url":"https://rubykaigi.org/2020","type":"conference","topic":"Ruby, Command Line, Code Search","status":"Delivered","international":true,"media":{"youtube":"YczrZQC9aP8"}},{"date":"2021-06-23","title":"Visualizing TimescaleDB compression status in real-time with Hasura","location":"Online","event":"Hasura Con","url":"","type":"conference","topic":"TimescaleDB, Hasura, Visualization","status":"Delivered","international":true,"media":{"vimeo":"569408772","slides":"2PACX-1vQjFu7tCQtePB_1ZyU482W9O4myJWT7AG8pClC-0bpvbe4FFSmEGF-6DQvuRyA1ZHfsiIbb94ybrJMW"}},{"date":"2021-05-12","title":"From code to data: live-coding a small blog scraper","location":"Online","event":"Extract Summit","url":"","type":"conference","topic":"Data, Web Scraping","status":"Delivered","international":true,"media":{"youtube":"bFBXkNIY4hE"}}];
+  
+  // This script will be rendered in the Jekyll site
+  document.addEventListener('DOMContentLoaded', function() {
+    // Force recalculation of topic counts
+    if (typeof updateTopicCounts === 'function') {
+      updateTopicCounts();
+    }
+    
+    // Form submission handling
+    const form = document.getElementById('speaking-request');
+    if (form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // In a real implementation, you'd send this data to a server
+        alert('Thank you for your request! I will get back to you soon.');
+        closeBookingForm();
+      });
+    }
+  });
+</script>
+
 </div>
 
-<div class="row-fluid">
-  <div class="span12">
-    <p>Here are a few of my talks, future to past.</p>
-
-<h1 id="upcoming">Upcoming</h1>
-
-<h3 id="2024">2024</h3>
-
-<ul>
-  <li>July 27th, Florianópolis - SC <a href="https://www.meetup.com/pt-BR/rubyfloripa/events/301590038">Ruby Floripa</a></li>
-  <li>July 28th, Maringá - PR <a href="https://devpr.org/">Dev Paraná</a></li>
-  <li>August 3, Blumenau - SC <a href="https://www.sympla.com.br/evento/pgday-blumenau/2385178">PG Day Blumenau</a></li>
-</ul>
-
-<h1 id="older">Older</h1>
-
-<ul>
-  <li>Lambda Days 2024 - <a href="https://www.lambdadays.org/lambdadays2024">Functional Programming in SQL</a></li>
-</ul>
-
-<div class="video-container">
-       <iframe width="560" height="420" frameborder="0" allowfullscreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" src="https://www.youtube.com/embed/hGWXBg4Hkn0?color=white&amp;theme=light">
-       </iframe>
+      </div>
     </div>
-
-<h1 id="2023">2023</h1>
-
-<ul>
-  <li>November 25th - <a href="https://summit.codeisland.com.br/">Code Island</a></li>
-</ul>
-
-<p>So proud to see too many <a href="https://pgday.com.br">PG Days in Brazil</a>! I’ll be in a
-few of them:</p>
-
-<h3 id="september">September</h3>
-
-<ul>
-  <li>2nd - <a href="https://www.sympla.com.br/evento/pgday-floripa/2071983">PG Day Florianopolis</a></li>
-  <li>16th - <a href="https://pgdayxap.com.br/2023">PG Day XAP - Chapecó</a></li>
-  <li>23rd - <a href="https://pgdaybsb.com.br">PG Day BSB</a></li>
-</ul>
-
-<h3 id="august">August</h3>
-
-<ul>
-  <li>11th - <a href="https://www.sympla.com.br/evento/pgday-porto-alegre-2023/2057620">PG Day POA</a></li>
-  <li>14th - <a href="https://www.sympla.com.br/evento/pgday-sao-paulo-2023/2044774">PG Day SP</a></li>
-  <li>16th - <a href="https://www.sympla.com.br/evento/pgday-2023-bh-puc-coreu-manha-predio-43-auditorio-3/1996398">PG Day BH</a></li>
-</ul>
-
-<p>Previous talks in Europe/North America:</p>
-
-<h2 id="june-7--functional-programming-in-sql-at-lambdadays">June 7- <a href="https://www.lambdadays.org/lambdadays2023">Functional Programming in SQL at LambdaDays</a></h2>
-
-<div class="video-container">
-       <iframe width="560" height="420" frameborder="0" allowfullscreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" src="https://www.youtube.com/embed/vX8i0Bcb08I?color=white&amp;theme=light">
-       </iframe>
-    </div>
-
-<ul>
-  <li>June 12 - <a href="http://rrug.pl/meetup/2023/05/15/spotkanie35.html">Walkthrough the Timescaledb Gem at Rzeszów Ruby User Group</a></li>
-  <li>May 30 - <a href="https://www.pgcon.org/2023/">Data Science workshop at PGCon Ottawa</a></li>
-  <li>May 10 - <a href="https://www.jonthebeach.com/workshops/Reality-of-global-warming.-Data-Science-with-Postgres-and-TimescaleDB">Data Science workshop at J On The Beach 2023</a></li>
-</ul>
-
-<h2 id="may-11---data-modeling-at-j-on-the-beach-2023">May 11 - <a href="https://www.jonthebeach.com/schedule">Data Modeling at J On The Beach 2023</a></h2>
-
-<div class="video-container">
-       <iframe width="560" height="420" frameborder="0" allowfullscreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" src="https://www.youtube.com/embed/qd6w10Z2YYc?color=white&amp;theme=light">
-       </iframe>
-    </div>
-
-<h2 id="march-9---practical-psql-scale-20x">March 9 - Practical psql <a href="https://www.socallinuxexpo.org/scale/20x/">Scale 20x</a></h2>
-
-<div class="video-container">
-       <iframe width="560" height="420" frameborder="0" allowfullscreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" src="https://www.youtube.com/embed/4Q4jOmHbDvU?color=white&amp;theme=light">
-       </iframe>
-    </div>
-
-<h2 id="march-28---making-noise-with-your-time-series-data-at-adarb">March 28 - Making Noise with your Time Series Data at <a href="https://www.youtube.com/live/Vfxp718OMtI?feature=share&amp;t=590">Ada.rb</a></h2>
-
-<div class="video-container">
-       <iframe width="560" height="420" frameborder="0" allowfullscreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" src="https://www.youtube.com/embed/Vfxp718OMtI?color=white&amp;theme=light">
-       </iframe>
-    </div>
-
-<ul>
-  <li>February - <a href="https://pgconf.in">Data Science workshop at PGConf India</a></li>
-  <li>January - <a href="https://events.geekle.us/ruby/">Ruby Global Data Summit</a> - Data processing with Ruby and Timescaledb.</li>
-</ul>
-
-<h1 id="2022">2022</h1>
-
-<h2 id="ruby-conf-thailand---ruby-or-sql-where-to-process-your-data">Ruby Conf Thailand - Ruby or SQL? Where to process your data?</h2>
-
-<div class="video-container">
-       <iframe width="560" height="420" frameborder="0" allowfullscreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" src="https://www.youtube.com/embed/MXAtSZ5Szgk?color=white&amp;theme=light">
-       </iframe>
-    </div>
-
-<h2 id="adarb---processando-dados-temporais-com-ruby-e-timescaledb">Ada.rb - Processando dados temporais com Ruby e TimescaleDB</h2>
-
-<div class="video-container">
-       <iframe width="560" height="420" frameborder="0" allowfullscreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" src="https://www.youtube.com/embed/BeysighX6jY?start=6206&amp;color=white&amp;theme=light">
-       </iframe>
-    </div>
-
-<h2 id="pgconf-brazil---zen-life-with-psql---in-portuguese">PGConf Brazil - Zen Life with Psql - In Portuguese</h2>
-
-<div class="video-container">
-       <iframe width="560" height="420" frameborder="0" allowfullscreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" src="https://www.youtube.com/embed/MzV6S_72E2g?color=white&amp;theme=light">
-       </iframe>
-    </div>
-
-<h1 id="2021">2021</h1>
-
-<p>Pandemic year. Only online events.</p>
-
-<h2 id="extract-summit---from-code-to-data-live-coding-a-small-blog-scraper">Extract Summit - From code to data: live-coding a small blog scraper</h2>
-
-<div class="video-container">
-       <iframe width="560" height="420" frameborder="0" allowfullscreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" src="https://www.youtube.com/embed/bFBXkNIY4hE?color=white&amp;theme=light">
-       </iframe>
-    </div>
-
-<h2 id="hasura-con---visualizing-timescaledb-compression-status-in-real-time-with-hasura">Hasura Con - Visualizing TimescaleDB compression status in real-time with Hasura</h2>
-
-<div class="video-container">
-  <iframe loading="lazy" title="Visualizing TimescaleDB compression status in real-time with Hasura" src="https://player.vimeo.com/video/569408772" frameborder="0" allowfullscreen=""></iframe>
-</div>
-
-<h3 id="ruby-kaigi-2020---grepping-ruby-code-like-a-boss">Ruby Kaigi 2020 - Grepping Ruby Code like a boss</h3>
-
-<div class="video-container">
-       <iframe width="560" height="420" frameborder="0" allowfullscreen="" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" src="https://www.youtube.com/embed/YczrZQC9aP8?color=white&amp;theme=light">
-       </iframe>
-    </div>
-
-<p>Same talk, but from 2019 and in Portuguese: <a href="https://www.eventials.com/locaweb/jonatas-paganini-live-coding-grepping-ruby-code-like-a-boss/#_=_">RubyConf Brazil 2019 (Portuguese)</a></p>
-
-<h2 id="slides">Slides</h2>
-
-<p>I don’t use slides but just build markdown files for my talks.</p>
-
-<iframe src="http://www.slideshare.net/jonataspaganini/slideshelf" width="760px" height="570px" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:none;" allowfullscreen="" webkitallowfullscreen="" mozallowfullscreen=""></iframe>
-
-
   </div>
 </div>
 
 
     </div>
+    
+    <footer class="footer bg-light py-4 mt-5">
+      <div class="container text-center">
+        <p class="text-muted mb-0">© 2025 Jônatas Davi Paganini. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Additional scripts for code highlighting and dark mode toggle -->
+    <script>
+      // Toggle dark mode manually
+      document.getElementById('darkModeToggle').addEventListener('change', function() {
+        if (this.checked) {
+          document.body.classList.add('dark-mode');
+        } else {
+          document.body.classList.remove('dark-mode');
+        }
+      });
+      
+      // Apply highlighting to code blocks after content loads
+      document.addEventListener('DOMContentLoaded', function() {
+        enhanceCodeBlocks();
+        if (window.Prism) {
+          setTimeout(function() {
+            Prism.highlightAll();
+          }, 100);
+        }
+      });
+      
+      // Reapply highlighting after any AJAX content loads
+      document.addEventListener('ajaxComplete', function() {
+        enhanceCodeBlocks();
+        if (window.Prism) {
+          setTimeout(function() {
+            Prism.highlightAll();
+          }, 100);
+        }
+      });
+    </script>
   </body>
 </html>
 

@@ -1,0 +1,1825 @@
+/* Talks Page Styles */
+.talks-container {
+  width: 90%;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 1em;
+}
+
+.talks-header {
+  text-align: center;
+  margin: 2em 0 1em 0;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.talks-header h1 {
+  margin: 0;
+  font-size: 2.2rem;
+}
+
+.talks-intro {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto 2em auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.global-impact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: var(--bg-white);
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--border-color);
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.topic-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.topic-filters h3 {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.topic-filter {
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.topic-filter.active {
+  color: white !important;
+  font-weight: 600;
+}
+
+.section-heading {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 2em 0 1em 0;
+  padding-bottom: 0.5em;
+  position: relative;
+  color: var(--text-color);
+}
+
+.section-heading:after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 1.5px;
+}
+
+.talks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.talk-card {
+  background-color: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: auto;
+}
+
+.talk-card:hover {
+  transform: none;
+}
+
+.talk-card-header {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  overflow: hidden;
+}
+
+.talk-card-thumbnail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.talk-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.4));
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+}
+
+.talk-card-title-top {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: white;
+  line-height: 1.2;
+  margin-bottom: 0;
+}
+
+.talk-card-event, 
+.highlight-event {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  font-weight: 500;
+  margin-bottom: 0.25em;
+}
+
+.talk-card-location {
+  font-size: 0.85rem;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  max-width: 70%;
+  text-shadow: none;
+}
+
+.talk-card-date {
+  color: #1a5c8a;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  grid-column: 1 / -1;
+  position: relative;
+  padding-left: 5px;
+  display: block;
+}
+
+.talk-card-date::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background-color: #1a5c8a;
+  border-radius: 2px;
+}
+
+.talk-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  flex: 1;
+}
+
+.talk-card-title {
+  font-size: 1.2rem;
+  margin: 0;
+  line-height: 1.3;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.talk-card-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.talk-card-title a:hover {
+  color: var(--primary-color);
+}
+
+.talk-card-topics {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+}
+
+.talk-card-topic {
+  display: inline-block;
+  padding: 0.45em 0.9em;
+  margin: 0 0.4em 0.4em 0;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  color: #444;
+  border: 1px solid #ddd;
+  font-weight: 500;
+}
+
+.talk-card-footer {
+  margin-top: auto;
+  padding: 0.75rem 1rem;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  background-color: var(--bg-light);
+}
+
+.talk-card-info {
+  background-color: var(--bg-light);
+  color: var(--text-color);
+  padding: 0.4em 0.8em;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.talk-card-button {
+  display: inline-block;
+  background-color: var(--primary-color);
+  color: white;
+  padding: 0.5em 1em;
+  border-radius: var(--border-radius-sm);
+  text-decoration: none;
+  font-weight: 500;
+  border: none;
+  transition: none;
+}
+
+.talk-card-button i {
+  margin-left: 5px;
+  transition: none;
+}
+
+.talk-card-button:hover {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+.talk-card-button:hover i {
+  transform: none;
+}
+
+.status-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.75rem;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  z-index: 5;
+  box-shadow: none;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.series-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: white;
+  background-color: #2773a5;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  box-shadow: none;
+}
+
+.series-locations {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding-top: 0.5rem;
+}
+
+.series-location-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.series-location-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.series-date {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin: 0 0 0.5em 0;
+  font-size: 1em;
+  line-height: 1.4;
+}
+
+.series-date::before {
+  content: attr(data-emoji);
+  margin-right: 0.5em;
+  display: inline-block;
+}
+
+.series-location {
+  font-size: 0.95rem;
+  color: var(--text-color);
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  line-height: 1.4;
+  margin-bottom: 0.25em;
+}
+
+.series-event {
+  color: #444;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  font-weight: 500;
+}
+
+.series-date-cta {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.6em 1.2em;
+  font-size: 0.95rem;
+  min-width: 8em;
+}
+
+.series-date-cta:hover {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+.series-date-cta i {
+  margin-left: 0.5em;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1100px) {
+  .highlight-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .talks-container {
+    width: 95%;
+    padding: 0.5em;
+  }
+  
+  .highlight-grid, 
+  .talks-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5em;
+  }
+  
+  .global-impact {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+    padding: 1em;
+  }
+  
+  .highlight-card {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .highlight-card-body {
+    max-height: none;
+  }
+  
+  .series-date-cta {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .register-button-container {
+    width: 100%;
+  }
+}
+
+/* Talk series in main grid */
+.talk-series {
+  grid-column: span 2;
+  max-width: none;
+}
+
+.talk-series .talk-card-title {
+  position: relative;
+}
+
+.talk-series .talk-card-title::after {
+  content: '— Talk Series';
+  font-size: 0.7rem;
+  font-weight: normal;
+  color: #888;
+  margin-left: 8px;
+  vertical-align: middle;
+  opacity: 0.8;
+}
+
+@media (min-width: 768px) {
+  .highlight-card {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .series-location-item {
+    display: grid;
+    grid-template-columns: 2fr 3fr 3fr;
+    grid-template-areas: 
+      "date location event"
+      "date cta cta";
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .series-date {
+    grid-area: date;
+    margin-bottom: 0;
+  }
+  
+  .series-location {
+    grid-area: location;
+    margin-bottom: 0;
+  }
+  
+  .series-event {
+    grid-area: event;
+    margin-bottom: 0;
+  }
+  
+  .series-date-cta {
+    grid-area: cta;
+    justify-self: flex-end;
+    margin-top: 0;
+  }
+}
+
+.talk-card-location i {
+  margin-right: 4px;
+}
+
+.international-badge:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.international-badge i {
+  margin-right: 5px;
+  animation: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg-white: #222;
+    --bg-light: #333;
+    --text-color: #eee;
+    --text-light: #bbb;
+    --border-color: #444;
+  }
+  
+  body {
+    background-color: #121212;
+    color: var(--text-color);
+  }
+  
+  .talk-card, .highlight-card {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+  }
+  
+  .talk-card-footer, .global-impact, .booking-section {
+    background-color: #1a1a1a;
+  }
+  
+  .topic-filter, .year-filter {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .talk-card-info {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .talk-card-title, .highlight-title, .highlight-event, .booking-heading {
+    color: var(--text-color);
+  }
+  
+  .series-date, .talk-card-date {
+    color: #64b5f6;
+  }
+  
+  .series-location, .series-event {
+    color: #e0e0e0;
+  }
+  
+  .talk-card-thumbnail {
+    filter: brightness(0.85);
+  }
+  
+  .talk-card:hover .talk-card-thumbnail {
+    filter: brightness(1);
+  }
+  
+  .highlight-card {
+    background-color: rgba(34, 34, 34, 0.95);
+  }
+}
+
+.highlight-title {
+  font-size: 1.1rem;
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+  line-height: 1.3;
+  font-weight: 600;
+}
+
+.highlight-event {
+  font-size: 0.9rem;
+  color: #444;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.upcoming-talks-highlight {
+  background-color: var(--primary-color);
+  border-radius: var(--border-radius-md);
+  padding: 2em;
+  margin: 1em 0 3em 0;
+  color: white;
+  border: none;
+  width: 100%;
+}
+
+.highlight-heading {
+  color: white;
+  text-align: center;
+  margin-bottom: 1.25rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-shadow: none;
+}
+
+.highlight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  margin: 0;
+}
+
+.highlight-card {
+  background-color: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.highlight-card-header {
+  padding: 0.75rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  position: relative;
+  z-index: 1;
+}
+
+.highlight-card-body {
+  padding: 1.25rem;
+  background-color: white;
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.highlight-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--text-color);
+}
+
+.highlight-title a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.highlight-title a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+.highlight-event {
+  font-size: 1.1rem;
+  color: var(--text-color);
+  font-weight: 500;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.series-locations {
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.series-location-item {
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.series-date {
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  line-height: 1.3;
+}
+
+.series-date::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 2px;
+  height: calc(100% - 4px);
+  width: 3px;
+  background-color: #1a5c8a;
+  border-radius: 2px;
+}
+
+.location-event-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-bottom: 1em;
+}
+
+.series-location {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  text-align: right;
+  line-height: 1.3;
+}
+
+.series-location:before {
+  margin-right: 0.3rem;
+}
+
+.series-event {
+  font-size: 0.85rem;
+  color: var(--text-color);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  line-height: 1.3;
+}
+
+.series-event i {
+  margin-right: 0.4rem;
+  min-width: 1.2rem;
+  text-align: center;
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+.register-button-container {
+  margin-top: 0.5rem;
+}
+
+.series-date-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 0.8rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.series-date-cta:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255,255,255,0.1);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.2s ease;
+}
+
+.series-date-cta:hover:before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.series-date-cta:focus {
+  outline: 2px solid rgba(41, 128, 185, 0.5);
+  outline-offset: 2px;
+}
+
+.series-date-cta i {
+  margin-left: 0.4rem;
+  font-size: 0.8rem;
+}
+
+/* Style location icons */
+.location-icon {
+  margin-right: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  text-align: center;
+}
+
+.fas.fa-globe.location-icon {
+  color: #3498db;
+}
+
+.fas.fa-video.location-icon {
+  color: #9b59b6;
+}
+
+.fas.fa-flag.location-icon {
+  color: #e74c3c;
+}
+
+/* Update the series location and event styles */
+.series-location, .series-event {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+  color: var(--text-light);
+  margin-bottom: 0.25em;
+}
+
+.series-location {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.series-event i {
+  width: 16px;
+  text-align: center;
+  margin-right: 6px;
+  color: #2980b9;
+}
+
+/* Additional styles for the location-event grid */
+.location-event-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 767px) {
+  .location-event-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .series-date-cta {
+    padding: 0.4em 0.8em;
+    font-size: 0.85rem;
+  }
+  
+  .highlight-title {
+    padding-right: 70px;
+    font-size: 1.25rem;
+  }
+}
+
+/* Improved grid layout */
+.highlight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  margin: 0;
+}
+
+/* Container for better spacing */
+.upcoming-talks-highlight {
+  background: linear-gradient(to right, #2980b9, #3498db);
+  padding: 2em;
+  border-radius: 8px;
+  margin: 2em 0;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Register button styling */
+.register-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.25em;
+  margin-bottom: 0;
+}
+
+.series-date-cta {
+  padding: 0.75em 1.5em;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  min-width: 7em;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Better series badge */
+.series-badge {
+  display: none;
+}
+
+/* Responsive adjustments */
+@media (min-width: 992px) {
+  .highlight-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .highlight-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .upcoming-talks-highlight {
+    padding: 1.25em;
+  }
+  
+  .highlight-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .highlight-card {
+    margin-bottom: 1em;
+  }
+}
+
+/* Remove all hover transformations */
+.talk-card:hover,
+.highlight-card:hover,
+.topic-filter:hover,
+.talk-card-button:hover,
+.series-date-cta:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Fix card overlays */
+.talk-card-overlay {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+  padding: 1em;
+}
+
+.talk-card:hover .talk-card-overlay {
+  background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.3));
+}
+
+/* Remove any remaining shadows */
+.talk-card,
+.highlight-card,
+.series-badge,
+.topic-filter,
+.booking-section,
+.upcoming-talks-highlight {
+  box-shadow: none;
+}
+
+/* Better borders for consistency */
+.talk-card,
+.highlight-card,
+.global-impact,
+.booking-section,
+.topic-filter,
+.year-filter,
+input,
+select,
+textarea,
+.form-input {
+  border: 1px solid var(--border-color);
+  box-shadow: none;
+}
+
+/* Fix location and event display */
+.series-location, 
+.series-event {
+  font-size: 0.9em;
+  color: var(--text-light);
+  margin-bottom: 0.5em;
+  display: flex;
+  align-items: center;
+}
+
+.series-event i,
+.series-location i {
+  margin-right: 0.5em;
+  width: 1em;
+  text-align: center;
+}
+
+/* Fix series date appearance */
+.series-date {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 0.75em;
+  font-size: 1em;
+}
+
+/* Make buttons fully consistent */
+.register-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.75em;
+}
+
+@media (max-width: 767px) {
+  .register-button-container {
+    justify-content: flex-start;
+  }
+}
+
+/* Fix overlapping in location-event grid */
+.location-event-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  margin-bottom: 1em;
+}
+
+/* Fix series location display */
+.series-location {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  line-height: 1.4;
+}
+
+/* Fix emoji flag display */
+.series-location:before {
+  content: attr(data-emoji);
+  margin-right: 0.75em;
+  font-size: 1.2em;
+  display: inline-block;
+  min-width: 1.5em;
+  flex-shrink: 0;
+}
+
+/* Fix event display */
+.series-event {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin-bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  line-height: 1.4;
+}
+
+.series-event i {
+  margin-right: 0.5em;
+  min-width: 1.5em;
+  text-align: center;
+  color: var(--primary-color);
+  flex-shrink: 0;
+}
+
+/* Fix event item spacing */
+.series-location-item {
+  margin-bottom: 1.5em;
+  padding-bottom: 1.5em;
+  border-bottom: 1px solid var(--border-color);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+}
+
+/* Make sure the register button has proper spacing */
+.register-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1em;
+  margin-bottom: 0;
+}
+
+/* Fix media query for mobile */
+@media (max-width: 767px) {
+  .location-event-grid {
+    flex-direction: column;
+    gap: 0.75em;
+  }
+  
+  .series-location, .series-event {
+    width: 100%;
+    margin-bottom: 0;
+  }
+  
+  .series-date {
+    margin-bottom: 0.75em;
+  }
+  
+  .series-location-item {
+    gap: 0.75em;
+  }
+}
+
+/* Fix the card layout and spacing */
+.highlight-card {
+  background-color: var(--bg-white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure the location-event grid has proper spacing */
+.location-event-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  margin-bottom: 1em;
+}
+
+/* Fix the series location display */
+.series-location {
+  font-size: 0.95rem;
+  color: var(--text-color);
+  margin-bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  line-height: 1.4;
+}
+
+/* Restore the flag emoji */
+.series-location:before {
+  content: attr(data-emoji);
+  margin-right: 0.75em;
+  font-size: 1.2em;
+  display: inline-block;
+  min-width: 1.5em;
+  flex-shrink: 0;
+}
+
+/* Make the event look clean */
+.series-event {
+  font-size: 0.95rem;
+  color: var(--text-color);
+  margin-bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  line-height: 1.4;
+}
+
+/* Fix event icon */
+.series-event i {
+  margin-right: 0.5em;
+  min-width: 1.5em;
+  text-align: center;
+  color: var(--primary-color);
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+/* Fix the last location item spacing */
+.series-location-item:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* Fix button icon */
+.series-date-cta i {
+  margin-left: 0.5em;
+}
+
+/* Better booking section */
+.booking-section {
+  background-color: var(--bg-light);
+  border-radius: var(--border-radius-md);
+  padding: 2em;
+  margin: 3em 0;
+  text-align: center;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Improved talk history grid */
+.talks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2em;
+  margin: 2em 0;
+}
+
+/* Better year filter layout */
+.year-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75em;
+  margin: 1em 0 2em 0;
+}
+
+/* Wider screen optimization */
+@media (min-width: 1800px) {
+  .talks-container {
+    max-width: 90%;
+  }
+  
+  .highlight-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .talks-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Make all buttons consistent */
+.series-date-cta,
+.talk-card-button,
+.booking-button,
+.year-filter.active,
+.form-submit {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: var(--border-radius-sm);
+  padding: 0.6em 1.2em;
+  text-decoration: none;
+  font-weight: 500;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.series-date-cta:hover,
+.talk-card-button:hover,
+.booking-button:hover {
+  background-color: var(--primary-dark);
+  color: white;
+}
+
+/* Improved video/slides buttons */
+.video-button,
+.slides-button {
+  background-color: var(--bg-light);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+  padding: 0.5em 1em;
+  text-decoration: none;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+/* Better button icon spacing */
+.series-date-cta i,
+.talk-card-button i {
+  margin-left: 0.5em;
+}
+
+/* Fix spacing between cards and sections */
+.upcoming-talks-highlight {
+  margin-bottom: 4em;
+}
+
+.global-impact {
+  margin: 2em 0 4em 0;
+}
+
+.booking-section {
+  margin: 4em auto;
+}
+
+/* Better modal styling */
+.booking-modal {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0;
+}
+
+.booking-form {
+  background-color: var(--bg-white);
+  border-radius: var(--border-radius-md);
+  max-width: 600px;
+  width: 90%;
+}
+
+/* Better form styling */
+.form-group {
+  margin-bottom: 1.25em;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-weight: 500;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75em;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-sm);
+}
+
+/* Year filter styling */
+.year-filter {
+  padding: 0.5em 1em;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--bg-white);
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.year-filter:hover {
+  background-color: #f0f0f0;
+}
+
+/* Remove text decoration from links */
+.event-link {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.event-link:hover {
+  text-decoration: underline;
+}
+
+/* Fix slides container */
+.slides-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+  margin: 0.5rem 0;
+}
+
+.slides-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Fix the loading indicator styles */
+.slides-loading-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+  background: none;
+}
+
+.slides-loading-indicator > div {
+  pointer-events: all;
+}
+
+.slides-loading-indicator button {
+  pointer-events: auto;
+  cursor: pointer;
+  z-index: 15;
+}
+
+/* Override any conflicting CSS */
+@media (max-width: 767px) {
+  .register-button-container {
+    position: absolute !important;
+    top: 1em !important;
+    right: 1em !important;
+    width: auto !important;
+    display: block !important;
+  }
+  
+  .series-location-item .register-button-container {
+    position: static !important;
+    margin-top: 0.5em !important;
+    display: flex !important;
+    width: 100% !important;
+  }
+  
+  .slides-container {
+    padding-bottom: 75%; /* 4:3 aspect ratio for mobile */
+  }
+  
+  .carousel-slide img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Date-location row styling */
+.date-location-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 0.3rem;
+}
+
+/* User group row styling */
+.user-group-row {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Style the calendar icon in date */
+.series-date i {
+  margin-right: 0.3rem;
+  color: var(--primary-color);
+  opacity: 0.8;
+}
+
+/* Fix upcoming talks highlight section */
+.upcoming-talks-highlight {
+  background: linear-gradient(to right, #2980b9, #3498db);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 1.5rem 0;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.highlight-heading {
+  color: white;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.highlight-heading i {
+  margin-left: 0.5rem;
+}
+
+/* Increase contrast for flag emojis */
+.series-location {
+  font-size: 0.85rem;
+}
+
+.series-location:before {
+  content: attr(data-emoji);
+  margin-right: 0.3rem;
+  font-size: 1.1em;
+}
+
+/* Make link color more visible */
+.event-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.event-link:hover {
+  text-decoration: underline;
+}
+
+/* Mobile adjustments */
+@media (max-width: 767px) {
+  .date-location-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .series-location {
+    margin-top: 0.25rem;
+    text-align: left;
+  }
+  
+  .upcoming-talks-highlight {
+    padding: 1rem;
+  }
+}
+
+/* Single-line talk info layout */
+.talk-info-line {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  width: 100%;
+  padding: 0.6rem 0;
+}
+
+/* Style for the small divider dots between elements */
+.info-divider {
+  color: var(--text-light);
+  opacity: 0.5;
+  font-size: 0.8rem;
+  margin: 0 0.1rem;
+}
+
+/* Responsive styling for series location items */
+.series-location-item {
+  margin-bottom: 0;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+
+.series-location-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Date styling */
+.series-date {
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* Days until styling */
+.days-until {
+  font-weight: normal;
+  color: var(--text-color);
+  opacity: 0.7;
+  font-size: 0.85rem;
+  margin-left: 0.3rem;
+}
+
+.days-until.today {
+  color: #e74c3c;
+  font-weight: 500;
+  opacity: 1;
+}
+
+/* Location styling */
+.series-location {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+/* Group styling */
+.series-event {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  line-height: 1.3;
+  flex-grow: 1;
+}
+
+/* Register button styling */
+.register-button-container {
+  margin: 0 0 0 auto;
+}
+
+.series-date-cta {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.7rem;
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 767px) {
+  .talk-info-line {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  
+  .info-divider {
+    display: none;
+  }
+  
+  .series-date, .series-location, .series-event {
+    margin-bottom: 0.2rem;
+  }
+  
+  .register-button-container {
+    margin: 0.5rem 0 0 0;
+    width: 100%;
+  }
+  
+  .series-date-cta {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Container for multiple date chips */
+.series-dates-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 0.5rem;
+  width: 100%;
+}
+
+/* Individual date chip styling */
+.series-date-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--bg-light);
+  padding: 0.5rem;
+  border-radius: var(--border-radius-sm);
+}
+
+.series-date-chip:hover {
+  background-color: #f0f0f0;
+}
+
+/* Compact date styling within chips */
+.series-date-chip .series-date {
+  font-size: 0.85rem;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.series-date-chip .series-location {
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* Smaller register button inside chips */
+.series-date-chip .series-date-cta {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  margin-left: 0.5rem;
+}
+
+/* Make event name show below the date chips */
+.talk-info-line {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.talk-info-line .series-event {
+  margin-left: 0.25rem;
+}
+
+/* Mobile optimization */
+@media (max-width: 767px) {
+  .series-dates-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .series-date-chip {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
+/* Conference Carousel */
+.conference-carousel {
+  margin: 1rem 0;
+  position: relative;
+  border-radius: var(--border-radius-md);
+  overflow: hidden;
+}
+
+.carousel-container {
+  display: flex;
+  transition: transform 0.5s ease;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 aspect ratio */
+}
+
+.carousel-slide img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.5), transparent);
+  padding: 2rem 1rem 1rem;
+  text-align: center;
+}
+
+.carousel-caption h3 {
+  font-size: 1.5rem;
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+}
+
+.carousel-caption p {
+  font-size: 1rem;
+  margin: 0 0 1rem;
+  opacity: 0.9;
+}
+
+.carousel-link {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+.carousel-link:hover {
+  background-color: var(--primary-dark);
+  text-decoration: none;
+}
+
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+}
+
+.carousel-button {
+  background: rgba(255,255,255,0.8);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.carousel-button:hover {
+  background: white;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .global-impact {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .series-location-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .carousel-slide {
+    padding-bottom: 75%; /* 4:3 aspect ratio for mobile */
+  }
+  
+  .carousel-caption {
+    padding: 1.5rem 1rem 1rem;
+  }
+  
+  .carousel-caption h3 {
+    font-size: 1.2rem;
+  }
+  
+  .carousel-caption p {
+    font-size: 0.9rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .carousel-link {
+    padding: 0.4rem 1.2rem;
+    font-size: 0.9rem;
+  }
+} 

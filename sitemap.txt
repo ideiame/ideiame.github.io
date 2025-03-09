@@ -9,6 +9,7 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/soulless-economy
 https://ideia.me/timescaledb-gem-continuous-aggregates-updates
 https://ideia.me/my-first-contribution-to-rubygems
 https://ideia.me/grepping-sql-code-like-a-boss
