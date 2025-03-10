@@ -9,11 +9,22 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
+https://ideia.me/2023-03-30-sirva-sua-comunidade
+https://ideia.me/2022-08-30-writing-plans
+https://ideia.me/2022-08-29-pgconfbr-talk
+https://ideia.me/2016-03-22-automate-first
+https://ideia.me/2012-11-24-efetivamente
+https://ideia.me/2012-05-08-galaxy-note-n7000
+https://ideia.me/2010-04-18-novas-cores-no-site
+https://ideia.me/2010-02-25-inspecionando-formulas-em-ruby
+https://ideia.me/2010-02-23-regexp-maravilha
 https://ideia.me/soulless-economy
 https://ideia.me/timescaledb-gem-continuous-aggregates-updates
 https://ideia.me/my-first-contribution-to-rubygems
 https://ideia.me/grepping-sql-code-like-a-boss
 https://ideia.me/postgresql-for-everything
+https://ideia.me/website-seo-improvements-and-category-standardization
+https://ideia.me/website-revamp-and-recent-talks
 https://ideia.me/community-is-not-for-sale
 https://ideia.me/permaculture-and-programming
 https://ideia.me/semantic-fields-through-ages
@@ -25,7 +36,6 @@ https://ideia.me/building-a-sql-formatter-with-fast
 https://ideia.me/fast-supports-sql
 https://ideia.me/sonification-device
 https://ideia.me/dispositivo-sonificacao
-https://ideia.me/sirva-sua-comunidade
 https://ideia.me/serve-your-community
 https://ideia.me/two-ways-to-notify-new-data-from-timescaledb-continuous-aggregates
 https://ideia.me/life-before-and-after-gpt
@@ -36,8 +46,6 @@ https://ideia.me/identify-your-needs-and-feelings
 https://ideia.me/timescale-continuous-aggregates-with-ruby
 https://ideia.me/tips-to-duplicate-massive-time-series-data-on-postgresql
 https://ideia.me/using-the-timescale-gem-with-ruby
-https://ideia.me/writing-plans
-https://ideia.me/pgconfbr-talk
 https://ideia.me/time-series-benchmark-timescaledb-raspberry-pi
 https://ideia.me/ssh-connection-refused
 https://ideia.me/my-first-month-at-timescale
@@ -60,7 +68,6 @@ https://ideia.me/introducao-linguagem-ruby
 https://ideia.me/programar-e-uma-droga
 https://ideia.me/tdc-online
 https://ideia.me/google-cloud-platform
-https://ideia.me/automate-first
 https://ideia.me/lorenzo-ideia-me-no-ar
 https://ideia.me/comecando-com-go-lang
 https://ideia.me/vim-basico-para-ruby
@@ -108,7 +115,6 @@ https://ideia.me/flu-ideia-me-no-ar
 https://ideia.me/concentracao-na-era-da-distracao
 https://ideia.me/retro-2012
 https://ideia.me/moving-the-homeoffice
-https://ideia.me/efetivamente
 https://ideia.me/meu-filho-ja-vai-fazer-um-ano
 https://ideia.me/arteterapia-begins
 https://ideia.me/churumelas-no-ar
@@ -116,7 +122,6 @@ https://ideia.me/rails-rumble-se-foi-e-churumelas-esta-no-ar
 https://ideia.me/rails-rumble-ideias
 https://ideia.me/os-programadores-do-futuro
 https://ideia.me/disciplina-no-home-office
-https://ideia.me/galaxy-note-n7000
 https://ideia.me/update-ou-upgrade-parte-2
 https://ideia.me/cursando-aulas-da-stanford
 https://ideia.me/terminal-life
@@ -145,15 +150,12 @@ https://ideia.me/google-buzz-api-no-ideiame
 https://ideia.me/find-exec
 https://ideia.me/curriculo-jonatas-davi-paganini
 https://ideia.me/diario-de-um-feriado
-https://ideia.me/novas-cores-no-site
 https://ideia.me/weborb-active-record
 https://ideia.me/a-importancia-dos-baby-steps
 https://ideia.me/helplate
 https://ideia.me/modos-so
 https://ideia.me/cartao-de-visitas
 https://ideia.me/regexp-com-grep
-https://ideia.me/inspecionando-formulas-em-ruby
-https://ideia.me/regexp-maravilha
 https://ideia.me/sql-comentado
 https://ideia.me/postgresql-tricks
 https://ideia.me/inspecionando-regexp-com-sinatra

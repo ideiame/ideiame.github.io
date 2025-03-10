@@ -70,7 +70,7 @@ crossorigin="anonymous"></script>
 
     <meta charset="utf-8">
     <title>Coisas legais para fazer com o Raspberry PI</title>
-    
+    <meta name="description" content="Viva o opensource! Estou fazendo uma série de testes e experimentos com o Raspberry PI e hoje resolvi compartilhar algumas delas aqui.">
     <meta name="author" content="Jônatas Davi Paganini">
 
     <!-- Enable responsive viewport -->
@@ -85,6 +85,7 @@ crossorigin="anonymous"></script>
     <link href="/css/nimbus-pygments.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
     <link href="/css/code-highlighting.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <!-- Style overrides for Prism -->
     <style>
@@ -310,34 +311,51 @@ crossorigin="anonymous"></script>
     
     <div class="container content-container mt-5 pt-5">
       
-<div class="container post-container">
-  <article class="blog-post">
-    <header class="post-header mb-4">
-      <div class="d-flex align-items-center mb-3">
-        <img class="rounded-circle me-3" src="https://avatars0.githubusercontent.com/u/15484?s=50" width="60" height="60" title="Jônatas Davi Paganini" alt="Jônatas Davi Paganini profile pic">
-        <div>
-          <h1 class="post-title display-5 fw-bold">Coisas legais para fazer com o Raspberry PI</h1>
-          <div class="text-muted">
-            <i class="bi bi-calendar3"></i> April 09, 2014
-            
-            <span class="ms-3">
-              
-              <a class="badge bg-primary text-decoration-none" href=/categories.html#raspberry pi-ref>
-                <i class="bi bi-tag"></i> raspberry pi
-              </a>
-              
-              <a class="badge bg-primary text-decoration-none" href=/categories.html#raspicam-ref>
-                <i class="bi bi-tag"></i> raspicam
-              </a>
-              
-            </span>
-            
-          </div>
-        </div>
-      </div>
-    </header>
+<!-- Post layout with modern design -->
+<div class="post-container">
+  <div class="post-header mb-4">
+    <h1 class="post-title display-4">Coisas legais para fazer com o Raspberry PI</h1>
+    <div class="post-meta d-flex flex-wrap align-items-center text-muted mb-3">
+      <span class="me-3">
+        <i class="bi bi-calendar3"></i> April 09, 2014
+      </span>
+      
+      <span class="me-3">
+        <i class="bi bi-folder"></i>
+        
+          <a href="/categories.html#raspberry pi-ref" class="badge bg-primary text-decoration-none me-1">raspberry pi</a>
+        
+          <a href="/categories.html#raspicam-ref" class="badge bg-primary text-decoration-none me-1">raspicam</a>
+        
+      </span>
+      
+      
+      <span>
+        <i class="bi bi-tags"></i>
+        
+      </span>
+      
+    </div>
     
-    <div class="post-content">
+    <div class="post-share d-flex align-items-center mb-4">
+      <span class="me-2 text-muted">Share:</span>
+      <a href="https://twitter.com/intent/tweet?text=Coisas+legais+para+fazer+com+o+Raspberry+PI&url=https://ideia.me%2Fcoisas-legais-para-fazer-com-o-rpi&via=jonatasdp" 
+         class="btn btn-sm btn-outline-primary me-2" target="_blank">
+        <i class="bi bi-twitter"></i>
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ideia.me%2Fcoisas-legais-para-fazer-com-o-rpi&title=Coisas+legais+para+fazer+com+o+Raspberry+PI" 
+         class="btn btn-sm btn-outline-primary me-2" target="_blank">
+        <i class="bi bi-linkedin"></i>
+      </a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=https://ideia.me%2Fcoisas-legais-para-fazer-com-o-rpi" 
+         class="btn btn-sm btn-outline-primary" target="_blank">
+        <i class="bi bi-facebook"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="post-content card mb-5">
+    <div class="card-body">
       <p>Viva o opensource! Estou fazendo uma série de testes e experimentos com o Raspberry PI e hoje resolvi compartilhar algumas delas aqui.</p>
 
 <p>Diferente do Beaglebone, o Raspberry já tem um caminho mais longo e logo com muito mais projetos.</p>
@@ -370,48 +388,918 @@ crossorigin="anonymous"></script>
 
 
     </div>
-    
-    <hr class="my-5">
-    
-    <div class="share-page mb-4">
-      <div class="d-flex align-items-center">
-        <span class="fw-bold me-3">Share this post:</span>
-        <a class="btn btn-outline-primary btn-sm me-2" href="https://twitter.com/intent/tweet?text=Coisas legais para fazer com o Raspberry PI&url=https://ideia.me/coisas-legais-para-fazer-com-o-rpi&via=jonatasdp&related=jonatasdp" rel="nofollow" target="_blank" title="Share on Twitter">
-          <i class="bi bi-twitter"></i> Twitter
-        </a>
-        <a class="btn btn-outline-primary btn-sm me-2" href="https://facebook.com/sharer.php?u=https://ideia.me/coisas-legais-para-fazer-com-o-rpi" rel="nofollow" target="_blank" title="Share on Facebook">
-          <i class="bi bi-facebook"></i> Facebook
-        </a>
-        <a class="btn btn-outline-primary btn-sm" href="https://www.linkedin.com/sharing/share-offsite/?url=https://ideia.me/coisas-legais-para-fazer-com-o-rpi" rel="nofollow" target="_blank" title="Share on LinkedIn">
-          <i class="bi bi-linkedin"></i> LinkedIn
-        </a>
+  </div>
+
+  <div class="post-navigation mb-5">
+    <div class="row">
+      <div class="col-md-6 mb-3 mb-md-0">
+        
+        <div class="card h-100">
+          <div class="card-body">
+            <span class="text-muted d-block mb-2"><i class="bi bi-arrow-left"></i> Previous Post</span>
+            <h5 class="card-title mb-0">
+              <a href="/bone-debian-rodando-no-beaglebone-black" class="stretched-link">Bone Debian rodando no BeagleBone Black</a>
+            </h5>
+          </div>
+        </div>
+        
       </div>
-    </div>
-    
-    <div class="card mb-5">
-      <div class="card-body">
+      <div class="col-md-6">
+        
+        <div class="card h-100">
+          <div class="card-body text-md-end">
+            <span class="text-muted d-block mb-2">Next Post <i class="bi bi-arrow-right"></i></span>
+            <h5 class="card-title mb-0">
+              <a href="/raspibian-sem-mouse" class="stretched-link">Raspibian sem mouse</a>
+            </h5>
+          </div>
+        </div>
         
       </div>
     </div>
-    
-    <nav class="blog-pagination d-flex justify-content-between mb-5" aria-label="Pagination">
+  </div>
+
+  <div class="post-author card mb-5">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col-md-2 text-center mb-3 mb-md-0">
+          <img src="https://avatars0.githubusercontent.com/u/15484?s=50" alt="Jônatas Davi Paganini" class="rounded-circle img-fluid" style="max-width: 100px;">
+        </div>
+        <div class="col-md-10">
+          <h4>About Jônatas Davi Paganini</h4>
+          <p>Developer Advocate at TimescaleDB, Ruby enthusiast, and PostgreSQL expert. Sharing knowledge through writing and speaking at conferences worldwide.</p>
+          <div class="social-links">
+            <a href="https://github.com/jonatas" class="btn btn-sm btn-outline-dark me-2" target="_blank">
+              <i class="bi bi-github"></i> GitHub
+            </a>
+            <a href="https://twitter.com/jonatasdp" class="btn btn-sm btn-outline-primary me-2" target="_blank">
+              <i class="bi bi-twitter"></i> Twitter
+            </a>
+            <a href="https://linkedin.com/in/jonatasdp" class="btn btn-sm btn-outline-primary" target="_blank">
+              <i class="bi bi-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-related mb-5">
+    <h3 class="h4 mb-4 border-bottom pb-2">Related Posts</h3>
+    <div class="row">
       
-      <a class="btn btn-outline-primary rounded-pill" href="/bone-debian-rodando-no-beaglebone-black" title="Bone Debian rodando no BeagleBone Black">
-        <i class="bi bi-arrow-left"></i> Previous: Bone Debian rodando no Beag...
-      </a>
       
       
-      <a class="btn btn-outline-primary rounded-pill" href="/archive.html">
-        <i class="bi bi-archive"></i> Archive
-      </a>
       
       
-      <a class="btn btn-outline-primary rounded-pill" href="/raspibian-sem-mouse" title="Raspibian sem mouse">
-        Next: Raspibian sem mouse <i class="bi bi-arrow-right"></i>
-      </a>
+        
+        
+        
+        
       
-    </nav>
-  </article>
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+      
+      
+        
+          
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <a href="/2023-03-30-sirva-sua-comunidade" class="stretched-link"></a>
+                  </h5>
+                  <p class="card-text text-muted small">
+                    <i class="bi bi-calendar3"></i> March 10, 2025
+                  </p>
+                </div>
+              </div>
+            </div>
+          
+        
+          
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <a href="/2022-08-30-writing-plans" class="stretched-link"></a>
+                  </h5>
+                  <p class="card-text text-muted small">
+                    <i class="bi bi-calendar3"></i> March 10, 2025
+                  </p>
+                </div>
+              </div>
+            </div>
+          
+        
+          
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <a href="/2022-08-29-pgconfbr-talk" class="stretched-link"></a>
+                  </h5>
+                  <p class="card-text text-muted small">
+                    <i class="bi bi-calendar3"></i> March 10, 2025
+                  </p>
+                </div>
+              </div>
+            </div>
+          
+        
+      
+    </div>
+  </div>
+
+  
 </div>
 
 <p>
@@ -443,13 +1331,21 @@ crossorigin="anonymous"></script>
 
     <!-- Additional scripts for code highlighting and dark mode toggle -->
     <script>
-      // Toggle dark mode manually
+      // Toggle dark mode manually with smoother transition
       document.getElementById('darkModeToggle').addEventListener('change', function() {
+        // Add transition class before changing mode
+        document.body.classList.add('theme-transition');
+        
         if (this.checked) {
           document.body.classList.add('dark-mode');
         } else {
           document.body.classList.remove('dark-mode');
         }
+        
+        // Remove transition class after transition completes
+        setTimeout(() => {
+          document.body.classList.remove('theme-transition');
+        }, 500);
       });
       
       // Apply highlighting to code blocks after content loads
@@ -470,6 +1366,111 @@ crossorigin="anonymous"></script>
             Prism.highlightAll();
           }, 100);
         }
+      });
+    </script>
+
+    <!-- SEO and content improvement scripts -->
+    <script src="/assets/js/seo-helper.js"></script>
+    <script src="/assets/js/category-standardizer.js"></script>
+    <script src="/assets/js/link-validator.js"></script>
+
+    <!-- Add this at the end of the body, just before closing body tag -->
+    <script>
+      // Scroll animation for fade-in elements - modified to be more selective
+      document.addEventListener('DOMContentLoaded', function() {
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, {
+          threshold: 0.1
+        });
+        
+        fadeElements.forEach(element => {
+          observer.observe(element);
+        });
+        
+        // Only apply fade-in to non-critical UI elements
+        // Avoid applying to main content or navigation elements
+        const animateElements = document.querySelectorAll('.card:not(.latest-post-card):not(.post-content), .featured-content .card, .post-list-group .list-group-item');
+        animateElements.forEach((element, index) => {
+          // Add minimal delay to reduce blinking effect
+          element.classList.add('fade-in');
+          element.style.transitionDelay = `${index * 0.02}s`; // Reduced delay
+        });
+        
+        // Copy code button functionality
+        const codeBlocks = document.querySelectorAll('pre');
+        codeBlocks.forEach((block) => {
+          if (!block.querySelector('.copy-button')) {
+            const button = document.createElement('button');
+            button.className = 'copy-button';
+            button.textContent = 'Copy';
+            
+            button.addEventListener('click', () => {
+              const code = block.querySelector('code').textContent;
+              navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                  button.textContent = 'Copy';
+                  button.classList.remove('copied');
+                }, 2000);
+              });
+            });
+            
+            block.appendChild(button);
+          }
+        });
+      });
+    </script>
+
+    <!-- Ensure smooth page transitions -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Add fade-in class to the main content container
+        const contentContainer = document.querySelector('.content-container');
+        if (contentContainer) {
+          // Set initial opacity
+          contentContainer.style.opacity = '0';
+          
+          // Fade in the content
+          setTimeout(() => {
+            contentContainer.style.transition = 'opacity 0.3s ease';
+            contentContainer.style.opacity = '1';
+          }, 50);
+        }
+        
+        // Handle page navigation with smooth transitions
+        document.querySelectorAll('a').forEach(link => {
+          // Only apply to internal links
+          if (link.hostname === window.location.hostname && !link.hasAttribute('target')) {
+            link.addEventListener('click', function(e) {
+              // Don't apply to download links or anchor links
+              if (link.hasAttribute('download') || link.getAttribute('href').startsWith('#')) {
+                return;
+              }
+              
+              e.preventDefault();
+              const destination = link.href;
+              
+              // Fade out
+              if (contentContainer) {
+                contentContainer.style.opacity = '0';
+              }
+              
+              // Navigate after a short delay
+              setTimeout(() => {
+                window.location.href = destination;
+              }, 300);
+            });
+          }
+        });
       });
     </script>
   </body>

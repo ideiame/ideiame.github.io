@@ -1,0 +1,41 @@
+<p><img src="https://res.cloudinary.com/robolike/image/upload/v1417674434/blue-robolike-robot_cujcxi.jpg" alt="&quot;Robot image&quot;" /></p>
+
+<p>Essa semana iniciei um projetinho na <a href="http://resultadosdigitais.com.br">Resultados Digitais</a> com Ruby, uma
+ferramenta interna para resolver alguns problemas da nossa infra.</p>
+
+<p>Enfim, percebi que estou adotando uma nova abordagem para tudo que estou
+fazendo. Automatizo tudo logo que o primeiro comando ‘funciona’!</p>
+
+<p>Comecei a navegar no terminal, precisei criar um arquivo, ou um banco de dados
+ou configurar alguma coisa.</p>
+
+<p>Logo que inicio crio uma pasta <code class="language-plaintext highlighter-rouge">script</code> com um arquivo <code class="language-plaintext highlighter-rouge">setup-alguma-coisa</code> dentro e adiciono ao README como usar meu novo <code class="language-plaintext highlighter-rouge">script/setup-alguma-coisa</code>.</p>
+
+<p>O processo é mais simples do que simplesmente eu lembrar depois. Então,
+conforme vou fazendo testes e chegando a exemplos que funcionam, migro os
+testes para um script bacaninha para reutilizar.</p>
+
+<p>O <a href="http://twitter.com/pcasaretto">@pcasaretto</a> escreveu um <a href="http://shipit.resultadosdigitais.com.br/blog/padronizacao-para-reduzir-atrito-entre-projetos/">post</a> massa 
+sobre padronização de setup e como esses padrões entre projetos facilitam a vida.
+Então de certa forma essa ideia também tem a ver com isso. Sobre manter scripts
+de <code class="language-plaintext highlighter-rouge">script/setup</code> para iniciar o projeto e <code class="language-plaintext highlighter-rouge">script/run</code> para rodar.</p>
+
+<p>Sei que meus velhos amigos vão falar: mas nós sempre fizemos o  <code class="language-plaintext highlighter-rouge">make test</code>, <code class="language-plaintext highlighter-rouge">make build</code>,
+ou <code class="language-plaintext highlighter-rouge">make install</code>, não seria isso?</p>
+
+<p>A questão é <strong>adotar</strong>. Os métodos e práticas precisam ser adotados. Pode se usar
+<code class="language-plaintext highlighter-rouge">make</code> ou uma pasta <code class="language-plaintext highlighter-rouge">script</code> com os bons e velhos <code class="language-plaintext highlighter-rouge">.sh</code> ou nossos modernos
+dockers. O importante é não deixar de lado e ferrar o próximo que tentar
+embarcar no code.</p>
+
+<p>Quanto mais fácil for de fazer o setup, mais fácil será de conseguir
+contribuições da comunidade.</p>
+
+<p>Quanto mais simples for de fazer o release, mais pessoas vão poder contribuir
+ao mesmo tempo. Então, antes eu ficava deixando para fazer o Makefile bonitão
+no final.</p>
+
+<p>Agora estou partindo para um “digito logo existo” estilo TDD.</p>
+
+<p>Digito <code class="language-plaintext highlighter-rouge">make test</code> and nada aconteceu? Opa! Hora de criar meu script automatizado :)</p>
+
