@@ -1,0 +1,1492 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+<link rel="stylesheet"
+    type="text/css"
+    href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"
+    data-cfasync="false"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NV80WM9HT0"></script>
+<script>
+    // Reads the value of a cookie by name or returns empty string
+    function getCookie(name) {
+        var b = document.cookie.match('(^|[^;]+)\\s*' + name + '\\s*=\\s*([^;]+)');
+        return b ? b.pop() : '';
+    }
+
+    // Actually starting analytics up
+    function addAnalytics() {
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-NV80WM9HT0');
+    }
+
+    // Waiting for the load event
+    window.addEventListener("load", function () {
+        // Reading "cookieconsent_status" cookie
+        const cookieConsent = getCookie('cookieconsent_status');
+
+        // Start analytics if user consented or did not deny
+        if (cookieConsent === 'allow' || cookieConsent === '') {
+            addAnalytics();
+        }
+
+        // Initialise cookie consent banner
+        window.cookieconsent.initialise({
+            "palette": {
+                "popup": {
+                    "background": "#efefef",
+                    "text": "#404040"
+                },
+                "button": {
+                    "background": "#8ec760",
+                    "text": "#ffffff"
+                }
+            },
+            "type": "opt-out",
+            "content": {
+                "allow": "Approve",
+                "dismiss": "Approve",
+                "deny": "Reject"
+            },
+            // Reload the page on user choice to make sure cookie is set
+            onStatusChange: function (status, chosenBefore) {
+                location.reload();
+            }
+        })
+    });
+</script>
+
+    <script async
+src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1171230226237014"
+crossorigin="anonymous"></script>
+
+    <meta charset="utf-8">
+    <title>Sansung Galaxy Note N7000</title>
+    <meta name="description" content="Após algum tempo usando intensamente meu Galaxy S Note, decidi falar um pouco sobre o primeiro "phoblet" que é telefone e tablel. Meu maior objetivo em compr...">
+    <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Enable responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Modern stylesheet links -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Poppins:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+    <link href="/css/nimbus-pygments.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
+    <link href="/css/code-highlighting.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <!-- Style overrides for Prism -->
+    <style>
+      /* Override Prism default styles to fix text shadow issues */
+      code[class*="language-"],
+      pre[class*="language-"],
+      pre code,
+      .token {
+        text-shadow: none !important;
+        -webkit-text-shadow: none !important;
+        border: none !important;
+        background: none;
+      }
+      
+      /* Ensure proper background only on container elements */
+      pre[class*="language-"] {
+        background: var(--prism-background);
+      }
+      
+      .dark-mode pre[class*="language-"] {
+        background: var(--prism-background);
+      }
+    </style>
+
+    <!-- Modern JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-ruby.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-sql.min.js"></script>
+    <div id="fb-root"></div>
+
+    <!-- Dark Mode Script -->
+    <script>
+      function detectColorScheme() {
+        const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        
+        if (isDarkMode) {
+          document.body.classList.add('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = true;
+        }
+        
+        // Listen for changes in the OS color scheme
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+          const newColorScheme = e.matches ? 'dark' : 'light';
+          if (newColorScheme === 'dark') {
+            document.body.classList.add('dark-mode');
+            if (darkModeToggle) darkModeToggle.checked = true;
+          } else {
+            document.body.classList.remove('dark-mode');
+            if (darkModeToggle) darkModeToggle.checked = false;
+          }
+        });
+      }
+
+      // Add code block enhancements
+      function enhanceCodeBlocks() {
+        document.querySelectorAll('pre code').forEach((codeBlock, index) => {
+          // Get the parent pre element
+          const preElement = codeBlock.parentElement;
+          if (!preElement.classList.contains('enhanced')) {
+            preElement.classList.add('enhanced');
+            
+            // Create a wrapper div with the highlight class
+            const highlightDiv = document.createElement('div');
+            highlightDiv.className = 'highlight';
+            
+            // Insert the wrapper before the pre element
+            preElement.parentNode.insertBefore(highlightDiv, preElement);
+            
+            // Move the pre element inside the wrapper
+            highlightDiv.appendChild(preElement);
+            
+            // Get language class from code element
+            let language = '';
+            codeBlock.classList.forEach(className => {
+              if (className.startsWith('language-')) {
+                language = className.substring(9);
+              }
+            });
+            
+            // Auto-detect language if none is specified
+            if (!language) {
+              // Check for Ruby
+              if (codeBlock.textContent.includes('require') || 
+                  codeBlock.textContent.includes('def ') ||
+                  codeBlock.textContent.includes('class ') ||
+                  codeBlock.textContent.includes('module ') ||
+                  codeBlock.textContent.match(/\w+\s*=\s*\w+/g)) {
+                language = 'ruby';
+                codeBlock.classList.add('language-ruby');
+              }
+              // Check for SQL
+              else if (codeBlock.textContent.includes('SELECT') || 
+                       codeBlock.textContent.includes('FROM') ||
+                       codeBlock.textContent.includes('WHERE') ||
+                       codeBlock.textContent.includes('CREATE TABLE')) {
+                language = 'sql';
+                codeBlock.classList.add('language-sql');
+              }
+            }
+            
+            // If language is found, add it as a data attribute
+            if (language) {
+              highlightDiv.setAttribute('data-language', language);
+            }
+            
+            // Create copy button
+            const copyButton = document.createElement('button');
+            copyButton.className = 'copy-button';
+            copyButton.textContent = 'Copy';
+            copyButton.setAttribute('aria-label', 'Copy code to clipboard');
+            copyButton.onclick = function() {
+              navigator.clipboard.writeText(codeBlock.textContent)
+                .then(() => {
+                  copyButton.textContent = 'Copied!';
+                  copyButton.classList.add('copied');
+                  setTimeout(() => {
+                    copyButton.textContent = 'Copy';
+                    copyButton.classList.remove('copied');
+                  }, 2000);
+                })
+                .catch(err => {
+                  console.error('Could not copy text: ', err);
+                });
+            };
+            
+            // Add copy button to the highlight div
+            highlightDiv.appendChild(copyButton);
+          }
+        });
+      }
+      
+      // Initialize when DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        detectColorScheme();
+        enhanceCodeBlocks();
+      });
+    </script>
+
+    <!-- Le fav and touch icons -->
+  <!-- Update these with your own images
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+  -->
+
+    <!-- atom & rss feed -->
+    <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
+    <link href="/rss.xml" type="application/rss+xml" rel="alternate" title="Sitewide RSS Feed">
+  <script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+    addEventListener('load', function (event) {
+      var agent=navigator.userAgent.toLowerCase();
+      var links = document.getElementsByTagName('a');
+      var regex = new RegExp('^'+window.location.protocol + '//' + window.location.hostname);
+
+      for (var i = 0, linksLength = links.length; i < linksLength; i++) {
+        if ( ! links[i].href.match(regex)) {
+           links[i].setAttribute('target', '_blank');
+       }
+     }
+
+    }, false);
+// ]]>
+</script>
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.5&appId=138593009602387";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand py-0" href="/">
+          <img class="rounded-circle" alt="ideiame logo" src="/images/ideiame.png">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMain">
+          <ul class="navbar-nav">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle py-1" href="#" id="pagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               Ideia.me 
+              </a>
+              <ul class="dropdown-menu shadow-sm" aria-labelledby="pagesDropdown">
+                <li><a class="dropdown-item" href="/archive">Archive</a></li>
+                <li><a class="dropdown-item" href="/talks">Talks</a></li>
+                <li><a class="dropdown-item" href="/categories">Categories</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="https://www.linkedin.com/in/jonatasdp"><i class="bi bi-linkedin"></i> Linkedin</a></li>
+                <li><a class="dropdown-item" href="https://github.com/jonatas"><i class="bi bi-github"></i> Github</a></li>
+                <li><a class="dropdown-item" href="https://twitter.com/jonatasdp"><i class="bi bi-twitter"></i> Twitter</a></li>
+                <li><a class="dropdown-item" href="https://instagram.com/jonatasdp"><i class="bi bi-instagram"></i> Instagram</a></li>
+                <li><a class="dropdown-item" href="https://www.youtube.com/user/jonatasdp"><i class="bi bi-youtube"></i> Youtube</a></li>
+              </ul>
+            </li>
+          </ul>
+          
+          <div class="d-none d-md-block page-title-nav me-auto ms-2">
+            Sansung Galaxy Note N7000
+          </div>
+          
+          <div class="form-check form-switch d-flex align-items-center ms-auto">
+            <input class="form-check-input me-1" type="checkbox" id="darkModeToggle">
+            <label class="form-check-label text-light" for="darkModeToggle">
+              <i class="bi bi-moon-stars"></i>
+            </label>
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <div class="container content-container mt-5 pt-5">
+      
+<!-- Post layout with modern design -->
+<div class="post-container">
+  <div class="post-header mb-4">
+    <h1 class="post-title display-4">Sansung Galaxy Note N7000</h1>
+    <div class="post-meta d-flex flex-wrap align-items-center text-muted mb-3">
+      <span class="me-3">
+        <i class="bi bi-calendar3"></i> May 08, 2012
+      </span>
+      
+      <span class="me-3">
+        <i class="bi bi-folder"></i>
+        
+          <a href="/categories.html#brinquedos-ref" class="badge bg-primary text-decoration-none me-1">brinquedos</a>
+        
+      </span>
+      
+      
+      <span>
+        <i class="bi bi-tags"></i>
+        
+      </span>
+      
+    </div>
+    
+    <div class="post-share d-flex align-items-center mb-4">
+      <span class="me-2 text-muted">Share:</span>
+      <a href="https://twitter.com/intent/tweet?text=Sansung+Galaxy+Note+N7000&url=https://ideia.me%2Fgalaxy-note-n7000&via=jonatasdp" 
+         class="btn btn-sm btn-outline-primary me-2" target="_blank">
+        <i class="bi bi-twitter"></i>
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ideia.me%2Fgalaxy-note-n7000&title=Sansung+Galaxy+Note+N7000" 
+         class="btn btn-sm btn-outline-primary me-2" target="_blank">
+        <i class="bi bi-linkedin"></i>
+      </a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=https://ideia.me%2Fgalaxy-note-n7000" 
+         class="btn btn-sm btn-outline-primary" target="_blank">
+        <i class="bi bi-facebook"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="post-content card mb-5">
+    <div class="card-body">
+      <p>Após algum tempo usando intensamente meu Galaxy S Note, decidi falar um pouco sobre o primeiro “phoblet” que é telefone e tablel. Meu maior objetivo em comprar este aparelho foi o hardware maravilhoso e a espessura realmente me impressionou. Este mega-celular tem mais processador que meu primeiro notebook e tem sido muito confortável realmente ter um hardware de primeira para trabalhar.</p>
+
+<h2 id="o-hardware">O hardware</h2>
+
+<p>Após começar a <a href="http://github.com/jonatas">desenvolver</a> para android, logo me inconformei com os 10 segundos a 1 minuto que meu antigo Galaxy Ace demorava para instalar e rodar um app. Quando estou desenvolvendo agora, este tempo nunca passa de 2 segundos mas geralmente é instantâneo.</p>
+
+<h2 id="a-caneta">A caneta</h2>
+
+<p>Muito estranho em primeira impressão, a caneta “S Pen” realmente é decepcionante em termos de precisão, principalmente se você tentar encontrar bugs nela. Sinceramente ela está longe de ter um toque preciso. Mas se você é como eu que não é um artista e precisa dar um toque preciso, ela é ótima. Eu realmente saco a caneta o tempo todo para utilizar, e é incrível como a tela fica mais limpa :D</p>
+
+<p>Conforme você esquece que está escrevendo em uma tela touch com uma caneta não verdadeira, parece que o toque se torna mais real. Na prática e utilização que se começa a utilizar mais a pressão sobre a tela e perceber quanto é possível explorar esta mega tela como um bloco de papel.</p>
+
+<p>Existe um botão que tem alguns “tricks”  mas realmente ele é muito difícil de ser acionado com perfeição pois ele escorrega desposiciona o browser ou aonde a caneta escorregar. Eu realmente utilizei este botão umas 10 vezes e foi para teste, mas no dia a dia acabou não sendo tão interessante. Ele possuí atalho para tirar um printscreen e outro abre o menu mas realmente não consegui me adaptar.</p>
+
+<h2 id="acesso-a-internet">Acesso a internet</h2>
+
+<p>Eu realmente gosto de usar o Google Play, Facebook, Twitter e GMail via móvel e sempre que tenho uma folga aproveito para navegar, conhecer novos aplicativos e me reconectar ao mundo real. Recentemente instalei uma série de apps que tenho tentado conhecer, me adaptar, e utilizar.</p>
+
+<p>Tenho um monte de ideias para desenvolver no android então sempre procuro ser um bom usuário e tentar observar o melhor do mundo mobile. Existem pessoas realmente mudando as coisas, criando novos conceitos, tentando reinventar as coisas e criar novas formas de interação.</p>
+
+<p>Uma coisa que ainda fico triste é pela quantia de pessoas sem criatividade que copiam aplicativos na cara dura e criam ‘coisas’ conceitualmente iguais e sem nenhuma originalidade ou motivo.</p>
+
+<h2 id="vídeos-som-e-viva-voz">Vídeos, som e viva voz</h2>
+
+<p>Tenho assistido muitos vídeos nesta tela de 5,3 polegadas. É muito legal pois a qualidade do som é o suficiente para ficar muito satisfeito. O fone de ouvido também tem uma qualidade muito boa mas uma pena que vive caindo da minha orelha então não tenho muita segurança em fazer as coisas com ele.</p>
+
+<p>O som do aparelho também é muito bom, e faço várias reuniões no viva-voz e tem sido muito útil e eficiente neste sentido também.</p>
+
+<h2 id="o-tamanho">O tamanho</h2>
+
+<p>Como celular realmente não é muito legal colocar este aparelho na orelha, pois ele ocupa um bom pedaço do rosto. Eu geralmente, sempre que conveniente uso no viva voz, pois como trabalho em casa, não tem nada que me impeça de atender todas as ligações desta forma.</p>
+
+<p>No bolso até que é tranquilo, as vezes dá um receio de forçar mas até agora estou transitando bastante com ele.</p>
+
+<p>Na mão ele parece bem seguro mas se tentar tirar fotos com uma mão dá uma impressão de que pode cair ou escapar dos dedos.</p>
+
+<p>Mas sinceramente esta diferença de 1 polegada mudou a minha concepção de tela, e ainda cabe no bolso :D</p>
+
+<h2 id="o-android-e-as-versões">O android e as versões</h2>
+
+<p>Ainda estou com a versão original (2.3.5) e não pretendo atualizar para versão 4 até que realmente não me sinta seguro disso. Nunca fiz atualizações deste sistema operacional e nem tenho ideia de como faz. Como estou desenvolvendo aplicações para telefones mais simples, o alvo é android versão 2+ então realmente não preciso fazer isso agora.</p>
+
+<h2 id="a-durabilidade">A durabilidade</h2>
+
+<p>Assim como meu iPhone primeira geração, acredito que irei utilizar este aparelho pelo menos 3 anos. Talvez troque ele como o próprio iPhone por enjoar e não pelo aparelho quebrar ou parar de funcionar. Meus primeiros meses tive uma experiência muito boa usando o primeiro phoblet do mercado. Eu tinha certeza que ele seria extremamente útil para mim e está sendo. Como no mundo real, nem tudo é perfeito e ele dá umas travadinhas, tem alguns problemas mas em geral estou muito mais satisfeito do que instatisfeito com o produto.</p>
+
+
+    </div>
+  </div>
+
+  <div class="post-navigation mb-5">
+    <div class="row">
+      <div class="col-md-6 mb-3 mb-md-0">
+        
+        <div class="card h-100">
+          <div class="card-body">
+            <span class="text-muted d-block mb-2"><i class="bi bi-arrow-left"></i> Previous Post</span>
+            <h5 class="card-title mb-0">
+              <a href="/update-ou-upgrade-parte-2" class="stretched-link">Update ou upgrade parte 2</a>
+            </h5>
+          </div>
+        </div>
+        
+      </div>
+      <div class="col-md-6">
+        
+        <div class="card h-100">
+          <div class="card-body text-md-end">
+            <span class="text-muted d-block mb-2">Next Post <i class="bi bi-arrow-right"></i></span>
+            <h5 class="card-title mb-0">
+              <a href="/disciplina-no-home-office" class="stretched-link">Disciplina no home office</a>
+            </h5>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="post-author card mb-5">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <div class="col-md-2 text-center mb-3 mb-md-0">
+          <img src="https://avatars0.githubusercontent.com/u/15484?s=50" alt="Jônatas Davi Paganini" class="rounded-circle img-fluid" style="max-width: 100px;">
+        </div>
+        <div class="col-md-10">
+          <h4>About Jônatas Davi Paganini</h4>
+          <p>Developer Advocate at TimescaleDB, Ruby enthusiast, and PostgreSQL expert. Sharing knowledge through writing and speaking at conferences worldwide.</p>
+          <div class="social-links">
+            <a href="https://github.com/jonatas" class="btn btn-sm btn-outline-dark me-2" target="_blank">
+              <i class="bi bi-github"></i> GitHub
+            </a>
+            <a href="https://twitter.com/jonatasdp" class="btn btn-sm btn-outline-primary me-2" target="_blank">
+              <i class="bi bi-twitter"></i> Twitter
+            </a>
+            <a href="https://linkedin.com/in/jonatasdp" class="btn btn-sm btn-outline-primary" target="_blank">
+              <i class="bi bi-linkedin"></i> LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="post-related mb-5">
+    <h3 class="h4 mb-4 border-bottom pb-2">Related Posts</h3>
+    <div class="row">
+      
+      
+      
+      
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+        
+        
+        
+        
+      
+      
+      
+        
+          
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <a href="/soulless-economy" class="stretched-link">The Souless Economy - How AI Agents will change our economy completely</a>
+                  </h5>
+                  <p class="card-text text-muted small">
+                    <i class="bi bi-calendar3"></i> November 22, 2024
+                  </p>
+                </div>
+              </div>
+            </div>
+          
+        
+          
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <a href="/timescaledb-gem-continuous-aggregates-updates" class="stretched-link">TimescaleDB Gem Continuous Aggregates Updates</a>
+                  </h5>
+                  <p class="card-text text-muted small">
+                    <i class="bi bi-calendar3"></i> October 07, 2024
+                  </p>
+                </div>
+              </div>
+            </div>
+          
+        
+          
+            <div class="col-md-4 mb-3">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title">
+                    <a href="/my-first-contribution-to-rubygems" class="stretched-link">My First Contribution To Rubygems</a>
+                  </h5>
+                  <p class="card-text text-muted small">
+                    <i class="bi bi-calendar3"></i> July 04, 2024
+                  </p>
+                </div>
+              </div>
+            </div>
+          
+        
+      
+    </div>
+  </div>
+
+  
+</div>
+
+<p>
+  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
+  <br />
+  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
+  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
+</p>
+<p>Check my
+  <a href="/talks">talks</a> or connect with me via
+  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
+  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
+  <a href="https://github.com/jonatas" target="_blank">github</a> /
+  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
+  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
+  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
+  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
+</p>
+
+
+
+    </div>
+    
+    <footer class="footer bg-light py-4 mt-5">
+      <div class="container text-center">
+        <p class="text-muted mb-0">© 2025 Jônatas Davi Paganini. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <!-- Additional scripts for code highlighting and dark mode toggle -->
+    <script>
+      // Toggle dark mode manually with smoother transition
+      document.getElementById('darkModeToggle').addEventListener('change', function() {
+        // Add transition class before changing mode
+        document.body.classList.add('theme-transition');
+        
+        if (this.checked) {
+          document.body.classList.add('dark-mode');
+        } else {
+          document.body.classList.remove('dark-mode');
+        }
+        
+        // Remove transition class after transition completes
+        setTimeout(() => {
+          document.body.classList.remove('theme-transition');
+        }, 500);
+      });
+      
+      // Apply highlighting to code blocks after content loads
+      document.addEventListener('DOMContentLoaded', function() {
+        enhanceCodeBlocks();
+        if (window.Prism) {
+          setTimeout(function() {
+            Prism.highlightAll();
+          }, 100);
+        }
+      });
+      
+      // Reapply highlighting after any AJAX content loads
+      document.addEventListener('ajaxComplete', function() {
+        enhanceCodeBlocks();
+        if (window.Prism) {
+          setTimeout(function() {
+            Prism.highlightAll();
+          }, 100);
+        }
+      });
+    </script>
+
+    <!-- SEO and content improvement scripts -->
+    <script src="/assets/js/seo-helper.js"></script>
+    <script src="/assets/js/category-standardizer.js"></script>
+    <script src="/assets/js/link-validator.js"></script>
+
+    <!-- Add this at the end of the body, just before closing body tag -->
+    <script>
+      // Scroll animation for fade-in elements - modified to be more selective
+      document.addEventListener('DOMContentLoaded', function() {
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        }, {
+          threshold: 0.1
+        });
+        
+        fadeElements.forEach(element => {
+          observer.observe(element);
+        });
+        
+        // Only apply fade-in to non-critical UI elements
+        // Avoid applying to main content or navigation elements
+        const animateElements = document.querySelectorAll('.card:not(.latest-post-card):not(.post-content), .featured-content .card, .post-list-group .list-group-item');
+        animateElements.forEach((element, index) => {
+          // Add minimal delay to reduce blinking effect
+          element.classList.add('fade-in');
+          element.style.transitionDelay = `${index * 0.02}s`; // Reduced delay
+        });
+        
+        // Copy code button functionality
+        const codeBlocks = document.querySelectorAll('pre');
+        codeBlocks.forEach((block) => {
+          if (!block.querySelector('.copy-button')) {
+            const button = document.createElement('button');
+            button.className = 'copy-button';
+            button.textContent = 'Copy';
+            
+            button.addEventListener('click', () => {
+              const code = block.querySelector('code').textContent;
+              navigator.clipboard.writeText(code).then(() => {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                
+                setTimeout(() => {
+                  button.textContent = 'Copy';
+                  button.classList.remove('copied');
+                }, 2000);
+              });
+            });
+            
+            block.appendChild(button);
+          }
+        });
+      });
+    </script>
+
+    <!-- Ensure smooth page transitions -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Add fade-in class to the main content container
+        const contentContainer = document.querySelector('.content-container');
+        if (contentContainer) {
+          // Set initial opacity
+          contentContainer.style.opacity = '0';
+          
+          // Fade in the content
+          setTimeout(() => {
+            contentContainer.style.transition = 'opacity 0.3s ease';
+            contentContainer.style.opacity = '1';
+          }, 50);
+        }
+        
+        // Handle page navigation with smooth transitions
+        document.querySelectorAll('a').forEach(link => {
+          // Only apply to internal links
+          if (link.hostname === window.location.hostname && !link.hasAttribute('target')) {
+            link.addEventListener('click', function(e) {
+              // Don't apply to download links or anchor links
+              if (link.hasAttribute('download') || link.getAttribute('href').startsWith('#')) {
+                return;
+              }
+              
+              e.preventDefault();
+              const destination = link.href;
+              
+              // Fade out
+              if (contentContainer) {
+                contentContainer.style.opacity = '0';
+              }
+              
+              // Navigate after a short delay
+              setTimeout(() => {
+                window.location.href = destination;
+              }, 300);
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+

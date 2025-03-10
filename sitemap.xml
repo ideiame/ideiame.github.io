@@ -8,69 +8,6 @@
  </url>
  
  <url>
-  <loc>http://ideia.me/2023-03-30-sirva-sua-comunidade</loc>
-  <lastmod>2025-03-10</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.8</priority>
- </url>
- 
- <url>
-  <loc>http://ideia.me/2022-08-30-writing-plans</loc>
-  <lastmod>2025-03-10</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.8</priority>
- </url>
- 
- <url>
-  <loc>http://ideia.me/2022-08-29-pgconfbr-talk</loc>
-  <lastmod>2025-03-10</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.8</priority>
- </url>
- 
- <url>
-  <loc>http://ideia.me/2016-03-22-automate-first</loc>
-  <lastmod>2025-03-10</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.8</priority>
- </url>
- 
- <url>
-  <loc>http://ideia.me/2012-11-24-efetivamente</loc>
-  <lastmod>2025-03-10</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.8</priority>
- </url>
- 
- <url>
-  <loc>http://ideia.me/2012-05-08-galaxy-note-n7000</loc>
-  <lastmod>2025-03-10</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.8</priority>
- </url>
- 
- <url>
-  <loc>http://ideia.me/2010-04-18-novas-cores-no-site</loc>
-  <lastmod>2025-03-10</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.8</priority>
- </url>
- 
- <url>
-  <loc>http://ideia.me/2010-02-25-inspecionando-formulas-em-ruby</loc>
-  <lastmod>2025-03-10</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.8</priority>
- </url>
- 
- <url>
-  <loc>http://ideia.me/2010-02-23-regexp-maravilha</loc>
-  <lastmod>2025-03-10</lastmod>
-  <changefreq>daily</changefreq>
-  <priority>0.8</priority>
- </url>
- 
- <url>
   <loc>http://ideia.me/soulless-economy</loc>
   <lastmod>2025-03-10</lastmod>
   <changefreq>daily</changefreq>
@@ -197,6 +134,13 @@
  </url>
  
  <url>
+  <loc>http://ideia.me/sirva-sua-comunidade</loc>
+  <lastmod>2025-03-10</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8</priority>
+ </url>
+ 
+ <url>
   <loc>http://ideia.me/serve-your-community</loc>
   <lastmod>2025-03-10</lastmod>
   <changefreq>daily</changefreq>
@@ -261,6 +205,20 @@
  
  <url>
   <loc>http://ideia.me/using-the-timescale-gem-with-ruby</loc>
+  <lastmod>2025-03-10</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8</priority>
+ </url>
+ 
+ <url>
+  <loc>http://ideia.me/writing-plans</loc>
+  <lastmod>2025-03-10</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8</priority>
+ </url>
+ 
+ <url>
+  <loc>http://ideia.me/pgconfbr-talk</loc>
   <lastmod>2025-03-10</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
@@ -415,6 +373,13 @@
  
  <url>
   <loc>http://ideia.me/google-cloud-platform</loc>
+  <lastmod>2025-03-10</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8</priority>
+ </url>
+ 
+ <url>
+  <loc>http://ideia.me/automate-first</loc>
   <lastmod>2025-03-10</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
@@ -750,6 +715,13 @@
  </url>
  
  <url>
+  <loc>http://ideia.me/efetivamente</loc>
+  <lastmod>2025-03-10</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8</priority>
+ </url>
+ 
+ <url>
   <loc>http://ideia.me/meu-filho-ja-vai-fazer-um-ano</loc>
   <lastmod>2025-03-10</lastmod>
   <changefreq>daily</changefreq>
@@ -793,6 +765,13 @@
  
  <url>
   <loc>http://ideia.me/disciplina-no-home-office</loc>
+  <lastmod>2025-03-10</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8</priority>
+ </url>
+ 
+ <url>
+  <loc>http://ideia.me/galaxy-note-n7000</loc>
   <lastmod>2025-03-10</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
@@ -995,6 +974,13 @@
  </url>
  
  <url>
+  <loc>http://ideia.me/novas-cores-no-site</loc>
+  <lastmod>2025-03-10</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8</priority>
+ </url>
+ 
+ <url>
   <loc>http://ideia.me/weborb-active-record</loc>
   <lastmod>2025-03-10</lastmod>
   <changefreq>daily</changefreq>
@@ -1031,6 +1017,20 @@
  
  <url>
   <loc>http://ideia.me/regexp-com-grep</loc>
+  <lastmod>2025-03-10</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8</priority>
+ </url>
+ 
+ <url>
+  <loc>http://ideia.me/inspecionando-formulas-em-ruby</loc>
+  <lastmod>2025-03-10</lastmod>
+  <changefreq>daily</changefreq>
+  <priority>0.8</priority>
+ </url>
+ 
+ <url>
+  <loc>http://ideia.me/regexp-maravilha</loc>
   <lastmod>2025-03-10</lastmod>
   <changefreq>daily</changefreq>
   <priority>0.8</priority>
