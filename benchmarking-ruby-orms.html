@@ -69,8 +69,8 @@ src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pu
 crossorigin="anonymous"></script>
 
     <meta charset="utf-8">
-    <title>Two ways to notify new data from Timescaledb Continuous Aggregates</title>
-    <meta name="description" content="As a Developer Advocate at Timescale, I have a unique opportunity to work with the community and teach people how to use TimescaleDB. Recently, a community m...">
+    <title>Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</title>
+    
     <meta name="author" content="Jônatas Davi Paganini">
 
     <!-- Immediate dark mode application to prevent flash -->
@@ -331,7 +331,7 @@ crossorigin="anonymous"></script>
           </ul>
           
           <div class="d-none d-md-block page-title-nav me-auto ms-2">
-            Two ways to notify new data from Timescaledb Continuous Aggregates
+            Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB
           </div>
           
           <div class="form-check form-switch d-flex align-items-center ms-auto">
@@ -349,15 +349,15 @@ crossorigin="anonymous"></script>
 
 <div class="article-wrapper">
   <div class="article-header">
-    <h1>Two ways to notify new data from Timescaledb Continuous Aggregates</h1>
+    <h1>Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</h1>
     <div class="article-meta">
-      <span><i class="bi bi-calendar3"></i> February 12, 2023</span>
+      <span><i class="bi bi-calendar3"></i> March 18, 2025</span>
       <span class="separator">•</span>
       
   
   
     <span class="reading-time" title="Estimated read time">
-      <i class="bi bi-clock"></i> 12 min read
+      <i class="bi bi-clock"></i> 7 min read
     </span>
   
  
@@ -367,11 +367,11 @@ crossorigin="anonymous"></script>
       <span>
         <i class="bi bi-folder"></i> 
         
-          <a href="#time-series-ref" class="text-muted">time-series</a>, 
+          <a href="#ruby-ref" class="text-muted">ruby</a>, 
         
-          <a href="#timescaledb-ref" class="text-muted">timescaledb</a>, 
+          <a href="#postgresql-ref" class="text-muted">postgresql</a>, 
         
-          <a href="#postgresql-ref" class="text-muted">postgresql</a>
+          <a href="#performance-ref" class="text-muted">performance</a>
         
       </span>
       
@@ -379,55 +379,208 @@ crossorigin="anonymous"></script>
   </div>
   
   <div class="article-content">
-    <p>As a Developer Advocate at Timescale, I have a unique opportunity to work with the community and teach people how to use TimescaleDB. Recently, a community member asked about a way to publish the results of the continuous aggregate to a messaging system. This sparked my interest, and I challenged myself to come up with a solution.</p>
+    <h1 id="benchmarking-ruby-orms-activerecord-vs-sequel-performance-with-timescaledb">Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</h1>
 
-<p>In this article, I will share my approach to the problem. First, I will introduce the basics of materialized views with continuous aggregates in TimescaleDB. Then, I will show how to use a trigger-based solution to publish the results to a messaging system. Finally, I will demonstrate how to use background jobs to achieve the same result.</p>
+<p>Performance optimization is a critical aspect of application development, especially when dealing with large datasets or high-traffic applications. In Ruby, the choice of Object-Relational Mapping (ORM) can significantly impact your application’s performance. This post explores the performance differences between ActiveRecord and Sequel when working with TimescaleDB, a powerful PostgreSQL extension optimized for time-series data.</p>
 
-<h2 id="introduction">Introduction</h2>
+<h2 id="the-orm-performance-benchmark-challenge">The ORM Performance Benchmark Challenge</h2>
 
-<p>For a long time, working with real-time data in SQL databases was a cumbersome task, but it’s now easier with TimescaleDB. This article explains how to create materialized views with continuous aggregates to process real-time data.</p>
+<p>When building data-intensive applications, developers often face the challenge of choosing between different ORMs. Each ORM offers unique features, syntax, and performance characteristics. Our benchmarks aim to provide insights into these performance differences to help you make informed decisions for your projects.</p>
 
-<p>We will use stock tick data to demonstrate the process. The following code creates a table to store the tick data and a materialized view with continuous aggregates to generate candlesticks:</p>
+<p>Let’s examine the results from our comprehensive benchmarking tests:</p>
 
-<p>If you’ve worked with real-time data before, you’re probably aware of the challenges it presents. Real-time data is a fast-moving stream of information, and it requires near-instant processing to make the most out of it. However, this is often difficult to achieve with SQL databases, which are traditionally designed to handle slower moving, more static data.</p>
+<h3 id="query-types-performance-operations-per-second">Query Types Performance (operations per second)</h3>
 
-<p>Enter TimescaleDB, a powerful and flexible extension of PostgreSQL designed to handle high-velocity time-series data. Among its many features, TimescaleDB enables developers to create materialized views with continuous aggregates to process real-time data with ease. In this article, we will explore how to leverage these capabilities to build a real-time data pipeline for processing stock tick data.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Operation Type</th>
+      <th>ActiveRecord</th>
+      <th>Sequel</th>
+      <th>Raw SQL</th>
+      <th>Key Insights</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Simple Select</td>
+      <td>82.6</td>
+      <td>10,178.6</td>
+      <td>12,450.2</td>
+      <td>Sequel is ~123x faster than ActiveRecord for simple queries</td>
+    </tr>
+    <tr>
+      <td>Complex Joins</td>
+      <td>28.7</td>
+      <td>93.3</td>
+      <td>105.1</td>
+      <td>Sequel offers ~3.3x better performance for complex joins</td>
+    </tr>
+    <tr>
+      <td>Aggregations</td>
+      <td>220.2</td>
+      <td>164.0</td>
+      <td>245.3</td>
+      <td>ActiveRecord optimizes count operations well</td>
+    </tr>
+    <tr>
+      <td>Bulk Inserts</td>
+      <td>215.7</td>
+      <td>272.6</td>
+      <td>310.4</td>
+      <td>Specialized bulk operations are critical for insert performance</td>
+    </tr>
+    <tr>
+      <td>JSON Operations</td>
+      <td>145.3</td>
+      <td>188.9</td>
+      <td>195.7</td>
+      <td>Native JSON operators improve performance across all approaches</td>
+    </tr>
+  </tbody>
+</table>
 
-<h2 id="building-a-real-time-data-pipeline">Building a Real-Time Data Pipeline</h2>
+<h3 id="memory-usage-patterns-mb">Memory Usage Patterns (MB)</h3>
 
-<p>In this section, we will walk through an example of how to build a real-time data pipeline using TimescaleDB. Let’s assume we have a table of stock tick data, which includes the timestamp of the trade, the stock symbol, the price, and the volume.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Operation Type</th>
+      <th>ActiveRecord</th>
+      <th>Sequel</th>
+      <th>Raw SQL</th>
+      <th>Key Insights</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Large Result Set</td>
+      <td>125</td>
+      <td>45</td>
+      <td>30</td>
+      <td>ActiveRecord objects consume ~2.8x more memory than Sequel</td>
+    </tr>
+    <tr>
+      <td>Batch Processing</td>
+      <td>60</td>
+      <td>35</td>
+      <td>25</td>
+      <td>Using <code class="language-plaintext highlighter-rouge">find_each</code> with ActiveRecord helps control memory usage</td>
+    </tr>
+    <tr>
+      <td>JSON Processing</td>
+      <td>80</td>
+      <td>50</td>
+      <td>45</td>
+      <td>JSONB is more memory-efficient than standard JSON</td>
+    </tr>
+    <tr>
+      <td>Aggregations</td>
+      <td>40</td>
+      <td>35</td>
+      <td>30</td>
+      <td>Memory patterns are similar for aggregation operations</td>
+    </tr>
+  </tbody>
+</table>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<h2 id="key-findings-from-our-benchmarks">Key Findings from Our Benchmarks</h2>
+
+<h3 id="1-batch-processing-comparison">1. Batch Processing Comparison</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
-</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nv">"ticks"</span> <span class="p">(</span>
-  <span class="nv">"time"</span> <span class="nb">timestamp</span> <span class="k">with</span> <span class="nb">time</span> <span class="k">zone</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span> 
-  <span class="nv">"symbol"</span> <span class="nb">text</span><span class="p">,</span> 
-  <span class="nv">"price"</span> <span class="nb">decimal</span><span class="p">,</span> 
-  <span class="nv">"volume"</span> <span class="nb">float</span>
-<span class="p">);</span>
+7
+8
+</pre></td><td class="rouge-code"><pre>┌─────────────────────────────────────────┬──────────┬─────────┬────────────┬────────────────┐
+│ Operation                               │    Time  │ Queries │      Rate  │ Relative Speed │
+├─────────────────────────────────────────┼──────────┼─────────┼────────────┼────────────────┤
+│ Processing all records at once          │ 10.342 s │ 90,001  │   2.9k/s  │ baseline       │
+│ Using find_each with default batch size │  9.657 s │ 90,031  │   3.1k/s  │ 1.1x faster    │
+│ Using find_each with custom batch size  │  9.441 s │ 90,031  │   3.2k/s  │ 1.1x faster    │
+│ Using update_all                        │  0.282 s │      1  │ 106.4k/s  │ 36.6x faster   │
+└─────────────────────────────────────────┴──────────┴─────────┴────────────┴────────────────┘
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<h3 id="creating-a-hypertable">Creating a hypertable</h3>
+<p>The results are clear: bulk operations like <code class="language-plaintext highlighter-rouge">update_all</code> are dramatically faster (36.6x) but bypass ActiveRecord callbacks and validations. This represents a common trade-off between performance and application logic that developers must consider.</p>
 
-<p>To create a hypertable in TimescaleDB, we use the create_hypertable function. This function takes the name of the table we want to convert to a hypertable, the name of the time column, and an optional argument chunk_time_interval that specifies the duration of each chunk.</p>
+<h3 id="2-bulk-insert-performance">2. Bulk Insert Performance</h3>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'ticks'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">,</span> <span class="n">chunk_time_interval</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">'1 day'</span><span class="p">);</span>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>┌─────────────────────────────┬─────────┬─────────┬────────────┬────────────────┐
+│ Operation                   │   Time  │ Queries │      Rate  │ Relative Speed │
+├─────────────────────────────┼─────────┼─────────┼────────────┼────────────────┤
+│ Individual inserts          │ 0.041 s │    300  │   2.4k/s  │ baseline       │
+│ Bulk insert with insert_all │ 0.002 s │      1  │  50.0k/s  │ 22.0x faster   │
+└─────────────────────────────┴─────────┴─────────┴────────────┴────────────────┘
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>In the above code, we create a hypertable named ticks using the create_hypertable function. The hypertable is created based on the ticks table and is partitioned on the time column. We set the chunk_time_interval parameter to INTERVAL ‘1 day’ to specify that each chunk should contain data for a single day.</p>
+<p>Bulk inserts are 22x faster than individual inserts, with a 300:1 query reduction. This demonstrates how reducing the number of database roundtrips can dramatically improve performance.</p>
 
-<p>By using hypertables, we can improve the performance of our time-series data queries, as TimescaleDB can efficiently index and manage large volumes of time-series data.</p>
+<h3 id="3-upsert-performance">3. Upsert Performance</h3>
 
-<h3 id="creating-the-continuous-aggregate">Creating the continuous aggregate</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>┌──────────────────────────────┬─────────┬─────────┬────────────┬────────────────┐
+│ Operation                    │   Time  │ Queries │      Rate  │ Relative Speed │
+├──────────────────────────────┼─────────┼─────────┼────────────┼────────────────┤
+│ Individual find_or_create_by │ 0.049 s │    400  │   2.0k/s  │ baseline       │
+│ Bulk upsert with insert_all  │ 0.002 s │      1  │  47.1k/s  │ 29.5x faster   │
+│ Sequel upsert                │ 0.002 s │      2  │  46.8k/s  │ 23.2x faster   │
+└──────────────────────────────┴─────────┴─────────┴────────────┴────────────────┘
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>Now, let’s create a continuous aggregate materialized view that aggregates the tick data on a 10 second time interval:</p>
+<p>Both ActiveRecord’s <code class="language-plaintext highlighter-rouge">upsert_all</code> and Sequel’s bulk upsert mechanisms offer similar performance benefits, showing ~25-30x improvement over individual operations.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<h2 id="best-practices-for-orm-performance">Best Practices for ORM Performance</h2>
+
+<p>Based on these benchmarks, we’ve compiled some best practices for optimizing ORM performance:</p>
+
+<h3 id="1-batch-processing">1. Batch Processing</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Inefficient</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">all</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span> <span class="n">user</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">status: </span><span class="s1">'active'</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="c1"># Efficient (36x faster)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">update_all</span><span class="p">(</span><span class="ss">status: </span><span class="s1">'active'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="2-bulk-operations">2. Bulk Operations</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Inefficient</span>
+<span class="n">users</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span> <span class="no">User</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span><span class="n">user</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="c1"># Efficient (22x faster)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">insert_all</span><span class="p">(</span><span class="n">users</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="3-query-optimization">3. Query Optimization</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -437,71 +590,39 @@ crossorigin="anonymous"></script>
 8
 9
 10
-</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_10s</span>
-<span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
-<span class="k">SELECT</span> 
-  <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'10s'</span><span class="p">,</span> <span class="nb">time</span><span class="p">),</span>
-  <span class="nv">"ticks"</span><span class="p">.</span><span class="nv">"symbol"</span><span class="p">,</span>
-  <span class="n">toolkit_experimental</span><span class="p">.</span><span class="n">candlestick_agg</span><span class="p">(</span><span class="nb">time</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">volume</span><span class="p">)</span> <span class="k">as</span> <span class="n">candlestick</span>
-<span class="k">FROM</span> <span class="nv">"ticks"</span>
-<span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
-<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
-<span class="k">WITH</span> <span class="k">DATA</span><span class="p">;</span>
+</pre></td><td class="rouge-code"><pre><span class="c1"># Inefficient</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">joins</span><span class="p">(</span><span class="ss">:posts</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="ss">posts: </span><span class="p">{</span> <span class="ss">created_at: </span><span class="mi">1</span><span class="p">.</span><span class="nf">week</span><span class="p">.</span><span class="nf">ago</span><span class="o">..</span> <span class="p">})</span>
+    <span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="s2">"users.id"</span><span class="p">).</span><span class="nf">having</span><span class="p">(</span><span class="s2">"COUNT(posts.id) &gt; 5"</span><span class="p">)</span>
+
+<span class="c1"># Efficient (1.2x faster)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">joins</span><span class="p">(</span><span class="ss">:posts</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="s2">"users.*, COUNT(posts.id) as posts_count"</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">posts: </span><span class="p">{</span> <span class="ss">created_at: </span><span class="mi">1</span><span class="p">.</span><span class="nf">week</span><span class="p">.</span><span class="nf">ago</span><span class="o">..</span> <span class="p">})</span>
+    <span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="s2">"users.id"</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">having</span><span class="p">(</span><span class="s2">"COUNT(posts.id) &gt; 5"</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>The above view calculates the candlestick data for the 10-second interval using the candlestick_agg function from the TimescaleDB toolkit. We group the data by the 10-second interval and the stock symbol, and we order the result by the interval start time.</p>
+<h3 id="4-upsert-operations">4. Upsert Operations</h3>
 
-<p>Next, we can create a continuous aggregate materialized view that aggregates the 10-second candlestick data on a 1-minute time interval:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
 7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_1m</span>
-<span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span> <span class="p">)</span> <span class="k">AS</span>
-<span class="k">SELECT</span> 
-  <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1m'</span><span class="p">,</span> <span class="nv">"time_bucket"</span><span class="p">),</span>
-  <span class="n">symbol</span><span class="p">,</span>
-  <span class="n">toolkit_experimental</span><span class="p">.</span><span class="k">rollup</span><span class="p">(</span><span class="n">candlestick</span><span class="p">)</span> <span class="k">as</span> <span class="n">candlestick</span> 
-<span class="k">FROM</span> <span class="nv">"candlestick_10s"</span>
-<span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
-<span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
-<span class="k">WITH</span> <span class="k">NO</span> <span class="k">DATA</span><span class="p">;</span>
+</pre></td><td class="rouge-code"><pre><span class="c1"># Inefficient</span>
+<span class="n">records</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">record</span><span class="o">|</span>
+  <span class="no">User</span><span class="p">.</span><span class="nf">find_or_create_by</span><span class="p">(</span><span class="ss">email: </span><span class="n">record</span><span class="p">[</span><span class="ss">:email</span><span class="p">])</span>
+<span class="k">end</span>
+
+<span class="c1"># Efficient (29.5x faster)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">upsert_all</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="ss">unique_by: :email</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>The above view rolls up the 10-second candlestick data into the 1-minute intervals using the rollup function from the TimescaleDB toolkit. We group the data by the 1-minute interval and the stock symbol, and we order the result by the interval start time.</p>
+<h3 id="5-memory-optimization-with-occamsrecord">5. Memory Optimization with OccamsRecord</h3>
 
-<p>Finally, we can create a continuous aggregate materialized view that aggregates the 1-minute candlestick data on a 5-minute time interval:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_5m</span>
-<span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
-<span class="k">SELECT</span> 
-  <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'5m'</span><span class="p">,</span> <span class="nv">"time_bucket"</span><span class="p">),</span>
-  <span class="n">symbol</span><span class="p">,</span>
-  <span class="n">toolkit_experimental</span><span class="p">.</span><span class="k">rollup</span><span class="p">(</span><span class="n">candlestick</span><span class="p">)</span> <span class="k">as</span> <span class="n">candlestick</span>
-<span class="k">FROM</span> <span class="nv">"candlestick_1m"</span>
-<span class="k">GROUP</span> <span class="k">BY</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<h2 id="trigger-based-solution-to-notify-new-row">Trigger-based solution to notify new row</h2>
-
-<p>To notify when a new row is added to the ticks table, we can use a trigger to send a notification to a listening client. Here’s how to create the trigger:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -520,46 +641,32 @@ crossorigin="anonymous"></script>
 17
 18
 19
-</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">FUNCTION</span> <span class="n">notify_new_row</span><span class="p">()</span> <span class="k">RETURNS</span> <span class="k">TRIGGER</span> <span class="k">AS</span> <span class="err">$$</span>
-  <span class="k">DECLARE</span>
-  <span class="n">threshold</span> <span class="n">INTERVAL</span> <span class="p">:</span><span class="o">=</span> <span class="n">INTERVAL</span> <span class="s1">'0 seconds'</span><span class="p">;</span>
-  <span class="n">candlestick</span> <span class="n">record</span><span class="p">;</span>
-<span class="k">BEGIN</span>
-  <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">candlestick_1m</span>
-  <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">time_bucket</span> <span class="k">DESC</span> <span class="k">LIMIT</span> <span class="mi">1</span>
-  <span class="k">INTO</span> <span class="n">candlestick</span><span class="p">;</span>
-  <span class="n">IF</span> <span class="p">(</span><span class="k">NEW</span><span class="p">.</span><span class="nb">time</span> <span class="o">-</span> <span class="n">m1</span><span class="p">.</span><span class="n">time_bucket</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">threshold</span> <span class="k">THEN</span>
-    <span class="n">PERFORM</span> <span class="n">pg_notify</span><span class="p">(</span><span class="s1">'m1'</span><span class="p">,</span> <span class="n">row_to_json</span><span class="p">(</span><span class="n">m1</span><span class="p">)::</span><span class="nb">text</span><span class="p">);</span>
-  <span class="k">END</span> <span class="n">IF</span><span class="p">;</span>
-  <span class="k">RETURN</span> <span class="k">NEW</span><span class="p">;</span>
-<span class="k">END</span><span class="p">;</span>
-<span class="err">$$</span> <span class="k">LANGUAGE</span> <span class="n">plpgsql</span><span class="p">;</span>
+</pre></td><td class="rouge-code"><pre><span class="c1"># Standard ActiveRecord (27.30 MB allocated, 68.34 KB retained)</span>
+<span class="n">users_data</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="ss">:posts</span><span class="p">).</span><span class="nf">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="p">{</span>
+    <span class="ss">name: </span><span class="n">user</span><span class="p">.</span><span class="nf">name</span><span class="p">,</span>
+    <span class="ss">email: </span><span class="n">user</span><span class="p">.</span><span class="nf">email</span><span class="p">,</span>
+    <span class="ss">post_count: </span><span class="n">user</span><span class="p">.</span><span class="nf">posts</span><span class="p">.</span><span class="nf">size</span>
+  <span class="p">}</span>
+<span class="k">end</span>
 
-<span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="n">notify_new_row_trigger</span>
-<span class="k">AFTER</span> <span class="k">INSERT</span> <span class="k">ON</span> <span class="n">ticks</span>
-<span class="k">FOR</span> <span class="k">EACH</span> <span class="k">ROW</span>
-<span class="k">EXECUTE</span> <span class="k">FUNCTION</span> <span class="n">notify_new_row</span><span class="p">();</span>
+<span class="c1"># OccamsRecord (16.03 MB allocated, 16.30 KB retained)</span>
+<span class="n">users_data</span> <span class="o">=</span> <span class="no">OccamsRecord</span>
+  <span class="p">.</span><span class="nf">query</span><span class="p">(</span><span class="no">User</span><span class="p">.</span><span class="nf">all</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">eager_load</span><span class="p">(</span><span class="ss">:posts</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">run</span>
+  <span class="p">.</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span> <span class="p">{</span>
+    <span class="ss">name: </span><span class="n">user</span><span class="p">.</span><span class="nf">name</span><span class="p">,</span>
+    <span class="ss">email: </span><span class="n">user</span><span class="p">.</span><span class="nf">email</span><span class="p">,</span>
+    <span class="ss">post_count: </span><span class="n">user</span><span class="p">.</span><span class="nf">posts</span><span class="p">.</span><span class="nf">size</span>
+  <span class="p">}}</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>The <code class="language-plaintext highlighter-rouge">notify_new_row</code> function selects the latest <code class="language-plaintext highlighter-rouge">candlestick_1m</code> row and compares its time_bucket value to the time value of the newly inserted row in the ticks table. If the difference is greater than or equal to the specified threshold, the function sends a notification to a listening client using the pg_notify function.</p>
+<h2 id="n1-query-prevention">N+1 Query Prevention</h2>
 
-<p>The <code class="language-plaintext highlighter-rouge">notify_new_row_trigger</code> trigger executes the <code class="language-plaintext highlighter-rouge">notify_new_row</code> function for each new row inserted into the ticks table.</p>
+<p>The infamous N+1 query problem can severely impact application performance. Our benchmarks with 1000 users (each with 10 posts and 5 comments per post) showed:</p>
 
-<p>With the above solution, we can keep track of newly inserted rows and notify our clients in real-time.</p>
-
-<h2 id="background-jobs-to-publish-the-results-to-a-messaging-system">Background Jobs to publish the results to a messaging system</h2>
-
-<p>To make the process of publishing the results of a continuous aggregate to a messaging system more efficient, we can use background jobs. Instead of inserting each new candlestick into a notifications table and then listening for changes, we can use TimescaleDB’s job scheduling system to run a job that sends a notification each time a new candlestick is generated. Here’s how to create the background jobs:</p>
-
-<h3 id="define-the-background-job">Define the Background Job</h3>
-
-<p>So far, we’ve seen how to create materialized views with continuous aggregates to process real-time data. However, one critical aspect of real-time data pipelines is the ability to execute background jobs. TimescaleDB offers a powerful job scheduling system that enables developers to run complex jobs in the background.</p>
-
-<p>In our example, we will create two background jobs: one to simulate the stock tick data and another to notify us when a new candlestick is generated. A few other will run to feed the continuous aggregates materialized views.</p>
-
-<p>First, let’s create a procedure to simulate the tick data:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -568,174 +675,76 @@ crossorigin="anonymous"></script>
 7
 8
 9
-10
-11
-12
-</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">simulate_tick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
-<span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
-<span class="k">DECLARE</span>
-  <span class="n">candlestick</span> <span class="n">record</span> <span class="p">:</span><span class="o">=</span> <span class="k">null</span><span class="p">;</span>
-<span class="k">BEGIN</span>
-  <span class="k">EXECUTE</span> <span class="s1">'INSERT INTO ticks
-    SELECT now(), $1,
-      (random()*30)::int,
-      100*(random()*10)::int'</span>
-    <span class="k">USING</span> <span class="n">config</span><span class="o">-&gt;&gt;</span><span class="s1">'symbol'</span><span class="p">;</span>
-<span class="k">END</span>
-<span class="err">$$</span><span class="p">;</span>
+</pre></td><td class="rouge-code"><pre><span class="c1"># Bad - N+1 Query (51 queries, 0.01s)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">limit</span><span class="p">(</span><span class="mi">50</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="n">user</span><span class="p">.</span><span class="nf">posts</span><span class="p">.</span><span class="nf">count</span>  <span class="c1"># N+1 query for each user</span>
+<span class="k">end</span>
+
+<span class="c1"># Good - Eager Loading (2 queries, 0.02s)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="ss">:posts</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">50</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="n">user</span><span class="p">.</span><span class="nf">posts</span><span class="p">.</span><span class="nf">length</span>  <span class="c1"># No additional queries</span>
+<span class="k">end</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>The procedure takes in a configuration object that specifies the stock symbol to use. It generates random tick data for the specified symbol and inserts it into the ticks table.</p>
+<h2 id="learn-postgresql-performance-optimization-at-tropical-on-rails-2025">Learn PostgreSQL Performance Optimization at Tropical on Rails 2025</h2>
 
-<h2 id="schedule-the-background-job">Schedule the background job</h2>
+<p>Want to dive deeper into these concepts and learn how to optimize your Ruby applications with PostgreSQL? Join us at the upcoming <strong>PostgreSQL Performance for Ruby Developers</strong> workshop at Tropical on Rails 2025!</p>
 
-<p>Next, let’s create a background job to run the procedure every second for two different symbols:</p>
+<h3 id="workshop-details">Workshop Details:</h3>
+<ul>
+  <li><strong>Date</strong>: April 2nd, 2025</li>
+  <li><strong>Time</strong>: 2 PM to 6 PM</li>
+  <li><strong>Language</strong>: English</li>
+  <li><strong>Location</strong>: Pullman Vila Olímpia, São Paulo, Brazil</li>
+</ul>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'simulate_tick'</span><span class="p">,</span> <span class="s1">'1s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"symbol": "APPL"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-<span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'simulate_tick'</span><span class="p">,</span> <span class="s1">'0.5s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"symbol": "GOOG"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<p>This hands-on workshop will cover:</p>
+<ul>
+  <li>Advanced PostgreSQL features for Ruby developers</li>
+  <li>ORM performance optimization techniques</li>
+  <li>TimescaleDB for time-series data</li>
+  <li>Practical query optimization strategies</li>
+</ul>
 
-<p>The above code schedules the <code class="language-plaintext highlighter-rouge">simulate_tick</code> procedure to run every second for the APPL symbol and every 0.5 seconds for the GOOG symbol.</p>
-
-<p>Now, let’s create a procedure to notify us when a new candlestick is generated:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">notify_new_candlestick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
-<span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
-<span class="k">DECLARE</span>
-  <span class="n">view_name</span> <span class="nb">TEXT</span> <span class="p">:</span><span class="o">=</span> <span class="n">config</span> <span class="o">-&gt;&gt;</span> <span class="s1">'view_name'</span><span class="p">;</span>
-  <span class="n">last_row</span> <span class="n">RECORD</span><span class="p">;</span>
-<span class="k">BEGIN</span>
-  <span class="k">EXECUTE</span> <span class="n">format</span><span class="p">(</span><span class="s1">'SELECT * FROM %I ORDER BY time_bucket DESC LIMIT 1'</span><span class="p">,</span> <span class="n">view_name</span><span class="p">)</span>
-  <span class="k">INTO</span> <span class="n">last_row</span><span class="p">;</span>
-  <span class="n">PERFORM</span> <span class="n">pg_notify</span><span class="p">(</span><span class="n">view_name</span><span class="p">,</span> <span class="n">row_to_json</span><span class="p">(</span><span class="n">last_row</span><span class="p">)::</span><span class="nb">text</span><span class="p">);</span>
-<span class="k">END</span>
-<span class="err">$$</span><span class="p">;</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>The procedure takes in a configuration object that specifies the name of the view to monitor. It retrieves the most recent candlestick from the specified view and sends a notification with the view name and the JSON representation of the candlestick.</p>
-
-<p>Finally, let’s create background jobs to monitor the three materialized views we created earlier:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'notify_new_candlestick'</span><span class="p">,</span> <span class="s1">'10s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"view_name": "candlestick_10s"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-<span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'notify_new_candlestick'</span><span class="p">,</span> <span class="s1">'1m'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"view_name": "candlestick_1m"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-<span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'notify_new_candlestick'</span><span class="p">,</span> <span class="s1">'5m'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"view_name": "candlestick_5m"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-<p>he above code schedules the notify_new_candlestick procedure to run every 10 seconds for the 10-second candlestick view, every minute for the 1-minute candlestick view, and every 5 minutes for the 5-minute candlestick view.</p>
-
-<p>To listen for notifications, we can use the LISTEN command:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="k">LISTEN</span> <span class="n">candlestick_10s</span><span class="p">;</span>
-<span class="k">LISTEN</span> <span class="n">candlestick_1m</span><span class="p">;</span>
-<span class="k">LISTEN</span> <span class="n">candlestick_5m</span><span class="p">;</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>With the LISTEN command in place, we can use the NOTIFY command to receive notifications whenever a new candlestick is generated:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">notify_new_candlestick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
-<span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
-<span class="k">DECLARE</span>
-  <span class="n">view_name</span> <span class="nb">TEXT</span> <span class="p">:</span><span class="o">=</span> <span class="n">config</span> <span class="o">-&gt;&gt;</span> <span class="s1">'view_name'</span><span class="p">;</span>
-  <span class="n">last_row</span> <span class="n">RECORD</span><span class="p">;</span>
-<span class="k">BEGIN</span>
-  <span class="k">EXECUTE</span> <span class="n">format</span><span class="p">(</span><span class="s1">'SELECT * FROM %I ORDER BY time_bucket DESC LIMIT 1'</span><span class="p">,</span> <span class="n">view_name</span><span class="p">)</span>
-  <span class="k">INTO</span> <span class="n">last_row</span><span class="p">;</span>
-  <span class="n">PERFORM</span> <span class="n">pg_notify</span><span class="p">(</span><span class="n">view_name</span><span class="p">,</span> <span class="n">row_to_json</span><span class="p">(</span><span class="n">last_row</span><span class="p">)::</span><span class="nb">text</span><span class="p">);</span>
-<span class="k">END</span>
-<span class="err">$$</span><span class="p">;</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>First, let’s create a procedure to simulate the tick data:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">simulate_tick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
-<span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
-<span class="k">DECLARE</span>
-  <span class="n">candlestick</span> <span class="n">record</span> <span class="p">:</span><span class="o">=</span> <span class="k">null</span><span class="p">;</span>
-<span class="k">BEGIN</span>
-  <span class="k">EXECUTE</span> <span class="s1">'INSERT INTO ticks
-    SELECT now(), $1,
-      (random()*30)::int,
-      100*(random()*10)::int'</span>
-    <span class="k">USING</span> <span class="n">config</span><span class="o">-&gt;&gt;</span><span class="s1">'symbol'</span><span class="p">;</span>
-<span class="k">END</span>
-<span class="err">$$</span><span class="p">;</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>The procedure takes in a configuration object that specifies the stock symbol to use. It generates random tick data for the specified symbol and inserts it into the ticks table.</p>
-
-<p>Next, let’s create a background job to run the procedure every second for two different symbols:</p>
-
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'simulate_tick'</span><span class="p">,</span> <span class="s1">'1s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"symbol": "APPL"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-<span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'simulate_tick'</span><span class="p">,</span> <span class="s1">'0.5s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"symbol": "GOOG"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>The above code schedules the <code class="language-plaintext highlighter-rouge">simulate_tick</code> procedure to run every second for the APPL symbol and every 0.5 seconds for the GOOG symbol.</p>
-
-<p>With this procedure in place, we can simulate real-time data and test our <a href="https://docs.timescale.com/timescaledb/latest/how-to-guides/continuous-aggregates/hierarchical-continuous-aggregates/">hierarchical continuous aggregates</a>.</p>
+<p><a href="https://www.tropicalonrails.com/#workshops">Register for the workshop</a></p>
 
 <h2 id="conclusion">Conclusion</h2>
 
-<p>In this article, we explored how to use materialized views with continuous aggregates to process real-time data in TimescaleDB. We covered the basics of creating and managing materialized views and showed how to use continuous aggregates to generate hierarchical views of time-series data.</p>
+<p>The choice between ActiveRecord and Sequel isn’t always straightforward. While Sequel generally offers better raw performance, especially for simple queries, ActiveRecord provides better integration with the Rails ecosystem and more Ruby-like syntax.</p>
 
-<p>We also demonstrated how to execute background jobs in TimescaleDB to simulate real-time data and send notifications when new data is generated. By using materialized views and continuous aggregates, we can gain real-time insights into our data and make better-informed decisions.</p>
+<p>Consider these factors when choosing an ORM:</p>
+<ol>
+  <li>Use Sequel for performance-critical, data-intensive operations</li>
+  <li>Stick with ActiveRecord for standard CRUD and Rails integration</li>
+  <li>Consider using both in the same application where appropriate</li>
+  <li>Profile your specific use case before committing to an ORM</li>
+  <li>Use bulk operations whenever possible for better performance</li>
+</ol>
 
-<p>With the above solutions, we can publish the results of <a href="https://docs.timescale.com/timescaledb/latest/overview/core-concepts/continuous-aggregates/">continuous aggregates</a> to a messaging system and keep our data pipelines real-time.</p>
+<p>Remember that the best ORM for your application depends on your specific requirements and constraints. These benchmarks provide a starting point for your decision-making process.</p>
 
-<p>If you’re interested in learning more about TimescaleDB or have questions about the solutions presented in this article, please don’t hesitate to reach out. Join the <a href="https://www.timescale.com/community/">Timescale community</a> and talk directly to me. I’m happy to help!</p>
+<p>What’s your experience with ORM performance? Share your thoughts and join us at Tropical on Rails 2025 to continue the conversation!</p>
+
+<h2 id="resources">Resources</h2>
+
+<ol>
+  <li><a href="https://github.com/timescale/timescaledb-ruby">TimescaleDB Ruby Gem</a></li>
+  <li><a href="https://github.com/timescale/postgresql-performance-for-rubyists">PostgreSQL Performance Workshop</a></li>
+  <li><a href="https://github.com/jeremyevans/sequel">Sequel Documentation</a></li>
+  <li><a href="https://guides.rubyonrails.org/active_record_querying.html">ActiveRecord Query Interface</a></li>
+  <li><a href="https://github.com/jhollinger/occams-record">OccamsRecord</a></li>
+</ol>
 
   </div>
   
   
   <div class="article-tags">
     
-      <a href="#time-series-ref" class="article-tag">time-series</a>
-    
-      <a href="#timescaledb-ref" class="article-tag">timescaledb</a>
+      <a href="#ruby-ref" class="article-tag">ruby</a>
     
       <a href="#postgresql-ref" class="article-tag">postgresql</a>
+    
+      <a href="#performance-ref" class="article-tag">performance</a>
     
   </div>
   
@@ -745,7 +754,7 @@ crossorigin="anonymous"></script>
   <h5>Share this article</h5>
   <div class="sharing-buttons">
     
-    <a href="https://twitter.com/intent/tweet?text=Two+ways+to+notify+new+data+from+Timescaledb+Continuous+Aggregates&url=https%3A%2F%2Fideia.me%2Ftwo-ways-to-notify-new-data-from-timescaledb-continuous-aggregates&via=jonatasdp" 
+    <a href="https://twitter.com/intent/tweet?text=Benchmarking+Ruby+ORMs%3A+ActiveRecord+vs+Sequel+Performance+with+TimescaleDB&url=https%3A%2F%2Fideia.me%2Fbenchmarking-ruby-orms&via=jonatasdp" 
        class="btn btn-twitter btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -754,7 +763,7 @@ crossorigin="anonymous"></script>
     
     
     
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Ftwo-ways-to-notify-new-data-from-timescaledb-continuous-aggregates" 
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Fbenchmarking-ruby-orms" 
        class="btn btn-facebook btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -763,7 +772,7 @@ crossorigin="anonymous"></script>
     
     
     
-    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Ftwo-ways-to-notify-new-data-from-timescaledb-continuous-aggregates&title=Two+ways+to+notify+new+data+from+Timescaledb+Continuous+Aggregates" 
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fbenchmarking-ruby-orms&title=Benchmarking+Ruby+ORMs%3A+ActiveRecord+vs+Sequel+Performance+with+TimescaleDB" 
        class="btn btn-linkedin btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -772,7 +781,7 @@ crossorigin="anonymous"></script>
     
     
     
-    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Ftwo-ways-to-notify-new-data-from-timescaledb-continuous-aggregates&title=Two+ways+to+notify+new+data+from+Timescaledb+Continuous+Aggregates" 
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fbenchmarking-ruby-orms&title=Benchmarking+Ruby+ORMs%3A+ActiveRecord+vs+Sequel+Performance+with+TimescaleDB" 
        class="btn btn-reddit btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -801,18 +810,13 @@ crossorigin="anonymous"></script>
   <div class="content-nav-previous">
     
       <small>Previous</small>
-      <a href="/life-before-and-after-gpt" title="Life before and after Chat GPT">
-        Life before and after Chat GPT
+      <a href="/programming-is-a-drug" title="Programming is a Drug: How AI Amplified My 20-Year Coding Addiction">
+        Programming is a Drug: How AI Amplified My 20-Y...
       </a>
     
   </div>
   
   <div class="content-nav-next">
-    
-      <small>Next</small>
-      <a href="/serve-your-community" title="Serve Your Community">
-        Serve Your Community
-      </a>
     
   </div>
 </div> 
@@ -830,8 +834,57 @@ crossorigin="anonymous"></script>
         
         
           
+          
+          
+        
+          
             
               
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
               
                 
               
@@ -853,61 +906,6 @@ crossorigin="anonymous"></script>
               
                 
               
-                
-              
-                
-              
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
-                  
-                  
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
-              
-                
-              
               
               
             
@@ -1105,351 +1103,6 @@ crossorigin="anonymous"></script>
         
         
         
-        
-          
-            
-            
-              
-                <div class="col-md-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <a href="/benchmarking-ruby-orms">Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</a>
-                      </h5>
-                      <p class="card-text text-muted">
-                        <small>
-                          <i class="bi bi-calendar3"></i> March 18, 2025
-                        </small>
-                      </p>
-                      
-                    </div>
-                  </div>
-                </div>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-          
-          
         
           
             
@@ -1809,8 +1462,8 @@ crossorigin="anonymous"></script>
 <div id="disqus_thread" class="comments-section"></div>
 <script>
   var disqus_config = function () {
-    this.page.url = '/two-ways-to-notify-new-data-from-timescaledb-continuous-aggregates';
-    this.page.identifier = '/two-ways-to-notify-new-data-from-timescaledb-continuous-aggregates';
+    this.page.url = '/benchmarking-ruby-orms';
+    this.page.identifier = '/benchmarking-ruby-orms';
     
     // Handle dark mode for Disqus
     const isDarkMode = document.documentElement.classList.contains('dark-mode') || 

@@ -73,6 +73,20 @@ crossorigin="anonymous"></script>
     
     <meta name="author" content="Jônatas Davi Paganini">
 
+    <!-- Immediate dark mode application to prevent flash -->
+    <script>
+      (function() {
+        // Force dark mode for testing purposes
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
+          document.documentElement.classList.add('dark-mode');
+          document.write('<style>body,html{background-color:#121212!important;color:#f0f2f5!important;}div{background-color:transparent!important;}</style>');
+        }
+      })();
+    </script>
+
     <!-- Enable responsive viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -85,6 +99,7 @@ crossorigin="anonymous"></script>
     <link href="/css/nimbus-pygments.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
     <link href="/css/code-highlighting.css" rel="stylesheet">
+    <link href="/css/disqus-dark.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <!-- Style overrides for Prism -->
@@ -123,26 +138,46 @@ crossorigin="anonymous"></script>
     <!-- Dark Mode Script -->
     <script>
       function detectColorScheme() {
-        const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        // Check saved preference first
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         const darkModeToggle = document.getElementById('darkModeToggle');
         
-        if (isDarkMode) {
+        // Apply theme based on saved preference or system preference
+        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
           document.body.classList.add('dark-mode');
+          document.documentElement.classList.add('dark-mode');
           if (darkModeToggle) darkModeToggle.checked = true;
+          console.log('Dark mode applied on initial load');
+        } else {
+          document.body.classList.remove('dark-mode');
+          document.documentElement.classList.remove('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = false;
+          console.log('Light mode applied on initial load');
         }
         
-        // Listen for changes in the OS color scheme
+        // Listen for changes in the OS color scheme only if no saved preference
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-          const newColorScheme = e.matches ? 'dark' : 'light';
-          if (newColorScheme === 'dark') {
-            document.body.classList.add('dark-mode');
-            if (darkModeToggle) darkModeToggle.checked = true;
-          } else {
-            document.body.classList.remove('dark-mode');
-            if (darkModeToggle) darkModeToggle.checked = false;
+          // Only apply system preference if user hasn't manually chosen a theme
+          if (localStorage.getItem('theme') === null) {
+            const newColorScheme = e.matches ? 'dark' : 'light';
+            if (newColorScheme === 'dark') {
+              document.body.classList.add('dark-mode');
+              document.documentElement.classList.add('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = true;
+              console.log('Dark mode applied from system preference change');
+            } else {
+              document.body.classList.remove('dark-mode');
+              document.documentElement.classList.remove('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = false;
+              console.log('Light mode applied from system preference change');
+            }
           }
         });
       }
+
+      // Initialize dark mode immediately before DOM content is fully loaded
+      detectColorScheme();
 
       // Add code block enhancements
       function enhanceCodeBlocks() {
@@ -392,116 +427,378 @@ crossorigin="anonymous"></script>
   <div class="card latest-post-card">
     <div class="card-body">
       <h3 class="card-title h2">
-        <a class="post animated-link" href="/programming-is-a-drug">Programming is a Drug (2025 Edition)</a>
+        <a class="post animated-link" href="/benchmarking-ruby-orms">Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</a>
       </h3>
       <p class="card-subtitle text-muted mb-3">
         <i class="bi bi-calendar3"></i> March 18, 2025
         
         <span class="ms-3">
           
-          <span class="badge bg-primary">personal</span>
+          <span class="badge bg-primary">ruby</span>
           
-          <span class="badge bg-primary">technical</span>
+          <span class="badge bg-primary">postgresql</span>
           
-          <span class="badge bg-primary">ai</span>
-          
-          <span class="badge bg-primary">tools</span>
+          <span class="badge bg-primary">performance</span>
           
         </span>
         
       </p>
       <div class="card-text">
-        <p>Yes, one of the most potent substances I’ve ever used.</p>
+        <h1 id="benchmarking-ruby-orms-activerecord-vs-sequel-performance-with-timescaledb">Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</h1>
 
-<p>I have to admit it: I’m addicted to programming.</p>
+<p>Performance optimization is a critical aspect of application development, especially when dealing with large datasets or high-traffic applications. In Ruby, the choice of Object-Relational Mapping (ORM) can significantly impact your application’s performance. This post explores the performance differences between ActiveRecord and Sequel when working with TimescaleDB, a powerful PostgreSQL extension optimized for time-series data.</p>
 
-<p>For so long, I tried to pretend it was just a developer’s passion, but no: <strong>I’m completely hooked</strong>.</p>
+<h2 id="the-orm-performance-benchmark-challenge">The ORM Performance Benchmark Challenge</h2>
 
-<p>And worse, when I’m spending hours with quality code, I can’t let go. I stay up all night “on the trip.”</p>
+<p>When building data-intensive applications, developers often face the challenge of choosing between different ORMs. Each ORM offers unique features, syntax, and performance characteristics. Our benchmarks aim to provide insights into these performance differences to help you make informed decisions for your projects.</p>
 
-<p>Even worse is when things don’t work as expected. That’s when it becomes most addictive. It’s all too easy to see the sunrise when I’m debugging :)</p>
+<p>Let’s examine the results from our comprehensive benchmarking tests:</p>
 
-<h2 id="the-arrival-of-new-substances">The Arrival of New Substances</h2>
+<h3 id="query-types-performance-operations-per-second">Query Types Performance (operations per second)</h3>
 
-<p>In 2016, when I wrote the original version of this post, it was already difficult to stop coding. But now, in March 2025, with the arrival of AI tools, it’s as if we’ve discovered a new class of intoxicants.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Operation Type</th>
+      <th>ActiveRecord</th>
+      <th>Sequel</th>
+      <th>Raw SQL</th>
+      <th>Key Insights</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Simple Select</td>
+      <td>82.6</td>
+      <td>10,178.6</td>
+      <td>12,450.2</td>
+      <td>Sequel is ~123x faster than ActiveRecord for simple queries</td>
+    </tr>
+    <tr>
+      <td>Complex Joins</td>
+      <td>28.7</td>
+      <td>93.3</td>
+      <td>105.1</td>
+      <td>Sequel offers ~3.3x better performance for complex joins</td>
+    </tr>
+    <tr>
+      <td>Aggregations</td>
+      <td>220.2</td>
+      <td>164.0</td>
+      <td>245.3</td>
+      <td>ActiveRecord optimizes count operations well</td>
+    </tr>
+    <tr>
+      <td>Bulk Inserts</td>
+      <td>215.7</td>
+      <td>272.6</td>
+      <td>310.4</td>
+      <td>Specialized bulk operations are critical for insert performance</td>
+    </tr>
+    <tr>
+      <td>JSON Operations</td>
+      <td>145.3</td>
+      <td>188.9</td>
+      <td>195.7</td>
+      <td>Native JSON operators improve performance across all approaches</td>
+    </tr>
+  </tbody>
+</table>
 
-<p><strong>The Cursor editor and its AI assistants make me feel like I have superpowers.</strong></p>
+<h3 id="memory-usage-patterns-mb">Memory Usage Patterns (MB)</h3>
 
-<p>What used to take hours to implement, I can now do in minutes. It’s like having a pair programming partner available 24 hours a day.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Operation Type</th>
+      <th>ActiveRecord</th>
+      <th>Sequel</th>
+      <th>Raw SQL</th>
+      <th>Key Insights</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Large Result Set</td>
+      <td>125</td>
+      <td>45</td>
+      <td>30</td>
+      <td>ActiveRecord objects consume ~2.8x more memory than Sequel</td>
+    </tr>
+    <tr>
+      <td>Batch Processing</td>
+      <td>60</td>
+      <td>35</td>
+      <td>25</td>
+      <td>Using <code class="language-plaintext highlighter-rouge">find_each</code> with ActiveRecord helps control memory usage</td>
+    </tr>
+    <tr>
+      <td>JSON Processing</td>
+      <td>80</td>
+      <td>50</td>
+      <td>45</td>
+      <td>JSONB is more memory-efficient than standard JSON</td>
+    </tr>
+    <tr>
+      <td>Aggregations</td>
+      <td>40</td>
+      <td>35</td>
+      <td>30</td>
+      <td>Memory patterns are similar for aggregation operations</td>
+    </tr>
+  </tbody>
+</table>
 
-<p>Just imagine the sensation:</p>
-<ul>
-  <li>Write a thought in natural language</li>
-  <li>Watch it transform into functional code right before your eyes</li>
-  <li>Ask for explanations about complex parts and receive clear answers</li>
-  <li>Refactor old code with just a few commands</li>
-</ul>
+<h2 id="key-findings-from-our-benchmarks">Key Findings from Our Benchmarks</h2>
 
-<p>This isn’t just programming - it’s programming augmented by artificial intelligence. A completely new and even more addictive experience.</p>
+<h3 id="1-batch-processing-comparison">1. Batch Processing Comparison</h3>
 
-<h2 id="the-just-one-more-feature-syndrome">The “Just One More Feature” Syndrome</h2>
-
-<p>When I started, I thought it would be easy to quit and that it was just a phase.</p>
-
-<p>Young guy, full of energy, but no: Years down the road, even with my wife and child waiting, I’m still the same:</p>
-
-<p>Waiting for the family to go to sleep so I can get one more coding fix.</p>
-
-<p>And now, with Cursor, I always have the feeling that I can do “just one more little thing” before bed. The speed at which I can solve problems has made the programming experience even more immersive.</p>
-
-<h2 id="refactoring-with-a-single-command">Refactoring with a Single Command</h2>
-
-<p>One of the things that makes modern tools most addictive is how easy refactoring has become. With Cursor and AI assistants like Claude, I can:</p>
-
-<ul>
-  <li>Explain in plain English what I want to change</li>
-  <li>See intelligent suggestions on how to improve my code</li>
-  <li>Apply complex changes with just a few commands</li>
-  <li>Find bugs before even running the code</li>
-</ul>
-
-<p>It’s like having a reviewer, a mentor, and a pair programmer, all at the same time.</p>
-
-<h2 id="exploring-code-at-high-speed">Exploring Code at High Speed</h2>
-
-<p>Code navigation has also gained superpowers. With semantic searches and context understanding, I can:</p>
-
-<ul>
-  <li>Find relevant parts of the code just by explaining what I’m looking for</li>
-  <li>Understand new codebases much faster</li>
-  <li>Navigate between related files without losing context</li>
-  <li>Discover patterns that would be difficult to notice manually</li>
-</ul>
-
-<h2 id="the-dose-is-getting-stronger">The Dose is Getting Stronger</h2>
-
-<p>The improvements I’ve made to my website in recent months have also been powered by these new tools. From enhanced syntax highlighting to automatic post categorization systems - everything became easier with AI assistance.</p>
-
-<p>Check out this code snippet I implemented to suggest categories for posts based on content:</p>
-
-<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-</pre></td><td class="rouge-code"><pre><span class="kd">function</span> <span class="nf">suggestCategories</span><span class="p">(</span><span class="nx">title</span><span class="p">,</span> <span class="nx">content</span><span class="p">,</span> <span class="nx">currentCategories</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// Intelligent content analysis to suggest appropriate categories</span>
-  <span class="c1">// ...</span>
-<span class="p">}</span>
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>┌─────────────────────────────────────────┬──────────┬─────────┬────────────┬────────────────┐
+│ Operation                               │    Time  │ Queries │      Rate  │ Relative Speed │
+├─────────────────────────────────────────┼──────────┼─────────┼────────────┼────────────────┤
+│ Processing all records at once          │ 10.342 s │ 90,001  │   2.9k/s  │ baseline       │
+│ Using find_each with default batch size │  9.657 s │ 90,031  │   3.1k/s  │ 1.1x faster    │
+│ Using find_each with custom batch size  │  9.441 s │ 90,031  │   3.2k/s  │ 1.1x faster    │
+│ Using update_all                        │  0.282 s │      1  │ 106.4k/s  │ 36.6x faster   │
+└─────────────────────────────────────────┴──────────┴─────────┴────────────┴────────────────┘
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>The code above is just a sample of the type of automation I’ve implemented on the site, making the writing experience much more fluid.</p>
+<p>The results are clear: bulk operations like <code class="language-plaintext highlighter-rouge">update_all</code> are dramatically faster (36.6x) but bypass ActiveRecord callbacks and validations. This represents a common trade-off between performance and application logic that developers must consider.</p>
 
-<h2 id="theres-no-cure-anymore">There’s No Cure Anymore</h2>
+<h3 id="2-bulk-insert-performance">2. Bulk Insert Performance</h3>
 
-<p>If I was addicted to programming before, now with all these AI tools like GPT, Claude, and the Cursor editor, my condition has only worsened.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>┌─────────────────────────────┬─────────┬─────────┬────────────┬────────────────┐
+│ Operation                   │   Time  │ Queries │      Rate  │ Relative Speed │
+├─────────────────────────────┼─────────┼─────────┼────────────┼────────────────┤
+│ Individual inserts          │ 0.041 s │    300  │   2.4k/s  │ baseline       │
+│ Bulk insert with insert_all │ 0.002 s │      1  │  50.0k/s  │ 22.0x faster   │
+└─────────────────────────────┴─────────┴─────────┴────────────┴────────────────┘
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>The sensation of solving complex problems, creating new features, and automating processes has been elevated to another level.</p>
+<p>Bulk inserts are 22x faster than individual inserts, with a 300:1 query reduction. This demonstrates how reducing the number of database roundtrips can dramatically improve performance.</p>
 
-<p>And you know what the best part is? Seeing all this code executing, solving real problems, making systems more efficient.</p>
+<h3 id="3-upsert-performance">3. Upsert Performance</h3>
 
-<p>So there it is: I confess that I’m addicted to programming. And now, with AI as my copilot, I’m in the worst phase of this addiction - and I don’t want treatment.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre>┌──────────────────────────────┬─────────┬─────────┬────────────┬────────────────┐
+│ Operation                    │   Time  │ Queries │      Rate  │ Relative Speed │
+├──────────────────────────────┼─────────┼─────────┼────────────┼────────────────┤
+│ Individual find_or_create_by │ 0.049 s │    400  │   2.0k/s  │ baseline       │
+│ Bulk upsert with insert_all  │ 0.002 s │      1  │  47.1k/s  │ 29.5x faster   │
+│ Sequel upsert                │ 0.002 s │      2  │  46.8k/s  │ 23.2x faster   │
+└──────────────────────────────┴─────────┴─────────┴────────────┴────────────────┘
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-<p><strong>Programming is a drug. And with AI, the dose is even more potent.</strong></p>
+<p>Both ActiveRecord’s <code class="language-plaintext highlighter-rouge">upsert_all</code> and Sequel’s bulk upsert mechanisms offer similar performance benefits, showing ~25-30x improvement over individual operations.</p>
+
+<h2 id="best-practices-for-orm-performance">Best Practices for ORM Performance</h2>
+
+<p>Based on these benchmarks, we’ve compiled some best practices for optimizing ORM performance:</p>
+
+<h3 id="1-batch-processing">1. Batch Processing</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Inefficient</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">all</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span> <span class="n">user</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">status: </span><span class="s1">'active'</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="c1"># Efficient (36x faster)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">update_all</span><span class="p">(</span><span class="ss">status: </span><span class="s1">'active'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="2-bulk-operations">2. Bulk Operations</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="c1"># Inefficient</span>
+<span class="n">users</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span> <span class="no">User</span><span class="p">.</span><span class="nf">create!</span><span class="p">(</span><span class="n">user</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="c1"># Efficient (22x faster)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">insert_all</span><span class="p">(</span><span class="n">users</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="3-query-optimization">3. Query Optimization</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="c1"># Inefficient</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">joins</span><span class="p">(</span><span class="ss">:posts</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="ss">posts: </span><span class="p">{</span> <span class="ss">created_at: </span><span class="mi">1</span><span class="p">.</span><span class="nf">week</span><span class="p">.</span><span class="nf">ago</span><span class="o">..</span> <span class="p">})</span>
+    <span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="s2">"users.id"</span><span class="p">).</span><span class="nf">having</span><span class="p">(</span><span class="s2">"COUNT(posts.id) &gt; 5"</span><span class="p">)</span>
+
+<span class="c1"># Efficient (1.2x faster)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">joins</span><span class="p">(</span><span class="ss">:posts</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="s2">"users.*, COUNT(posts.id) as posts_count"</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">posts: </span><span class="p">{</span> <span class="ss">created_at: </span><span class="mi">1</span><span class="p">.</span><span class="nf">week</span><span class="p">.</span><span class="nf">ago</span><span class="o">..</span> <span class="p">})</span>
+    <span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="s2">"users.id"</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">having</span><span class="p">(</span><span class="s2">"COUNT(posts.id) &gt; 5"</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="4-upsert-operations">4. Upsert Operations</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1"># Inefficient</span>
+<span class="n">records</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">record</span><span class="o">|</span>
+  <span class="no">User</span><span class="p">.</span><span class="nf">find_or_create_by</span><span class="p">(</span><span class="ss">email: </span><span class="n">record</span><span class="p">[</span><span class="ss">:email</span><span class="p">])</span>
+<span class="k">end</span>
+
+<span class="c1"># Efficient (29.5x faster)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">upsert_all</span><span class="p">(</span><span class="n">records</span><span class="p">,</span> <span class="ss">unique_by: :email</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="5-memory-optimization-with-occamsrecord">5. Memory Optimization with OccamsRecord</h3>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="c1"># Standard ActiveRecord (27.30 MB allocated, 68.34 KB retained)</span>
+<span class="n">users_data</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="ss">:posts</span><span class="p">).</span><span class="nf">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="p">{</span>
+    <span class="ss">name: </span><span class="n">user</span><span class="p">.</span><span class="nf">name</span><span class="p">,</span>
+    <span class="ss">email: </span><span class="n">user</span><span class="p">.</span><span class="nf">email</span><span class="p">,</span>
+    <span class="ss">post_count: </span><span class="n">user</span><span class="p">.</span><span class="nf">posts</span><span class="p">.</span><span class="nf">size</span>
+  <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="c1"># OccamsRecord (16.03 MB allocated, 16.30 KB retained)</span>
+<span class="n">users_data</span> <span class="o">=</span> <span class="no">OccamsRecord</span>
+  <span class="p">.</span><span class="nf">query</span><span class="p">(</span><span class="no">User</span><span class="p">.</span><span class="nf">all</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">eager_load</span><span class="p">(</span><span class="ss">:posts</span><span class="p">)</span>
+  <span class="p">.</span><span class="nf">run</span>
+  <span class="p">.</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span> <span class="p">{</span>
+    <span class="ss">name: </span><span class="n">user</span><span class="p">.</span><span class="nf">name</span><span class="p">,</span>
+    <span class="ss">email: </span><span class="n">user</span><span class="p">.</span><span class="nf">email</span><span class="p">,</span>
+    <span class="ss">post_count: </span><span class="n">user</span><span class="p">.</span><span class="nf">posts</span><span class="p">.</span><span class="nf">size</span>
+  <span class="p">}}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="n1-query-prevention">N+1 Query Prevention</h2>
+
+<p>The infamous N+1 query problem can severely impact application performance. Our benchmarks with 1000 users (each with 10 posts and 5 comments per post) showed:</p>
+
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="c1"># Bad - N+1 Query (51 queries, 0.01s)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">limit</span><span class="p">(</span><span class="mi">50</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="n">user</span><span class="p">.</span><span class="nf">posts</span><span class="p">.</span><span class="nf">count</span>  <span class="c1"># N+1 query for each user</span>
+<span class="k">end</span>
+
+<span class="c1"># Good - Eager Loading (2 queries, 0.02s)</span>
+<span class="no">User</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="ss">:posts</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">50</span><span class="p">).</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
+  <span class="nb">puts</span> <span class="n">user</span><span class="p">.</span><span class="nf">posts</span><span class="p">.</span><span class="nf">length</span>  <span class="c1"># No additional queries</span>
+<span class="k">end</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h2 id="learn-postgresql-performance-optimization-at-tropical-on-rails-2025">Learn PostgreSQL Performance Optimization at Tropical on Rails 2025</h2>
+
+<p>Want to dive deeper into these concepts and learn how to optimize your Ruby applications with PostgreSQL? Join us at the upcoming <strong>PostgreSQL Performance for Ruby Developers</strong> workshop at Tropical on Rails 2025!</p>
+
+<h3 id="workshop-details">Workshop Details:</h3>
+<ul>
+  <li><strong>Date</strong>: April 2nd, 2025</li>
+  <li><strong>Time</strong>: 2 PM to 6 PM</li>
+  <li><strong>Language</strong>: English</li>
+  <li><strong>Location</strong>: Pullman Vila Olímpia, São Paulo, Brazil</li>
+</ul>
+
+<p>This hands-on workshop will cover:</p>
+<ul>
+  <li>Advanced PostgreSQL features for Ruby developers</li>
+  <li>ORM performance optimization techniques</li>
+  <li>TimescaleDB for time-series data</li>
+  <li>Practical query optimization strategies</li>
+</ul>
+
+<p><a href="https://www.tropicalonrails.com/#workshops">Register for the workshop</a></p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The choice between ActiveRecord and Sequel isn’t always straightforward. While Sequel generally offers better raw performance, especially for simple queries, ActiveRecord provides better integration with the Rails ecosystem and more Ruby-like syntax.</p>
+
+<p>Consider these factors when choosing an ORM:</p>
+<ol>
+  <li>Use Sequel for performance-critical, data-intensive operations</li>
+  <li>Stick with ActiveRecord for standard CRUD and Rails integration</li>
+  <li>Consider using both in the same application where appropriate</li>
+  <li>Profile your specific use case before committing to an ORM</li>
+  <li>Use bulk operations whenever possible for better performance</li>
+</ol>
+
+<p>Remember that the best ORM for your application depends on your specific requirements and constraints. These benchmarks provide a starting point for your decision-making process.</p>
+
+<p>What’s your experience with ORM performance? Share your thoughts and join us at Tropical on Rails 2025 to continue the conversation!</p>
+
+<h2 id="resources">Resources</h2>
+
+<ol>
+  <li><a href="https://github.com/timescale/timescaledb-ruby">TimescaleDB Ruby Gem</a></li>
+  <li><a href="https://github.com/timescale/postgresql-performance-for-rubyists">PostgreSQL Performance Workshop</a></li>
+  <li><a href="https://github.com/jeremyevans/sequel">Sequel Documentation</a></li>
+  <li><a href="https://guides.rubyonrails.org/active_record_querying.html">ActiveRecord Query Interface</a></li>
+  <li><a href="https://github.com/jhollinger/occams-record">OccamsRecord</a></li>
+</ol>
 
       </div>
     </div>
@@ -513,9 +810,32 @@ crossorigin="anonymous"></script>
   <h2 class="h3 fw-bold border-bottom pb-3 mb-4">Recent Posts</h2>
   <div class="list-group post-list-group">
     
+    <a href="/benchmarking-ruby-orms" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div>
+        <h5 class="mb-1">Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</h5>
+        <small class="text-muted">
+          <i class="bi bi-calendar3"></i> March 18, 2025
+          
+          <span class="ms-3">
+            
+            <span class="badge bg-primary">ruby</span>
+            
+            <span class="badge bg-primary">postgresql</span>
+            
+            <span class="badge bg-primary">performance</span>
+            
+          </span>
+          
+        </small>
+      </div>
+      <span class="badge bg-light text-dark rounded-pill">
+        <i class="bi bi-arrow-right"></i>
+      </span>
+    </a>
+    
     <a href="/programming-is-a-drug" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
       <div>
-        <h5 class="mb-1">Programming is a Drug (2025 Edition)</h5>
+        <h5 class="mb-1">Programming is a Drug: How AI Amplified My 20-Year Coding Addiction</h5>
         <small class="text-muted">
           <i class="bi bi-calendar3"></i> March 18, 2025
           
@@ -702,23 +1022,6 @@ crossorigin="anonymous"></script>
       </span>
     </a>
     
-    <a href="/permaculture-and-programming" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-      <div>
-        <h5 class="mb-1">Permaculture and Programming</h5>
-        <small class="text-muted">
-          <i class="bi bi-calendar3"></i> February 26, 2024
-          
-          <span class="ms-3">
-            
-          </span>
-          
-        </small>
-      </div>
-      <span class="badge bg-light text-dark rounded-pill">
-        <i class="bi bi-arrow-right"></i>
-      </span>
-    </a>
-    
   </div>
   <div class="text-center mt-4">
     <a href="/archive.html" class="btn btn-primary">View All Posts <i class="bi bi-journal-text"></i></a>
@@ -742,29 +1045,108 @@ crossorigin="anonymous"></script>
     <!-- Additional scripts for code highlighting and dark mode toggle -->
     <script>
       // Toggle dark mode manually with smoother transition
-      document.getElementById('darkModeToggle').addEventListener('change', function() {
-        // Add transition class before changing mode
-        document.body.classList.add('theme-transition');
-        
-        if (this.checked) {
-          document.body.classList.add('dark-mode');
-        } else {
-          document.body.classList.remove('dark-mode');
+      document.addEventListener('DOMContentLoaded', function() {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        if (darkModeToggle) {
+          darkModeToggle.addEventListener('change', function() {
+            if (this.checked) {
+              document.documentElement.classList.add('dark-mode');
+              document.body.classList.add('dark-mode');
+              localStorage.setItem('theme', 'dark');
+              console.log('Dark mode enabled via toggle');
+              
+              // Update Disqus theme if it exists
+              if (window.DISQUS) {
+                try {
+                  DISQUS.reset({
+                    reload: true,
+                    config: function () {
+                      this.page.identifier = window.disqus_identifier;
+                      this.page.url = window.disqus_url;
+                      this.page.title = window.disqus_title;
+                      this.forum = window.disqus_shortname;
+                    }
+                  });
+                } catch (e) {
+                  console.log('Error resetting Disqus:', e);
+                }
+              }
+            } else {
+              document.documentElement.classList.remove('dark-mode');
+              document.body.classList.remove('dark-mode');
+              localStorage.setItem('theme', 'light');
+              console.log('Light mode enabled via toggle');
+              
+              // Update Disqus theme if it exists
+              if (window.DISQUS) {
+                try {
+                  DISQUS.reset({
+                    reload: true,
+                    config: function () {
+                      this.page.identifier = window.disqus_identifier;
+                      this.page.url = window.disqus_url;
+                      this.page.title = window.disqus_title;
+                      this.forum = window.disqus_shortname;
+                    }
+                  });
+                } catch (e) {
+                  console.log('Error resetting Disqus:', e);
+                }
+              }
+            }
+            
+            // Force reload the page to ensure all styles are applied correctly
+            setTimeout(() => {
+              window.location.reload();
+            }, 100);
+          });
         }
         
-        // Remove transition class after transition completes
-        setTimeout(() => {
-          document.body.classList.remove('theme-transition');
-        }, 500);
-      });
-      
-      // Apply highlighting to code blocks after content loads
-      document.addEventListener('DOMContentLoaded', function() {
+        // Apply highlighting to code blocks after content loads
         enhanceCodeBlocks();
         if (window.Prism) {
           setTimeout(function() {
             Prism.highlightAll();
           }, 100);
+        }
+        
+        // Configure Disqus for dark mode if needed
+        const isDarkMode = document.documentElement.classList.contains('dark-mode');
+        if (isDarkMode) {
+          // Insert dark mode CSS for Disqus
+          const style = document.createElement('style');
+          style.innerHTML = `
+            #disqus_thread {
+              background-color: #1e1e1e !important;
+              color: #f0f2f5 !important;
+              padding: 20px;
+              border-radius: 8px;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+          `;
+          document.head.appendChild(style);
+          
+          // Set Disqus config variable for dark mode
+          window.disqus_config = function() {
+            this.page.identifier = window.location.pathname;
+            this.page.url = window.location.href;
+            this.language = 'en';
+            this.sso = {
+              name: 'SiteName',
+            };
+            this.callbacks.onReady = [function() {
+              const interval = setInterval(function() {
+                if (document.getElementById('dsq-app2')) {
+                  clearInterval(interval);
+                  const disqusIframe = document.getElementById('dsq-app2');
+                  disqusIframe.contentWindow.postMessage({
+                    name: 'setTheme',
+                    data: 'dark',
+                  }, '*');
+                }
+              }, 100);
+            }];
+          };
         }
       });
       
@@ -885,6 +1267,98 @@ crossorigin="anonymous"></script>
     </script>
     <!-- Profile image swap functionality -->
     <script src="/js/profile-image-swap.js"></script>
+    
+    <!-- Disqus Dark Mode Handler -->
+    <script>
+      // Function to handle Disqus dark mode
+      function setupDisqusDarkMode() {
+        const isDarkMode = document.documentElement.classList.contains('dark-mode');
+        
+        // Add a style element to target the Disqus iframe
+        const disqusStyle = document.createElement('style');
+        disqusStyle.innerHTML = `
+          html.dark-mode iframe, body.dark-mode iframe {
+            color-scheme: dark !important;
+          }
+          
+          html.dark-mode #disqus_thread, body.dark-mode #disqus_thread {
+            background-color: #1e1e1e !important;
+            color: #f0f2f5 !important;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+          }
+        `;
+        document.head.appendChild(disqusStyle);
+        
+        // Check for Disqus iframe and inject dark styles if needed
+        const checkForDisqus = setInterval(() => {
+          const disqusThread = document.getElementById('disqus_thread');
+          const disqusIframes = document.querySelectorAll('iframe[src*="disqus.com"]');
+          
+          if (disqusThread || disqusIframes.length > 0) {
+            clearInterval(checkForDisqus);
+            
+            if (isDarkMode) {
+              // Try to signal Disqus to use dark theme
+              if (window.DISQUS) {
+                try {
+                  window.DISQUS.host._loadEmbed({
+                    color: 'dark',
+                  });
+                } catch (e) {
+                  console.log('Could not set Disqus theme via API');
+                }
+              }
+              
+              // Direct CSS approach to all iframes
+              disqusIframes.forEach(iframe => {
+                try {
+                  // Try to access the iframe document
+                  const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                  
+                  // Add dark mode classes and styles
+                  if (iframeDocument.body) {
+                    iframeDocument.body.classList.add('dark-mode');
+                    
+                    const darkStyle = iframeDocument.createElement('style');
+                    darkStyle.textContent = `
+                      body { background-color: #1e1e1e !important; color: #f0f2f5 !important; }
+                      .textarea-wrapper, .post-actions, .alert { background-color: #2a2d31 !important; }
+                      .wysiwyg__placeholder, input, textarea { color: #f0f2f5 !important; }
+                      .publisher-background-color { background-color: #1e1e1e !important; }
+                      .publisher-border-color { border-color: rgba(255, 255, 255, 0.1) !important; }
+                      .publisher-anchor-color, a { color: #5c9eff !important; }
+                    `;
+                    iframeDocument.head.appendChild(darkStyle);
+                  }
+                } catch (e) {
+                  console.log('Could not modify Disqus iframe due to CORS policy');
+                  
+                  // Add a fallback with filter approach
+                  if (isDarkMode) {
+                    // Apply a CSS filter to invert the colors
+                    iframe.style.filter = 'invert(92%) hue-rotate(180deg)';
+                  }
+                }
+              });
+            }
+          }
+        }, 500);
+      }
+      
+      // Run setup when DOM is loaded and after any content changes
+      document.addEventListener('DOMContentLoaded', setupDisqusDarkMode);
+      document.addEventListener('ajaxComplete', setupDisqusDarkMode);
+      
+      // Also run after a delay in case Disqus loads later
+      setTimeout(setupDisqusDarkMode, 2000);
+      setTimeout(setupDisqusDarkMode, 5000);
+    </script>
+    
+    <!-- Dedicated Disqus dark mode handler -->
+    <script src="/js/disqus-dark.js"></script>
   </body>
 </html>
 

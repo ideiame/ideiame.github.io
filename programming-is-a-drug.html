@@ -69,9 +69,23 @@ src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pu
 crossorigin="anonymous"></script>
 
     <meta charset="utf-8">
-    <title>Programming is a Drug (2025 Edition)</title>
-    <meta name="description" content="Yes, one of the most potent substances I've ever used. And now with AI tools, the dose is even more powerful.">
+    <title>Programming is a Drug: How AI Amplified My 20-Year Coding Addiction</title>
+    <meta name="description" content="After two decades as a programmer, I've watched my productivity skyrocket 5x with AI tools. The dopamine hits are stronger than ever, and I'm not sure that's entirely a good thing.">
     <meta name="author" content="Jônatas Davi Paganini">
+
+    <!-- Immediate dark mode application to prevent flash -->
+    <script>
+      (function() {
+        // Force dark mode for testing purposes
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
+          document.documentElement.classList.add('dark-mode');
+          document.write('<style>body,html{background-color:#121212!important;color:#f0f2f5!important;}div{background-color:transparent!important;}</style>');
+        }
+      })();
+    </script>
 
     <!-- Enable responsive viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -85,6 +99,7 @@ crossorigin="anonymous"></script>
     <link href="/css/nimbus-pygments.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
     <link href="/css/code-highlighting.css" rel="stylesheet">
+    <link href="/css/disqus-dark.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <!-- Style overrides for Prism -->
@@ -123,26 +138,46 @@ crossorigin="anonymous"></script>
     <!-- Dark Mode Script -->
     <script>
       function detectColorScheme() {
-        const isDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        // Check saved preference first
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
         const darkModeToggle = document.getElementById('darkModeToggle');
         
-        if (isDarkMode) {
+        // Apply theme based on saved preference or system preference
+        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
           document.body.classList.add('dark-mode');
+          document.documentElement.classList.add('dark-mode');
           if (darkModeToggle) darkModeToggle.checked = true;
+          console.log('Dark mode applied on initial load');
+        } else {
+          document.body.classList.remove('dark-mode');
+          document.documentElement.classList.remove('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = false;
+          console.log('Light mode applied on initial load');
         }
         
-        // Listen for changes in the OS color scheme
+        // Listen for changes in the OS color scheme only if no saved preference
         window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-          const newColorScheme = e.matches ? 'dark' : 'light';
-          if (newColorScheme === 'dark') {
-            document.body.classList.add('dark-mode');
-            if (darkModeToggle) darkModeToggle.checked = true;
-          } else {
-            document.body.classList.remove('dark-mode');
-            if (darkModeToggle) darkModeToggle.checked = false;
+          // Only apply system preference if user hasn't manually chosen a theme
+          if (localStorage.getItem('theme') === null) {
+            const newColorScheme = e.matches ? 'dark' : 'light';
+            if (newColorScheme === 'dark') {
+              document.body.classList.add('dark-mode');
+              document.documentElement.classList.add('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = true;
+              console.log('Dark mode applied from system preference change');
+            } else {
+              document.body.classList.remove('dark-mode');
+              document.documentElement.classList.remove('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = false;
+              console.log('Light mode applied from system preference change');
+            }
           }
         });
       }
+
+      // Initialize dark mode immediately before DOM content is fully loaded
+      detectColorScheme();
 
       // Add code block enhancements
       function enhanceCodeBlocks() {
@@ -296,7 +331,7 @@ crossorigin="anonymous"></script>
           </ul>
           
           <div class="d-none d-md-block page-title-nav me-auto ms-2">
-            Programming is a Drug (2025 Edition)
+            Programming is a Drug: How AI Amplified My 20-Year Coding Addiction
           </div>
           
           <div class="form-check form-switch d-flex align-items-center ms-auto">
@@ -314,7 +349,7 @@ crossorigin="anonymous"></script>
 
 <div class="article-wrapper">
   <div class="article-header">
-    <h1>Programming is a Drug (2025 Edition)</h1>
+    <h1>Programming is a Drug: How AI Amplified My 20-Year Coding Addiction</h1>
     <div class="article-meta">
       <span><i class="bi bi-calendar3"></i> March 18, 2025</span>
       <span class="separator">•</span>
@@ -322,7 +357,7 @@ crossorigin="anonymous"></script>
   
   
     <span class="reading-time" title="Estimated read time">
-      <i class="bi bi-clock"></i> 3 min read
+      <i class="bi bi-clock"></i> 7 min read
     </span>
   
  
@@ -350,15 +385,19 @@ crossorigin="anonymous"></script>
 
 <p>I have to admit it: I’m addicted to programming.</p>
 
+<p>Working with code is pleasant. Completing tasks brings an amazing feeling of accomplishment and relief.</p>
+
 <p>For so long, I tried to pretend it was just a developer’s passion, but no: <strong>I’m completely hooked</strong>.</p>
 
 <p>And worse, when I’m spending hours with quality code, I can’t let go. I stay up all night “on the trip.”</p>
 
 <p>Even worse is when things don’t work as expected. That’s when it becomes most addictive. It’s all too easy to see the sunrise when I’m debugging :)</p>
 
+<p>After the LLM era, my productivity has increased 5x, but my ability to disconnect has decreased proportionally.</p>
+
 <h2 id="the-arrival-of-new-substances">The Arrival of New Substances</h2>
 
-<p>In 2016, when I wrote the original version of this post, it was already difficult to stop coding. But now, in March 2025, with the arrival of AI tools, it’s as if we’ve discovered a new class of intoxicants.</p>
+<p>In 2016, when I wrote the <a href="/programar-e-uma-droga">original version</a> of this post, it was already difficult to stop coding. But now, in March 2025, with the arrival of AI tools, it’s as if we’ve discovered coding’s equivalent of methamphetamine.</p>
 
 <p><strong>The Cursor editor and its AI assistants make me feel like I have superpowers.</strong></p>
 
@@ -384,6 +423,14 @@ crossorigin="anonymous"></script>
 
 <p>And now, with Cursor, I always have the feeling that I can do “just one more little thing” before bed. The speed at which I can solve problems has made the programming experience even more immersive.</p>
 
+<h2 id="the-paradox-of-ai-enhanced-productivity">The Paradox of AI-Enhanced Productivity</h2>
+
+<p>Here’s where it gets interesting: my output has increased dramatically, but my standards have too. What previously felt like a productive day now feels insufficient.</p>
+
+<p>Last week, I built an entire authentication system with OAuth, JWT handling, and role-based permissions in under 3 hours - something that would have taken me days before. Yet somehow, I felt like I should have done more.</p>
+
+<p>The dopamine release I get from completing a task has been normalized. I need bigger hits now.</p>
+
 <h2 id="refactoring-with-a-single-command">Refactoring with a Single Command</h2>
 
 <p>One of the things that makes modern tools most addictive is how easy refactoring has become. With Cursor and AI assistants like Claude, I can:</p>
@@ -397,6 +444,12 @@ crossorigin="anonymous"></script>
 
 <p>It’s like having a reviewer, a mentor, and a pair programmer, all at the same time.</p>
 
+<p>Here’s a real example from yesterday. I needed to refactor a React component that had grown unwieldy. I simply typed:</p>
+
+<p>“Refactor this component to use React hooks and split it into smaller functional components”</p>
+
+<p>The AI did in 2 minutes what would have taken me an hour manually. The result? Clean, modern code with proper separation of concerns.</p>
+
 <h2 id="exploring-code-at-high-speed">Exploring Code at High Speed</h2>
 
 <p>Code navigation has also gained superpowers. With semantic searches and context understanding, I can:</p>
@@ -408,23 +461,106 @@ crossorigin="anonymous"></script>
   <li>Discover patterns that would be difficult to notice manually</li>
 </ul>
 
+<p>I recently had to understand a 50,000 LOC codebase I’d never seen before. With traditional tools, this would have been a week-long process. With AI-assisted exploration, I had a working mental model in 4 hours.</p>
+
+<h2 id="the-dark-side-of-augmented-coding">The Dark Side of Augmented Coding</h2>
+
+<p>This increased productivity comes with costs:</p>
+
+<ol>
+  <li>
+    <p><strong>Skill atrophy</strong>: I’ve noticed my ability to solve complex algorithmic problems without assistance has declined.</p>
+  </li>
+  <li>
+    <p><strong>Dependency</strong>: When GitHub had an outage last month affecting my AI tools, my productivity dropped by ~70%.</p>
+  </li>
+  <li>
+    <p><strong>Attention fragmentation</strong>: I context-switch more frequently now, which impacts deep work.</p>
+  </li>
+  <li>
+    <p><strong>Ethical blurring</strong>: I sometimes find myself using AI to generate code I don’t fully understand.</p>
+  </li>
+</ol>
+
 <h2 id="the-dose-is-getting-stronger">The Dose is Getting Stronger</h2>
 
 <p>The improvements I’ve made to my website in recent months have also been powered by these new tools. From enhanced syntax highlighting to automatic post categorization systems - everything became easier with AI assistance.</p>
 
-<p>Check out this code snippet I implemented to suggest categories for posts based on content:</p>
+<p>Check out this code I implemented to suggest categories for posts based on content:</p>
 
 <div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-</pre></td><td class="rouge-code"><pre><span class="kd">function</span> <span class="nf">suggestCategories</span><span class="p">(</span><span class="nx">title</span><span class="p">,</span> <span class="nx">content</span><span class="p">,</span> <span class="nx">currentCategories</span><span class="p">)</span> <span class="p">{</span>
-  <span class="c1">// Intelligent content analysis to suggest appropriate categories</span>
-  <span class="c1">// ...</span>
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+</pre></td><td class="rouge-code"><pre><span class="c1">// Before AI tools (2023):</span>
+<span class="kd">function</span> <span class="nf">suggestCategories</span><span class="p">(</span><span class="nx">post</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">keywords</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">technical</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">code</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">programming</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">development</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">software</span><span class="dl">'</span><span class="p">],</span>
+    <span class="na">personal</span><span class="p">:</span> <span class="p">[</span><span class="dl">'</span><span class="s1">life</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">experience</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">journey</span><span class="dl">'</span><span class="p">,</span> <span class="dl">'</span><span class="s1">reflection</span><span class="dl">'</span><span class="p">],</span>
+    <span class="c1">// Basic keyword matching - required constant manual updates</span>
+  <span class="p">};</span>
+  
+  <span class="c1">// Simple string matching - prone to false positives</span>
+  <span class="k">return</span> <span class="nb">Object</span><span class="p">.</span><span class="nf">entries</span><span class="p">(</span><span class="nx">keywords</span><span class="p">).</span><span class="nf">reduce</span><span class="p">((</span><span class="nx">matches</span><span class="p">,</span> <span class="p">[</span><span class="nx">category</span><span class="p">,</span> <span class="nx">terms</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">terms</span><span class="p">.</span><span class="nf">some</span><span class="p">(</span><span class="nx">term</span> <span class="o">=&gt;</span> <span class="nx">post</span><span class="p">.</span><span class="nx">content</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="nx">term</span><span class="p">)))</span> <span class="p">{</span>
+      <span class="nx">matches</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="nx">category</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">matches</span><span class="p">;</span>
+  <span class="p">},</span> <span class="p">[]);</span>
+<span class="p">}</span>
+
+<span class="c1">// After AI tools (2025):</span>
+<span class="kd">function</span> <span class="nf">suggestCategories</span><span class="p">(</span><span class="nx">post</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Use embedded vector similarity to match content to category clusters</span>
+  <span class="kd">const</span> <span class="nx">contentEmbedding</span> <span class="o">=</span> <span class="nf">generateEmbedding</span><span class="p">(</span><span class="nx">post</span><span class="p">.</span><span class="nx">content</span><span class="p">);</span>
+  
+  <span class="k">return</span> <span class="nx">categoryVectors</span>
+    <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">category</span> <span class="o">=&gt;</span> <span class="p">({</span>
+      <span class="na">name</span><span class="p">:</span> <span class="nx">category</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span>
+      <span class="na">score</span><span class="p">:</span> <span class="nf">cosineSimilarity</span><span class="p">(</span><span class="nx">contentEmbedding</span><span class="p">,</span> <span class="nx">category</span><span class="p">.</span><span class="nx">vector</span><span class="p">)</span>
+    <span class="p">}))</span>
+    <span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">match</span> <span class="o">=&gt;</span> <span class="nx">match</span><span class="p">.</span><span class="nx">score</span> <span class="o">&gt;</span> <span class="mf">0.75</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">sort</span><span class="p">((</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">b</span><span class="p">.</span><span class="nx">score</span> <span class="o">-</span> <span class="nx">a</span><span class="p">.</span><span class="nx">score</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="nx">match</span> <span class="o">=&gt;</span> <span class="nx">match</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>The code above is just a sample of the type of automation I’ve implemented on the site, making the writing experience much more fluid.</p>
+<p>The code above shows how my approach to even simple problems has fundamentally changed. I’m implementing solutions that would have seemed unreachable to me just a few years ago.</p>
+
+<h2 id="the-industry-wide-shift">The Industry-Wide Shift</h2>
+
+<p>I’m not alone in this transformation. Last week I just met a guy that built a full product without any programming knowledge. He was even talking engineering linguo and explaining all his stack like a developer. Junior and Low Code developers are shipping features that would have required seniors before.</p>
+
+<p>The productivity gap between augmented developers and traditional ones is becoming unsustainable.</p>
+
+<p>For a 10x developer, AI tools might create a 20-30x advantage. For average developers, we might see a 5-10x improvement. This shift is fundamentally altering the economics of software development.</p>
 
 <h2 id="theres-no-cure-anymore">There’s No Cure Anymore</h2>
 
@@ -437,6 +573,10 @@ crossorigin="anonymous"></script>
 <p>So there it is: I confess that I’m addicted to programming. And now, with AI as my copilot, I’m in the worst phase of this addiction - and I don’t want treatment.</p>
 
 <p><strong>Programming is a drug. And with AI, the dose is even more potent.</strong></p>
+
+<p>But I wonder: as we optimize for these dopamine hits and superhuman productivity, what aspects of the craft are we losing? When the tools can think for us, what becomes of the thinking programmer?</p>
+
+<p>I don’t have the answers. All I know is that tomorrow, I’ll wake up, open my editor, and chase that high once more.</p>
 
   </div>
   
@@ -459,7 +599,7 @@ crossorigin="anonymous"></script>
   <h5>Share this article</h5>
   <div class="sharing-buttons">
     
-    <a href="https://twitter.com/intent/tweet?text=Programming+is+a+Drug+%282025+Edition%29&url=https%3A%2F%2Fideia.me%2Fprogramming-is-a-drug&via=jonatasdp" 
+    <a href="https://twitter.com/intent/tweet?text=Programming+is+a+Drug%3A+How+AI+Amplified+My+20-Year+Coding+Addiction&url=https%3A%2F%2Fideia.me%2Fprogramming-is-a-drug&via=jonatasdp" 
        class="btn btn-twitter btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -477,7 +617,7 @@ crossorigin="anonymous"></script>
     
     
     
-    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fprogramming-is-a-drug&title=Programming+is+a+Drug+%282025+Edition%29" 
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fprogramming-is-a-drug&title=Programming+is+a+Drug%3A+How+AI+Amplified+My+20-Year+Coding+Addiction" 
        class="btn btn-linkedin btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -486,7 +626,7 @@ crossorigin="anonymous"></script>
     
     
     
-    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fprogramming-is-a-drug&title=Programming+is+a+Drug+%282025+Edition%29" 
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fprogramming-is-a-drug&title=Programming+is+a+Drug%3A+How+AI+Amplified+My+20-Year+Coding+Addiction" 
        class="btn btn-reddit btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -523,6 +663,11 @@ crossorigin="anonymous"></script>
   
   <div class="content-nav-next">
     
+      <small>Next</small>
+      <a href="/benchmarking-ruby-orms" title="Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB">
+        Benchmarking Ruby ORMs: ActiveRecord vs Sequel ...
+      </a>
+    
   </div>
 </div> 
   
@@ -539,6 +684,23 @@ crossorigin="anonymous"></script>
         
         
           
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
           
           
         
@@ -782,23 +944,6 @@ crossorigin="anonymous"></script>
           
           
           
-        
-          
-            
-              
-              
-                
-              
-                
-              
-                
-              
-              
-              
-            
-          
-          
-          
             
         
         
@@ -807,6 +952,8 @@ crossorigin="anonymous"></script>
         
           
             
+            
+              
             
               
             
@@ -1152,6 +1299,8 @@ crossorigin="anonymous"></script>
         
           
             
+            
+              
             
               
             
@@ -1521,6 +1670,8 @@ crossorigin="anonymous"></script>
               
             
               
+            
+              
                 <div class="col-md-6 mb-3">
                   <div class="card h-100">
                     <div class="card-body">
@@ -1847,32 +1998,90 @@ crossorigin="anonymous"></script>
   </div>
 </div>
  
-  <div class="comments-section card mb-4">
-  <div class="card-header">
-    <h4>Comments</h4>
-  </div>
-  <div class="card-body">
-    <div id="disqus_thread"></div>
-    <script>
-      /**
-      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-      
-      var disqus_config = function () {
-        this.page.url = "https://ideia.me/programming-is-a-drug";
-        this.page.identifier = "/programming-is-a-drug";
+  
+<div id="disqus_thread" class="comments-section"></div>
+<script>
+  var disqus_config = function () {
+    this.page.url = '/programming-is-a-drug';
+    this.page.identifier = '/programming-is-a-drug';
+    
+    // Handle dark mode for Disqus
+    const isDarkMode = document.documentElement.classList.contains('dark-mode') || 
+                        document.body.classList.contains('dark-mode') || 
+                        window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (isDarkMode) {
+      // Enable dark mode for Disqus
+      this.page.functions = [];
+      this.callbacks = {
+        onReady: [function() {
+          // Message the iframe to apply dark theme once loaded
+          const message = {
+            name: 'theme',
+            data: {
+              theme: 'dark'
+            }
+          };
+          
+          // Try to send the message multiple times as Disqus can load slowly
+          setTimeout(function() {
+            const iframe = document.querySelector('iframe[title="Disqus"]');
+            if (iframe && iframe.contentWindow) {
+              iframe.contentWindow.postMessage(message, '*');
+            }
+          }, 2000);
+          
+          setTimeout(function() {
+            const iframe = document.querySelector('iframe[title="Disqus"]');
+            if (iframe && iframe.contentWindow) {
+              iframe.contentWindow.postMessage(message, '*');
+            }
+          }, 4000);
+        }]
       };
-      
-      (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://ideiame.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-      })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-  </div>
-</div> 
+    }
+  };
+
+  (function() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://ideiame.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    
+    // Add dark styling for container
+    if (document.documentElement.classList.contains('dark-mode') || 
+        document.body.classList.contains('dark-mode') || 
+        window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      // Style the container immediately
+      const style = document.createElement('style');
+      style.textContent = `
+        #disqus_thread {
+          background-color: #1e1e1e !important;
+          color: #f0f2f5 !important;
+          padding: 20px;
+          border-radius: 8px;
+          border: 1px solid rgba(255, 255, 255, 0.1) !important;
+          margin-top: 30px;
+          margin-bottom: 30px;
+        }
+        
+        iframe {
+          background-color: #1e1e1e !important;
+          color-scheme: dark !important;
+        }
+        
+        /* Force the iframe document to use dark mode */
+        iframe[src*="disqus.com"] {
+          color-scheme: dark !important;
+          filter: invert(90%) hue-rotate(180deg) !important;
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+ 
 </div>
 
 <link rel="stylesheet" href="/css/enhanced.css">
@@ -1890,29 +2099,108 @@ crossorigin="anonymous"></script>
     <!-- Additional scripts for code highlighting and dark mode toggle -->
     <script>
       // Toggle dark mode manually with smoother transition
-      document.getElementById('darkModeToggle').addEventListener('change', function() {
-        // Add transition class before changing mode
-        document.body.classList.add('theme-transition');
-        
-        if (this.checked) {
-          document.body.classList.add('dark-mode');
-        } else {
-          document.body.classList.remove('dark-mode');
+      document.addEventListener('DOMContentLoaded', function() {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        if (darkModeToggle) {
+          darkModeToggle.addEventListener('change', function() {
+            if (this.checked) {
+              document.documentElement.classList.add('dark-mode');
+              document.body.classList.add('dark-mode');
+              localStorage.setItem('theme', 'dark');
+              console.log('Dark mode enabled via toggle');
+              
+              // Update Disqus theme if it exists
+              if (window.DISQUS) {
+                try {
+                  DISQUS.reset({
+                    reload: true,
+                    config: function () {
+                      this.page.identifier = window.disqus_identifier;
+                      this.page.url = window.disqus_url;
+                      this.page.title = window.disqus_title;
+                      this.forum = window.disqus_shortname;
+                    }
+                  });
+                } catch (e) {
+                  console.log('Error resetting Disqus:', e);
+                }
+              }
+            } else {
+              document.documentElement.classList.remove('dark-mode');
+              document.body.classList.remove('dark-mode');
+              localStorage.setItem('theme', 'light');
+              console.log('Light mode enabled via toggle');
+              
+              // Update Disqus theme if it exists
+              if (window.DISQUS) {
+                try {
+                  DISQUS.reset({
+                    reload: true,
+                    config: function () {
+                      this.page.identifier = window.disqus_identifier;
+                      this.page.url = window.disqus_url;
+                      this.page.title = window.disqus_title;
+                      this.forum = window.disqus_shortname;
+                    }
+                  });
+                } catch (e) {
+                  console.log('Error resetting Disqus:', e);
+                }
+              }
+            }
+            
+            // Force reload the page to ensure all styles are applied correctly
+            setTimeout(() => {
+              window.location.reload();
+            }, 100);
+          });
         }
         
-        // Remove transition class after transition completes
-        setTimeout(() => {
-          document.body.classList.remove('theme-transition');
-        }, 500);
-      });
-      
-      // Apply highlighting to code blocks after content loads
-      document.addEventListener('DOMContentLoaded', function() {
+        // Apply highlighting to code blocks after content loads
         enhanceCodeBlocks();
         if (window.Prism) {
           setTimeout(function() {
             Prism.highlightAll();
           }, 100);
+        }
+        
+        // Configure Disqus for dark mode if needed
+        const isDarkMode = document.documentElement.classList.contains('dark-mode');
+        if (isDarkMode) {
+          // Insert dark mode CSS for Disqus
+          const style = document.createElement('style');
+          style.innerHTML = `
+            #disqus_thread {
+              background-color: #1e1e1e !important;
+              color: #f0f2f5 !important;
+              padding: 20px;
+              border-radius: 8px;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+          `;
+          document.head.appendChild(style);
+          
+          // Set Disqus config variable for dark mode
+          window.disqus_config = function() {
+            this.page.identifier = window.location.pathname;
+            this.page.url = window.location.href;
+            this.language = 'en';
+            this.sso = {
+              name: 'SiteName',
+            };
+            this.callbacks.onReady = [function() {
+              const interval = setInterval(function() {
+                if (document.getElementById('dsq-app2')) {
+                  clearInterval(interval);
+                  const disqusIframe = document.getElementById('dsq-app2');
+                  disqusIframe.contentWindow.postMessage({
+                    name: 'setTheme',
+                    data: 'dark',
+                  }, '*');
+                }
+              }, 100);
+            }];
+          };
         }
       });
       
@@ -2033,6 +2321,98 @@ crossorigin="anonymous"></script>
     </script>
     <!-- Profile image swap functionality -->
     <script src="/js/profile-image-swap.js"></script>
+    
+    <!-- Disqus Dark Mode Handler -->
+    <script>
+      // Function to handle Disqus dark mode
+      function setupDisqusDarkMode() {
+        const isDarkMode = document.documentElement.classList.contains('dark-mode');
+        
+        // Add a style element to target the Disqus iframe
+        const disqusStyle = document.createElement('style');
+        disqusStyle.innerHTML = `
+          html.dark-mode iframe, body.dark-mode iframe {
+            color-scheme: dark !important;
+          }
+          
+          html.dark-mode #disqus_thread, body.dark-mode #disqus_thread {
+            background-color: #1e1e1e !important;
+            color: #f0f2f5 !important;
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+          }
+        `;
+        document.head.appendChild(disqusStyle);
+        
+        // Check for Disqus iframe and inject dark styles if needed
+        const checkForDisqus = setInterval(() => {
+          const disqusThread = document.getElementById('disqus_thread');
+          const disqusIframes = document.querySelectorAll('iframe[src*="disqus.com"]');
+          
+          if (disqusThread || disqusIframes.length > 0) {
+            clearInterval(checkForDisqus);
+            
+            if (isDarkMode) {
+              // Try to signal Disqus to use dark theme
+              if (window.DISQUS) {
+                try {
+                  window.DISQUS.host._loadEmbed({
+                    color: 'dark',
+                  });
+                } catch (e) {
+                  console.log('Could not set Disqus theme via API');
+                }
+              }
+              
+              // Direct CSS approach to all iframes
+              disqusIframes.forEach(iframe => {
+                try {
+                  // Try to access the iframe document
+                  const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                  
+                  // Add dark mode classes and styles
+                  if (iframeDocument.body) {
+                    iframeDocument.body.classList.add('dark-mode');
+                    
+                    const darkStyle = iframeDocument.createElement('style');
+                    darkStyle.textContent = `
+                      body { background-color: #1e1e1e !important; color: #f0f2f5 !important; }
+                      .textarea-wrapper, .post-actions, .alert { background-color: #2a2d31 !important; }
+                      .wysiwyg__placeholder, input, textarea { color: #f0f2f5 !important; }
+                      .publisher-background-color { background-color: #1e1e1e !important; }
+                      .publisher-border-color { border-color: rgba(255, 255, 255, 0.1) !important; }
+                      .publisher-anchor-color, a { color: #5c9eff !important; }
+                    `;
+                    iframeDocument.head.appendChild(darkStyle);
+                  }
+                } catch (e) {
+                  console.log('Could not modify Disqus iframe due to CORS policy');
+                  
+                  // Add a fallback with filter approach
+                  if (isDarkMode) {
+                    // Apply a CSS filter to invert the colors
+                    iframe.style.filter = 'invert(92%) hue-rotate(180deg)';
+                  }
+                }
+              });
+            }
+          }
+        }, 500);
+      }
+      
+      // Run setup when DOM is loaded and after any content changes
+      document.addEventListener('DOMContentLoaded', setupDisqusDarkMode);
+      document.addEventListener('ajaxComplete', setupDisqusDarkMode);
+      
+      // Also run after a delay in case Disqus loads later
+      setTimeout(setupDisqusDarkMode, 2000);
+      setTimeout(setupDisqusDarkMode, 5000);
+    </script>
+    
+    <!-- Dedicated Disqus dark mode handler -->
+    <script src="/js/disqus-dark.js"></script>
   </body>
 </html>
 
