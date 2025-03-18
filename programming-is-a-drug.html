@@ -69,8 +69,8 @@ src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pu
 crossorigin="anonymous"></script>
 
     <meta charset="utf-8">
-    <title>Observando a memória no ruby</title>
-    <meta name="description" content="Hoje fiz vários testes de gerência de memória e achei interessante como cada ganho de byte pode ser interessante conforme a quantidade de dados que se tem pa...">
+    <title>Programming is a Drug (2025 Edition)</title>
+    <meta name="description" content="Yes, one of the most potent substances I've ever used. And now with AI tools, the dose is even more powerful.">
     <meta name="author" content="Jônatas Davi Paganini">
 
     <!-- Enable responsive viewport -->
@@ -296,7 +296,7 @@ crossorigin="anonymous"></script>
           </ul>
           
           <div class="d-none d-md-block page-title-nav me-auto ms-2">
-            Observando a memória no ruby
+            Programming is a Drug (2025 Edition)
           </div>
           
           <div class="form-check form-switch d-flex align-items-center ms-auto">
@@ -314,15 +314,15 @@ crossorigin="anonymous"></script>
 
 <div class="article-wrapper">
   <div class="article-header">
-    <h1>Observando a memória no ruby</h1>
+    <h1>Programming is a Drug (2025 Edition)</h1>
     <div class="article-meta">
-      <span><i class="bi bi-calendar3"></i> April 18, 2013</span>
+      <span><i class="bi bi-calendar3"></i> March 18, 2025</span>
       <span class="separator">•</span>
       
   
   
     <span class="reading-time" title="Estimated read time">
-      <i class="bi bi-clock"></i> 2 min read
+      <i class="bi bi-clock"></i> 3 min read
     </span>
   
  
@@ -332,9 +332,13 @@ crossorigin="anonymous"></script>
       <span>
         <i class="bi bi-folder"></i> 
         
-          <a href="#ruby-ref" class="text-muted">ruby</a>, 
+          <a href="#personal-ref" class="text-muted">personal</a>, 
         
-          <a href="#performance-ref" class="text-muted">performance</a>
+          <a href="#technical-ref" class="text-muted">technical</a>, 
+        
+          <a href="#ai-ref" class="text-muted">ai</a>, 
+        
+          <a href="#tools-ref" class="text-muted">tools</a>
         
       </span>
       
@@ -342,158 +346,110 @@ crossorigin="anonymous"></script>
   </div>
   
   <div class="article-content">
-    <p>Hoje fiz vários testes de gerência de memória e achei interessante como cada ganho de byte pode ser interessante conforme a quantidade de dados que se tem para manusear. Apesar da memória ser barata, tratando-se de performance e escalabilidade o barato sai caro muitas vezes.</p>
+    <p>Yes, one of the most potent substances I’ve ever used.</p>
 
-<p>Então olhando para os gargalos do sistema observei um hash muito utilizado em um determinado sistema e então resolvi montar esta comparação.</p>
+<p>I have to admit it: I’m addicted to programming.</p>
 
-<p>A brincadeira começa com uma simples array de 1000_000 registros e populamos ela das seguintes formas:</p>
+<p>For so long, I tried to pretend it was just a developer’s passion, but no: <strong>I’m completely hooked</strong>.</p>
 
-<h2 id="hash---memory_arb">Hash - memory_a.rb</h2>
-<pre class="prettyprint">
-a = []
-sum = 0
-100000.times do |i|
-   sum += 1
-   a &lt;&lt; {:i =&gt; i,
-         :sum =&gt; sum}
+<p>And worse, when I’m spending hours with quality code, I can’t let go. I stay up all night “on the trip.”</p>
 
-end
-</pre>
+<p>Even worse is when things don’t work as expected. That’s when it becomes most addictive. It’s all too easy to see the sunrise when I’m debugging :)</p>
 
-<h2 id="struct---memory_brb">Struct - memory_b.rb</h2>
-<pre class="prettyprint">
-a = []
-B = Struct.new :i, :sum
-sum = 0
-100000.times do |i|
-    sum += 1
-    a &lt;&lt; B.new(i,sum)
-end
-</pre>
+<h2 id="the-arrival-of-new-substances">The Arrival of New Substances</h2>
 
-<h2 id="array---memory_crb">Array - memory_c.rb</h2>
-<pre class="prettyprint">
-i = []
-sums = []
-sum = 0
-100000.times do |i|
-    sum += 1
-    i &lt;&lt; i
-    sums &lt;&lt; sum
-end
-</pre>
+<p>In 2016, when I wrote the original version of this post, it was already difficult to stop coding. But now, in March 2025, with the arrival of AI tools, it’s as if we’ve discovered a new class of intoxicants.</p>
 
-<h2 id="class-com-métodos---memory_drb">Class com métodos - memory_d.rb</h2>
-<pre class="prettyprint">
-a = []
-class B
-  def initialize i, sum
-    @i = i
-    @sum = sum
-  end
-  def i
-    @i
-  end
-  def sum
-    @sum
-  end
-end
-sum = 0
-100000.times do |i|
-  sum += 1
-   a &lt;&lt; B.new(i,sum)
-end
-</pre>
+<p><strong>The Cursor editor and its AI assistants make me feel like I have superpowers.</strong></p>
 
-<h2 id="class-com-accessors---memory_erb">Class com accessors - memory_e.rb</h2>
-<pre class="prettyprint">
-a = []
-sum = 0
-class B
-  attr_accessor :i, :sum
-  def initialize i, sum
-    @i = i
-    @sum = sum
-  end
-end
-100000.times do |i|
-  sum += 1
-  a &lt;&lt; B.new(i,sum)
-end
-</pre>
+<p>What used to take hours to implement, I can now do in minutes. It’s like having a pair programming partner available 24 hours a day.</p>
 
-<h2 id="class-sem-métodos---memory_frb">Class sem métodos - memory_f.rb</h2>
+<p>Just imagine the sensation:</p>
+<ul>
+  <li>Write a thought in natural language</li>
+  <li>Watch it transform into functional code right before your eyes</li>
+  <li>Ask for explanations about complex parts and receive clear answers</li>
+  <li>Refactor old code with just a few commands</li>
+</ul>
 
-<pre class="prettyprint">
-class B
-  instance_methods.each { |m| undef_method m unless m =~ /^__|object_id/ }
-  attr_accessor :i, :sum
-  def initialize i, sum
-    @i = i
-    @sum = sum
-  end
-end
+<p>This isn’t just programming - it’s programming augmented by artificial intelligence. A completely new and even more addictive experience.</p>
 
-a = []
-sum = 0
-100000.times do |i|
-  sum += 1
-  a &lt;&lt; B.new(i,sum)
-end
-</pre>
+<h2 id="the-just-one-more-feature-syndrome">The “Just One More Feature” Syndrome</h2>
 
-<p>Observando os resultados com jruby-1.7.3 temos os seguintes tamanhos de memória em bytes:</p>
+<p>When I started, I thought it would be easy to quit and that it was just a phase.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>arquivo</th>
-      <th>memória</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>memory_a.rb</td>
-      <td>106409984</td>
-    </tr>
-    <tr>
-      <td>memory_b.rb</td>
-      <td>94859264</td>
-    </tr>
-    <tr>
-      <td>memory_c.rb</td>
-      <td>95125504</td>
-    </tr>
-    <tr>
-      <td>memory_d.rb</td>
-      <td>95064064</td>
-    </tr>
-    <tr>
-      <td>memory_e.rb</td>
-      <td>94691328</td>
-    </tr>
-    <tr>
-      <td>memory_f.rb</td>
-      <td>94236672</td>
-    </tr>
-  </tbody>
-</table>
+<p>Young guy, full of energy, but no: Years down the road, even with my wife and child waiting, I’m still the same:</p>
 
-<p>No meu caso o modelo <strong>memory_f</strong> parece ser o mais adequado em vista do consumo de memória e a implementação também é relativamente simples. O interessante destes objetos em branco é por que de certa forma eles não podem ser clonados, mas para casos específicos podem ajudar muito, neste caso têm uma significância de aproximadamente 12%.</p>
+<p>Waiting for the family to go to sleep so I can get one more coding fix.</p>
 
-<p>Baixe e teste o <a href="https://github.com/jonatas/ruby-memory-comparison">code</a> você mesmo!</p>
+<p>And now, with Cursor, I always have the feeling that I can do “just one more little thing” before bed. The speed at which I can solve problems has made the programming experience even more immersive.</p>
 
-<p>Assim que sobrar um tempo vou evoluir os modelos para comparar entre tipos de númericos. Hoje estamos usando o java.math.BigDecimal para cálculos precisos mas este é um dos mais lentos e grandes para trabalhar com números.</p>
+<h2 id="refactoring-with-a-single-command">Refactoring with a Single Command</h2>
 
+<p>One of the things that makes modern tools most addictive is how easy refactoring has become. With Cursor and AI assistants like Claude, I can:</p>
+
+<ul>
+  <li>Explain in plain English what I want to change</li>
+  <li>See intelligent suggestions on how to improve my code</li>
+  <li>Apply complex changes with just a few commands</li>
+  <li>Find bugs before even running the code</li>
+</ul>
+
+<p>It’s like having a reviewer, a mentor, and a pair programmer, all at the same time.</p>
+
+<h2 id="exploring-code-at-high-speed">Exploring Code at High Speed</h2>
+
+<p>Code navigation has also gained superpowers. With semantic searches and context understanding, I can:</p>
+
+<ul>
+  <li>Find relevant parts of the code just by explaining what I’m looking for</li>
+  <li>Understand new codebases much faster</li>
+  <li>Navigate between related files without losing context</li>
+  <li>Discover patterns that would be difficult to notice manually</li>
+</ul>
+
+<h2 id="the-dose-is-getting-stronger">The Dose is Getting Stronger</h2>
+
+<p>The improvements I’ve made to my website in recent months have also been powered by these new tools. From enhanced syntax highlighting to automatic post categorization systems - everything became easier with AI assistance.</p>
+
+<p>Check out this code snippet I implemented to suggest categories for posts based on content:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="kd">function</span> <span class="nf">suggestCategories</span><span class="p">(</span><span class="nx">title</span><span class="p">,</span> <span class="nx">content</span><span class="p">,</span> <span class="nx">currentCategories</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// Intelligent content analysis to suggest appropriate categories</span>
+  <span class="c1">// ...</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>The code above is just a sample of the type of automation I’ve implemented on the site, making the writing experience much more fluid.</p>
+
+<h2 id="theres-no-cure-anymore">There’s No Cure Anymore</h2>
+
+<p>If I was addicted to programming before, now with all these AI tools like GPT, Claude, and the Cursor editor, my condition has only worsened.</p>
+
+<p>The sensation of solving complex problems, creating new features, and automating processes has been elevated to another level.</p>
+
+<p>And you know what the best part is? Seeing all this code executing, solving real problems, making systems more efficient.</p>
+
+<p>So there it is: I confess that I’m addicted to programming. And now, with AI as my copilot, I’m in the worst phase of this addiction - and I don’t want treatment.</p>
+
+<p><strong>Programming is a drug. And with AI, the dose is even more potent.</strong></p>
 
   </div>
   
   
   <div class="article-tags">
     
-      <a href="#ruby-ref" class="article-tag">ruby</a>
+      <a href="#personal-ref" class="article-tag">personal</a>
     
-      <a href="#performance-ref" class="article-tag">performance</a>
+      <a href="#technical-ref" class="article-tag">technical</a>
+    
+      <a href="#ai-ref" class="article-tag">ai</a>
+    
+      <a href="#tools-ref" class="article-tag">tools</a>
     
   </div>
   
@@ -503,7 +459,7 @@ end
   <h5>Share this article</h5>
   <div class="sharing-buttons">
     
-    <a href="https://twitter.com/intent/tweet?text=Observando+a+mem%C3%B3ria+no+ruby&url=https%3A%2F%2Fideia.me%2Fobservando-a-memoria-ruby&via=jonatasdp" 
+    <a href="https://twitter.com/intent/tweet?text=Programming+is+a+Drug+%282025+Edition%29&url=https%3A%2F%2Fideia.me%2Fprogramming-is-a-drug&via=jonatasdp" 
        class="btn btn-twitter btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -512,7 +468,7 @@ end
     
     
     
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Fobservando-a-memoria-ruby" 
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Fprogramming-is-a-drug" 
        class="btn btn-facebook btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -521,7 +477,7 @@ end
     
     
     
-    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fobservando-a-memoria-ruby&title=Observando+a+mem%C3%B3ria+no+ruby" 
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fprogramming-is-a-drug&title=Programming+is+a+Drug+%282025+Edition%29" 
        class="btn btn-linkedin btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -530,7 +486,7 @@ end
     
     
     
-    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fobservando-a-memoria-ruby&title=Observando+a+mem%C3%B3ria+no+ruby" 
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fprogramming-is-a-drug&title=Programming+is+a+Drug+%282025+Edition%29" 
        class="btn btn-reddit btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -559,18 +515,13 @@ end
   <div class="content-nav-previous">
     
       <small>Previous</small>
-      <a href="/experiencias-meteor" title="Experiências com o Meteor js">
-        Experiências com o Meteor js
+      <a href="/soulless-economy" title="The Souless Economy - How AI Agents will change our economy completely">
+        The Souless Economy - How AI Agents will change...
       </a>
     
   </div>
   
   <div class="content-nav-next">
-    
-      <small>Next</small>
-      <a href="/migrando-estilo-para-twitter-bootstrap" title="Jekyll e Twitter Bootstrap">
-        Jekyll e Twitter Bootstrap
-      </a>
     
   </div>
 </div> 
@@ -588,21 +539,6 @@ end
         
         
           
-            
-              
-              
-                
-              
-                
-              
-                
-              
-                
-              
-              
-              
-            
-          
           
           
         
@@ -635,6 +571,49 @@ end
                 
               
                 
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
               
                 
               
@@ -656,49 +635,6 @@ end
               
                 
               
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
-              
-                
-              
-                
-              
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
-              
-                
-              
                 
               
               
@@ -737,9 +673,8 @@ end
               
               
                 
-              
-                
-              
+                  
+                  
               
               
             
@@ -752,9 +687,8 @@ end
               
               
                 
-              
-                
-              
+                  
+                  
               
               
             
@@ -873,6 +807,12 @@ end
         
           
             
+            
+              
+            
+              
+            
+              
             
               
             
@@ -885,15 +825,15 @@ end
                   <div class="card h-100">
                     <div class="card-body">
                       <h5 class="card-title">
-                        <a href="/my-first-contribution-to-rubygems">My First Contribution To Rubygems</a>
+                        <a href="/website-seo-improvements-and-category-standardization">Enhancing Website Consistency and SEO: A Technical Journey</a>
                       </h5>
                       <p class="card-text text-muted">
                         <small>
-                          <i class="bi bi-calendar3"></i> July 04, 2024
+                          <i class="bi bi-calendar3"></i> March 10, 2024
                         </small>
                       </p>
                       
-                        <p class="card-text">Adding to my goal of being helpful in the software world, I had my first contribution to RubyGems [merged][new_pr] 🎉</p>
+                        <p class="card-text">Exploring the technical improvements made to ideia.me, including enhanced SEO, standardized categories, and a more co...</p>
                       
                     </div>
                   </div>
@@ -914,6 +854,690 @@ end
             
               
             
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+          
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/semantic-fields-through-ages">Semantic Fields through Ages - A Journey in Words</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> February 13, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Late at night, with sleep eluding me, my mind wandered through the labyrinth of semantic fields and the power of word...</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+          
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/semantic-fields-of-mind">Semantic fields of the mind</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> February 05, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Thursday night, I arrived from Athens and past weekend I had the most insightful update in my mindset until now. I'll...</p>
+                      
+                    </div>
+                  </div>
+                </div>
               
             
               
@@ -1235,8 +1859,8 @@ end
       *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
       
       var disqus_config = function () {
-        this.page.url = "https://ideia.me/observando-a-memoria-ruby";
-        this.page.identifier = "/observando-a-memoria-ruby";
+        this.page.url = "https://ideia.me/programming-is-a-drug";
+        this.page.identifier = "/programming-is-a-drug";
       };
       
       (function() { // DON'T EDIT BELOW THIS LINE
