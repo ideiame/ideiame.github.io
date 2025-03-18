@@ -94,175 +94,21 @@ crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Poppins:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+    <!-- GitHub-style syntax highlighting -->
+    <link href="/css/rouge-github.css" rel="stylesheet">
     <link href="/css/nimbus-pygments.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
-    <link href="/css/code-highlighting.css" rel="stylesheet">
     <link href="/css/disqus-dark.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
-    <!-- Style overrides for Prism -->
-    <style>
-      /* Override Prism default styles to fix text shadow issues */
-      code[class*="language-"],
-      pre[class*="language-"],
-      pre code,
-      .token {
-        text-shadow: none !important;
-        -webkit-text-shadow: none !important;
-        border: none !important;
-        background: none;
-      }
-      
-      /* Ensure proper background only on container elements */
-      pre[class*="language-"] {
-        background: var(--prism-background);
-      }
-      
-      .dark-mode pre[class*="language-"] {
-        background: var(--prism-background);
-      }
-    </style>
 
     <!-- Modern JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-ruby.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-sql.min.js"></script>
+    
+    <!-- GitHub-style code block enhancement -->
+    <script src="/js/github-code-blocks.js"></script>
+    
     <div id="fb-root"></div>
-
-    <!-- Dark Mode Script -->
-    <script>
-      function detectColorScheme() {
-        // Check saved preference first
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        
-        // Apply theme based on saved preference or system preference
-        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
-          document.body.classList.add('dark-mode');
-          document.documentElement.classList.add('dark-mode');
-          if (darkModeToggle) darkModeToggle.checked = true;
-          console.log('Dark mode applied on initial load');
-        } else {
-          document.body.classList.remove('dark-mode');
-          document.documentElement.classList.remove('dark-mode');
-          if (darkModeToggle) darkModeToggle.checked = false;
-          console.log('Light mode applied on initial load');
-        }
-        
-        // Listen for changes in the OS color scheme only if no saved preference
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-          // Only apply system preference if user hasn't manually chosen a theme
-          if (localStorage.getItem('theme') === null) {
-            const newColorScheme = e.matches ? 'dark' : 'light';
-            if (newColorScheme === 'dark') {
-              document.body.classList.add('dark-mode');
-              document.documentElement.classList.add('dark-mode');
-              if (darkModeToggle) darkModeToggle.checked = true;
-              console.log('Dark mode applied from system preference change');
-            } else {
-              document.body.classList.remove('dark-mode');
-              document.documentElement.classList.remove('dark-mode');
-              if (darkModeToggle) darkModeToggle.checked = false;
-              console.log('Light mode applied from system preference change');
-            }
-          }
-        });
-      }
-
-      // Initialize dark mode immediately before DOM content is fully loaded
-      detectColorScheme();
-
-      // Add code block enhancements
-      function enhanceCodeBlocks() {
-        document.querySelectorAll('pre code').forEach((codeBlock, index) => {
-          // Get the parent pre element
-          const preElement = codeBlock.parentElement;
-          if (!preElement.classList.contains('enhanced')) {
-            preElement.classList.add('enhanced');
-            
-            // Create a wrapper div with the highlight class
-            const highlightDiv = document.createElement('div');
-            highlightDiv.className = 'highlight';
-            
-            // Insert the wrapper before the pre element
-            preElement.parentNode.insertBefore(highlightDiv, preElement);
-            
-            // Move the pre element inside the wrapper
-            highlightDiv.appendChild(preElement);
-            
-            // Get language class from code element
-            let language = '';
-            codeBlock.classList.forEach(className => {
-              if (className.startsWith('language-')) {
-                language = className.substring(9);
-              }
-            });
-            
-            // Auto-detect language if none is specified
-            if (!language) {
-              // Check for Ruby
-              if (codeBlock.textContent.includes('require') || 
-                  codeBlock.textContent.includes('def ') ||
-                  codeBlock.textContent.includes('class ') ||
-                  codeBlock.textContent.includes('module ') ||
-                  codeBlock.textContent.match(/\w+\s*=\s*\w+/g)) {
-                language = 'ruby';
-                codeBlock.classList.add('language-ruby');
-              }
-              // Check for SQL
-              else if (codeBlock.textContent.includes('SELECT') || 
-                       codeBlock.textContent.includes('FROM') ||
-                       codeBlock.textContent.includes('WHERE') ||
-                       codeBlock.textContent.includes('CREATE TABLE')) {
-                language = 'sql';
-                codeBlock.classList.add('language-sql');
-              }
-            }
-            
-            // If language is found, add it as a data attribute
-            if (language) {
-              highlightDiv.setAttribute('data-language', language);
-            }
-            
-            // Create copy button
-            const copyButton = document.createElement('button');
-            copyButton.className = 'copy-button';
-            copyButton.textContent = 'Copy';
-            copyButton.setAttribute('aria-label', 'Copy code to clipboard');
-            copyButton.onclick = function() {
-              navigator.clipboard.writeText(codeBlock.textContent)
-                .then(() => {
-                  copyButton.textContent = 'Copied!';
-                  copyButton.classList.add('copied');
-                  setTimeout(() => {
-                    copyButton.textContent = 'Copy';
-                    copyButton.classList.remove('copied');
-                  }, 2000);
-                })
-                .catch(err => {
-                  console.error('Could not copy text: ', err);
-                });
-            };
-            
-            // Add copy button to the highlight div
-            highlightDiv.appendChild(copyButton);
-          }
-        });
-      }
-      
-      // Initialize when DOM is loaded
-      document.addEventListener('DOMContentLoaded', function() {
-        detectColorScheme();
-        enhanceCodeBlocks();
-      });
-    </script>
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -357,7 +203,7 @@ crossorigin="anonymous"></script>
   
   
     <span class="reading-time" title="Estimated read time">
-      <i class="bi bi-clock"></i> 11 min read
+      <i class="bi bi-clock"></i> 10 min read
     </span>
   
  
@@ -400,25 +246,7 @@ crossorigin="anonymous"></script>
 <p>Let’s continue with a minimal migration system to prove the concept before we jump into a more advanced migration scenario.
 In this example, we’ll start with creating the ticks table representing stock market events and then group the events by minute to show the candlestick pattern.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-</pre></td><td class="rouge-code"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
   <span class="n">drop_table</span> <span class="ss">:ticks</span><span class="p">,</span> <span class="ss">force: :cascade</span>
 
   <span class="n">hypertable_options</span> <span class="o">=</span> <span class="p">{</span>
@@ -436,7 +264,7 @@ In this example, we’ll start with creating the ticks table representing stock 
     <span class="n">t</span><span class="p">.</span><span class="nf">integer</span> <span class="ss">:volume</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The previous code instruction only involves the hypertable creation, and \ the continuous aggregate steps will be covered soon.</p>
 
@@ -446,19 +274,13 @@ In this example, we’ll start with creating the ticks table representing stock 
 
 <p>And here is the ActiveRecord model simplified for the example.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Tick</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Tick</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="nb">self</span><span class="p">.</span><span class="nf">table_name</span> <span class="o">=</span> <span class="s1">'ticks'</span>
   <span class="nb">self</span><span class="p">.</span><span class="nf">primary_key</span> <span class="o">=</span> <span class="kp">nil</span>
 
   <span class="n">acts_as_hypertable</span> <span class="ss">time_column: </span><span class="s1">'time'</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The only data we need to override for now is the <code class="language-plaintext highlighter-rouge">time_column</code>, but you can override anything in the official documentation.</p>
 
@@ -471,13 +293,10 @@ generate some fake data to just understand how to use it.</p>
 
 <p>Let’s define some helper variables that can help to generate the data:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="no">FAANG</span> <span class="o">=</span> <span class="sx">%w[META AMZN AAPL NFLX GOOG]</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">FAANG</span> <span class="o">=</span> <span class="sx">%w[META AMZN AAPL NFLX GOOG]</span>
 <span class="no">OPERATION</span> <span class="o">=</span> <span class="p">[:</span><span class="o">+</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="p">]</span>
 <span class="no">RAND_VOLUME</span> <span class="o">=</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="p">(</span><span class="nb">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span> <span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Clarifying step by step:</p>
 
@@ -489,24 +308,7 @@ generate some fake data to just understand how to use it.</p>
 
 <p>Now defining the fake data:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">generate_fake_data</span><span class="p">(</span><span class="ss">total: </span><span class="mi">100</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">generate_fake_data</span><span class="p">(</span><span class="ss">total: </span><span class="mi">100</span><span class="p">)</span>
   <span class="n">previous_price</span> <span class="o">=</span> <span class="p">{}</span>
   <span class="n">time</span> <span class="o">=</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span>
   <span class="p">(</span><span class="n">total</span> <span class="o">/</span> <span class="no">FAANG</span><span class="p">.</span><span class="nf">size</span><span class="p">).</span><span class="nf">times</span><span class="p">.</span><span class="nf">flat_map</span> <span class="k">do</span>
@@ -523,71 +325,44 @@ generate some fake data to just understand how to use it.</p>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 <p>It will generate a bunch of payloads that can be inserted.</p>
 
 <p>The last step in generating the data is combining the data generated with the insert command. Again, we can go with <code class="language-plaintext highlighter-rouge">insert_all</code>, a faster method to persist the data using ActiveRecord.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-</pre></td><td class="rouge-code"><pre><span class="n">batch</span> <span class="o">=</span> <span class="n">generate_fake_data</span> <span class="ss">total: </span><span class="mi">50</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">batch</span> <span class="o">=</span> <span class="n">generate_fake_data</span> <span class="ss">total: </span><span class="mi">50</span>
 <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">logger</span> <span class="o">=</span> <span class="kp">nil</span>
 <span class="no">Tick</span><span class="p">.</span><span class="nf">insert_all</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="ss">returning: </span><span class="kp">false</span><span class="p">)</span>
 <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">logger</span> <span class="o">=</span> <span class="no">Logger</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">STDOUT</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>To confirm the data is of good quality, take a look on what are the generated prices:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-</pre></td><td class="rouge-code"><pre><span class="no">FAANG</span><span class="p">.</span><span class="nf">inject</span><span class="p">({})</span> <span class="k">do</span> <span class="o">|</span><span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="o">|</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">FAANG</span><span class="p">.</span><span class="nf">inject</span><span class="p">({})</span> <span class="k">do</span> <span class="o">|</span><span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="o">|</span>
   <span class="n">h</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="no">Tick</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span> <span class="ss">symbol: </span><span class="n">s</span><span class="p">).</span><span class="nf">order</span><span class="p">(</span><span class="ss">:time</span><span class="p">).</span><span class="nf">pluck</span><span class="p">(</span><span class="ss">:price</span><span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:to_f</span><span class="p">)</span>
   <span class="n">h</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The results will be a hash like this:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="s2">"META"</span><span class="o">=&gt;</span><span class="p">[</span><span class="mf">142.0</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.96</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.96</span><span class="p">,</span> <span class="mf">141.96</span><span class="p">,</span> <span class="mf">141.97</span><span class="p">,</span> <span class="mf">141.97</span><span class="p">],</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="s2">"META"</span><span class="o">=&gt;</span><span class="p">[</span><span class="mf">142.0</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.96</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.96</span><span class="p">,</span> <span class="mf">141.96</span><span class="p">,</span> <span class="mf">141.97</span><span class="p">,</span> <span class="mf">141.97</span><span class="p">],</span>
  <span class="s2">"AMZN"</span><span class="o">=&gt;</span><span class="p">[</span><span class="mf">103.0</span><span class="p">,</span> <span class="mf">103.0</span><span class="p">,</span> <span class="mf">103.01</span><span class="p">,</span> <span class="mf">103.0</span><span class="p">,</span> <span class="mf">103.01</span><span class="p">,</span> <span class="mf">103.0</span><span class="p">,</span> <span class="mf">103.0</span><span class="p">,</span> <span class="mf">103.01</span><span class="p">,</span> <span class="mf">103.03</span><span class="p">,</span> <span class="mf">103.05</span><span class="p">],</span>
  <span class="s2">"AAPL"</span><span class="o">=&gt;</span><span class="p">[</span><span class="mf">82.0</span><span class="p">,</span> <span class="mf">81.99</span><span class="p">,</span> <span class="mf">81.98</span><span class="p">,</span> <span class="mf">81.96</span><span class="p">,</span> <span class="mf">81.96</span><span class="p">,</span> <span class="mf">81.96</span><span class="p">,</span> <span class="mf">81.97</span><span class="p">,</span> <span class="mf">81.99</span><span class="p">,</span> <span class="mf">81.97</span><span class="p">,</span> <span class="mf">81.97</span><span class="p">],</span>
  <span class="s2">"NFLX"</span><span class="o">=&gt;</span><span class="p">[</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">59.99</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">,</span> <span class="mf">59.99</span><span class="p">,</span> <span class="mf">59.99</span><span class="p">,</span> <span class="mf">60.01</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">,</span> <span class="mf">60.02</span><span class="p">,</span> <span class="mf">60.02</span><span class="p">,</span> <span class="mf">60.02</span><span class="p">],</span>
  <span class="s2">"GOOG"</span><span class="o">=&gt;</span><span class="p">[</span><span class="mf">148.0</span><span class="p">,</span> <span class="mf">147.99</span><span class="p">,</span> <span class="mf">147.98</span><span class="p">,</span> <span class="mf">148.0</span><span class="p">,</span> <span class="mf">148.01</span><span class="p">,</span> <span class="mf">148.02</span><span class="p">,</span> <span class="mf">148.03</span><span class="p">,</span> <span class="mf">148.02</span><span class="p">,</span> <span class="mf">148.02</span><span class="p">,</span> <span class="mf">148.01</span><span class="p">]}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The data varies very slowly, as expected. Now, feel free to change the fake data generation to generate at least a few hours of data. 10k will generate at least a few hours.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="n">batch</span> <span class="o">=</span> <span class="n">generate_fake_data</span> <span class="ss">total: </span><span class="mi">10_000</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">batch</span> <span class="o">=</span> <span class="n">generate_fake_data</span> <span class="ss">total: </span><span class="mi">10_000</span>
+</code></pre></div></div>
 
 <h3 id="querying-the-candlestick">Querying the candlestick</h3>
 
 <p>Now, it’s time to focus on the <code class="language-plaintext highlighter-rouge">Tick</code> model again and add the <code class="language-plaintext highlighter-rouge">OHLC</code> method to return the candlestick from ActiveRecord. As it will return attributes not recognized by the model, let’s declare the accessors to be easier to read the values later.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Tick</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Tick</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="c1"># skipping previous code for readability</span>
   <span class="sx">%w[open high low close]</span><span class="p">.</span><span class="nf">each</span><span class="p">{</span><span class="o">|</span><span class="nb">name</span><span class="o">|</span> <span class="n">attribute</span> <span class="nb">name</span><span class="p">,</span> <span class="ss">:decimal</span><span class="p">}</span>
 
@@ -600,35 +375,25 @@ generate some fake data to just understand how to use it.</p>
       LAST(price, time) as close,
       SUM(volume) as volume"</span><span class="p">).</span><span class="nf">group</span><span class="p">(</span><span class="s2">"1,2"</span><span class="p">)</span>
   <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Testing the data:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="no">Tick</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">symbol: </span><span class="s2">"GOOG"</span><span class="p">).</span><span class="nf">ohlc</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Tick</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">symbol: </span><span class="s2">"GOOG"</span><span class="p">).</span><span class="nf">ohlc</span>
 <span class="p">[</span><span class="c1">#&lt;Tick:0x00007f9d62fdbb58 time: 2022-09-20 12:00:00 UTC, symbol: "GOOG", volume: 18600, open: 0.83e2, high: 0.8305e2, low: 0.8298e2, close: 0.8305e2&gt;,</span>
  <span class="c1">#&lt;Tick:0x00007f9d62fdba90 time: 2022-09-20 12:01:00 UTC, symbol: "GOOG", volume: 6000, open: 0.8305e2, high: 0.8307e2, low: 0.8305e2, close: 0.8306e2&gt;,</span>
  <span class="c1">#&lt;Tick:0x00007f9d62fdb9c8 time: 2022-09-20 12:02:00 UTC, symbol: "GOOG", volume: 55400, open: 0.8307e2, high: 0.8314e2, low: 0.8307e2, close: 0.8313e2&gt;,</span>
  <span class="c1">#&lt;Tick:0x00007f9d62fdb900 time: 2022-09-20 12:03:00 UTC, symbol: "GOOG", volume: 29300, open: 0.8315e2, high: 0.832e2, low: 0.8315e2, close: 0.832e2&gt;,</span>
  <span class="o">...</span> <span class="c1"># more records here ]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Now testing with one-hour intervals:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-</pre></td><td class="rouge-code"><pre><span class="no">Tick</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="s1">'time'</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="ss">symbol: </span><span class="s2">"GOOG"</span><span class="p">).</span><span class="nf">ohlc</span><span class="p">(</span><span class="s1">'1h'</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Tick</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="s1">'time'</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="ss">symbol: </span><span class="s2">"GOOG"</span><span class="p">).</span><span class="nf">ohlc</span><span class="p">(</span><span class="s1">'1h'</span><span class="p">)</span>
 <span class="c1"># =&gt; [#&lt;Tick:0x00007f9d62f2ae98 time: 2022-09-20 12:00:00 UTC, symbol: "GOOG", volume: 1617800, open: 0.83e2, high: 0.8325e2, low: 0.829e2, close: 0.83e2&gt;,</span>
 <span class="c1">#   #&lt;Tick:0x00007f9d62f2add0 time: 2022-09-20 13:00:00 UTC, symbol: "GOOG", volume: 1634600, open: 0.83e2, high: 0.832e2, low: 0.8261e2, close: 0.8261e2&gt;,</span>
 <span class="c1">#   #&lt;Tick:0x00007f9d62f2ad08 time: 2022-09-20 14:00:00 UTC, symbol: "GOOG", volume: 783300, open: 0.826e2, high: 0.826e2, low: 0.8231e2, close: 0.8249e2&gt;]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>It seems like everything is working as expected, and the last step is finally to create the continuous aggregates 🎉</p>
 
@@ -638,28 +403,15 @@ generate some fake data to just understand how to use it.</p>
 
 <p>Continuous aggregates will persist the data from past minutes and only compute the data for the still open candlesticks. So, for example, if you’re processing buckets of one hour, it will materialize the data from previous hours and only compute the data from the last hour.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
   <span class="n">create_continuous_aggregates</span><span class="p">(</span><span class="s1">'ohlc_1m'</span><span class="p">,</span> <span class="no">Tick</span><span class="p">.</span><span class="nf">ohlc</span><span class="p">(</span><span class="s1">'1m'</span><span class="p">),</span> <span class="ss">with_data: </span><span class="kp">true</span><span class="p">)</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The <code class="language-plaintext highlighter-rouge">create_continuous_aggregates</code> method is available in the connection scope that is the same of the Rails Migrations.
 In the background, the following query is being executed:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">ohlc_1m</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">ohlc_1m</span>
 <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
 <span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1m'</span><span class="p">,</span> <span class="nb">time</span><span class="p">)</span> <span class="k">as</span> <span class="nb">time</span><span class="p">,</span>
       <span class="n">symbol</span><span class="p">,</span>
@@ -669,21 +421,11 @@ In the background, the following query is being executed:</p>
       <span class="k">LAST</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="nb">time</span><span class="p">)</span> <span class="k">as</span> <span class="k">close</span><span class="p">,</span>
       <span class="k">SUM</span><span class="p">(</span><span class="n">volume</span><span class="p">)</span> <span class="k">as</span> <span class="n">volume</span> <span class="k">FROM</span> <span class="nv">"ticks"</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span>
 <span class="k">WITH</span> <span class="k">DATA</span><span class="p">;</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The last parameter, <code class="language-plaintext highlighter-rouge">with_data</code>, will automatically process the present data. If false, the <a href="https://docs.timescale.com/api/latest/continuous-aggregates/refresh_continuous_aggregate/#refresh-continuous-aggregate">refresh_continous_aggregates</a> can do the job later. If you have too much data to process, and you’re adding it to a Rails migration, maybe that’s a good idea to process it in a background job to not block your deployment.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Ohlc1m</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Ohlc1m</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="nb">self</span><span class="p">.</span><span class="nf">table_name</span> <span class="o">=</span> <span class="s1">'ohlc_1m'</span>
   <span class="n">attribute</span> <span class="ss">:time</span><span class="p">,</span> <span class="ss">:time</span>
   <span class="n">attribute</span> <span class="ss">:symbol</span><span class="p">,</span> <span class="ss">:string</span>
@@ -693,15 +435,13 @@ In the background, the following query is being executed:</p>
    <span class="kp">true</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Comparing performance here is unfair as we don’t have enough data to see too much difference. But, testing with 10k, it’s already 4 times faster using pre-processed data:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="no">Tick</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="n">symbol</span><span class="ss">:"AAPL"</span><span class="p">).</span><span class="nf">ohlc</span><span class="p">(</span><span class="s1">'1m'</span><span class="p">)</span> <span class="c1"># Tick Load (13.8ms) </span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Tick</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="n">symbol</span><span class="ss">:"AAPL"</span><span class="p">).</span><span class="nf">ohlc</span><span class="p">(</span><span class="s1">'1m'</span><span class="p">)</span> <span class="c1"># Tick Load (13.8ms) </span>
 <span class="no">Ohlc1m</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="n">symbol</span><span class="ss">:"AAPL"</span><span class="p">).</span><span class="nf">all</span>      <span class="c1"># Ohlc1m Load (3.6ms)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="scenic-support">Scenic support</h3>
 
@@ -834,20 +574,6 @@ Aggregates and how it compares to PostgreSQL materialized views.</p>
               
               
                 
-                  
-                  
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
               
                 
               
@@ -1098,6 +824,23 @@ Aggregates and how it compares to PostgreSQL materialized views.</p>
           
           
           
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
             
         
         
@@ -1106,353 +849,6 @@ Aggregates and how it compares to PostgreSQL materialized views.</p>
         
           
             
-            
-              
-                <div class="col-md-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <a href="/benchmarking-ruby-orms">Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</a>
-                      </h5>
-                      <p class="card-text text-muted">
-                        <small>
-                          <i class="bi bi-calendar3"></i> March 18, 2025
-                        </small>
-                      </p>
-                      
-                    </div>
-                  </div>
-                </div>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-          
-          
-        
-          
-            
-            
-              
             
               
             
@@ -1891,6 +1287,8 @@ Aggregates and how it compares to PostgreSQL materialized views.</p>
 
 <link rel="stylesheet" href="/css/enhanced.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="/css/disable-line-numbers.css">
+<script src="/js/disable-line-numbers.js"></script>
 
 
     </div>
@@ -2218,6 +1616,56 @@ Aggregates and how it compares to PostgreSQL materialized views.</p>
     
     <!-- Dedicated Disqus dark mode handler -->
     <script src="/js/disqus-dark.js"></script>
+
+    <!-- Dark Mode Script -->
+    <script>
+      function detectColorScheme() {
+        // Check saved preference first
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        
+        // Apply theme based on saved preference or system preference
+        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
+          document.body.classList.add('dark-mode');
+          document.documentElement.classList.add('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = true;
+          console.log('Dark mode applied on initial load');
+        } else {
+          document.body.classList.remove('dark-mode');
+          document.documentElement.classList.remove('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = false;
+          console.log('Light mode applied on initial load');
+        }
+        
+        // Listen for changes in the OS color scheme only if no saved preference
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+          // Only apply system preference if user hasn't manually chosen a theme
+          if (localStorage.getItem('theme') === null) {
+            const newColorScheme = e.matches ? 'dark' : 'light';
+            if (newColorScheme === 'dark') {
+              document.body.classList.add('dark-mode');
+              document.documentElement.classList.add('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = true;
+              console.log('Dark mode applied from system preference change');
+            } else {
+              document.body.classList.remove('dark-mode');
+              document.documentElement.classList.remove('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = false;
+              console.log('Light mode applied from system preference change');
+            }
+          }
+        });
+      }
+
+      // Initialize dark mode immediately before DOM content is fully loaded
+      detectColorScheme();
+      
+      // Initialize when DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        detectColorScheme();
+      });
+    </script>
   </body>
 </html>
 

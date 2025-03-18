@@ -94,175 +94,21 @@ crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Poppins:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+    <!-- GitHub-style syntax highlighting -->
+    <link href="/css/rouge-github.css" rel="stylesheet">
     <link href="/css/nimbus-pygments.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
-    <link href="/css/code-highlighting.css" rel="stylesheet">
     <link href="/css/disqus-dark.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
-    <!-- Style overrides for Prism -->
-    <style>
-      /* Override Prism default styles to fix text shadow issues */
-      code[class*="language-"],
-      pre[class*="language-"],
-      pre code,
-      .token {
-        text-shadow: none !important;
-        -webkit-text-shadow: none !important;
-        border: none !important;
-        background: none;
-      }
-      
-      /* Ensure proper background only on container elements */
-      pre[class*="language-"] {
-        background: var(--prism-background);
-      }
-      
-      .dark-mode pre[class*="language-"] {
-        background: var(--prism-background);
-      }
-    </style>
 
     <!-- Modern JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-ruby.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-sql.min.js"></script>
+    
+    <!-- GitHub-style code block enhancement -->
+    <script src="/js/github-code-blocks.js"></script>
+    
     <div id="fb-root"></div>
-
-    <!-- Dark Mode Script -->
-    <script>
-      function detectColorScheme() {
-        // Check saved preference first
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        
-        // Apply theme based on saved preference or system preference
-        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
-          document.body.classList.add('dark-mode');
-          document.documentElement.classList.add('dark-mode');
-          if (darkModeToggle) darkModeToggle.checked = true;
-          console.log('Dark mode applied on initial load');
-        } else {
-          document.body.classList.remove('dark-mode');
-          document.documentElement.classList.remove('dark-mode');
-          if (darkModeToggle) darkModeToggle.checked = false;
-          console.log('Light mode applied on initial load');
-        }
-        
-        // Listen for changes in the OS color scheme only if no saved preference
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-          // Only apply system preference if user hasn't manually chosen a theme
-          if (localStorage.getItem('theme') === null) {
-            const newColorScheme = e.matches ? 'dark' : 'light';
-            if (newColorScheme === 'dark') {
-              document.body.classList.add('dark-mode');
-              document.documentElement.classList.add('dark-mode');
-              if (darkModeToggle) darkModeToggle.checked = true;
-              console.log('Dark mode applied from system preference change');
-            } else {
-              document.body.classList.remove('dark-mode');
-              document.documentElement.classList.remove('dark-mode');
-              if (darkModeToggle) darkModeToggle.checked = false;
-              console.log('Light mode applied from system preference change');
-            }
-          }
-        });
-      }
-
-      // Initialize dark mode immediately before DOM content is fully loaded
-      detectColorScheme();
-
-      // Add code block enhancements
-      function enhanceCodeBlocks() {
-        document.querySelectorAll('pre code').forEach((codeBlock, index) => {
-          // Get the parent pre element
-          const preElement = codeBlock.parentElement;
-          if (!preElement.classList.contains('enhanced')) {
-            preElement.classList.add('enhanced');
-            
-            // Create a wrapper div with the highlight class
-            const highlightDiv = document.createElement('div');
-            highlightDiv.className = 'highlight';
-            
-            // Insert the wrapper before the pre element
-            preElement.parentNode.insertBefore(highlightDiv, preElement);
-            
-            // Move the pre element inside the wrapper
-            highlightDiv.appendChild(preElement);
-            
-            // Get language class from code element
-            let language = '';
-            codeBlock.classList.forEach(className => {
-              if (className.startsWith('language-')) {
-                language = className.substring(9);
-              }
-            });
-            
-            // Auto-detect language if none is specified
-            if (!language) {
-              // Check for Ruby
-              if (codeBlock.textContent.includes('require') || 
-                  codeBlock.textContent.includes('def ') ||
-                  codeBlock.textContent.includes('class ') ||
-                  codeBlock.textContent.includes('module ') ||
-                  codeBlock.textContent.match(/\w+\s*=\s*\w+/g)) {
-                language = 'ruby';
-                codeBlock.classList.add('language-ruby');
-              }
-              // Check for SQL
-              else if (codeBlock.textContent.includes('SELECT') || 
-                       codeBlock.textContent.includes('FROM') ||
-                       codeBlock.textContent.includes('WHERE') ||
-                       codeBlock.textContent.includes('CREATE TABLE')) {
-                language = 'sql';
-                codeBlock.classList.add('language-sql');
-              }
-            }
-            
-            // If language is found, add it as a data attribute
-            if (language) {
-              highlightDiv.setAttribute('data-language', language);
-            }
-            
-            // Create copy button
-            const copyButton = document.createElement('button');
-            copyButton.className = 'copy-button';
-            copyButton.textContent = 'Copy';
-            copyButton.setAttribute('aria-label', 'Copy code to clipboard');
-            copyButton.onclick = function() {
-              navigator.clipboard.writeText(codeBlock.textContent)
-                .then(() => {
-                  copyButton.textContent = 'Copied!';
-                  copyButton.classList.add('copied');
-                  setTimeout(() => {
-                    copyButton.textContent = 'Copy';
-                    copyButton.classList.remove('copied');
-                  }, 2000);
-                })
-                .catch(err => {
-                  console.error('Could not copy text: ', err);
-                });
-            };
-            
-            // Add copy button to the highlight div
-            highlightDiv.appendChild(copyButton);
-          }
-        });
-      }
-      
-      // Initialize when DOM is loaded
-      document.addEventListener('DOMContentLoaded', function() {
-        detectColorScheme();
-        enhanceCodeBlocks();
-      });
-    </script>
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -357,7 +203,7 @@ crossorigin="anonymous"></script>
   
   
     <span class="reading-time" title="Estimated read time">
-      <i class="bi bi-clock"></i> 16 min read
+      <i class="bi bi-clock"></i> 15 min read
     </span>
   
  
@@ -396,37 +242,28 @@ As I’ve been working with Ruby since 2007, I created a live streaming series a
 
 <p>Let’s start requiring bundler inline to avoid the creation of the <code class="language-plaintext highlighter-rouge">Gemfile</code>. I’m adding the <a href="https://docs.timescale.com/install/latest/">timescaledb</a> gem, and the mentioned libraries will be fetched as dependencies. Also, <a href="http://pry.github.io">pry</a> is here because it’s the best REPL to debug any Ruby code.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="rouge-code"><pre><span class="c1"># all_in_one.rb file</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># all_in_one.rb file</span>
 <span class="nb">require</span> <span class="s1">'bundler/inline
 
 gemfile(true) do
   gem '</span><span class="n">timescaledb</span><span class="s1">'
   gem '</span><span class="n">pry</span><span class="err">'</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>A good part of using the bundler inline is that you don’t have to require the dependencies.</p>
 
 <p>Now, let’s start by establishing the connection. Let’s use the URI as the last parameter from the command line. For example, to run from my localhost, I can refer to the database URI like this:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>ruby all_in_one.RB postgres://jonatasdp@localhost:5432/playground
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ruby all_in_one.RB postgres://jonatasdp@localhost:5432/playground
+</code></pre></div></div>
 
 <p>Make sure you change the <code class="language-plaintext highlighter-rouge">jonatasdp</code> to your username and the <code class="language-plaintext highlighter-rouge">playground</code> to
 your database name. Check <a href="https://docs.timescale.com/install/latest/">how to install Timescale</a> first, or you can try a
 free instance on the <a href="https://www.timescale.com/timescale-signup/">Timescale cloud</a>.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">establish_connection</span><span class="p">(</span> <span class="no">ARGV</span><span class="p">.</span><span class="nf">last</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">establish_connection</span><span class="p">(</span> <span class="no">ARGV</span><span class="p">.</span><span class="nf">last</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>With this line, you’re making the connection to the database, and you can already
 start making queries or whatever you want.</p>
@@ -445,15 +282,11 @@ can start defining what our hypertable looks like.</p>
 
 <p>Let’s call it <code class="language-plaintext highlighter-rouge">Event</code>, starting from the model, and the objective is to store events that happen at a specific time with a payload that can allow us to give the event more details.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Event</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Event</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="nb">self</span><span class="p">.</span><span class="nf">primary_key</span> <span class="o">=</span> <span class="kp">nil</span>
   <span class="n">acts_as_hypertable</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Note that Timescale hypertables are all about time-series data, and you generally
 don’t need to have primary keys.</p>
@@ -468,30 +301,12 @@ don’t need to have primary keys.</p>
 
 <p>Let’s start moving the logs to the standard output as ActiveRecord is configured to send the information to a file. The feedback will help check how every step is executed as we test.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">logger</span> <span class="o">=</span> <span class="no">Logger</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">STDOUT</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">logger</span> <span class="o">=</span> <span class="no">Logger</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">STDOUT</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>The next step is to call the <code class="language-plaintext highlighter-rouge">create_table</code> method from ActiveRecord. And here is where the timescaledb gem acts. Then, finally, we can inject the desired behavior with the <code class="language-plaintext highlighter-rouge">hypertable</code> option.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-</pre></td><td class="rouge-code"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
 
   <span class="n">drop_table</span><span class="p">(</span><span class="ss">:events</span><span class="p">)</span> <span class="k">if</span> <span class="no">Event</span><span class="p">.</span><span class="nf">table_exists?</span>
 
@@ -508,41 +323,32 @@ don’t need to have primary keys.</p>
     <span class="n">t</span><span class="p">.</span><span class="nf">timestamps</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>I love using <a href="https://ruby-doc.org/core-3.1.2/BasicObject.html#method-i-instance_exec">instance_exec</a> as it allows me to execute several commands from a different perspective. Instead of having the connection as a variable, I can jump into the scope and declare some code similar to the rails migration files. Easier to move to an actual app later if I’m only prototyping for a while ;)</p>
 
 <p>Now, let’s break down what  we have in the hypertable options:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre>  <span class="n">hypertable_options</span> <span class="o">=</span> <span class="p">{</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">hypertable_options</span> <span class="o">=</span> <span class="p">{</span>
     <span class="ss">time_column: </span><span class="s1">'created_at'</span><span class="p">,</span>
     <span class="ss">chunk_time_interval: </span><span class="s1">'1 day'</span><span class="p">,</span>
     <span class="ss">compress_segmentby: </span><span class="s1">'identifier'</span><span class="p">,</span>
     <span class="ss">compression_interval: </span><span class="s1">'7 days'</span>
   <span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The <code class="language-plaintext highlighter-rouge">time_column</code> option calls the <code class="language-plaintext highlighter-rouge">create_hypertable</code> function in the command line. So, converting to SQL, after creating the table, it will have an extra line like calling the <a href="https://docs.timescale.com/api/latest/hypertable/create_hypertable/">create_hypertable</a> function:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="k">select</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'events'</span><span class="p">,</span> <span class="s1">'created_at'</span> <span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'events'</span><span class="p">,</span> <span class="s1">'created_at'</span> <span class="p">)</span>
+</code></pre></div></div>
 
 <p>The hypertable contains several <a href="https://docs.timescale.com/api/latest/hypertable/create_hypertable/#create-hypertable">optional arguments</a> that can also be used in this migration helper. In our case, we’re overriding only the <code class="language-plaintext highlighter-rouge">chunk_time_interval</code> that the default is <code class="language-plaintext highlighter-rouge">7 days</code>, and we’re going with <code class="language-plaintext highlighter-rouge">1 day</code>.</p>
 
 <p>The following two options are related to the <a href="https://docs.timescale.com/timescaledb/latest/overview/core-concepts/compression/">compression</a> concept. First, it reduces the amount of space used by your data. Some queries also speed up query time because fewer bytes must be read from the disk.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre>    <span class="ss">compress_segmentby: </span><span class="s1">'identifier'</span><span class="p">,</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="ss">compress_segmentby: </span><span class="s1">'identifier'</span><span class="p">,</span>
     <span class="ss">compression_interval: </span><span class="s1">'7 days'</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The <a href="https://docs.timescale.com/timescaledb/latest/overview/core-concepts/compression/architecture/#hybrid-row-columnar-format-for-chunks">segmentby</a> option works like a group by clause for compression. In our case, we have an <code class="language-plaintext highlighter-rouge">identifier</code> that will be used to group types of events.</p>
 
@@ -551,58 +357,41 @@ don’t need to have primary keys.</p>
 <p>Behind the scenes, the timescale gem is just inserting some SQL queries that interface with Timescale functions. For this example, it’s running the
 following queries:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-</pre></td><td class="rouge-code"><pre><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">events</span> <span class="k">SET</span> <span class="p">(</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">events</span> <span class="k">SET</span> <span class="p">(</span>
   <span class="n">timescaledb</span><span class="p">.</span><span class="n">compress</span><span class="p">,</span>
   <span class="n">timescaledb</span><span class="p">.</span><span class="n">compress_segmentby</span> <span class="o">=</span> <span class="s1">'identifier'</span>
 <span class="p">);</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>And the <code class="language-plaintext highlighter-rouge">compression_interval</code> is responsible for establishing a policy on when to compress the data. So in our example, after the data is 7 days old, we can already compress it to save space.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">add_compression_policy</span><span class="p">(</span><span class="s1">'events'</span><span class="p">,</span> <span class="n">INTERVAL</span> <span class="s1">'7 days'</span><span class="p">);</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">add_compression_policy</span><span class="p">(</span><span class="s1">'events'</span><span class="p">,</span> <span class="n">INTERVAL</span> <span class="s1">'7 days'</span><span class="p">);</span>
+</code></pre></div></div>
 
 <h2 id="inserting-some-data">Inserting some data</h2>
 
 <p>Now, let’s insert some random data into the hypertable to see how it works:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="rouge-code"><pre><span class="no">Event</span><span class="p">.</span><span class="nf">insert_all</span> <span class="p">[</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Event</span><span class="p">.</span><span class="nf">insert_all</span> <span class="p">[</span>
   <span class="p">{</span> <span class="ss">identifier: </span><span class="s2">"sign_up"</span><span class="p">,</span> <span class="ss">payload: </span><span class="p">{</span><span class="s2">"name"</span> <span class="o">=&gt;</span> <span class="s2">"Eon"</span><span class="p">}</span> <span class="p">},</span>
   <span class="p">{</span> <span class="ss">identifier: </span><span class="s2">"login"</span><span class="p">,</span> <span class="ss">payload: </span><span class="p">{</span><span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"eon@timescale.com"</span><span class="p">}</span> <span class="p">},</span>
   <span class="p">{</span> <span class="ss">identifier: </span><span class="s2">"click"</span><span class="p">,</span> <span class="ss">payload: </span><span class="p">{</span><span class="s2">"user"</span> <span class="o">=&gt;</span> <span class="s2">"eon"</span><span class="p">,</span> <span class="s2">"path"</span> <span class="o">=&gt;</span> <span class="s2">"/install/timescaledb"</span><span class="p">}</span> <span class="p">},</span>
   <span class="p">{</span> <span class="ss">identifier: </span><span class="s2">"scroll"</span><span class="p">,</span> <span class="ss">payload: </span><span class="p">{</span><span class="s2">"user"</span> <span class="o">=&gt;</span> <span class="s2">"eon"</span><span class="p">,</span> <span class="s2">"path"</span> <span class="o">=&gt;</span> <span class="s2">"/install/timescaledb"</span><span class="p">}</span> <span class="p">},</span>
   <span class="p">{</span> <span class="ss">identifier: </span><span class="s2">"logout"</span><span class="p">,</span> <span class="ss">payload: </span><span class="p">{</span><span class="s2">"email"</span> <span class="o">=&gt;</span> <span class="s2">"eon@timescale.com"</span><span class="p">}</span> <span class="p">}</span>
 <span class="p">]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>As we’re using the <code class="language-plaintext highlighter-rouge">created_at</code> column as the time column, we don’t need to
 specify it because ActiveRecord will automatically set it.</p>
 
 <p>If you want to assign it, you’ll need to override this method to allow it to pass in the payload:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Event</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Event</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">timestamp_attributes_for_create_in_model</span>
     <span class="p">[]</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Also, note that I’m using <a href="https://apidock.com/rails/v6.0.0/ActiveRecord/Persistence/ClassMethods/insert_all">insert_all</a> because it’s faster than trying to go record by record.</p>
 
@@ -610,15 +399,7 @@ specify it because ActiveRecord will automatically set it.</p>
 
 <p>Now, let’s use the faker gem to create some massive fake data for the events table:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="c1"># all_in_one.rb file</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># all_in_one.rb file</span>
 <span class="nb">require</span> <span class="s1">'bundler/inline
 
 gemfile(true) do
@@ -626,27 +407,11 @@ gemfile(true) do
   gem '</span><span class="n">faker</span><span class="s1">'
   gem '</span><span class="n">pry</span><span class="err">'</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Let’s create a method to generate a random payload using different emails and names.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">generate_fake_data</span><span class="p">(</span><span class="ss">total: </span><span class="mi">100_000</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">generate_fake_data</span><span class="p">(</span><span class="ss">total: </span><span class="mi">100_000</span><span class="p">)</span>
   <span class="n">time</span> <span class="o">=</span> <span class="mi">1</span><span class="p">.</span><span class="nf">month</span><span class="p">.</span><span class="nf">ago</span>
   <span class="n">total</span><span class="p">.</span><span class="nf">times</span><span class="p">.</span><span class="nf">flat_map</span> <span class="k">do</span>
     <span class="n">identifier</span> <span class="o">=</span> <span class="sx">%w[sign_up login click scroll logout view]</span>
@@ -662,15 +427,13 @@ gemfile(true) do
     <span class="p">}</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The fake data generator will start creating records from 1 year ago, and the period between the records is from 1 to 60 seconds. Now, inserting a few thousand records will be easy:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="n">batch</span> <span class="o">=</span> <span class="n">generate_fake_data</span> <span class="ss">total: </span><span class="mi">10_000</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">batch</span> <span class="o">=</span> <span class="n">generate_fake_data</span> <span class="ss">total: </span><span class="mi">10_000</span>
 <span class="no">Event</span><span class="p">.</span><span class="nf">insert_all</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="ss">returning: </span><span class="kp">false</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Now, it’s time to query the data and learn how to use the helpers that are
 available for querying data.</p>
@@ -683,9 +446,8 @@ available for querying data.</p>
 
 <p>Counting events from the previous month:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="no">Event</span><span class="p">.</span><span class="nf">previous_month</span><span class="p">.</span><span class="nf">count</span> <span class="c1"># =&gt; 10000</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Event</span><span class="p">.</span><span class="nf">previous_month</span><span class="p">.</span><span class="nf">count</span> <span class="c1"># =&gt; 10000</span>
+</code></pre></div></div>
 
 <p>Similar scopes filtering by time can be:</p>
 
@@ -699,43 +461,20 @@ available for querying data.</p>
 <p>As the scopes are smart, you can combine them with more complex queries.
 For example, let’s count records from the previous month grouped by identifier:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-</pre></td><td class="rouge-code"><pre><span class="no">Event</span><span class="p">.</span><span class="nf">previous_month</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="s1">'identifier'</span><span class="p">).</span><span class="nf">count</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Event</span><span class="p">.</span><span class="nf">previous_month</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="s1">'identifier'</span><span class="p">).</span><span class="nf">count</span>
  <span class="p">{</span><span class="s2">"click"</span><span class="o">=&gt;</span><span class="mi">1665</span><span class="p">,</span>
  <span class="s2">"login"</span><span class="o">=&gt;</span><span class="mi">1681</span><span class="p">,</span>
  <span class="s2">"logout"</span><span class="o">=&gt;</span><span class="mi">1662</span><span class="p">,</span>
  <span class="s2">"scroll"</span><span class="o">=&gt;</span><span class="mi">1606</span><span class="p">,</span>
  <span class="s2">"sign_up"</span><span class="o">=&gt;</span><span class="mi">1684</span><span class="p">,</span>
  <span class="s2">"view"</span><span class="o">=&gt;</span><span class="mi">1702</span><span class="p">}</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="using-the-timescale-time_bucket-function">Using the Timescale <code class="language-plaintext highlighter-rouge">time_bucket</code> function</h3>
 
 <p>You can combine it with the <a href="https://docs.timescale.com/api/latest/hyperfunctions/time_bucket/">time_bucket</a> function. For now, I couldn’t find an exciting way to build a DSL for the time bucket, but you can make it with SQL through the query.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-</pre></td><td class="rouge-code"><pre><span class="no">Event</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Event</span>
   <span class="p">.</span><span class="nf">previous_month</span>
   <span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="s2">"time_bucket('1 day', created_at) as time, identifier, count(*)"</span><span class="p">)</span>
   <span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="s2">"1,2"</span><span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:attributes</span><span class="p">)</span>
@@ -751,7 +490,7 @@ For example, let’s count records from the previous month grouped by identifier
  <span class="p">{</span><span class="s2">"time"</span><span class="o">=&gt;</span><span class="mi">2022</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mo">07</span> <span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span> <span class="no">UTC</span><span class="p">,</span> <span class="s2">"identifier"</span><span class="o">=&gt;</span><span class="s2">"scroll"</span><span class="p">,</span> <span class="s2">"count"</span><span class="o">=&gt;</span><span class="mi">451</span><span class="p">},</span>
  <span class="c1"># ... more records here</span>
 <span class="p">]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>If you’re interested in materializing the time_bucket grouped results to faster access to the processed data, take a look in the <a href="/timescale-continuous-aggregates-with-ruby">Creating continous aggregates with Ruby and Timescale</a> post.</p>
 
@@ -761,19 +500,7 @@ For example, let’s count records from the previous month grouped by identifier
 
 <p>The <code class="language-plaintext highlighter-rouge">hypertable</code> method is available directly from the model and can give you the details in the <code class="language-plaintext highlighter-rouge">timescaledb_information.hypertables</code> view.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-</pre></td><td class="rouge-code"><pre><span class="no">Event</span><span class="p">.</span><span class="nf">hypertable</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Event</span><span class="p">.</span><span class="nf">hypertable</span>
 <span class="c1"># =&gt; #&lt;Timescaledb::Hypertable:0x00007fefc7b0ea78</span>
  <span class="ss">hypertable_schema: </span><span class="s2">"public"</span><span class="p">,</span>
  <span class="ss">hypertable_name: </span><span class="s2">"events"</span><span class="p">,</span>
@@ -785,65 +512,41 @@ For example, let’s count records from the previous month grouped by identifier
  <span class="ss">replication_factor: </span><span class="kp">nil</span><span class="p">,</span>
  <span class="ss">data_nodes: </span><span class="kp">nil</span><span class="p">,</span>
  <span class="ss">tablespaces: </span><span class="kp">nil</span><span class="o">&gt;</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Behind the scenes, it’s executing the following query:</p>
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="o">*</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span>
 <span class="k">FROM</span> <span class="nv">"timescaledb_information"</span><span class="p">.</span><span class="nv">"hypertables"</span>
 <span class="k">WHERE</span> <span class="nv">"hypertable_name"</span> <span class="o">=</span> <span class="s1">'events'</span><span class="p">;</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Remember that a model named <code class="language-plaintext highlighter-rouge">Timescaledb::Hypertable</code> is available, and you can build the same query directly in this model.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="no">Timescaledb</span><span class="o">::</span><span class="no">Hypertable</span><span class="p">.</span><span class="nf">find_by</span> <span class="ss">hypertable_name: </span><span class="no">Event</span><span class="p">.</span><span class="nf">table_name</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Timescaledb</span><span class="o">::</span><span class="no">Hypertable</span><span class="p">.</span><span class="nf">find_by</span> <span class="ss">hypertable_name: </span><span class="no">Event</span><span class="p">.</span><span class="nf">table_name</span>
+</code></pre></div></div>
 
 <p>The same can be done for chunks. So, a hypertable has many chunks, and you can query them in an ActiveRecord relation style.</p>
 
 <p>For example, the statement:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="no">Event</span><span class="p">.</span><span class="nf">hypertable</span><span class="p">.</span><span class="nf">chunks</span><span class="p">.</span><span class="nf">count</span> <span class="c1"># =&gt; 5</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Event</span><span class="p">.</span><span class="nf">hypertable</span><span class="p">.</span><span class="nf">chunks</span><span class="p">.</span><span class="nf">count</span> <span class="c1"># =&gt; 5</span>
+</code></pre></div></div>
 
 <p>Will execute the following query:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
 <span class="k">FROM</span> <span class="nv">"timescaledb_information"</span><span class="p">.</span><span class="nv">"chunks"</span>
 <span class="k">WHERE</span> <span class="nv">"hypertable_name"</span> <span class="o">=</span>  <span class="s1">'events'</span><span class="p">;</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>As the previous example, a model <code class="language-plaintext highlighter-rouge">Timescaledb::Chunk</code> is also available, and you can build the query directly on that too:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="no">Timescaledb</span><span class="o">::</span><span class="no">Chunk</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">hypertable_name: </span><span class="no">Event</span><span class="p">.</span><span class="nf">table_name</span><span class="p">).</span><span class="nf">count</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Timescaledb</span><span class="o">::</span><span class="no">Chunk</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">hypertable_name: </span><span class="no">Event</span><span class="p">.</span><span class="nf">table_name</span><span class="p">).</span><span class="nf">count</span>
+</code></pre></div></div>
 
 <p>Let’s dive into some chunk objects:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-</pre></td><td class="rouge-code"><pre><span class="n">chunk</span> <span class="o">=</span> <span class="no">Event</span><span class="p">.</span><span class="nf">hypertable</span><span class="p">.</span><span class="nf">chunks</span><span class="p">.</span><span class="nf">first</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">chunk</span> <span class="o">=</span> <span class="no">Event</span><span class="p">.</span><span class="nf">hypertable</span><span class="p">.</span><span class="nf">chunks</span><span class="p">.</span><span class="nf">first</span>
 <span class="c1"># =&gt; #&lt;Timescaledb::Chunk:0x00007fefc77096d0</span>
  <span class="ss">hypertable_schema: </span><span class="s2">"public"</span><span class="p">,</span>
  <span class="ss">hypertable_name: </span><span class="s2">"events"</span><span class="p">,</span>
@@ -858,54 +561,36 @@ For example, let’s count records from the previous month grouped by identifier
  <span class="ss">is_compressed: </span><span class="kp">false</span><span class="p">,</span>
  <span class="ss">chunk_tablespace: </span><span class="kp">nil</span><span class="p">,</span>
  <span class="ss">data_nodes: </span><span class="kp">nil</span><span class="o">&gt;</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="the-timescaledb-compression">The TimescaleDB Compression</h3>
 
 <p>Chunk objects can also be compressed or decompressed. So, reusing the
 last variable:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="n">chunk</span><span class="p">.</span><span class="nf">compress!</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">chunk</span><span class="p">.</span><span class="nf">compress!</span>
+</code></pre></div></div>
 
 <p>That will basically execute the following query:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">compress_chunk</span><span class="p">((</span><span class="s1">'_timescaledb_internal._hyper_1415_11429_chunk'</span><span class="p">)::</span><span class="n">regclass</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">compress_chunk</span><span class="p">((</span><span class="s1">'_timescaledb_internal._hyper_1415_11429_chunk'</span><span class="p">)::</span><span class="n">regclass</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>You can also check details about the detailed size of the hypertable. After
 compressing, you can see how much space you’re saving.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="n">size</span> <span class="o">=</span> <span class="no">Event</span><span class="p">.</span><span class="nf">hypertable</span><span class="p">.</span><span class="nf">detailed_size</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">size</span> <span class="o">=</span> <span class="no">Event</span><span class="p">.</span><span class="nf">hypertable</span><span class="p">.</span><span class="nf">detailed_size</span>
 <span class="c1">#&lt;2, total_bytes=1933312, node_name=nil&gt;`sql</span>
  <span class="no">SELECT</span> <span class="o">*</span> <span class="n">from</span> <span class="n">hypertable_compression_stats</span><span class="p">(</span><span class="s1">'events'</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>As you can see in the previous data, the compression was ineffective. So now, let’s compress all uncompressed chunks, as this was probably the chunk with fewer data.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="no">Event</span><span class="p">.</span><span class="nf">hypertable</span><span class="p">.</span><span class="nf">chunks</span><span class="p">.</span><span class="nf">uncompressed</span><span class="p">.</span><span class="nf">each</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:compress!</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Event</span><span class="p">.</span><span class="nf">hypertable</span><span class="p">.</span><span class="nf">chunks</span><span class="p">.</span><span class="nf">uncompressed</span><span class="p">.</span><span class="nf">each</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:compress!</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>Now, rechecking the status:</p>
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-</pre></td><td class="rouge-code"><pre><span class="n">stats</span> <span class="o">=</span> <span class="no">Event</span><span class="p">.</span><span class="nf">hypertable</span><span class="p">.</span><span class="nf">compression_stats</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">stats</span> <span class="o">=</span> <span class="no">Event</span><span class="p">.</span><span class="nf">hypertable</span><span class="p">.</span><span class="nf">compression_stats</span>
 <span class="c1"># =&gt; #&lt;OpenStruct total_chunks=5</span>
 <span class="c1">#  number_compressed_chunks=5</span>
 <span class="c1">#  before_compression_table_bytes=1400832</span>
@@ -917,16 +602,14 @@ compressing, you can see how much space you’re saving.</p>
 <span class="c1">#  after_compression_toast_bytes=688128</span>
 <span class="c1">#  after_compression_total_bytes=811008</span>
 <span class="c1">#  node_name=nil&gt;</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Now, let’s do some math to calculate the compression ratio and understand how
 much space we’re saving in the table:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="mi">100</span> <span class="o">-</span> <span class="p">(</span><span class="n">stats</span><span class="p">.</span><span class="nf">after_compression_table_bytes</span> <span class="o">/</span> <span class="n">stats</span><span class="p">.</span><span class="nf">before_compression_table_bytes</span><span class="p">.</span><span class="nf">to_f</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">100</span> <span class="o">-</span> <span class="p">(</span><span class="n">stats</span><span class="p">.</span><span class="nf">after_compression_table_bytes</span> <span class="o">/</span> <span class="n">stats</span><span class="p">.</span><span class="nf">before_compression_table_bytes</span><span class="p">.</span><span class="nf">to_f</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
 <span class="o">=&gt;</span> <span class="mf">97.07602339181287</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Not bad! 97% of the space was saved 🚀</p>
 
@@ -1041,20 +724,6 @@ much space we’re saving in the table:</p>
               
               
                 
-                  
-                  
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
               
                 
               
@@ -1305,6 +974,23 @@ much space we’re saving in the table:</p>
           
           
           
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
             
         
         
@@ -1313,353 +999,6 @@ much space we’re saving in the table:</p>
         
           
             
-            
-              
-                <div class="col-md-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <a href="/benchmarking-ruby-orms">Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</a>
-                      </h5>
-                      <p class="card-text text-muted">
-                        <small>
-                          <i class="bi bi-calendar3"></i> March 18, 2025
-                        </small>
-                      </p>
-                      
-                    </div>
-                  </div>
-                </div>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-          
-          
-        
-          
-            
-            
-              
             
               
             
@@ -2098,6 +1437,8 @@ much space we’re saving in the table:</p>
 
 <link rel="stylesheet" href="/css/enhanced.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="/css/disable-line-numbers.css">
+<script src="/js/disable-line-numbers.js"></script>
 
 
     </div>
@@ -2425,6 +1766,56 @@ much space we’re saving in the table:</p>
     
     <!-- Dedicated Disqus dark mode handler -->
     <script src="/js/disqus-dark.js"></script>
+
+    <!-- Dark Mode Script -->
+    <script>
+      function detectColorScheme() {
+        // Check saved preference first
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        
+        // Apply theme based on saved preference or system preference
+        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
+          document.body.classList.add('dark-mode');
+          document.documentElement.classList.add('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = true;
+          console.log('Dark mode applied on initial load');
+        } else {
+          document.body.classList.remove('dark-mode');
+          document.documentElement.classList.remove('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = false;
+          console.log('Light mode applied on initial load');
+        }
+        
+        // Listen for changes in the OS color scheme only if no saved preference
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+          // Only apply system preference if user hasn't manually chosen a theme
+          if (localStorage.getItem('theme') === null) {
+            const newColorScheme = e.matches ? 'dark' : 'light';
+            if (newColorScheme === 'dark') {
+              document.body.classList.add('dark-mode');
+              document.documentElement.classList.add('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = true;
+              console.log('Dark mode applied from system preference change');
+            } else {
+              document.body.classList.remove('dark-mode');
+              document.documentElement.classList.remove('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = false;
+              console.log('Light mode applied from system preference change');
+            }
+          }
+        });
+      }
+
+      // Initialize dark mode immediately before DOM content is fully loaded
+      detectColorScheme();
+      
+      // Initialize when DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        detectColorScheme();
+      });
+    </script>
   </body>
 </html>
 

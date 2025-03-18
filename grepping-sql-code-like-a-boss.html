@@ -94,175 +94,21 @@ crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Poppins:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+    <!-- GitHub-style syntax highlighting -->
+    <link href="/css/rouge-github.css" rel="stylesheet">
     <link href="/css/nimbus-pygments.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
-    <link href="/css/code-highlighting.css" rel="stylesheet">
     <link href="/css/disqus-dark.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
-    <!-- Style overrides for Prism -->
-    <style>
-      /* Override Prism default styles to fix text shadow issues */
-      code[class*="language-"],
-      pre[class*="language-"],
-      pre code,
-      .token {
-        text-shadow: none !important;
-        -webkit-text-shadow: none !important;
-        border: none !important;
-        background: none;
-      }
-      
-      /* Ensure proper background only on container elements */
-      pre[class*="language-"] {
-        background: var(--prism-background);
-      }
-      
-      .dark-mode pre[class*="language-"] {
-        background: var(--prism-background);
-      }
-    </style>
 
     <!-- Modern JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-ruby.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-sql.min.js"></script>
+    
+    <!-- GitHub-style code block enhancement -->
+    <script src="/js/github-code-blocks.js"></script>
+    
     <div id="fb-root"></div>
-
-    <!-- Dark Mode Script -->
-    <script>
-      function detectColorScheme() {
-        // Check saved preference first
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        
-        // Apply theme based on saved preference or system preference
-        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
-          document.body.classList.add('dark-mode');
-          document.documentElement.classList.add('dark-mode');
-          if (darkModeToggle) darkModeToggle.checked = true;
-          console.log('Dark mode applied on initial load');
-        } else {
-          document.body.classList.remove('dark-mode');
-          document.documentElement.classList.remove('dark-mode');
-          if (darkModeToggle) darkModeToggle.checked = false;
-          console.log('Light mode applied on initial load');
-        }
-        
-        // Listen for changes in the OS color scheme only if no saved preference
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-          // Only apply system preference if user hasn't manually chosen a theme
-          if (localStorage.getItem('theme') === null) {
-            const newColorScheme = e.matches ? 'dark' : 'light';
-            if (newColorScheme === 'dark') {
-              document.body.classList.add('dark-mode');
-              document.documentElement.classList.add('dark-mode');
-              if (darkModeToggle) darkModeToggle.checked = true;
-              console.log('Dark mode applied from system preference change');
-            } else {
-              document.body.classList.remove('dark-mode');
-              document.documentElement.classList.remove('dark-mode');
-              if (darkModeToggle) darkModeToggle.checked = false;
-              console.log('Light mode applied from system preference change');
-            }
-          }
-        });
-      }
-
-      // Initialize dark mode immediately before DOM content is fully loaded
-      detectColorScheme();
-
-      // Add code block enhancements
-      function enhanceCodeBlocks() {
-        document.querySelectorAll('pre code').forEach((codeBlock, index) => {
-          // Get the parent pre element
-          const preElement = codeBlock.parentElement;
-          if (!preElement.classList.contains('enhanced')) {
-            preElement.classList.add('enhanced');
-            
-            // Create a wrapper div with the highlight class
-            const highlightDiv = document.createElement('div');
-            highlightDiv.className = 'highlight';
-            
-            // Insert the wrapper before the pre element
-            preElement.parentNode.insertBefore(highlightDiv, preElement);
-            
-            // Move the pre element inside the wrapper
-            highlightDiv.appendChild(preElement);
-            
-            // Get language class from code element
-            let language = '';
-            codeBlock.classList.forEach(className => {
-              if (className.startsWith('language-')) {
-                language = className.substring(9);
-              }
-            });
-            
-            // Auto-detect language if none is specified
-            if (!language) {
-              // Check for Ruby
-              if (codeBlock.textContent.includes('require') || 
-                  codeBlock.textContent.includes('def ') ||
-                  codeBlock.textContent.includes('class ') ||
-                  codeBlock.textContent.includes('module ') ||
-                  codeBlock.textContent.match(/\w+\s*=\s*\w+/g)) {
-                language = 'ruby';
-                codeBlock.classList.add('language-ruby');
-              }
-              // Check for SQL
-              else if (codeBlock.textContent.includes('SELECT') || 
-                       codeBlock.textContent.includes('FROM') ||
-                       codeBlock.textContent.includes('WHERE') ||
-                       codeBlock.textContent.includes('CREATE TABLE')) {
-                language = 'sql';
-                codeBlock.classList.add('language-sql');
-              }
-            }
-            
-            // If language is found, add it as a data attribute
-            if (language) {
-              highlightDiv.setAttribute('data-language', language);
-            }
-            
-            // Create copy button
-            const copyButton = document.createElement('button');
-            copyButton.className = 'copy-button';
-            copyButton.textContent = 'Copy';
-            copyButton.setAttribute('aria-label', 'Copy code to clipboard');
-            copyButton.onclick = function() {
-              navigator.clipboard.writeText(codeBlock.textContent)
-                .then(() => {
-                  copyButton.textContent = 'Copied!';
-                  copyButton.classList.add('copied');
-                  setTimeout(() => {
-                    copyButton.textContent = 'Copy';
-                    copyButton.classList.remove('copied');
-                  }, 2000);
-                })
-                .catch(err => {
-                  console.error('Could not copy text: ', err);
-                });
-            };
-            
-            // Add copy button to the highlight div
-            highlightDiv.appendChild(copyButton);
-          }
-        });
-      }
-      
-      // Initialize when DOM is loaded
-      document.addEventListener('DOMContentLoaded', function() {
-        detectColorScheme();
-        enhanceCodeBlocks();
-      });
-    </script>
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -357,7 +203,7 @@ crossorigin="anonymous"></script>
   
   
     <span class="reading-time" title="Estimated read time">
-      <i class="bi bi-clock"></i> 23 min read
+      <i class="bi bi-clock"></i> 21 min read
     </span>
   
  
@@ -416,20 +262,16 @@ examples from unix like <code class="language-plaintext highlighter-rouge">cat h
 <p>Markdown is a great example of simplification. Look how easy it to navigate into
 count the topics of talk in the terminal:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">grep</span> <span class="s1">'^# '</span> talk-sql.md | <span class="nb">wc</span> <span class="nt">-l</span> <span class="c"># =&gt; 60</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'^# '</span> talk-sql.md | <span class="nb">wc</span> <span class="nt">-l</span> <span class="c"># =&gt; 60</span>
+</code></pre></div></div>
 
 <p>Now, going deep in regular expressions we can also count the examples of Ruby, SQL
 and so on…</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="nb">grep</span> <span class="s1">'```ruby'</span> talk-sql.md | <span class="nb">wc</span> <span class="nt">-l</span> <span class="c"># =&gt; 29</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">grep</span> <span class="s1">'```ruby'</span> talk-sql.md | <span class="nb">wc</span> <span class="nt">-l</span> <span class="c"># =&gt; 29</span>
 <span class="nb">grep</span> <span class="s1">'```sql'</span> talk-sql.md | <span class="nb">wc</span> <span class="nt">-l</span> <span class="c"># =&gt; 5</span>
 <span class="nb">grep</span> <span class="s1">'```bash'</span> talk-sql.md | <span class="nb">wc</span> <span class="nt">-l</span> <span class="c"># =&gt; 9</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Now, let me share a past project that encouraged me to follow and continue
 investing on this idea.</p>
@@ -547,9 +389,8 @@ scratching my own itch.</p>
 They are widely used in text editors, programming languages, and other tools.</p>
 </blockquote>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="s2">"1 + 2"</span><span class="p">.</span><span class="nf">scan</span><span class="p">(</span><span class="sr">/\d+/</span><span class="p">)</span> <span class="c1"># =&gt; ["1", "2"]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s2">"1 + 2"</span><span class="p">.</span><span class="nf">scan</span><span class="p">(</span><span class="sr">/\d+/</span><span class="p">)</span> <span class="c1"># =&gt; ["1", "2"]</span>
+</code></pre></div></div>
 
 <h2 id="regex-operators">Regex operators</h2>
 
@@ -592,11 +433,9 @@ Regular Expression language that can match elements directly from the AST.</p>
 more powerful and flexible way to search and manipulate code. In this example,
 I’m using the <code class="language-plaintext highlighter-rouge">ffast</code> gem which uses <code class="language-plaintext highlighter-rouge">ruby-parser</code> to parse the Ruby code.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1"</span><span class="p">).</span><span class="nf">type</span> <span class="c1"># =&gt; :int</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1"</span><span class="p">).</span><span class="nf">type</span> <span class="c1"># =&gt; :int</span>
 <span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1"</span><span class="p">).</span><span class="nf">children</span> <span class="c1"># =&gt; [1]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Every node in the AST has a type and children. The type is a symbol and the children.</p>
 
@@ -605,15 +444,13 @@ I’m using the <code class="language-plaintext highlighter-rouge">ffast</code> 
 <p>There’s an interesting way to represent the AST in Ruby. It’s called S-Expression
 AKA string expression. It’s a simple way to represent the AST in a human-readable format.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1"</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1"</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>Output:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="o">(</span>int 1<span class="o">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span>int 1<span class="o">)</span>
+</code></pre></div></div>
 
 <p>The S-Expression is the base inpiration for the node pattern we’re going to use
 to search and refactor the code.</p>
@@ -622,48 +459,39 @@ to search and refactor the code.</p>
 
 <h3 id="ast-of-summing-two-numbers-in-ruby">AST of summing two numbers in Ruby</h3>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1 + 2"</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1 + 2"</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>Outputs the String Expression aka sexp in Ruby:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="o">(</span>send
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span>send
   <span class="o">(</span>int 1<span class="o">)</span> :+
   <span class="o">(</span>int 2<span class="o">))</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="search-in-the-ast">Search in the AST</h2>
 
 <p>The Abstract part of the Syntax Tree unifies the code syntax. It’s a common way
 to represent the code in a structured format.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1 + 2.0"</span><span class="p">).</span><span class="nf">search</span><span class="p">(</span><span class="s2">"int"</span><span class="p">)</span>        <span class="c1"># =&gt; [s(:int, 1)]</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1 + 2.0"</span><span class="p">).</span><span class="nf">search</span><span class="p">(</span><span class="s2">"int"</span><span class="p">)</span>        <span class="c1"># =&gt; [s(:int, 1)]</span>
 <span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1 + 2.0"</span><span class="p">).</span><span class="nf">search</span><span class="p">(</span><span class="s2">"(float _)"</span><span class="p">)</span>  <span class="c1"># =&gt; [s(:float, 2.0)]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Similar to the sexp output, oyou can build nested search for children using <code class="language-plaintext highlighter-rouge">()</code>
 or combine with other operators.</p>
 
 <p>Example of search combining <strong>or</strong> expressions with the <code class="language-plaintext highlighter-rouge">{}</code> operator.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1 + 2.0"</span><span class="p">).</span><span class="nf">search</span><span class="p">(</span><span class="s2">"{int float}"</span><span class="p">)</span>  <span class="c1"># =&gt; [s(:int, 1), s(:float, 2.0)]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1 + 2.0"</span><span class="p">).</span><span class="nf">search</span><span class="p">(</span><span class="s2">"{int float}"</span><span class="p">)</span>  <span class="c1"># =&gt; [s(:int, 1), s(:float, 2.0)]</span>
+</code></pre></div></div>
 <h2 id="combining-node-patterns">Combining node patterns</h2>
 
 <p>Example matches integer or float, both should be positive values.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1 + 2.0"</span><span class="p">).</span><span class="nf">search</span><span class="p">(</span><span class="s2">"({int float} .positive?)"</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">ast</span><span class="p">(</span><span class="s2">"1 + 2.0"</span><span class="p">).</span><span class="nf">search</span><span class="p">(</span><span class="s2">"({int float} .positive?)"</span><span class="p">)</span>
 <span class="c1"># =&gt; [s(:int, 1), s(:float, 2.0)]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <blockquote>
   <p>Note that <code class="language-plaintext highlighter-rouge">.positive?</code> comes from the attempt to verify the method from the AST values.</p>
@@ -694,15 +522,7 @@ _ ‘#method’ to call a <code class="language-plaintext highlighter-rouge">met
 <p>Fast now can also <a href="https://jonatas.github.io/fast/sql-support/">parse SQL</a>
 from PostgreSQL. The AST conversion is very similar to what you have in the Ruby AST.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="no">Fast</span><span class="p">.</span><span class="nf">parse_sql</span><span class="p">(</span><span class="s1">'select 1'</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">parse_sql</span><span class="p">(</span><span class="s1">'select 1'</span><span class="p">)</span>
 <span class="n">s</span><span class="p">(</span><span class="ss">:select_stmt</span><span class="p">,</span>
   <span class="n">s</span><span class="p">(</span><span class="ss">:target_list</span><span class="p">,</span>
     <span class="n">s</span><span class="p">(</span><span class="ss">:res_target</span><span class="p">,</span>
@@ -710,7 +530,7 @@ from PostgreSQL. The AST conversion is very similar to what you have in the Ruby
         <span class="n">s</span><span class="p">(</span><span class="ss">:a_const</span><span class="p">,</span>
           <span class="n">s</span><span class="p">(</span><span class="ss">:ival</span><span class="p">,</span>
             <span class="n">s</span><span class="p">(</span><span class="ss">:ival</span><span class="p">,</span> <span class="mi">1</span><span class="p">)))))))</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>And the SQL parser is just forwarding the pg_query AST to converge into a format
 that Fast is already familiar with.</p>
@@ -721,22 +541,7 @@ refactoring methods.</p>
 
 <p>Here’s the full implementation of the parsing:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-</pre></td><td class="rouge-code"><pre><span class="c1"># lib/fast/sql.rb:110</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># lib/fast/sql.rb:110</span>
     <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">statement</span><span class="p">,</span> <span class="ss">buffer_name: </span><span class="s2">"(sql)"</span><span class="p">)</span>
       <span class="k">return</span> <span class="p">[]</span> <span class="k">if</span> <span class="n">statement</span><span class="p">.</span><span class="nf">nil?</span>
       <span class="n">source_buffer</span> <span class="o">=</span> <span class="no">SQL</span><span class="o">::</span><span class="no">SourceBuffer</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">buffer_name</span><span class="p">,</span> <span class="ss">source: </span><span class="n">statement</span><span class="p">)</span>
@@ -751,7 +556,7 @@ refactoring methods.</p>
       <span class="k">end</span><span class="p">.</span><span class="nf">flatten</span>
       <span class="n">stmts</span><span class="p">.</span><span class="nf">one?</span> <span class="p">?</span> <span class="n">stmts</span><span class="p">.</span><span class="nf">first</span> <span class="p">:</span> <span class="n">stmts</span>
     <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The hard work I had was more on going in the most common queries and create a
 good <code class="language-plaintext highlighter-rouge">clean_structure</code> for it to allow us to have a very easy to comprehend AST
@@ -767,9 +572,8 @@ projects with my generic searches.</p>
 <p>The previous Ruby snippet was brought to the example based on the following
 shortcut:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="no">Fast</span><span class="p">.</span><span class="nf">shortcut</span> <span class="ss">:sql_parser</span><span class="p">,</span> <span class="s2">"(def parse)"</span><span class="p">,</span> <span class="s2">"lib/fast/sql.rb"</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">shortcut</span> <span class="ss">:sql_parser</span><span class="p">,</span> <span class="s2">"(def parse)"</span><span class="p">,</span> <span class="s2">"lib/fast/sql.rb"</span>
+</code></pre></div></div>
 <p>So, if I want to repeat such search, I just need to say <code class="language-plaintext highlighter-rouge">fast .sql_parser</code> and
 it will reuse the shortcut name to output the matching results.</p>
 
@@ -780,15 +584,11 @@ from the AST just with a simple method call.</p>
 
 <p>Here’s an example of a simple replace on a <code class="language-plaintext highlighter-rouge">relname</code> which is a node type.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-</pre></td><td class="rouge-code"><pre><span class="no">Fast</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span>
   <span class="p">.</span><span class="nf">parse_sql</span><span class="p">(</span><span class="s2">"SELECT * FROM customers"</span><span class="p">)</span>
   <span class="p">.</span><span class="nf">replace</span><span class="p">(</span><span class="s2">"relname"</span><span class="p">,</span> <span class="s2">"other_table"</span><span class="p">)</span>
   <span class="c1"># =&gt; "SELECT * FROM other_table"</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The replace method can also receive a block and build a much more complex
 scenario. The next example explores how to build a SQL formatter.</p>
@@ -798,28 +598,7 @@ scenario. The next example explores how to build a SQL formatter.</p>
 <p>I wrote a full blog post on <a href="/building-a-sql-formatter-with-fast">building a SQL formatter with fast</a>
 and the final shorcut looks like this:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-</pre></td><td class="rouge-code"><pre><span class="no">Fast</span><span class="p">.</span><span class="nf">shortcut</span> <span class="ss">:format_sql</span> <span class="k">do</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">shortcut</span> <span class="ss">:format_sql</span> <span class="k">do</span>
   <span class="nb">require</span> <span class="s1">'fast/sql'</span>
   <span class="n">file</span> <span class="o">=</span> <span class="no">ARGV</span><span class="p">.</span><span class="nf">last</span>
   <span class="nb">method</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">exist?</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="p">?</span> <span class="ss">:parse_sql_file</span> <span class="p">:</span> <span class="ss">:parse_sql</span>
@@ -840,7 +619,7 @@ and the final shorcut looks like this:</p>
   <span class="nb">require</span> <span class="s1">'fast/cli'</span>
   <span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">highlight</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="ss">sql: </span><span class="kp">true</span><span class="p">)</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="anonymize-sql">Anonymize SQL</h2>
 
@@ -848,25 +627,7 @@ and the final shorcut looks like this:</p>
 
 <p>Here’s a simple anonymizer that transform table names and references.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-</pre></td><td class="rouge-code"><pre><span class="no">Fast</span><span class="p">.</span><span class="nf">shortcut</span> <span class="ss">:anonymize_sql</span> <span class="k">do</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">shortcut</span> <span class="ss">:anonymize_sql</span> <span class="k">do</span>
   <span class="nb">require</span> <span class="s1">'fast/sql'</span>
   <span class="n">file</span> <span class="o">=</span> <span class="no">ARGV</span><span class="p">.</span><span class="nf">last</span>
   <span class="nb">method</span> <span class="o">=</span> <span class="no">File</span><span class="p">.</span><span class="nf">exist?</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="p">?</span> <span class="ss">:parse_sql_file</span> <span class="p">:</span> <span class="ss">:parse_sql</span>
@@ -884,7 +645,7 @@ and the final shorcut looks like this:</p>
   <span class="k">end</span>
   <span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">highlight</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="ss">sql: </span><span class="kp">true</span><span class="p">)</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="my-latest-experiments-with-sql-ast">My latest experiments with SQL AST</h2>
 
@@ -898,15 +659,7 @@ and recognize framework standards and feature adoption.</p>
 massive, so I’m going to use the <code class="language-plaintext highlighter-rouge">hypertables</code> to automatically partition the
 table by month.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">temperatures</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">temperatures</span>
 <span class="p">(</span> <span class="nb">time</span> <span class="nb">TIMESTAMP</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
   <span class="k">location</span> <span class="nb">varchar</span><span class="p">,</span>
   <span class="n">value</span> <span class="nb">decimal</span><span class="p">);</span>
@@ -914,7 +667,7 @@ table by month.</p>
 <span class="c1">-- automatic partitioning by month</span>
 <span class="k">SELECT</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'temperatures'</span><span class="p">,</span>
   <span class="n">by_range</span><span class="p">(</span><span class="s1">'time'</span><span class="p">,</span> <span class="n">INTERVAL</span> <span class="s1">'1 month'</span><span class="p">));</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The <a href="https://docs.timescale.com/api/latest/hypertable/create_hypertable/">create_hypertable</a>
 function will allow you to insert on the <code class="language-plaintext highlighter-rouge">temperatures</code> but behind the scenes
@@ -925,36 +678,25 @@ it’s splitting and saving the data into a monthly chunk.</p>
 <p>The focus here is not on splitting the data either inserting, but I’m going to
 put some examples to make the full scenario understanding:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">temperatures</span> <span class="p">(</span> <span class="k">location</span><span class="p">,</span> <span class="nb">time</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">temperatures</span> <span class="p">(</span> <span class="k">location</span><span class="p">,</span> <span class="nb">time</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 <span class="k">VALUES</span>
 <span class="p">(</span> <span class="s1">'kitchen'</span><span class="p">,</span>   <span class="s1">'2000-01-01 12:20:00'</span><span class="p">,</span> <span class="mi">22</span><span class="p">.</span><span class="mi">2</span><span class="p">),</span>
 <span class="p">(</span> <span class="s1">'kitchen'</span><span class="p">,</span>   <span class="s1">'2000-01-01 12:32:00'</span><span class="p">,</span> <span class="mi">22</span><span class="p">.</span><span class="mi">8</span><span class="p">),</span>
 <span class="p">(</span> <span class="s1">'bedroom'</span><span class="p">,</span>   <span class="s1">'2000-01-01 12:22:00'</span><span class="p">,</span> <span class="mi">22</span><span class="p">.</span><span class="mi">8</span><span class="p">),</span>
 <span class="p">(</span> <span class="s1">'bedroom'</span><span class="p">,</span>   <span class="s1">'2000-01-01 14:33:00'</span><span class="p">,</span> <span class="mi">24</span><span class="p">.</span><span class="mi">2</span><span class="p">);</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 <h2 id="querying-aggregated-data">Querying aggregated data</h2>
 
 <p>Here’s the tricky part of using time series data. Most of it will be called by
 statistics that aggregates the data in somehow. Let’s get the average hourly
 temperature:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1h'</span><span class="p">,</span> <span class="nb">time</span><span class="p">)</span> <span class="k">as</span> <span class="nb">time</span><span class="p">,</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1h'</span><span class="p">,</span> <span class="nb">time</span><span class="p">)</span> <span class="k">as</span> <span class="nb">time</span><span class="p">,</span>
   <span class="k">location</span><span class="p">,</span>
   <span class="k">avg</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="k">as</span> <span class="n">value</span>
   <span class="k">FROM</span> <span class="n">temperatures</span>
   <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">;</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The <code class="language-plaintext highlighter-rouge">time_bucket</code> is offered by the timescaledb extension and works like <code class="language-plaintext highlighter-rouge">date_trunc</code>
 but a bit more advanced and prepared for Timescale features.</p>
@@ -965,15 +707,7 @@ but a bit more advanced and prepared for Timescale features.</p>
 views is a good idea, so you can make the values persistent and avoid
 reprocessing.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span>  <span class="n">avg_temperature_by_hour</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span>  <span class="n">avg_temperature_by_hour</span>
 <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
 <span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1h'</span><span class="p">,</span> <span class="nb">time</span><span class="p">)</span> <span class="k">as</span> <span class="nb">time</span><span class="p">,</span>
   <span class="k">location</span><span class="p">,</span>
@@ -981,7 +715,7 @@ reprocessing.</p>
   <span class="k">FROM</span> <span class="n">temperatures</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span>
 <span class="k">WITH</span> <span class="k">DATA</span><span class="p">;</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h2 id="my-experiment---a-small-linter">My experiment - a small linter</h2>
 
@@ -998,31 +732,12 @@ Let’s use the materialized view instead.</p>
 <p>The first thing to build your pattern, is understand the AST. I build a
 minimalistic expression that contains the fragment I’m looking for:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">parse_sql</span><span class="p">(</span><span class="s2">"SELECT time_bucket('1h', now())"</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="no">Fast</span><span class="p">.</span><span class="nf">parse_sql</span><span class="p">(</span><span class="s2">"SELECT time_bucket('1h', now())"</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>Outputs:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-</pre></td><td class="rouge-code"><pre><span class="o">(</span><span class="k">select</span><span class="nt">-stmt</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">(</span><span class="k">select</span><span class="nt">-stmt</span>
   <span class="o">(</span>target-list
     <span class="o">(</span>res-target
       <span class="o">(</span>val
@@ -1040,20 +755,12 @@ minimalistic expression that contains the fragment I’m looking for:</p>
                   <span class="o">(</span>sval <span class="s2">"now"</span><span class="o">)))</span>
               <span class="o">(</span>funcformat :COERCE_EXPLICIT_CALL<span class="o">)))</span>
           <span class="o">(</span>funcformat :COERCE_EXPLICIT_CALL<span class="o">))))))</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Now, I can also build a pattern for detecting select with time_bucket from
 hypertable.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre><span class="no">Fast</span><span class="p">.</span><span class="nf">shortcut</span> <span class="ss">:check_query</span> <span class="k">do</span> 
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">shortcut</span> <span class="ss">:check_query</span> <span class="k">do</span> 
   <span class="n">pattern</span> <span class="o">=</span> <span class="o">&lt;&lt;~</span><span class="no">FAST</span><span class="sh">
   (select_stmt
     (target_list #call_time_bucket)
@@ -1061,7 +768,7 @@ hypertable.</p>
 </span><span class="no">  FAST</span>
   <span class="n">search_all</span> <span class="n">pattern</span><span class="p">,</span> <span class="c1"># ...</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Now, you can see I’m introducing <code class="language-plaintext highlighter-rouge">#method_match</code> to allow to build more readable 
 patterns and delegate part of it to my favorite programming language. So, let’s
@@ -1070,27 +777,15 @@ specify the methods:</p>
 <p>The <code class="language-plaintext highlighter-rouge">#call_time_bucket</code> pattern will just pick the first result of the
 expression given:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">call_time_bucket</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">call_time_bucket</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
   <span class="n">node</span><span class="p">.</span><span class="nf">first</span><span class="p">(</span><span class="s1">'(func_call (funcname (string (sval "time_bucket")'</span><span class="p">)</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>And the <code class="language-plaintext highlighter-rouge">from_hypertable</code> pattern will collect and double check if the
 <code class="language-plaintext highlighter-rouge">hypertables</code> array contains the name.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">from_hypertable</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">from_hypertable</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
   <span class="k">if</span> <span class="p">(</span><span class="n">relname</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="nf">capture</span><span class="p">(</span><span class="s1">'(relname $_)'</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
     <span class="n">hypertables</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="n">relname</span><span class="p">)</span>
   <span class="k">end</span>
@@ -1099,7 +794,7 @@ expression given:</p>
   <span class="vi">@hypertables</span> <span class="o">||=</span>
     <span class="no">Timescaledb</span><span class="p">.</span><span class="nf">hypertables</span><span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:hypertable_name</span><span class="p">)</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Now, we can say, well, we have a query that matches. This query can be running
 standalone or be the implementation of a materialized view. So, next step is
@@ -1107,17 +802,7 @@ track what are the queries and what is the materialized views already available.
 
 <h2 id="track-query-and-materialized">Track <code class="language-plaintext highlighter-rouge">@query</code> and <code class="language-plaintext highlighter-rouge">@materialized</code></h2>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre>    <span class="c1"># Previous pattern</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1"># Previous pattern</span>
     <span class="n">search_all</span> <span class="n">pattern</span><span class="p">,</span> <span class="no">ARGV</span><span class="p">.</span><span class="nf">last</span><span class="p">,</span> <span class="ss">parallel: </span><span class="kp">false</span><span class="p">,</span> <span class="ss">on_result: </span><span class="o">-&gt;</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">results</span><span class="p">)</span> <span class="k">do</span>
       <span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">file</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">results</span><span class="p">.</span><span class="nf">size</span><span class="si">}</span><span class="s2">"</span>
       <span class="n">results</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">node</span><span class="o">|</span>
@@ -1127,30 +812,12 @@ track what are the queries and what is the materialized views already available.
         <span class="k">else</span>
           <span class="n">root</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="nf">ancestors</span><span class="p">.</span><span class="nf">last</span>
           <span class="c1"># ... next slide</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>To map <code class="language-plaintext highlighter-rouge">@materialized</code> with the view name, we need to check if this is a <code class="language-plaintext highlighter-rouge">CREATE
 MATERIALIZED VIEW</code> using <code class="language-plaintext highlighter-rouge">timescaledb.continuous</code> feature.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-</pre></td><td class="rouge-code"><pre><span class="k">case</span> <span class="n">root</span><span class="p">.</span><span class="nf">type</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="n">root</span><span class="p">.</span><span class="nf">type</span>
 <span class="k">when</span> <span class="ss">:create_table_as_stmt</span>
   <span class="n">view_name</span> <span class="o">=</span> <span class="o">&lt;&lt;~</span><span class="no">FAST</span><span class="sh">
     (create_table_as_stmt
@@ -1168,29 +835,18 @@ MATERIALIZED VIEW</code> using <code class="language-plaintext highlighter-rouge
 <span class="k">if</span> <span class="p">(</span><span class="nb">name</span><span class="o">=</span><span class="n">root</span><span class="p">.</span><span class="nf">capture</span><span class="p">(</span><span class="n">view_name</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
   <span class="vi">@materialized</span><span class="p">[</span><span class="nb">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>The cool part of AST, is that if we just run this shortcut over the previous SQL
 fragments, it will allow you to discover that:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="vi">@query</span><span class="p">[</span><span class="s2">"temperatures"</span><span class="p">]</span> <span class="o">==</span> <span class="vi">@materialized</span><span class="p">[</span><span class="s2">"avg_temperature_by_hour"</span><span class="p">]</span> <span class="c1"># =&gt; true</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="vi">@query</span><span class="p">[</span><span class="s2">"temperatures"</span><span class="p">]</span> <span class="o">==</span> <span class="vi">@materialized</span><span class="p">[</span><span class="s2">"avg_temperature_by_hour"</span><span class="p">]</span> <span class="c1"># =&gt; true</span>
+</code></pre></div></div>
 
 <p>So, the AST has the same representation and we can build a recursive algorithm
 to check what queries are elegible to be replaced by a materialized view.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-</pre></td><td class="rouge-code"><pre><span class="c1"># ... previous context</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># ... previous context</span>
       <span class="vi">@query</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">table_name</span><span class="p">,</span> <span class="n">query_table</span><span class="o">|</span>
         <span class="vi">@materialized</span><span class="p">.</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">view_name</span><span class="p">,</span> <span class="n">query_materialized</span><span class="o">|</span>
           <span class="k">if</span> <span class="n">query_table</span> <span class="o">==</span> <span class="n">query_materialized</span>
@@ -1200,25 +856,13 @@ to check what queries are elegible to be replaced by a materialized view.</p>
             <span class="n">report</span><span class="p">(</span><span class="s2">"SELECT * FROM </span><span class="si">#{</span><span class="n">view_name</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
           <span class="k">end</span>
         <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <h3 id="demo">Demo</h3>
 
 <p>Running the demo with the previous sql fragments mapped in a <code class="language-plaintext highlighter-rouge">demo.sql</code>.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-</pre></td><td class="rouge-code"><pre> fast .check_query demo.sql
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> fast .check_query demo.sql
 The table temperatures is also tracked as a continuous aggregate of avg_temperature_by_hour
 
 SELECT time_bucket<span class="o">(</span><span class="s1">'1h'</span>, <span class="nb">time</span><span class="o">)</span> as <span class="nb">time</span>,
@@ -1230,7 +874,7 @@ SELECT time_bucket<span class="o">(</span><span class="s1">'1h'</span>, <span cl
 Query the data from the materialized view to get pre-computed results
 
 SELECT <span class="k">*</span> FROM avg_temperature_by_hour
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Yay! I got the final output as expected! I was able to create a linter that uses
 database metadata combined with AST metadata to intercept and teach a developer
@@ -1378,23 +1022,6 @@ and you can find the gist to all talk files and sources to run the example here:
               
                 
               
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
-              
-                
-              
-                
-              
                 
               
               
@@ -1637,6 +1264,24 @@ and you can find the gist to all talk files and sources to run the example here:
           
           
           
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
             
         
         
@@ -1645,8 +1290,6 @@ and you can find the gist to all talk files and sources to run the example here:
         
           
             
-            
-              
             
               
             
@@ -1704,6 +1347,351 @@ and you can find the gist to all talk files and sources to run the example here:
             
               
             
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+          
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/sirva-sua-comunidade">Sirva sua comunidade</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> March 30, 2023
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Nos últimos anos, me sinto muito "sortudo" com todas as aprovações que recebi para falar em conferências e participar...</p>
+                      
+                    </div>
+                  </div>
+                </div>
               
             
               
@@ -2085,6 +2073,8 @@ and you can find the gist to all talk files and sources to run the example here:
 
 <link rel="stylesheet" href="/css/enhanced.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="/css/disable-line-numbers.css">
+<script src="/js/disable-line-numbers.js"></script>
 
 
     </div>
@@ -2412,6 +2402,56 @@ and you can find the gist to all talk files and sources to run the example here:
     
     <!-- Dedicated Disqus dark mode handler -->
     <script src="/js/disqus-dark.js"></script>
+
+    <!-- Dark Mode Script -->
+    <script>
+      function detectColorScheme() {
+        // Check saved preference first
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        
+        // Apply theme based on saved preference or system preference
+        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
+          document.body.classList.add('dark-mode');
+          document.documentElement.classList.add('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = true;
+          console.log('Dark mode applied on initial load');
+        } else {
+          document.body.classList.remove('dark-mode');
+          document.documentElement.classList.remove('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = false;
+          console.log('Light mode applied on initial load');
+        }
+        
+        // Listen for changes in the OS color scheme only if no saved preference
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+          // Only apply system preference if user hasn't manually chosen a theme
+          if (localStorage.getItem('theme') === null) {
+            const newColorScheme = e.matches ? 'dark' : 'light';
+            if (newColorScheme === 'dark') {
+              document.body.classList.add('dark-mode');
+              document.documentElement.classList.add('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = true;
+              console.log('Dark mode applied from system preference change');
+            } else {
+              document.body.classList.remove('dark-mode');
+              document.documentElement.classList.remove('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = false;
+              console.log('Light mode applied from system preference change');
+            }
+          }
+        });
+      }
+
+      // Initialize dark mode immediately before DOM content is fully loaded
+      detectColorScheme();
+      
+      // Initialize when DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        detectColorScheme();
+      });
+    </script>
   </body>
 </html>
 

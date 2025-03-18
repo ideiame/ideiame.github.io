@@ -94,175 +94,21 @@ crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Poppins:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+    <!-- GitHub-style syntax highlighting -->
+    <link href="/css/rouge-github.css" rel="stylesheet">
     <link href="/css/nimbus-pygments.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
-    <link href="/css/code-highlighting.css" rel="stylesheet">
     <link href="/css/disqus-dark.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
-    <!-- Style overrides for Prism -->
-    <style>
-      /* Override Prism default styles to fix text shadow issues */
-      code[class*="language-"],
-      pre[class*="language-"],
-      pre code,
-      .token {
-        text-shadow: none !important;
-        -webkit-text-shadow: none !important;
-        border: none !important;
-        background: none;
-      }
-      
-      /* Ensure proper background only on container elements */
-      pre[class*="language-"] {
-        background: var(--prism-background);
-      }
-      
-      .dark-mode pre[class*="language-"] {
-        background: var(--prism-background);
-      }
-    </style>
 
     <!-- Modern JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-ruby.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-sql.min.js"></script>
+    
+    <!-- GitHub-style code block enhancement -->
+    <script src="/js/github-code-blocks.js"></script>
+    
     <div id="fb-root"></div>
-
-    <!-- Dark Mode Script -->
-    <script>
-      function detectColorScheme() {
-        // Check saved preference first
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        
-        // Apply theme based on saved preference or system preference
-        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
-          document.body.classList.add('dark-mode');
-          document.documentElement.classList.add('dark-mode');
-          if (darkModeToggle) darkModeToggle.checked = true;
-          console.log('Dark mode applied on initial load');
-        } else {
-          document.body.classList.remove('dark-mode');
-          document.documentElement.classList.remove('dark-mode');
-          if (darkModeToggle) darkModeToggle.checked = false;
-          console.log('Light mode applied on initial load');
-        }
-        
-        // Listen for changes in the OS color scheme only if no saved preference
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-          // Only apply system preference if user hasn't manually chosen a theme
-          if (localStorage.getItem('theme') === null) {
-            const newColorScheme = e.matches ? 'dark' : 'light';
-            if (newColorScheme === 'dark') {
-              document.body.classList.add('dark-mode');
-              document.documentElement.classList.add('dark-mode');
-              if (darkModeToggle) darkModeToggle.checked = true;
-              console.log('Dark mode applied from system preference change');
-            } else {
-              document.body.classList.remove('dark-mode');
-              document.documentElement.classList.remove('dark-mode');
-              if (darkModeToggle) darkModeToggle.checked = false;
-              console.log('Light mode applied from system preference change');
-            }
-          }
-        });
-      }
-
-      // Initialize dark mode immediately before DOM content is fully loaded
-      detectColorScheme();
-
-      // Add code block enhancements
-      function enhanceCodeBlocks() {
-        document.querySelectorAll('pre code').forEach((codeBlock, index) => {
-          // Get the parent pre element
-          const preElement = codeBlock.parentElement;
-          if (!preElement.classList.contains('enhanced')) {
-            preElement.classList.add('enhanced');
-            
-            // Create a wrapper div with the highlight class
-            const highlightDiv = document.createElement('div');
-            highlightDiv.className = 'highlight';
-            
-            // Insert the wrapper before the pre element
-            preElement.parentNode.insertBefore(highlightDiv, preElement);
-            
-            // Move the pre element inside the wrapper
-            highlightDiv.appendChild(preElement);
-            
-            // Get language class from code element
-            let language = '';
-            codeBlock.classList.forEach(className => {
-              if (className.startsWith('language-')) {
-                language = className.substring(9);
-              }
-            });
-            
-            // Auto-detect language if none is specified
-            if (!language) {
-              // Check for Ruby
-              if (codeBlock.textContent.includes('require') || 
-                  codeBlock.textContent.includes('def ') ||
-                  codeBlock.textContent.includes('class ') ||
-                  codeBlock.textContent.includes('module ') ||
-                  codeBlock.textContent.match(/\w+\s*=\s*\w+/g)) {
-                language = 'ruby';
-                codeBlock.classList.add('language-ruby');
-              }
-              // Check for SQL
-              else if (codeBlock.textContent.includes('SELECT') || 
-                       codeBlock.textContent.includes('FROM') ||
-                       codeBlock.textContent.includes('WHERE') ||
-                       codeBlock.textContent.includes('CREATE TABLE')) {
-                language = 'sql';
-                codeBlock.classList.add('language-sql');
-              }
-            }
-            
-            // If language is found, add it as a data attribute
-            if (language) {
-              highlightDiv.setAttribute('data-language', language);
-            }
-            
-            // Create copy button
-            const copyButton = document.createElement('button');
-            copyButton.className = 'copy-button';
-            copyButton.textContent = 'Copy';
-            copyButton.setAttribute('aria-label', 'Copy code to clipboard');
-            copyButton.onclick = function() {
-              navigator.clipboard.writeText(codeBlock.textContent)
-                .then(() => {
-                  copyButton.textContent = 'Copied!';
-                  copyButton.classList.add('copied');
-                  setTimeout(() => {
-                    copyButton.textContent = 'Copy';
-                    copyButton.classList.remove('copied');
-                  }, 2000);
-                })
-                .catch(err => {
-                  console.error('Could not copy text: ', err);
-                });
-            };
-            
-            // Add copy button to the highlight div
-            highlightDiv.appendChild(copyButton);
-          }
-        });
-      }
-      
-      // Initialize when DOM is loaded
-      document.addEventListener('DOMContentLoaded', function() {
-        detectColorScheme();
-        enhanceCodeBlocks();
-      });
-    </script>
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -357,7 +203,7 @@ crossorigin="anonymous"></script>
   
   
     <span class="reading-time" title="Estimated read time">
-      <i class="bi bi-clock"></i> 5 min read
+      <i class="bi bi-clock"></i> 4 min read
     </span>
   
  
@@ -396,9 +242,8 @@ que trata-se de um aplicativo para permitir as pessoas adicionarem novos conteú
 
 <p><img src="http://bliss.ideia.me/images/symbols/house,building,dwelling,residence.png" alt="house,building,dwelling,residence" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>Observe a casa
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Observe a casa
+</code></pre></div></div>
 
 <h4 id="ela-é-uma-mistura-de">Ela é uma mistura de:</h4>
 
@@ -424,9 +269,8 @@ que trata-se de um aplicativo para permitir as pessoas adicionarem novos conteú
 <img src="http://bliss.ideia.me/images/symbols/same,equal,equality.png" alt="same,equal,equality" />
 <img src="http://bliss.ideia.me/images/symbols/house,building,dwelling,residence.png" alt="house,building,dwelling,residence" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>chão limite proteção igual casa
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chão limite proteção igual casa
+</code></pre></div></div>
 
 <p>…</p>
 
@@ -450,9 +294,8 @@ que trata-se de um aplicativo para permitir as pessoas adicionarem novos conteú
 <img src="http://bliss.ideia.me/images/symbols/same,equal,equality.png" alt="same,equal,equality" />
 <img src="http://bliss.ideia.me/images/symbols/house,building,dwelling,residence.png" alt="house,building,dwelling,residence" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>base e proteção igual casa
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>base e proteção igual casa
+</code></pre></div></div>
 
 <h2 id="observe-o-olho">Observe o olho</h2>
 
@@ -460,9 +303,8 @@ que trata-se de um aplicativo para permitir as pessoas adicionarem novos conteú
 
 <p>olho</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>e com 2 olhos unídos por uma aste temos o óculos ![glasses,eyeglasses][]
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>e com 2 olhos unídos por uma aste temos o óculos ![glasses,eyeglasses][]
+</code></pre></div></div>
 
 <p>óculos</p>
 
@@ -472,9 +314,8 @@ que trata-se de um aplicativo para permitir as pessoas adicionarem novos conteú
 
 <p>sol</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>e com um óculos e um sol temos o óculos de sol
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>e com um óculos e um sol temos o óculos de sol
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/sunglasses.png" alt="sunglasses" /></p>
 
@@ -486,11 +327,9 @@ que trata-se de um aplicativo para permitir as pessoas adicionarem novos conteú
 
 <p><img src="http://bliss.ideia.me/images/symbols/light.png" alt="light" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre>A luz olho dentro do sol.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A luz olho dentro do sol.
 Ou o sol dentro do olho...
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <hr />
 
@@ -506,9 +345,8 @@ Ou o sol dentro do olho...
 
 <p><img src="http://bliss.ideia.me/images/symbols/protection,shelter.png" alt="protection,shelter" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>O homem protetor é o pai.
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>O homem protetor é o pai.
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/father,dad,daddy,papa,pa,pop.png" alt="father,dad,daddy,papa,pa,pop" /></p>
 
@@ -520,9 +358,8 @@ Ou o sol dentro do olho...
 
 <p>família ou casal</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>Mas uma casa de um grupo de pessoas também pode ser uma família
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mas uma casa de um grupo de pessoas também pode ser uma família
+</code></pre></div></div>
 
 <h1 id="isto-é-uma-pessoa">Isto é uma pessoa</h1>
 
@@ -530,9 +367,8 @@ Ou o sol dentro do olho...
 
 <p>pessoa</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>E um grupo de pessoas que vivem juntos formam uma família.
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>E um grupo de pessoas que vivem juntos formam uma família.
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/family_(group_home).png" alt="family_(group_home)" /></p>
 
@@ -546,9 +382,8 @@ Ou o sol dentro do olho...
 
 <p>animal</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>O felino é um animal com unhas
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>O felino é um animal com unhas
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/cat,feline_(animal),felid.png" alt="cat,feline_(animal),felid" /></p>
 
@@ -556,15 +391,11 @@ Ou o sol dentro do olho...
 
 <p><img src="http://bliss.ideia.me/images/symbols/dog,canine_(animal),canid.png" alt="dog,canine_(animal),canid" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-</pre></td><td class="rouge-code"><pre>O cachorro vive com seu rabo cabo de guarda-chuva
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>O cachorro vive com seu rabo cabo de guarda-chuva
 
 
 E boi não se esquece de seus chifres
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/animal_(bovine),bovine,ovine.png" alt="animal_(bovine),bovine,ovine" /></p>
 
@@ -589,9 +420,8 @@ importantes na linguagem bliss.</p>
 
 <p>mente, intelectuo, razão</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>Uma questão dentro de uma mente é uma dúvida
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Uma questão dentro de uma mente é uma dúvida
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/doubt,uncertainty.png" alt="doubt,uncertainty" /></p>
 
@@ -601,9 +431,8 @@ importantes na linguagem bliss.</p>
 
 <p><img src="http://bliss.ideia.me/images/symbols/knowledge,class_(in_combinations).png" alt="knowledge,class_(in_combinations)" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>O conhecimento é uma mente sobre uma base
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>O conhecimento é uma mente sobre uma base
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/foundation,base,fundament.png" alt="foundation,base,fundament" /> <img src="http://bliss.ideia.me/images/symbols/mind,intellect,reason.png" alt="mind,intellect,reason" />
 base e mente</p>
@@ -614,24 +443,21 @@ base e mente</p>
 <h3 id="esta-é-a-fala">Esta é a fala</h3>
 <p><img src="http://bliss.ideia.me/images/symbols/say,speak,talk,tell,express-(to).png" alt="say,speak,talk,tell,express-(to)" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>A fala é a ação da boca
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A fala é a ação da boca
+</code></pre></div></div>
 
 <h3 id="explique">Explique</h3>
 <p><img src="http://bliss.ideia.me/images/symbols/explain-(to).png" alt="explain-(to)" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>Explicar é falar do conhecimento
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Explicar é falar do conhecimento
+</code></pre></div></div>
 
 <h1 id="sentimento">Sentimento</h1>
 
 <p><img src="http://bliss.ideia.me/images/symbols/feeling,emotion,sensation.png" alt="feeling,emotion,sensation" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>O sentimento é uma flecha que atravessa o amor.
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>O sentimento é uma flecha que atravessa o amor.
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/love,affection.png" alt="love,affection" /></p>
 
@@ -641,9 +467,8 @@ base e mente</p>
 
 <p><img src="http://bliss.ideia.me/images/symbols/wheel.png" alt="wheel" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>O sol é a energia, que juntamente com a roda fazem a máquina
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>O sol é a energia, que juntamente com a roda fazem a máquina
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/machine,appliance,engine,motor.png" alt="machine,appliance,engine,motor" /></p>
 
@@ -653,17 +478,15 @@ base e mente</p>
 
 <p><img src="http://bliss.ideia.me/images/symbols/water,fluid,liquid.png" alt="water,fluid,liquid" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>se a água correr faz um rio
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>se a água correr faz um rio
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/river,stream,current.png" alt="river,stream,current" /></p>
 
 <p>Rio</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>se tiver muita muita água é o oceano
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>se tiver muita muita água é o oceano
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/ocean,sea.png" alt="ocean,sea" /></p>
 
@@ -673,41 +496,36 @@ base e mente</p>
 
 <p><img src="http://bliss.ideia.me/images/symbols/fire.png" alt="fire" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>O fogo é o elemento natural do jogo (Raul Seixas)
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>O fogo é o elemento natural do jogo (Raul Seixas)
+</code></pre></div></div>
 
 <h2 id="fumar">Fumar</h2>
 
 <p><img src="http://bliss.ideia.me/images/symbols/smoke-(to).png" alt="smoke-(to)" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>Observe que a fumaça sai da boca
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Observe que a fumaça sai da boca
+</code></pre></div></div>
 
 <h2 id="beber">Beber</h2>
 
 <p><img src="http://bliss.ideia.me/images/symbols/drink-(to).png" alt="drink-(to)" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>Observe que a água está sobre a boca
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Observe que a água está sobre a boca
+</code></pre></div></div>
 
 <h1 id="ação">Ação</h1>
 
 <p><img src="http://bliss.ideia.me/images/symbols/action,act,deed.png" alt="action,act,deed" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>A ação também pode ser um indicador de ação
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A ação também pode ser um indicador de ação
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/mind,intellect,reason.png" alt="mind,intellect,reason" /></p>
 
 <p>Mente</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>A ação da mente é pensar
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>A ação da mente é pensar
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/think,reason-(to).png" alt="think,reason-(to)" /></p>
 
@@ -721,23 +539,20 @@ base e mente</p>
 e geralmente estamos dentro de um limite ou intervalo
 de tempo proposto pela vida.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>O tempo é uma parcela do sol.
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>O tempo é uma parcela do sol.
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/day.png" alt="day" /></p>
 
 <p>Dia</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>Praticamente um pedaço do dia.
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Praticamente um pedaço do dia.
+</code></pre></div></div>
 
 <p><img src="http://bliss.ideia.me/images/symbols/limited_time,interval,period,awhile,for_a_while.png" alt="limited_time,interval,period,awhile,for_a_while" /></p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>Um limite de tempo é um tempo dentro dos limites
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Um limite de tempo é um tempo dentro dos limites
+</code></pre></div></div>
 
 <h2 id="trabalho">Trabalho</h2>
 
@@ -747,9 +562,8 @@ de tempo proposto pela vida.</p>
 
 <p>Dia de trabalho</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>Um dia de trabalho é um sol de trabalho
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Um dia de trabalho é um sol de trabalho
+</code></pre></div></div>
 
 <p>Este é um fragmento do texto que escrevi usando o próprio editor que criei para facilitar na escrita dos símbolos e também na edição do conteúdo.</p>
 
@@ -874,23 +688,6 @@ de tempo proposto pela vida.</p>
               
                 
               
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
-              
-                
-              
-                
-              
                 
               
               
@@ -1132,6 +929,23 @@ de tempo proposto pela vida.</p>
           
             
               
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
               
                 
               
@@ -1248,6 +1062,8 @@ de tempo proposto pela vida.</p>
 
 <link rel="stylesheet" href="/css/enhanced.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="/css/disable-line-numbers.css">
+<script src="/js/disable-line-numbers.js"></script>
 
 
     </div>
@@ -1575,6 +1391,56 @@ de tempo proposto pela vida.</p>
     
     <!-- Dedicated Disqus dark mode handler -->
     <script src="/js/disqus-dark.js"></script>
+
+    <!-- Dark Mode Script -->
+    <script>
+      function detectColorScheme() {
+        // Check saved preference first
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        
+        // Apply theme based on saved preference or system preference
+        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
+          document.body.classList.add('dark-mode');
+          document.documentElement.classList.add('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = true;
+          console.log('Dark mode applied on initial load');
+        } else {
+          document.body.classList.remove('dark-mode');
+          document.documentElement.classList.remove('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = false;
+          console.log('Light mode applied on initial load');
+        }
+        
+        // Listen for changes in the OS color scheme only if no saved preference
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+          // Only apply system preference if user hasn't manually chosen a theme
+          if (localStorage.getItem('theme') === null) {
+            const newColorScheme = e.matches ? 'dark' : 'light';
+            if (newColorScheme === 'dark') {
+              document.body.classList.add('dark-mode');
+              document.documentElement.classList.add('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = true;
+              console.log('Dark mode applied from system preference change');
+            } else {
+              document.body.classList.remove('dark-mode');
+              document.documentElement.classList.remove('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = false;
+              console.log('Light mode applied from system preference change');
+            }
+          }
+        });
+      }
+
+      // Initialize dark mode immediately before DOM content is fully loaded
+      detectColorScheme();
+      
+      // Initialize when DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        detectColorScheme();
+      });
+    </script>
   </body>
 </html>
 

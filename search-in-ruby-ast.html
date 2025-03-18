@@ -94,175 +94,21 @@ crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Poppins:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+    <!-- GitHub-style syntax highlighting -->
+    <link href="/css/rouge-github.css" rel="stylesheet">
     <link href="/css/nimbus-pygments.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
-    <link href="/css/code-highlighting.css" rel="stylesheet">
     <link href="/css/disqus-dark.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
-    <!-- Style overrides for Prism -->
-    <style>
-      /* Override Prism default styles to fix text shadow issues */
-      code[class*="language-"],
-      pre[class*="language-"],
-      pre code,
-      .token {
-        text-shadow: none !important;
-        -webkit-text-shadow: none !important;
-        border: none !important;
-        background: none;
-      }
-      
-      /* Ensure proper background only on container elements */
-      pre[class*="language-"] {
-        background: var(--prism-background);
-      }
-      
-      .dark-mode pre[class*="language-"] {
-        background: var(--prism-background);
-      }
-    </style>
 
     <!-- Modern JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-ruby.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-sql.min.js"></script>
+    
+    <!-- GitHub-style code block enhancement -->
+    <script src="/js/github-code-blocks.js"></script>
+    
     <div id="fb-root"></div>
-
-    <!-- Dark Mode Script -->
-    <script>
-      function detectColorScheme() {
-        // Check saved preference first
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        
-        // Apply theme based on saved preference or system preference
-        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
-          document.body.classList.add('dark-mode');
-          document.documentElement.classList.add('dark-mode');
-          if (darkModeToggle) darkModeToggle.checked = true;
-          console.log('Dark mode applied on initial load');
-        } else {
-          document.body.classList.remove('dark-mode');
-          document.documentElement.classList.remove('dark-mode');
-          if (darkModeToggle) darkModeToggle.checked = false;
-          console.log('Light mode applied on initial load');
-        }
-        
-        // Listen for changes in the OS color scheme only if no saved preference
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-          // Only apply system preference if user hasn't manually chosen a theme
-          if (localStorage.getItem('theme') === null) {
-            const newColorScheme = e.matches ? 'dark' : 'light';
-            if (newColorScheme === 'dark') {
-              document.body.classList.add('dark-mode');
-              document.documentElement.classList.add('dark-mode');
-              if (darkModeToggle) darkModeToggle.checked = true;
-              console.log('Dark mode applied from system preference change');
-            } else {
-              document.body.classList.remove('dark-mode');
-              document.documentElement.classList.remove('dark-mode');
-              if (darkModeToggle) darkModeToggle.checked = false;
-              console.log('Light mode applied from system preference change');
-            }
-          }
-        });
-      }
-
-      // Initialize dark mode immediately before DOM content is fully loaded
-      detectColorScheme();
-
-      // Add code block enhancements
-      function enhanceCodeBlocks() {
-        document.querySelectorAll('pre code').forEach((codeBlock, index) => {
-          // Get the parent pre element
-          const preElement = codeBlock.parentElement;
-          if (!preElement.classList.contains('enhanced')) {
-            preElement.classList.add('enhanced');
-            
-            // Create a wrapper div with the highlight class
-            const highlightDiv = document.createElement('div');
-            highlightDiv.className = 'highlight';
-            
-            // Insert the wrapper before the pre element
-            preElement.parentNode.insertBefore(highlightDiv, preElement);
-            
-            // Move the pre element inside the wrapper
-            highlightDiv.appendChild(preElement);
-            
-            // Get language class from code element
-            let language = '';
-            codeBlock.classList.forEach(className => {
-              if (className.startsWith('language-')) {
-                language = className.substring(9);
-              }
-            });
-            
-            // Auto-detect language if none is specified
-            if (!language) {
-              // Check for Ruby
-              if (codeBlock.textContent.includes('require') || 
-                  codeBlock.textContent.includes('def ') ||
-                  codeBlock.textContent.includes('class ') ||
-                  codeBlock.textContent.includes('module ') ||
-                  codeBlock.textContent.match(/\w+\s*=\s*\w+/g)) {
-                language = 'ruby';
-                codeBlock.classList.add('language-ruby');
-              }
-              // Check for SQL
-              else if (codeBlock.textContent.includes('SELECT') || 
-                       codeBlock.textContent.includes('FROM') ||
-                       codeBlock.textContent.includes('WHERE') ||
-                       codeBlock.textContent.includes('CREATE TABLE')) {
-                language = 'sql';
-                codeBlock.classList.add('language-sql');
-              }
-            }
-            
-            // If language is found, add it as a data attribute
-            if (language) {
-              highlightDiv.setAttribute('data-language', language);
-            }
-            
-            // Create copy button
-            const copyButton = document.createElement('button');
-            copyButton.className = 'copy-button';
-            copyButton.textContent = 'Copy';
-            copyButton.setAttribute('aria-label', 'Copy code to clipboard');
-            copyButton.onclick = function() {
-              navigator.clipboard.writeText(codeBlock.textContent)
-                .then(() => {
-                  copyButton.textContent = 'Copied!';
-                  copyButton.classList.add('copied');
-                  setTimeout(() => {
-                    copyButton.textContent = 'Copy';
-                    copyButton.classList.remove('copied');
-                  }, 2000);
-                })
-                .catch(err => {
-                  console.error('Could not copy text: ', err);
-                });
-            };
-            
-            // Add copy button to the highlight div
-            highlightDiv.appendChild(copyButton);
-          }
-        });
-      }
-      
-      // Initialize when DOM is loaded
-      document.addEventListener('DOMContentLoaded', function() {
-        detectColorScheme();
-        enhanceCodeBlocks();
-      });
-    </script>
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -357,7 +203,7 @@ crossorigin="anonymous"></script>
   
   
     <span class="reading-time" title="Estimated read time">
-      <i class="bi bi-clock"></i> 9 min read
+      <i class="bi bi-clock"></i> 8 min read
     </span>
   
  
@@ -395,61 +241,43 @@ that can print the AST representation of some Ruby code.</p>
 <p>Let’s start looking for the AST and how it works. The following class
 declaration:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">SimpleClass</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">SimpleClass</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Looking the AST representation with the <code class="language-plaintext highlighter-rouge">ruby-parse</code> utility:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>$ ruby-parse simple_class.rb
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ruby-parse simple_class.rb
+</code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre>(class
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(class
   (const nil :SimpleClass) nil nil)
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>I created a small project to help me understand and do experiments with Ruby AST
 and test the node pattern. You can check out it and follow this step by step:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>$ git clone git@github.com:jonatas/rubocopular.git
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone git@github.com:jonatas/rubocopular.git
+</code></pre></div></div>
 
 <p>Then basically it has a <code class="language-plaintext highlighter-rouge">bin/console</code> that allows you to play with to simple
 methods <code class="language-plaintext highlighter-rouge">node</code> and <code class="language-plaintext highlighter-rouge">test</code>.</p>
 
 <p>Lets check how it works:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre>$ cd rubocopular
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd rubocopular
 $ bin/console
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p><strong>node</strong> is a method that can parse the AST representation of some Ruby as
 string code.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; s(:lvasgn, :a, s(:int, 1))</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; s(:lvasgn, :a, s(:int, 1))</span>
+</code></pre></div></div>
 <p>So, the output is pretty similar with <code class="language-plaintext highlighter-rouge">ruby-parse</code>. As it’s using <code class="language-plaintext highlighter-rouge">pry</code> 
 you can check that the method <code class="language-plaintext highlighter-rouge">s</code> is a simple wrap to a node:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-</pre></td><td class="rouge-code"><pre><span class="n">show</span><span class="o">-</span><span class="nb">method</span> <span class="n">s</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">show</span><span class="o">-</span><span class="nb">method</span> <span class="n">s</span>
 <span class="c1"># From: /Users/jonatasdp/.rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/rubocop-0.48.1/lib/rubocop/ast/sexp.rb @ line 11:</span>
 <span class="c1"># Owner: RuboCop::AST::Sexp</span>
 <span class="c1"># Visibility: public</span>
@@ -458,97 +286,65 @@ you can check that the method <code class="language-plaintext highlighter-rouge"
 <span class="k">def</span> <span class="nf">s</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="o">*</span><span class="n">children</span><span class="p">)</span>
   <span class="no">Node</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="n">children</span><span class="p">)</span>
 <span class="k">end</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>And basically, the node is an object that has a <code class="language-plaintext highlighter-rouge">#type</code> and <code class="language-plaintext highlighter-rouge">#children</code>.
 The children can be symbols or other nodes and so on.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre><span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">)</span>          <span class="c1"># =&gt; s(:lvasgn, :a, s(:int, 1))</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">)</span>          <span class="c1"># =&gt; s(:lvasgn, :a, s(:int, 1))</span>
 <span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">).</span><span class="nf">type</span>     <span class="c1"># =&gt; :lvasgn</span>
 <span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">).</span><span class="nf">children</span> <span class="c1"># =&gt; [:a, s(:int, i)]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Let’s check a few more examples:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="n">node</span><span class="p">(</span><span class="s1">'class A ; end'</span><span class="p">)</span>    <span class="c1"># =&gt; s(:class, s(:const, nil, :A), nil, nil)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span><span class="p">(</span><span class="s1">'class A ; end'</span><span class="p">)</span>    <span class="c1"># =&gt; s(:class, s(:const, nil, :A), nil, nil)</span>
+</code></pre></div></div>
 
 <p>Extended class:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="n">node</span><span class="p">(</span><span class="s1">'class A &lt; B; end'</span><span class="p">)</span> <span class="c1"># =&gt; s(:class, s(:const, nil, :A), s(:const, nil, :B), nil)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span><span class="p">(</span><span class="s1">'class A &lt; B; end'</span><span class="p">)</span> <span class="c1"># =&gt; s(:class, s(:const, nil, :A), s(:const, nil, :B), nil)</span>
+</code></pre></div></div>
 
 <p>Implementing a method:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre>node('class A &lt; B; def method; end end')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node('class A &lt; B; def method; end end')
 # s(:class,
 #   s(:const, nil, :A),
 #   s(:const, nil, :B),
 #   s(:def, :method,
 #     s(:args), nil))
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>You can use puts to check the same result as <code class="language-plaintext highlighter-rouge">ruby-parse</code> outputs:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">puts</span> <span class="n">node</span><span class="p">(</span><span class="s1">'class A &lt; B; def method; end end'</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="n">node</span><span class="p">(</span><span class="s1">'class A &lt; B; def method; end end'</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>The output should be:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-</pre></td><td class="rouge-code"><pre>(class
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(class
   (const nil :A)
   (const nil :B)
   (def :method
     (args) nil))
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Then all are single nodes with a <code class="language-plaintext highlighter-rouge">#type</code> and possible <code class="language-plaintext highlighter-rouge">#children</code>.</p>
 
 <p>A few examples with math:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="n">node</span><span class="p">(</span><span class="s1">'1 + 2 + 3'</span><span class="p">)</span> <span class="c1"># s(:send, s(:send, s(:int, 1), :+, s(:int, 2)), :+, s(:int, 3))</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span><span class="p">(</span><span class="s1">'1 + 2 + 3'</span><span class="p">)</span> <span class="c1"># s(:send, s(:send, s(:int, 1), :+, s(:int, 2)), :+, s(:int, 3))</span>
+</code></pre></div></div>
 
 <p>Going deeply in some levels:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="n">node</span><span class="p">(</span><span class="s1">'1 + 2 + (3 / 5 * (6 ** 7))'</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span><span class="p">(</span><span class="s1">'1 + 2 + (3 / 5 * (6 ** 7))'</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>The output should be a tree a bit more complex:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-</pre></td><td class="rouge-code"><pre>s(:send,
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s(:send,
   s(:send,
     s(:int, 1), :+,
     s(:int, 2)), :+,
@@ -561,29 +357,22 @@ The children can be symbols or other nodes and so on.</p>
         s(:send,
           s(:int, 6), :**,
           s(:int, 7))))))
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Other example with methods:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">puts</span> <span class="n">node</span><span class="p">(</span><span class="s1">'a.b.c(d).e(f)'</span><span class="p">)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="n">node</span><span class="p">(</span><span class="s1">'a.b.c(d).e(f)'</span><span class="p">)</span>
+</code></pre></div></div>
 
 <p>AST output:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre>(send
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(send
   (send
     (send
       (send nil :a) :b) :c
     (send nil :d)) :e
   (send nil :f))
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Cool yeah? Let’s have fun with the Node Pattern 🕶</p>
 
@@ -593,95 +382,81 @@ The children can be symbols or other nodes and so on.</p>
 using the <strong>node pattern</strong>. It’s pretty similar of use regular expressions for
 me. Let’s come back with our <code class="language-plaintext highlighter-rouge">a = 1</code> assignment example:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; s(:lvasgn, :a, s(:int, 1))</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; s(:lvasgn, :a, s(:int, 1))</span>
+</code></pre></div></div>
 
 <p>Did you remember the <a href="https://github.com/jonatas/rubocopular/blob/master/lib/rubocopular.rb#L14">test</a>
 method I mentioned before?</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(...)'</span><span class="p">,</span> <span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(...)'</span><span class="p">,</span> <span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
+</code></pre></div></div>
 
 <p>Cool, it matches with “something with last children”.</p>
 
 <p>Now let’s check if it’s a <code class="language-plaintext highlighter-rouge">:lvasg</code> aka local variable assignment:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; nil</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; nil</span>
+</code></pre></div></div>
 
 <p>It does not match because the node has parameters. Lets specify that it comes
 with something else using the <code class="language-plaintext highlighter-rouge">...</code> shortcut:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn ...)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn ...)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
+</code></pre></div></div>
 
 <h4 id="capturing">Capturing</h4>
 
 <p>It’s hard sometimes to just understand based on <code class="language-plaintext highlighter-rouge">true</code> and <code class="language-plaintext highlighter-rouge">false</code>. Let’s use
 <code class="language-plaintext highlighter-rouge">$</code> to capture and go deeply in the comprehension:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn $...)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; [:a, s(:int, 1)]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn $...)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; [:a, s(:int, 1)]</span>
+</code></pre></div></div>
 
 <p>Cool! It captures the children.</p>
 
 <p>Let’s ignore the variable name using <code class="language-plaintext highlighter-rouge">_</code> that for me represents “one thing”,
 I don’t care the name or value for a while.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ $...)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; [s(:int, 1)]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ $...)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; [s(:int, 1)]</span>
+</code></pre></div></div>
 
 <p>We can also capture only the value:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (int $_)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; 1</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (int $_)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; 1</span>
+</code></pre></div></div>
 
 <p>Or the assigned node:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ $(int _))'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; s(:int, 1)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ $(int _))'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; s(:int, 1)</span>
+</code></pre></div></div>
 
 <p>Or capture multiple things independently:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ ($int $_))'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; [:int, 1]</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ ($int $_))'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; [:int, 1]</span>
+</code></pre></div></div>
 
 <p>That’s cool no?</p>
 
 <p>Let’s imagine we want to restrict our search for float or int:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (int _))'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (int _))'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
+</code></pre></div></div>
 
 <p>Testing the expression with a float will not work:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (int _))'</span><span class="p">,</span><span class="s1">'a = 1.0'</span><span class="p">)</span> <span class="c1"># =&gt; nil</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (int _))'</span><span class="p">,</span><span class="s1">'a = 1.0'</span><span class="p">)</span> <span class="c1"># =&gt; nil</span>
+</code></pre></div></div>
 
 <p>Now let’s introduce <code class="language-plaintext highlighter-rouge">{}</code> that we can union patterns:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ ({int float} _))'</span><span class="p">,</span><span class="s1">'a = 1.0'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ ({int float} _))'</span><span class="p">,</span><span class="s1">'a = 1.0'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
+</code></pre></div></div>
 
 <p>And we can capture the type of the field as well:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (${int float} _))'</span><span class="p">,</span><span class="s1">'a = 1.0'</span><span class="p">)</span> <span class="c1"># =&gt; :float</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (${int float} _))'</span><span class="p">,</span><span class="s1">'a = 1.0'</span><span class="p">)</span> <span class="c1"># =&gt; :float</span>
 <span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (${int float} _))'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; :int</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>This search thing was amazing for me, and I tried to encapsulate in a search 
 command to allow me to search in code with this expression as I do with <code class="language-plaintext highlighter-rouge">grep</code> or <code class="language-plaintext highlighter-rouge">ag</code>.</p>
@@ -691,21 +466,12 @@ it:</p>
 
 <p>The search command syntax is pretty simple:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>bin/search 'pattern' *path-to-ruby-files
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/search 'pattern' *path-to-ruby-files
+</code></pre></div></div>
 
 <p>Let’s try something:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-</pre></td><td class="rouge-code"><pre>$ bin/search '(const ... )' lib/*.rb                                                                                                                  11:58:01
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bin/search '(const ... )' lib/*.rb                                                                                                                  11:58:01
 lib/rubocopular.rb:5: Rubocopular
 lib/rubocopular.rb:7: RuboCop::ProcessedSource
 lib/rubocopular.rb:11: RuboCop::ProcessedSource
@@ -713,45 +479,25 @@ lib/rubocopular.rb:11: IO
 lib/rubocopular.rb:15: RuboCop::AST::Node
 lib/rubocopular.rb:16: RuboCop::NodePattern
 lib/rubocopular.rb:20: RuboCop::NodePattern
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Nice, we can filter a bit more and search only for things under <code class="language-plaintext highlighter-rouge">RuboCop</code>
 scope:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-</pre></td><td class="rouge-code"><pre>bin/search '(const nil :RuboCop ... )' lib/*.rb                                                                                                     11:59:09
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/search '(const nil :RuboCop ... )' lib/*.rb                                                                                                     11:59:09
 lib/rubocopular.rb:7: RuboCop
 lib/rubocopular.rb:11: RuboCop
 lib/rubocopular.rb:15: RuboCop
 lib/rubocopular.rb:16: RuboCop
 lib/rubocopular.rb:20: RuboCop
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>It’s cool, but we can also do it with <code class="language-plaintext highlighter-rouge">grep</code>. The difference here is that we’re
 listing the nodes not only the code, than we can print some multiline nodes.</p>
 
 <p>Let’s print all check static methods defined in Rubocopular library:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-</pre></td><td class="rouge-code"><pre>$ bin/search '(defs ... )' lib/*.rb                                                                                                                   12:00:48
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bin/search '(defs ... )' lib/*.rb                                                                                                                   12:00:48
 lib/rubocopular.rb:6: def self.node(code)
     RuboCop::ProcessedSource.new(code.to_s, 2.3).ast
   end
@@ -765,7 +511,7 @@ lib/rubocopular.rb:14: def self.test(pattern, code)
 lib/rubocopular.rb:19: def self.inspect(pattern, code)
     RuboCop::NodePattern.new(pattern.gsub(/(\.{3}|_)/, '$\1')).match(node(code))
   end
-</pre></td></tr></tbody></table></code></pre></div></div>
+</code></pre></div></div>
 
 <p>Awesome, it works!</p>
 
@@ -775,18 +521,16 @@ RuboCop dependency. The idea is just starting: https://github.com/jonatas/fast</
 
 <p>You can do similar things with plain ruby code and arrays to build the matcher:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="no">Fast</span><span class="p">.</span><span class="nf">match?</span><span class="p">(</span><span class="n">s</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">s</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="ss">:a</span><span class="p">),</span> <span class="ss">:b</span><span class="p">),</span> <span class="p">[</span><span class="ss">:send</span><span class="p">,</span> <span class="s1">'...'</span><span class="p">]))</span> <span class="c1"># =&gt; true</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">match?</span><span class="p">(</span><span class="n">s</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">s</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="ss">:a</span><span class="p">),</span> <span class="ss">:b</span><span class="p">),</span> <span class="p">[</span><span class="ss">:send</span><span class="p">,</span> <span class="s1">'...'</span><span class="p">]))</span> <span class="c1"># =&gt; true</span>
+</code></pre></div></div>
 
 <p>Checkout the <a href="https://github.com/jonatas/fast/blob/master/spec/fast_spec.rb#L48">current specs</a>.</p>
 
 <p>In the next step, I’m thinking about do a <code class="language-plaintext highlighter-rouge">f()</code> for find and <code class="language-plaintext highlighter-rouge">c()</code> to capture things. Not sure
 exactly how to proceed but the idea is something like:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre><span class="no">Fast</span><span class="p">.</span><span class="nf">match?</span><span class="p">(</span><span class="n">ast</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">c</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="s1">'_'</span><span class="p">),</span> <span class="s1">'_'</span><span class="p">),</span> <span class="ss">:c</span><span class="p">),</span> <span class="s1">'_'</span><span class="p">)))</span> <span class="c1"># =&gt; s(:send, nil, :a)</span>
-</pre></td></tr></tbody></table></code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">match?</span><span class="p">(</span><span class="n">ast</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">c</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="s1">'_'</span><span class="p">),</span> <span class="s1">'_'</span><span class="p">),</span> <span class="ss">:c</span><span class="p">),</span> <span class="s1">'_'</span><span class="p">)))</span> <span class="c1"># =&gt; s(:send, nil, :a)</span>
+</code></pre></div></div>
 
 <p>Any thoughts or ideas about how to be expressive in this search?</p>
 
@@ -896,20 +640,6 @@ exactly how to proceed but the idea is something like:</p>
               
               
                 
-                  
-                  
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
               
                 
               
@@ -1168,6 +898,23 @@ exactly how to proceed but the idea is something like:</p>
           
           
           
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
             
         
         
@@ -1176,353 +923,6 @@ exactly how to proceed but the idea is something like:</p>
         
           
             
-            
-              
-                <div class="col-md-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <a href="/benchmarking-ruby-orms">Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</a>
-                      </h5>
-                      <p class="card-text text-muted">
-                        <small>
-                          <i class="bi bi-calendar3"></i> March 18, 2025
-                        </small>
-                      </p>
-                      
-                    </div>
-                  </div>
-                </div>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-          
-          
-        
-          
-            
-            
-              
             
               
             
@@ -1961,6 +1361,8 @@ exactly how to proceed but the idea is something like:</p>
 
 <link rel="stylesheet" href="/css/enhanced.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+<link rel="stylesheet" href="/css/disable-line-numbers.css">
+<script src="/js/disable-line-numbers.js"></script>
 
 
     </div>
@@ -2288,6 +1690,56 @@ exactly how to proceed but the idea is something like:</p>
     
     <!-- Dedicated Disqus dark mode handler -->
     <script src="/js/disqus-dark.js"></script>
+
+    <!-- Dark Mode Script -->
+    <script>
+      function detectColorScheme() {
+        // Check saved preference first
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        
+        // Apply theme based on saved preference or system preference
+        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
+          document.body.classList.add('dark-mode');
+          document.documentElement.classList.add('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = true;
+          console.log('Dark mode applied on initial load');
+        } else {
+          document.body.classList.remove('dark-mode');
+          document.documentElement.classList.remove('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = false;
+          console.log('Light mode applied on initial load');
+        }
+        
+        // Listen for changes in the OS color scheme only if no saved preference
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+          // Only apply system preference if user hasn't manually chosen a theme
+          if (localStorage.getItem('theme') === null) {
+            const newColorScheme = e.matches ? 'dark' : 'light';
+            if (newColorScheme === 'dark') {
+              document.body.classList.add('dark-mode');
+              document.documentElement.classList.add('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = true;
+              console.log('Dark mode applied from system preference change');
+            } else {
+              document.body.classList.remove('dark-mode');
+              document.documentElement.classList.remove('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = false;
+              console.log('Light mode applied from system preference change');
+            }
+          }
+        });
+      }
+
+      // Initialize dark mode immediately before DOM content is fully loaded
+      detectColorScheme();
+      
+      // Initialize when DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        detectColorScheme();
+      });
+    </script>
   </body>
 </html>
 

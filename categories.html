@@ -94,175 +94,21 @@ crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Poppins:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet">
+    <!-- GitHub-style syntax highlighting -->
+    <link href="/css/rouge-github.css" rel="stylesheet">
     <link href="/css/nimbus-pygments.css" rel="stylesheet">
     <link href="/css/custom.css" rel="stylesheet">
-    <link href="/css/code-highlighting.css" rel="stylesheet">
     <link href="/css/disqus-dark.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-
-    <!-- Style overrides for Prism -->
-    <style>
-      /* Override Prism default styles to fix text shadow issues */
-      code[class*="language-"],
-      pre[class*="language-"],
-      pre code,
-      .token {
-        text-shadow: none !important;
-        -webkit-text-shadow: none !important;
-        border: none !important;
-        background: none;
-      }
-      
-      /* Ensure proper background only on container elements */
-      pre[class*="language-"] {
-        background: var(--prism-background);
-      }
-      
-      .dark-mode pre[class*="language-"] {
-        background: var(--prism-background);
-      }
-    </style>
 
     <!-- Modern JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-ruby.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-sql.min.js"></script>
+    
+    <!-- GitHub-style code block enhancement -->
+    <script src="/js/github-code-blocks.js"></script>
+    
     <div id="fb-root"></div>
-
-    <!-- Dark Mode Script -->
-    <script>
-      function detectColorScheme() {
-        // Check saved preference first
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        
-        // Apply theme based on saved preference or system preference
-        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
-          document.body.classList.add('dark-mode');
-          document.documentElement.classList.add('dark-mode');
-          if (darkModeToggle) darkModeToggle.checked = true;
-          console.log('Dark mode applied on initial load');
-        } else {
-          document.body.classList.remove('dark-mode');
-          document.documentElement.classList.remove('dark-mode');
-          if (darkModeToggle) darkModeToggle.checked = false;
-          console.log('Light mode applied on initial load');
-        }
-        
-        // Listen for changes in the OS color scheme only if no saved preference
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-          // Only apply system preference if user hasn't manually chosen a theme
-          if (localStorage.getItem('theme') === null) {
-            const newColorScheme = e.matches ? 'dark' : 'light';
-            if (newColorScheme === 'dark') {
-              document.body.classList.add('dark-mode');
-              document.documentElement.classList.add('dark-mode');
-              if (darkModeToggle) darkModeToggle.checked = true;
-              console.log('Dark mode applied from system preference change');
-            } else {
-              document.body.classList.remove('dark-mode');
-              document.documentElement.classList.remove('dark-mode');
-              if (darkModeToggle) darkModeToggle.checked = false;
-              console.log('Light mode applied from system preference change');
-            }
-          }
-        });
-      }
-
-      // Initialize dark mode immediately before DOM content is fully loaded
-      detectColorScheme();
-
-      // Add code block enhancements
-      function enhanceCodeBlocks() {
-        document.querySelectorAll('pre code').forEach((codeBlock, index) => {
-          // Get the parent pre element
-          const preElement = codeBlock.parentElement;
-          if (!preElement.classList.contains('enhanced')) {
-            preElement.classList.add('enhanced');
-            
-            // Create a wrapper div with the highlight class
-            const highlightDiv = document.createElement('div');
-            highlightDiv.className = 'highlight';
-            
-            // Insert the wrapper before the pre element
-            preElement.parentNode.insertBefore(highlightDiv, preElement);
-            
-            // Move the pre element inside the wrapper
-            highlightDiv.appendChild(preElement);
-            
-            // Get language class from code element
-            let language = '';
-            codeBlock.classList.forEach(className => {
-              if (className.startsWith('language-')) {
-                language = className.substring(9);
-              }
-            });
-            
-            // Auto-detect language if none is specified
-            if (!language) {
-              // Check for Ruby
-              if (codeBlock.textContent.includes('require') || 
-                  codeBlock.textContent.includes('def ') ||
-                  codeBlock.textContent.includes('class ') ||
-                  codeBlock.textContent.includes('module ') ||
-                  codeBlock.textContent.match(/\w+\s*=\s*\w+/g)) {
-                language = 'ruby';
-                codeBlock.classList.add('language-ruby');
-              }
-              // Check for SQL
-              else if (codeBlock.textContent.includes('SELECT') || 
-                       codeBlock.textContent.includes('FROM') ||
-                       codeBlock.textContent.includes('WHERE') ||
-                       codeBlock.textContent.includes('CREATE TABLE')) {
-                language = 'sql';
-                codeBlock.classList.add('language-sql');
-              }
-            }
-            
-            // If language is found, add it as a data attribute
-            if (language) {
-              highlightDiv.setAttribute('data-language', language);
-            }
-            
-            // Create copy button
-            const copyButton = document.createElement('button');
-            copyButton.className = 'copy-button';
-            copyButton.textContent = 'Copy';
-            copyButton.setAttribute('aria-label', 'Copy code to clipboard');
-            copyButton.onclick = function() {
-              navigator.clipboard.writeText(codeBlock.textContent)
-                .then(() => {
-                  copyButton.textContent = 'Copied!';
-                  copyButton.classList.add('copied');
-                  setTimeout(() => {
-                    copyButton.textContent = 'Copy';
-                    copyButton.classList.remove('copied');
-                  }, 2000);
-                })
-                .catch(err => {
-                  console.error('Could not copy text: ', err);
-                });
-            };
-            
-            // Add copy button to the highlight div
-            highlightDiv.appendChild(copyButton);
-          }
-        });
-      }
-      
-      // Initialize when DOM is loaded
-      document.addEventListener('DOMContentLoaded', function() {
-        detectColorScheme();
-        enhanceCodeBlocks();
-      });
-    </script>
 
     <!-- Le fav and touch icons -->
   <!-- Update these with your own images
@@ -390,7 +236,7 @@ crossorigin="anonymous"></script>
     <div class="row">
       <div class="col-md-3 mb-3">
         <div class="stat-box text-center p-3 rounded">
-          <div class="stat-number" data-count="161">0</div>
+          <div class="stat-number" data-count="160">0</div>
           <div class="stat-label">Total Posts</div>
         </div>
       </div>
@@ -398,7 +244,7 @@ crossorigin="anonymous"></script>
         <div class="stat-box text-center p-3 rounded">
           
           
-          <div class="stat-number" data-count="31">0</div>
+          <div class="stat-number" data-count="30">0</div>
           <div class="stat-label">Categories</div>
         </div>
       </div>
@@ -621,11 +467,6 @@ crossorigin="anonymous"></script>
         
       
         
-          <button class="category-filter-btn" data-category="performance">
-            Performance
-            <span class="badge bg-primary rounded-pill">3</span>
-          </button>
-        
       
         
           <button class="category-filter-btn" data-category="personal">
@@ -641,7 +482,7 @@ crossorigin="anonymous"></script>
         
           <button class="category-filter-btn" data-category="postgresql">
             Postgresql
-            <span class="badge bg-primary rounded-pill">9</span>
+            <span class="badge bg-primary rounded-pill">8</span>
           </button>
         
       
@@ -692,7 +533,7 @@ crossorigin="anonymous"></script>
         
           <button class="category-filter-btn" data-category="ruby">
             Ruby
-            <span class="badge bg-primary rounded-pill">25</span>
+            <span class="badge bg-primary rounded-pill">24</span>
           </button>
         
       
@@ -1024,11 +865,6 @@ crossorigin="anonymous"></script>
               
             
               
-                <a href="#performance-ref" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category-nav-link">
-                  Performance
-                  <span class="badge bg-primary rounded-pill">3</span>
-                </a>
-              
             
               
                 <a href="#personal-ref" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category-nav-link">
@@ -1044,7 +880,7 @@ crossorigin="anonymous"></script>
               
                 <a href="#postgresql-ref" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category-nav-link">
                   Postgresql
-                  <span class="badge bg-primary rounded-pill">9</span>
+                  <span class="badge bg-primary rounded-pill">8</span>
                 </a>
               
             
@@ -1095,7 +931,7 @@ crossorigin="anonymous"></script>
               
                 <a href="#ruby-ref" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center category-nav-link">
                   Ruby
-                  <span class="badge bg-primary rounded-pill">25</span>
+                  <span class="badge bg-primary rounded-pill">24</span>
                 </a>
               
             
@@ -2628,70 +2464,6 @@ crossorigin="anonymous"></script>
             
           
             
-              <div class="category-section mb-5" id="performance-ref" data-category="performance">
-                <div class="card">
-                  <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Performance</h3>
-                    <span class="badge bg-light text-primary rounded-pill">3 posts</span>
-                  </div>
-                  <div class="card-body">
-                    <div class="list-group">
-                      
-                      
-                        <a href="/benchmarking-ruby-orms" class="list-group-item list-group-item-action post-item" 
-                           data-title="benchmarking ruby orms: activerecord vs sequel performance with timescaledb"
-                           data-category="performance"
-                           data-year="2025"
-                           data-date="2025-03-18">
-                          <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</h5>
-                            <small class="text-muted">Mar 18, 2025</small>
-                          </div>
-                          
-                          <div class="post-meta">
-                            
-                          </div>
-                        </a>
-                      
-                        <a href="/my-first-contribution-to-rubygems" class="list-group-item list-group-item-action post-item" 
-                           data-title="my first contribution to rubygems"
-                           data-category="performance"
-                           data-year="2024"
-                           data-date="2024-07-04">
-                          <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">My First Contribution To Rubygems</h5>
-                            <small class="text-muted">Jul 04, 2024</small>
-                          </div>
-                          
-                            <p class="mb-1 post-description">Adding to my goal of being helpful in the software world, I had my first contribution to RubyGems [merged][new_pr] 🎉</p>
-                          
-                          <div class="post-meta">
-                            
-                          </div>
-                        </a>
-                      
-                        <a href="/observando-a-memoria-ruby" class="list-group-item list-group-item-action post-item" 
-                           data-title="observando a memória no ruby"
-                           data-category="performance"
-                           data-year="2013"
-                           data-date="2013-04-18">
-                          <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Observando a memória no ruby</h5>
-                            <small class="text-muted">Apr 18, 2013</small>
-                          </div>
-                          
-                            <p class="mb-1 post-description">Hoje fiz vários testes de gerência de memória e achei interessante como cada ganho de byte pode ser interessante conforme a quantidade de dados que se tem pa...</p>
-                          
-                          <div class="post-meta">
-                            
-                          </div>
-                        </a>
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>
-            
           
             
               <div class="category-section mb-5" id="personal-ref" data-category="personal">
@@ -3059,26 +2831,11 @@ crossorigin="anonymous"></script>
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                     <h3 class="mb-0">Postgresql</h3>
-                    <span class="badge bg-light text-primary rounded-pill">9 posts</span>
+                    <span class="badge bg-light text-primary rounded-pill">8 posts</span>
                   </div>
                   <div class="card-body">
                     <div class="list-group">
                       
-                      
-                        <a href="/benchmarking-ruby-orms" class="list-group-item list-group-item-action post-item" 
-                           data-title="benchmarking ruby orms: activerecord vs sequel performance with timescaledb"
-                           data-category="postgresql"
-                           data-year="2025"
-                           data-date="2025-03-18">
-                          <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</h5>
-                            <small class="text-muted">Mar 18, 2025</small>
-                          </div>
-                          
-                          <div class="post-meta">
-                            
-                          </div>
-                        </a>
                       
                         <a href="/two-ways-to-notify-new-data-from-timescaledb-continuous-aggregates" class="list-group-item list-group-item-action post-item" 
                            data-title="two ways to notify new data from timescaledb continuous aggregates"
@@ -3600,26 +3357,11 @@ crossorigin="anonymous"></script>
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
                     <h3 class="mb-0">Ruby</h3>
-                    <span class="badge bg-light text-primary rounded-pill">25 posts</span>
+                    <span class="badge bg-light text-primary rounded-pill">24 posts</span>
                   </div>
                   <div class="card-body">
                     <div class="list-group">
                       
-                      
-                        <a href="/benchmarking-ruby-orms" class="list-group-item list-group-item-action post-item" 
-                           data-title="benchmarking ruby orms: activerecord vs sequel performance with timescaledb"
-                           data-category="ruby"
-                           data-year="2025"
-                           data-date="2025-03-18">
-                          <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</h5>
-                            <small class="text-muted">Mar 18, 2025</small>
-                          </div>
-                          
-                          <div class="post-meta">
-                            
-                          </div>
-                        </a>
                       
                         <a href="/my-first-contribution-to-rubygems" class="list-group-item list-group-item-action post-item" 
                            data-title="my first contribution to rubygems"
@@ -6219,6 +5961,56 @@ crossorigin="anonymous"></script>
     
     <!-- Dedicated Disqus dark mode handler -->
     <script src="/js/disqus-dark.js"></script>
+
+    <!-- Dark Mode Script -->
+    <script>
+      function detectColorScheme() {
+        // Check saved preference first
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        
+        // Apply theme based on saved preference or system preference
+        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
+          document.body.classList.add('dark-mode');
+          document.documentElement.classList.add('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = true;
+          console.log('Dark mode applied on initial load');
+        } else {
+          document.body.classList.remove('dark-mode');
+          document.documentElement.classList.remove('dark-mode');
+          if (darkModeToggle) darkModeToggle.checked = false;
+          console.log('Light mode applied on initial load');
+        }
+        
+        // Listen for changes in the OS color scheme only if no saved preference
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+          // Only apply system preference if user hasn't manually chosen a theme
+          if (localStorage.getItem('theme') === null) {
+            const newColorScheme = e.matches ? 'dark' : 'light';
+            if (newColorScheme === 'dark') {
+              document.body.classList.add('dark-mode');
+              document.documentElement.classList.add('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = true;
+              console.log('Dark mode applied from system preference change');
+            } else {
+              document.body.classList.remove('dark-mode');
+              document.documentElement.classList.remove('dark-mode');
+              if (darkModeToggle) darkModeToggle.checked = false;
+              console.log('Light mode applied from system preference change');
+            }
+          }
+        });
+      }
+
+      // Initialize dark mode immediately before DOM content is fully loaded
+      detectColorScheme();
+      
+      // Initialize when DOM is loaded
+      document.addEventListener('DOMContentLoaded', function() {
+        detectColorScheme();
+      });
+    </script>
   </body>
 </html>
 
