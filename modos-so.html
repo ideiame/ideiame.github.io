@@ -69,8 +69,8 @@ src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pu
 crossorigin="anonymous"></script>
 
     <meta charset="utf-8">
-    <title>Aula de Sistemas Operacionais - Modos do Kernel</title>
-    <meta name="description" content="O sistema operacional é dividido em dois modos básicos: modo Kernel e modo Usuário. Esta divisão permite que os aplicativos sejam executados com segurança, mantendo a integridade do sistema.">
+    <title>Modos de Acesso</title>
+    <meta name="description" content="Modos de Acesso do SO">
     <meta name="author" content="Jônatas Davi Paganini">
 
     <!-- Enable responsive viewport -->
@@ -296,7 +296,7 @@ crossorigin="anonymous"></script>
           </ul>
           
           <div class="d-none d-md-block page-title-nav me-auto ms-2">
-            Aula de Sistemas Operacionais - Modos do Kernel
+            Modos de Acesso
           </div>
           
           <div class="form-check form-switch d-flex align-items-center ms-auto">
@@ -314,7 +314,7 @@ crossorigin="anonymous"></script>
 
 <div class="article-wrapper">
   <div class="article-header">
-    <h1>Aula de Sistemas Operacionais - Modos do Kernel</h1>
+    <h1>Modos de Acesso</h1>
     <div class="article-meta">
       <span><i class="bi bi-calendar3"></i> March 04, 2010</span>
       <span class="separator">•</span>
@@ -322,7 +322,7 @@ crossorigin="anonymous"></script>
   
   
     <span class="reading-time" title="Estimated read time">
-      <i class="bi bi-clock"></i> 10 min read
+      <i class="bi bi-clock"></i> 9 min read
     </span>
   
  
@@ -332,13 +332,7 @@ crossorigin="anonymous"></script>
       <span>
         <i class="bi bi-folder"></i> 
         
-          <a href="#sistemas-operacionais-ref" class="text-muted">sistemas-operacionais</a>, 
-        
-          <a href="#technical-ref" class="text-muted">technical</a>, 
-        
-          <a href="#aulas-ref" class="text-muted">aulas</a>, 
-        
-          <a href="#kernel-ref" class="text-muted">kernel</a>
+          <a href="#sistemas-operacionais-ref" class="text-muted">sistemas-operacionais</a>
         
       </span>
       
@@ -346,7 +340,8 @@ crossorigin="anonymous"></script>
   </div>
   
   <div class="article-content">
-    <h1 id="entendendo-os-modos-de-acesso-do-sistema-operacional">Entendendo os Modos de Acesso do Sistema Operacional</h1>
+    
+<h1 id="entendendo-os-modos-de-acesso-do-sistema-operacional">Entendendo os Modos de Acesso do Sistema Operacional</h1>
 
 <p>O sistema operacional é dividido em dois modos básicos, sendo estes o modo Kernel e o modo Usuário. Esta divisão permite que os aplicativos sejam executados com segurança.</p>
 
@@ -439,60 +434,7 @@ crossorigin="anonymous"></script>
 
 <p>No processo de receber o comando, o sistema identifica o aplicativo que fez a chamada e verifica a sua permissão para execução do comando. Dada a permissão executa e retorna o resultado.</p>
 
-<pre class="system-diagram">
-+------------------+     +------------------+
-|   User Space     |     |                  |
-|   +----------+   |     |   +----------+   |
-|   |Application|  |     |   |Application|  |
-|   |Process A  |  |     |   |Process B  |  |
-|   +----------+   |     |   +----------+   |
-|        |         |     |        |         |
-+--------|---------|-----+--------|---------|
-         |                        |
-         v                        v
-+--------------------------------------------+
-|         System Calls Interface             |
-+--------------------------------------------+
-                   |
-                   v
-+--------------------------------------------+
-|                Kernel Space                |
-|   +------------+                           |
-|   |System Call |                           |
-|   |Handler     |                           |
-|   +------------+                           |
-|         |                                  |
-|         v                                  |
-|   +---------------------------+            |
-|   |Kernel Services &amp; Functions|            |
-|   |  +--------------+        |            |
-|   |  |Process       |        |            |
-|   |  |Management    |        |            |
-|   |  +--------------+        |            |
-|   |  +--------------+        |            |
-|   |  |Memory        |        |            |
-|   |  |Management    |        |            |
-|   |  +--------------+        |            |
-|   |  +--------------+        |            |
-|   |  |File System   |        |            |
-|   |  +--------------+        |            |
-|   |  +--------------+        |            |
-|   |  |Device Drivers|        |            |
-|   |  +--------------+        |            |
-|   |  +--------------+        |            |
-|   |  |Network Stack |        |            |
-|   |  +--------------+        |            |
-|   +---------------------------+            |
-+--------------------------------------------+
-          |       |       |       |
-          v       v       v       v
-+--------------------------------------------+
-|                Hardware                    |
-|  +-----+  +------+  +-----+  +-------+    |
-|  | CPU |  |Memory|  |Disks|  |Network|    |
-|  +-----+  +------+  +-----+  +-------+    |
-+--------------------------------------------+
-</pre>
+<p><img src="/images/system-calls-diagram.png" alt="System Calls Diagram" /></p>
 
 <h2 id="proteção-do-kernel">Proteção do Kernel</h2>
 
@@ -675,12 +617,6 @@ crossorigin="anonymous"></script>
     
       <a href="#sistemas-operacionais-ref" class="article-tag">sistemas-operacionais</a>
     
-      <a href="#technical-ref" class="article-tag">technical</a>
-    
-      <a href="#aulas-ref" class="article-tag">aulas</a>
-    
-      <a href="#kernel-ref" class="article-tag">kernel</a>
-    
   </div>
   
   
@@ -689,7 +625,7 @@ crossorigin="anonymous"></script>
   <h5>Share this article</h5>
   <div class="sharing-buttons">
     
-    <a href="https://twitter.com/intent/tweet?text=Aula+de+Sistemas+Operacionais+-+Modos+do+Kernel&url=https%3A%2F%2Fideia.me%2Fmodos-so&via=jonatasdp" 
+    <a href="https://twitter.com/intent/tweet?text=Modos+de+Acesso&url=https%3A%2F%2Fideia.me%2Fmodos-so&via=jonatasdp" 
        class="btn btn-twitter btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -707,7 +643,7 @@ crossorigin="anonymous"></script>
     
     
     
-    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fmodos-so&title=Aula+de+Sistemas+Operacionais+-+Modos+do+Kernel" 
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fmodos-so&title=Modos+de+Acesso" 
        class="btn btn-linkedin btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -716,7 +652,7 @@ crossorigin="anonymous"></script>
     
     
     
-    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fmodos-so&title=Aula+de+Sistemas+Operacionais+-+Modos+do+Kernel" 
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fmodos-so&title=Modos+de+Acesso" 
        class="btn btn-reddit btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -849,22 +785,6 @@ crossorigin="anonymous"></script>
                 
               
                 
-                  
-                  
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
-              
-                
               
                 
               
@@ -881,16 +801,9 @@ crossorigin="anonymous"></script>
               
                 
               
+                
               
-              
-            
-          
-          
-          
-        
-          
-            
-              
+                
               
               
               
@@ -904,71 +817,6 @@ crossorigin="anonymous"></script>
               
               
                 
-              
-                
-                  
-                  
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
-              
-                
-                  
-                  
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
-              
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
               
               
               
@@ -1024,6 +872,76 @@ crossorigin="anonymous"></script>
               
                 
               
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
                 
               
                 
@@ -1045,6 +963,23 @@ crossorigin="anonymous"></script>
               
                 
               
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
                 
               
               
@@ -1059,1036 +994,11 @@ crossorigin="anonymous"></script>
         
         
         
-          
-            
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <div class="col-md-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <a href="/website-seo-improvements-and-category-standardization">Enhancing Website Consistency and SEO: A Technical Journey</a>
-                      </h5>
-                      <p class="card-text text-muted">
-                        <small>
-                          <i class="bi bi-calendar3"></i> March 10, 2024
-                        </small>
-                      </p>
-                      
-                        <p class="card-text">Exploring the technical improvements made to ideia.me, including enhanced SEO, standardized categories, and a more co...</p>
-                      
-                    </div>
-                  </div>
-                </div>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-          
-          
-        
-          
-            
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <div class="col-md-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <a href="/semantic-fields-through-ages">Semantic Fields through Ages - A Journey in Words</a>
-                      </h5>
-                      <p class="card-text text-muted">
-                        <small>
-                          <i class="bi bi-calendar3"></i> February 13, 2024
-                        </small>
-                      </p>
-                      
-                        <p class="card-text">Late at night, with sleep eluding me, my mind wandered through the labyrinth of semantic fields and the power of word...</p>
-                      
-                    </div>
-                  </div>
-                </div>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-          
-          
-        
-          
-            
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <div class="col-md-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <a href="/semantic-fields-of-mind">Semantic fields of the mind</a>
-                      </h5>
-                      <p class="card-text text-muted">
-                        <small>
-                          <i class="bi bi-calendar3"></i> February 05, 2024
-                        </small>
-                      </p>
-                      
-                        <p class="card-text">Thursday night, I arrived from Athens and past weekend I had the most insightful update in my mindset until now. I'll...</p>
-                      
-                    </div>
-                  </div>
-                </div>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-          
-          
         
         
+          <div class="col-12">
+            <p>No related posts found. Check out <a href="/archive.html">recent posts</a> instead.</p>
+          </div>
         
       </div>
     </div>

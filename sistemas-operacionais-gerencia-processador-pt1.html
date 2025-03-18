@@ -69,8 +69,8 @@ src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pu
 crossorigin="anonymous"></script>
 
     <meta charset="utf-8">
-    <title>Sistemas Operacionais - Gerência do processador - parte 1</title>
-    <meta name="description" content="Entenda como os sistemas operacionais gerenciam o processador, aplicam políticas de escalonamento e garantem a multiprogramação para maximizar a eficiência do sistema.">
+    <title>Gerência de Processador - Parte 1</title>
+    <meta name="description" content="Primeira parte sobre gerência de processador em sistemas operacionais">
     <meta name="author" content="Jônatas Davi Paganini">
 
     <!-- Enable responsive viewport -->
@@ -296,7 +296,7 @@ crossorigin="anonymous"></script>
           </ul>
           
           <div class="d-none d-md-block page-title-nav me-auto ms-2">
-            Sistemas Operacionais - Gerência do processador - parte 1
+            Gerência de Processador - Parte 1
           </div>
           
           <div class="form-check form-switch d-flex align-items-center ms-auto">
@@ -314,7 +314,7 @@ crossorigin="anonymous"></script>
 
 <div class="article-wrapper">
   <div class="article-header">
-    <h1>Sistemas Operacionais - Gerência do processador - parte 1</h1>
+    <h1>Gerência de Processador - Parte 1</h1>
     <div class="article-meta">
       <span><i class="bi bi-calendar3"></i> May 21, 2010</span>
       <span class="separator">•</span>
@@ -332,13 +332,7 @@ crossorigin="anonymous"></script>
       <span>
         <i class="bi bi-folder"></i> 
         
-          <a href="#sistemas-operacionais-ref" class="text-muted">sistemas-operacionais</a>, 
-        
-          <a href="#technical-ref" class="text-muted">technical</a>, 
-        
-          <a href="#aulas-ref" class="text-muted">aulas</a>, 
-        
-          <a href="#processador-ref" class="text-muted">processador</a>
+          <a href="#sistemas-operacionais-ref" class="text-muted">sistemas-operacionais</a>
         
       </span>
       
@@ -346,7 +340,8 @@ crossorigin="anonymous"></script>
   </div>
   
   <div class="article-content">
-    <h1 id="gerência-do-processador-em-sistemas-operacionais">Gerência do Processador em Sistemas Operacionais</h1>
+    
+<h1 id="gerência-do-processador-em-sistemas-operacionais">Gerência do Processador em Sistemas Operacionais</h1>
 
 <p>A gerência do processador é uma das funções mais importantes de um sistema operacional moderno. Através de diferentes algoritmos e políticas de escalonamento, o sistema consegue compartilhar os recursos do CPU entre múltiplos processos, garantindo eficiência e responsividade.</p>
 
@@ -387,50 +382,7 @@ crossorigin="anonymous"></script>
 
 <p>A eficiência do dispatcher é crítica para o desempenho do sistema, pois a troca de contexto representa um overhead que não contribui diretamente para o processamento útil.</p>
 
-<pre class="process-diagram">
- +------------+
- | Created/New|
- +------------+
-        |
-        | admitted
-        v
-  +------------+             +------------+
-  |   Ready    |&lt;------------|   Waiting  |
-  +------------+    I/O or   +------------+
-        |          event           ^
-        | dispatch  complete       |
-        |                          | I/O or
-        v                          | event wait
-  +------------+             |     |
-  |  Running   |-------------+     |
-  +------------+                   |
-        |                          |
-        | exit                     |
-        v                          |
-  +------------+                   |
-  | Terminated |                   |
-  +------------+                   |
-        
-        +---------------+          |
-        |  CPU Scheduler|----------+
-        |  +-----------+|   time slice
-        |  |Dispatcher |&lt;----expired---+
-        |  +-----------+|              |
-        +---------------+              |
-               |                       |
-               | context switch        |
-               v                       |
-        +---------------+              |
-        |  Process      |--------------+
-        +---------------+
-          
-  Scheduling Algorithms:
-  - FCFS (First-Come, First-Served)
-  - SJF (Shortest Job First)
-  - Priority Scheduling  
-  - Round Robin
-  - Multilevel Feedback Queue
-</pre>
+<p><img src="/images/process-scheduling.png" alt="Process Scheduling Diagram" /></p>
 
 <h2 id="critérios-de-avaliação-das-políticas-de-escalonamento">Critérios de Avaliação das Políticas de Escalonamento</h2>
 
@@ -1075,12 +1027,6 @@ crossorigin="anonymous"></script>
     
       <a href="#sistemas-operacionais-ref" class="article-tag">sistemas-operacionais</a>
     
-      <a href="#technical-ref" class="article-tag">technical</a>
-    
-      <a href="#aulas-ref" class="article-tag">aulas</a>
-    
-      <a href="#processador-ref" class="article-tag">processador</a>
-    
   </div>
   
   
@@ -1089,7 +1035,7 @@ crossorigin="anonymous"></script>
   <h5>Share this article</h5>
   <div class="sharing-buttons">
     
-    <a href="https://twitter.com/intent/tweet?text=Sistemas+Operacionais+-+Ger%C3%AAncia+do+processador+-+parte+1&url=https%3A%2F%2Fideia.me%2Fsistemas-operacionais-gerencia-processador-pt1&via=jonatasdp" 
+    <a href="https://twitter.com/intent/tweet?text=Ger%C3%AAncia+de+Processador+-+Parte+1&url=https%3A%2F%2Fideia.me%2Fsistemas-operacionais-gerencia-processador-pt1&via=jonatasdp" 
        class="btn btn-twitter btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -1107,7 +1053,7 @@ crossorigin="anonymous"></script>
     
     
     
-    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fsistemas-operacionais-gerencia-processador-pt1&title=Sistemas+Operacionais+-+Ger%C3%AAncia+do+processador+-+parte+1" 
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fsistemas-operacionais-gerencia-processador-pt1&title=Ger%C3%AAncia+de+Processador+-+Parte+1" 
        class="btn btn-linkedin btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -1116,7 +1062,7 @@ crossorigin="anonymous"></script>
     
     
     
-    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fsistemas-operacionais-gerencia-processador-pt1&title=Sistemas+Operacionais+-+Ger%C3%AAncia+do+processador+-+parte+1" 
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fsistemas-operacionais-gerencia-processador-pt1&title=Ger%C3%AAncia+de+Processador+-+Parte+1" 
        class="btn btn-reddit btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -1249,22 +1195,6 @@ crossorigin="anonymous"></script>
                 
               
                 
-                  
-                  
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
-              
-                
               
                 
               
@@ -1281,16 +1211,9 @@ crossorigin="anonymous"></script>
               
                 
               
+                
               
-              
-            
-          
-          
-          
-        
-          
-            
-              
+                
               
               
               
@@ -1304,71 +1227,6 @@ crossorigin="anonymous"></script>
               
               
                 
-              
-                
-                  
-                  
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
-              
-                
-                  
-                  
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-                
-              
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
-              
-              
-              
-            
-          
-          
-          
-        
-          
-            
-              
               
               
               
@@ -1424,6 +1282,76 @@ crossorigin="anonymous"></script>
               
                 
               
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
                 
               
                 
@@ -1445,6 +1373,23 @@ crossorigin="anonymous"></script>
               
                 
               
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
                 
               
               
@@ -1459,1036 +1404,11 @@ crossorigin="anonymous"></script>
         
         
         
-          
-            
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <div class="col-md-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <a href="/website-seo-improvements-and-category-standardization">Enhancing Website Consistency and SEO: A Technical Journey</a>
-                      </h5>
-                      <p class="card-text text-muted">
-                        <small>
-                          <i class="bi bi-calendar3"></i> March 10, 2024
-                        </small>
-                      </p>
-                      
-                        <p class="card-text">Exploring the technical improvements made to ideia.me, including enhanced SEO, standardized categories, and a more co...</p>
-                      
-                    </div>
-                  </div>
-                </div>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-          
-          
-        
-          
-            
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <div class="col-md-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <a href="/semantic-fields-through-ages">Semantic Fields through Ages - A Journey in Words</a>
-                      </h5>
-                      <p class="card-text text-muted">
-                        <small>
-                          <i class="bi bi-calendar3"></i> February 13, 2024
-                        </small>
-                      </p>
-                      
-                        <p class="card-text">Late at night, with sleep eluding me, my mind wandered through the labyrinth of semantic fields and the power of word...</p>
-                      
-                    </div>
-                  </div>
-                </div>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-          
-          
-        
-          
-            
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-                <div class="col-md-6 mb-3">
-                  <div class="card h-100">
-                    <div class="card-body">
-                      <h5 class="card-title">
-                        <a href="/semantic-fields-of-mind">Semantic fields of the mind</a>
-                      </h5>
-                      <p class="card-text text-muted">
-                        <small>
-                          <i class="bi bi-calendar3"></i> February 05, 2024
-                        </small>
-                      </p>
-                      
-                        <p class="card-text">Thursday night, I arrived from Athens and past weekend I had the most insightful update in my mindset until now. I'll...</p>
-                      
-                    </div>
-                  </div>
-                </div>
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-              
-            
-          
-          
-          
         
         
+          <div class="col-12">
+            <p>No related posts found. Check out <a href="/archive.html">recent posts</a> instead.</p>
+          </div>
         
       </div>
     </div>
