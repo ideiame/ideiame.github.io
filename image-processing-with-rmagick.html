@@ -311,50 +311,36 @@ crossorigin="anonymous"></script>
     
     <div class="container content-container mt-5 pt-5">
       
-<!-- Post layout with modern design -->
-<div class="post-container">
-  <div class="post-header mb-4">
-    <h1 class="post-title display-4">Image processing with Ruby</h1>
-    <div class="post-meta d-flex flex-wrap align-items-center text-muted mb-3">
-      <span class="me-3">
-        <i class="bi bi-calendar3"></i> January 06, 2019
-      </span>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <h1>Image processing with Ruby</h1>
+    <div class="article-meta">
+      <span><i class="bi bi-calendar3"></i> January 06, 2019</span>
+      <span class="separator">•</span>
       
-      <span class="me-3">
-        <i class="bi bi-folder"></i>
-        
-          <a href="/categories.html#ruby-ref" class="badge bg-primary text-decoration-none me-1">ruby</a>
-        
-      </span>
+  
+  
+    <span class="reading-time" title="Estimated read time">
+      <i class="bi bi-clock"></i> 12 min read
+    </span>
+  
+ 
       
       
+      <span class="separator">•</span>
       <span>
-        <i class="bi bi-tags"></i>
+        <i class="bi bi-folder"></i> 
+        
+          <a href="#ruby-ref" class="text-muted">ruby</a>
         
       </span>
       
-    </div>
-    
-    <div class="post-share d-flex align-items-center mb-4">
-      <span class="me-2 text-muted">Share:</span>
-      <a href="https://twitter.com/intent/tweet?text=Image+processing+with+Ruby&url=https://ideia.me%2Fimage-processing-with-rmagick&via=jonatasdp" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ideia.me%2Fimage-processing-with-rmagick&title=Image+processing+with+Ruby" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-linkedin"></i>
-      </a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://ideia.me%2Fimage-processing-with-rmagick" 
-         class="btn btn-sm btn-outline-primary" target="_blank">
-        <i class="bi bi-facebook"></i>
-      </a>
     </div>
   </div>
-
-  <div class="post-content card mb-5">
-    <div class="card-body">
-      <p>During my vacations, I decide to play in a different project. I’d like to make
+  
+  <div class="article-content">
+    <p>During my vacations, I decide to play in a different project. I’d like to make
 some hashi art with packs of used chopsticks my girlfriend is collecting from the Japanese restaurant that she works.</p>
 
 <p>We have hundreds and will reach thousands of chopsticks collected soon. We cleaned them to reuse in some art and we decide to build a plaque with holes that could
@@ -399,13 +385,19 @@ to start from scratch and easy to adapt later than play in a single file and add
 purposes and understanding the libraries. As the first step, let’s switch to
 <code class="language-plaintext highlighter-rouge">pry</code> instead of IRB:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#!/usr/bin/env ruby</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="c1">#!/usr/bin/env ruby</span>
 
 <span class="nb">require</span> <span class="s2">"bundler/setup"</span>
 <span class="nb">require</span> <span class="s2">"hashi"</span>
 <span class="nb">require</span> <span class="s2">"pry"</span>
 <span class="no">Pry</span><span class="p">.</span><span class="nf">start</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>There’s no secret in the code. We just require the bundler requirements
 plus the files into our project and start a pry session.</p>
@@ -419,8 +411,9 @@ plus the files into our project and start a pry session.</p>
 
 <p>Let’s download the image in the project folder naming it <code class="language-plaintext highlighter-rouge">skull.png</code>:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl http://cliparts.co/cliparts/rcj/KMa/rcjKMaMzi.jpg <span class="o">&gt;</span> skull.png
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>curl http://cliparts.co/cliparts/rcj/KMa/rcjKMaMzi.jpg <span class="o">&gt;</span> skull.png
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>With the <code class="language-plaintext highlighter-rouge">skull.png</code> we can play and learn more about the image with RMagick.</p>
 
@@ -431,16 +424,21 @@ superficially cover our needs.</p>
 
 <p>The first thing is to learn more about image details:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'rmagick'</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="nb">require</span> <span class="s1">'rmagick'</span>
 <span class="no">Magick</span><span class="o">::</span><span class="no">Image</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="s1">'skull.jpg'</span><span class="p">)</span>
 <span class="c1"># =&gt; [skull.jpg JPEG 441x651 4)l41x651+0+0 DirectClass 8-bit 56kb]</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>Check that it returns an array of images because it probably can process
 multiple images. In this case, let’s pick the first.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">image</span> <span class="o">=</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Image</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="s1">'skull.jpg'</span><span class="p">).</span><span class="nf">first</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">image</span> <span class="o">=</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Image</span><span class="p">.</span><span class="nf">read</span><span class="p">(</span><span class="s1">'skull.jpg'</span><span class="p">).</span><span class="nf">first</span>
 <span class="c1"># =&gt; skull.jpg JPEG 441x651 441x651+0+0 DirectClass 8-bit 56kb</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Now let’s check some crucial properties to follow our small image processor.</p>
 <pre class="prettyprint">
@@ -460,37 +458,50 @@ pixels from (651 * 441) spots we have.</p>
 
 <p>Let’s say that we’re analyzing the pixel <code class="language-plaintext highlighter-rouge">1234</code>:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pixel_index</span> <span class="o">=</span> <span class="mi">1234</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">pixel_index</span> <span class="o">=</span> <span class="mi">1234</span>
 <span class="n">row</span> <span class="o">=</span> <span class="n">pixel_index</span> <span class="o">/</span> <span class="n">image</span><span class="p">.</span><span class="nf">rows</span> <span class="c1"># =&gt; 1</span>
 <span class="n">col</span> <span class="o">=</span> <span class="n">pixel_index</span> <span class="o">%</span> <span class="n">image</span><span class="p">.</span><span class="nf">columns</span> <span class="c1"># =&gt; 352</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>We don’t need the <code class="language-plaintext highlighter-rouge">pixel_index</code>, but the <code class="language-plaintext highlighter-rouge">col</code> and <code class="language-plaintext highlighter-rouge">row</code> values are crucial to plot the dots in the new image.</p>
 
 <p>Now, let’s discover the proper method to get the pixels from image:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">image</span><span class="p">.</span><span class="nf">methods</span><span class="p">.</span><span class="nf">grep</span> <span class="sr">/pixel/</span> <span class="c1"># =&gt; [:get_pixels, :store_pixels, ... import_pixels, :each_pixel, :pixel_color]</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">image</span><span class="p">.</span><span class="nf">methods</span><span class="p">.</span><span class="nf">grep</span> <span class="sr">/pixel/</span> <span class="c1"># =&gt; [:get_pixels, :store_pixels, ... import_pixels, :each_pixel, :pixel_color]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>Cool! looks like we can use <code class="language-plaintext highlighter-rouge">get_pixels</code> or iterate directly with
  <code class="language-plaintext highlighter-rouge">each_pixel</code>.</p>
 
 <p>Following my “Binding Pry Driven Development” flow, let’s jump into the first
 pixel:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">image</span><span class="p">.</span><span class="nf">each_pixel</span> <span class="k">do</span> <span class="o">|</span><span class="n">px</span><span class="o">|</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">image</span><span class="p">.</span><span class="nf">each_pixel</span> <span class="k">do</span> <span class="o">|</span><span class="n">px</span><span class="o">|</span>
   <span class="nb">binding</span><span class="p">.</span><span class="nf">pry</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Right after execute this line, it will jump into another pry session:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">px</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">px</span>
 <span class="o">=&gt;</span> <span class="c1">#&lt;Magick::Pixel:0x00007f8c2d58fd98&gt;</span>
 <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">px</span><span class="p">.</span><span class="nf">methods</span><span class="p">.</span><span class="nf">grep</span> <span class="sr">/color/</span>
 <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:to_color</span><span class="p">]</span>
 <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">px</span><span class="p">.</span><span class="nf">to_color</span>
 <span class="o">=&gt;</span> <span class="s2">"white"</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Tada! We have almost all pieces ready to start the real implementation. We know
 the color and the pixel position.</p>
@@ -498,7 +509,16 @@ the color and the pixel position.</p>
 <p>Let’s start building a smart iterator that can yield the information we need for
 create the rules and drawings that we want:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">navigate_on_pixels_with_index</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">navigate_on_pixels_with_index</span>
   <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
   <span class="n">image</span><span class="p">.</span><span class="nf">each_pixel</span> <span class="k">do</span> <span class="o">|</span><span class="n">pixel</span><span class="o">|</span>
     <span class="n">row</span> <span class="o">=</span> <span class="n">i</span> <span class="o">/</span> <span class="n">image</span><span class="p">.</span><span class="nf">rows</span>
@@ -507,21 +527,35 @@ create the rules and drawings that we want:</p>
     <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>Also, the method can yield the information we need to create our drawing.</p>
 
 <p>Going back to command line, let’s see how the <code class="language-plaintext highlighter-rouge">Draw</code> object works:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">draw</span> <span class="o">=</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Draw</span><span class="p">.</span><span class="nf">new</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="n">draw</span> <span class="o">=</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Draw</span><span class="p">.</span><span class="nf">new</span>
 <span class="o">=&gt;</span> <span class="p">(</span><span class="n">no</span> <span class="n">primitives</span> <span class="n">defined</span><span class="p">)</span>
 <span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="n">draw</span><span class="p">.</span><span class="nf">methods</span><span class="p">.</span><span class="nf">grep</span> <span class="sr">/circle/</span>
 <span class="o">=&gt;</span> <span class="p">[</span><span class="ss">:circle</span><span class="p">]</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>One of my favorite shortcuts is <code class="language-plaintext highlighter-rouge">$</code> on pry. It’s a shortcut for <code class="language-plaintext highlighter-rouge">show-doc</code> of
 something. Let’s inspect the <code class="language-plaintext highlighter-rouge">circle</code> method:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="err">$</span> <span class="n">draw</span><span class="p">.</span><span class="nf">circle</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="n">pry</span><span class="p">(</span><span class="n">main</span><span class="p">)</span><span class="o">&gt;</span> <span class="err">$</span> <span class="n">draw</span><span class="p">.</span><span class="nf">circle</span>
 
 <span class="no">From</span><span class="p">:</span> <span class="sr">/Users/</span><span class="n">jonatasdp</span><span class="o">/</span><span class="p">.</span><span class="nf">rbenv</span><span class="o">/</span><span class="n">versions</span><span class="o">/</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">1</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">ruby</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">gems</span><span class="o">/</span><span class="n">rmagick</span><span class="o">-</span><span class="mf">2.16</span><span class="o">.</span><span class="mi">0</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">rmagick_internal</span><span class="p">.</span><span class="nf">rb</span> <span class="err">@</span> <span class="n">line</span> <span class="mi">244</span><span class="p">:</span>
 <span class="no">Owner</span><span class="p">:</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Draw</span>
@@ -531,17 +565,21 @@ something. Let’s inspect the <code class="language-plaintext highlighter-rouge
 <span class="k">def</span> <span class="nf">circle</span><span class="p">(</span><span class="n">originX</span><span class="p">,</span> <span class="n">originY</span><span class="p">,</span> <span class="n">perimX</span><span class="p">,</span> <span class="n">perimY</span><span class="p">)</span>
   <span class="n">primitive</span> <span class="s1">'circle '</span> <span class="o">+</span> <span class="nb">sprintf</span><span class="p">(</span><span class="s1">'%g,%g %g,%g'</span><span class="p">,</span> <span class="n">originX</span><span class="p">,</span> <span class="n">originY</span><span class="p">,</span> <span class="n">perimX</span><span class="p">,</span> <span class="n">perimY</span><span class="p">)</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>You can see the method need the <code class="language-plaintext highlighter-rouge">originX</code> and <code class="language-plaintext highlighter-rouge">originY</code> that are <code class="language-plaintext highlighter-rouge">col</code> and
 <code class="language-plaintext highlighter-rouge">row</code> position. The <code class="language-plaintext highlighter-rouge">perimX </code>and <code class="language-plaintext highlighter-rouge">perimY</code> will depend on the hashi
 diameter + <code class="language-plaintext highlighter-rouge">col</code> and <code class="language-plaintext highlighter-rouge">row</code> position.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">draw_hashi_on</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">draw_hashi_on</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
   <span class="n">hashi_size</span> <span class="o">=</span> <span class="mi">3</span>
   <span class="n">draw</span><span class="p">.</span><span class="nf">circle</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">+</span> <span class="n">hashi_size</span><span class="p">,</span> <span class="n">row</span> <span class="o">+</span> <span class="n">hashi_size</span><span class="p">)</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>We still need to take care of the padding. Otherwise, we’re going to iterate
 under all the pixels and it will become a blurred image of dots.</p>
@@ -549,7 +587,20 @@ under all the pixels and it will become a blurred image of dots.</p>
 <p>As we want to have some distance between the circles, we need to define this
 distance and ignore the pixels that are not in this position.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">navigate_on_pixels_with_row_and_col</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">navigate_on_pixels_with_row_and_col</span>
   <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
   <span class="n">padding</span> <span class="o">=</span> <span class="mi">8</span>
   <span class="n">image</span><span class="p">.</span><span class="nf">each_pixel</span> <span class="k">do</span> <span class="o">|</span><span class="n">pixel</span><span class="o">|</span>
@@ -562,7 +613,7 @@ distance and ignore the pixels that are not in this position.</p>
     <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Now we’re ignoring all pixels that are not divisible by 8, and it means that
 we’re jumping every 8 pixels to make the check. Why? Because of if we want only
@@ -573,7 +624,15 @@ between them.</p>
 
 <p>Non-white pixels should have circles. Putting all together in the <code class="language-plaintext highlighter-rouge">process!</code> method:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">process!</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">process!</span>
   <span class="n">navigate_on_pixels_with_row_and_col</span> <span class="k">do</span> <span class="o">|</span><span class="n">pixel</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="o">|</span>
     <span class="k">if</span> <span class="n">pixel</span><span class="p">.</span><span class="nf">to_color</span> <span class="o">!=</span> <span class="s2">"white"</span>
       <span class="n">draw_hashi_on</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)</span>
@@ -581,21 +640,98 @@ between them.</p>
   <span class="k">end</span>
   <span class="n">save_new_image</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>We still missed a final step that saves the new drawing.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">save_new_image</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">save_new_image</span>
   <span class="n">img</span> <span class="o">=</span> <span class="no">Magick</span><span class="o">::</span><span class="no">Image</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">Hashi</span><span class="p">.</span><span class="nf">image</span><span class="p">.</span><span class="nf">rows</span><span class="p">,</span> <span class="no">Hashi</span><span class="p">.</span><span class="nf">image</span><span class="p">.</span><span class="nf">columns</span><span class="p">)</span>
   <span class="n">draw</span><span class="p">.</span><span class="nf">draw</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
   <span class="n">img</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="s1">'skull-dots.jpg'</span><span class="p">)</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>If you save the file probably it will work in some how.</p>
 
 <p>It was the necessary steps I follow to create this small project. Looking the entire
 code that accepts the filename, hashi size and padding as a command line input:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"hashi/version"</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+</pre></td><td class="rouge-code"><pre><span class="nb">require</span> <span class="s2">"hashi/version"</span>
 <span class="nb">require</span> <span class="s1">'rmagick'</span>
 <span class="nb">require</span> <span class="s1">'set'</span>
 
@@ -667,7 +803,7 @@ code that accepts the filename, hashi size and padding as a command line input:<
     <span class="n">draw</span><span class="p">.</span><span class="nf">circle</span><span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span> <span class="o">+</span> <span class="n">hashi_size</span><span class="p">,</span> <span class="n">row</span> <span class="o">+</span> <span class="n">hashi_size</span><span class="p">)</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <h2 id="conclusion">Conclusion</h2>
 
 <p>If you look at the code, it has a few extra messages, but the basics are what
@@ -689,938 +825,771 @@ file</a> and print it in 3D printing. My idea is
 creating cylinders from the chopstick coordinates and then use another cube to subtract it and get the perfect plaque with all the holes to make the final hashi art.</p>
 
 
-    </div>
   </div>
-
-  <div class="post-navigation mb-5">
-    <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0">
-        
-        <div class="card h-100">
-          <div class="card-body">
-            <span class="text-muted d-block mb-2"><i class="bi bi-arrow-left"></i> Previous Post</span>
-            <h5 class="card-title mb-0">
-              <a href="/retrospective-2018" class="stretched-link">Retrospective 2018</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-      <div class="col-md-6">
-        
-        <div class="card h-100">
-          <div class="card-body text-md-end">
-            <span class="text-muted d-block mb-2">Next Post <i class="bi bi-arrow-right"></i></span>
-            <h5 class="card-title mb-0">
-              <a href="/complex-ast-search-with-ruby" class="stretched-link">Complex AST search with Ruby</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="post-author card mb-5">
-    <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-md-2 text-center mb-3 mb-md-0">
-          <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini" class="rounded-circle img-fluid" style="max-width: 100px;">
-        </div>
-        <div class="col-md-10">
-          <h4>About Jônatas Davi Paganini</h4>
-          <p>Developer Advocate at TimescaleDB, Ruby enthusiast, and PostgreSQL expert. Sharing knowledge through writing and speaking at conferences worldwide.</p>
-          <div class="social-links">
-            <a href="https://github.com/jonatas" class="btn btn-sm btn-outline-dark me-2" target="_blank">
-              <i class="bi bi-github"></i> GitHub
-            </a>
-            <a href="https://twitter.com/jonatasdp" class="btn btn-sm btn-outline-primary me-2" target="_blank">
-              <i class="bi bi-twitter"></i> Twitter
-            </a>
-            <a href="https://linkedin.com/in/jonatasdp" class="btn btn-sm btn-outline-primary" target="_blank">
-              <i class="bi bi-linkedin"></i> LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="post-related mb-5">
-    <h3 class="h4 mb-4 border-bottom pb-2">Related Posts</h3>
-    <div class="row">
-      
-      
-      
-      
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-      
-      
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/soulless-economy" class="stretched-link">The Souless Economy - How AI Agents will change our economy completely</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> November 22, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/timescaledb-gem-continuous-aggregates-updates" class="stretched-link">TimescaleDB Gem Continuous Aggregates Updates</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> October 07, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/my-first-contribution-to-rubygems" class="stretched-link">My First Contribution To Rubygems</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> July 04, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-      
-    </div>
-  </div>
-
   
+  
+  <div class="article-tags">
+    
+      <a href="#ruby-ref" class="article-tag">ruby</a>
+    
+  </div>
+  
+  
+  
+<div class="social-sharing mb-4">
+  <h5>Share this article</h5>
+  <div class="sharing-buttons">
+    
+    <a href="https://twitter.com/intent/tweet?text=Image+processing+with+Ruby&url=https%3A%2F%2Fideia.me%2Fimage-processing-with-rmagick&via=jonatasdp" 
+       class="btn btn-twitter btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-twitter"></i> Twitter
+    </a>
+    
+    
+    
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Fimage-processing-with-rmagick" 
+       class="btn btn-facebook btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-facebook"></i> Facebook
+    </a>
+    
+    
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fimage-processing-with-rmagick&title=Image+processing+with+Ruby" 
+       class="btn btn-linkedin btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-linkedin"></i> LinkedIn
+    </a>
+    
+    
+    
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fimage-processing-with-rmagick&title=Image+processing+with+Ruby" 
+       class="btn btn-reddit btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-reddit"></i> Reddit
+    </a>
+    
+  </div>
+</div>
+ 
+  <div class="author-bio">
+  <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini">
+  <div class="author-bio-content">
+    <h4>Jônatas Davi Paganini</h4>
+    <p>Developer and writer passionate about PostgreSQL, TimescaleDB, and building better systems. Currently sharing knowledge about time series databases and system architecture.</p>
+    <div class="author-social">
+      <a href="https://github.com/jonatas" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+      <a href="https://twitter.com/jonatasdp" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+      <a href="https://linkedin.com/in/jonatasdp" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      
+      <a href="https://instagram.com/jonatasdp" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+      
+    </div>
+  </div>
+</div> 
+  <div class="content-nav">
+  <div class="content-nav-previous">
+    
+      <small>Previous</small>
+      <a href="/retrospective-2018" title="Retrospective 2018">
+        Retrospective 2018
+      </a>
+    
+  </div>
+  
+  <div class="content-nav-next">
+    
+      <small>Next</small>
+      <a href="/complex-ast-search-with-ruby" title="Complex AST search with Ruby">
+        Complex AST search with Ruby
+      </a>
+    
+  </div>
+</div> 
+  
+<div class="related-posts">
+  <div class="card">
+    <div class="card-header">
+      <h4>Related Articles</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        
+        
+        
+        
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+            
+        
+        
+        
+        
+        
+          
+            
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/my-first-contribution-to-rubygems">My First Contribution To Rubygems</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> July 04, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Adding to my goal of being helpful in the software world, I had my first contribution to RubyGems [merged][new_pr] 🎉</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <div class="comments-section card mb-4">
+  <div class="card-header">
+    <h4>Comments</h4>
+  </div>
+  <div class="card-body">
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      
+      var disqus_config = function () {
+        this.page.url = "https://ideia.me/image-processing-with-rmagick";
+        this.page.identifier = "/image-processing-with-rmagick";
+      };
+      
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ideiame.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div> 
 </div>
 
-<p>
-  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
-  <br />
-  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
-  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
-</p>
-<p>Check my
-  <a href="/talks">talks</a> or connect with me via
-  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
-  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
-  <a href="https://github.com/jonatas" target="_blank">github</a> /
-  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
-  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
-  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
-  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
-</p>
-
+<link rel="stylesheet" href="/css/enhanced.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
     </div>

@@ -311,50 +311,34 @@ crossorigin="anonymous"></script>
     
     <div class="container content-container mt-5 pt-5">
       
-<!-- Post layout with modern design -->
-<div class="post-container">
-  <div class="post-header mb-4">
-    <h1 class="post-title display-4">Customize RuboCop Layout/ClassStructure cop</h1>
-    <div class="post-meta d-flex flex-wrap align-items-center text-muted mb-3">
-      <span class="me-3">
-        <i class="bi bi-calendar3"></i> November 30, 2017
-      </span>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <h1>Customize RuboCop Layout/ClassStructure cop</h1>
+    <div class="article-meta">
+      <span><i class="bi bi-calendar3"></i> November 30, 2017</span>
+      <span class="separator">•</span>
       
-      <span class="me-3">
-        <i class="bi bi-folder"></i>
-        
-      </span>
+  
+  
+    <span class="reading-time" title="Estimated read time">
+      <i class="bi bi-clock"></i> 3 min read
+    </span>
+  
+ 
       
       
+      <span class="separator">•</span>
       <span>
-        <i class="bi bi-tags"></i>
-        
-          <a href="/tags.html#ruby RuboCop-ref" class="badge bg-secondary text-decoration-none me-1">ruby RuboCop</a>
+        <i class="bi bi-folder"></i> 
         
       </span>
       
-    </div>
-    
-    <div class="post-share d-flex align-items-center mb-4">
-      <span class="me-2 text-muted">Share:</span>
-      <a href="https://twitter.com/intent/tweet?text=Customize+RuboCop+Layout%2FClassStructure+cop&url=https://ideia.me%2Fcustomize-rubocop-layout-class-structure-cop&via=jonatasdp" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ideia.me%2Fcustomize-rubocop-layout-class-structure-cop&title=Customize+RuboCop+Layout%2FClassStructure+cop" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-linkedin"></i>
-      </a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://ideia.me%2Fcustomize-rubocop-layout-class-structure-cop" 
-         class="btn btn-sm btn-outline-primary" target="_blank">
-        <i class="bi bi-facebook"></i>
-      </a>
     </div>
   </div>
-
-  <div class="post-content card mb-5">
-    <div class="card-body">
-      <p>I’m really proud to announce my new contribuition to RuboCop.</p>
+  
+  <div class="article-content">
+    <p>I’m really proud to announce my new contribuition to RuboCop.</p>
 
 <p>Some days ago I contributed improving the
 <a href="https://rubocop.readthedocs.io/en/latest/development/">development</a> page,
@@ -381,7 +365,22 @@ and follows the order:</p>
 
 <p>The basic configuration says:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Layout/ClassStructure:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre>Layout/ClassStructure:
   Enabled: false
   Categories:
     module_inclusion:
@@ -396,7 +395,7 @@ and follows the order:</p>
       - instance_methods
       - protected_methods
       - private_methods
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Lets imagine you got sad about people saying <code class="language-plaintext highlighter-rouge">validates</code> after define methods
 and also mess with other macros from ActiveRecord.</p>
@@ -419,7 +418,44 @@ order:</p>
 
 <p>Now we need to setup <code class="language-plaintext highlighter-rouge">Categories</code> and include them in the <code class="language-plaintext highlighter-rouge">ExpectedOrder</code>.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Layout/ClassStructure:
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+</pre></td><td class="rouge-code"><pre>Layout/ClassStructure:
   Enabled: true
   Categories:
     module_inclusion:
@@ -456,13 +492,30 @@ order:</p>
       - public_methods
       - protected_methods
       - private_methods
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Now it’s ready to be tested.</p>
 
 <p>Lets use a example with a few mistakes:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class User
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="rouge-code"><pre>class User
 
   validate :name, :email, presence: true
 
@@ -479,11 +532,32 @@ order:</p>
 
   belongs_to :location
 end
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>It supports autocorrect, and running it you can check that RuboCop has a kind of loop to keep autocorrecting until it’s perfect.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user.rb:3:3: C: [Corrected] Layout/ClassStructure: attributes is supposed to appear before associations.
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="rouge-code"><pre>user.rb:3:3: C: [Corrected] Layout/ClassStructure: attributes is supposed to appear before associations.
   attr_reader :temporary_orders
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 user.rb:3:3: C: [Corrected] Layout/ClassStructure: attributes is supposed to appear before validations.
@@ -504,7 +578,7 @@ user.rb:6:3: C: [Corrected] Layout/ClassStructure: validations is supposed to ap
 user.rb:8:3: C: [Corrected] Layout/ClassStructure: validations is supposed to appear before hooks.
   validates_uniqueness_of :email
   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>This feature is very cool because allow the cops algorithm simply execute one 
 <a href="https://github.com/bbatsov/rubocop/blob/master/lib/rubocop/cop/layout/class_structure.rb#L144-L150">swap</a> between the
@@ -513,7 +587,21 @@ until the file is totally organized.</p>
 
 <p>After autocorrect the file looks like this:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class User
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre>class User
 
   attr_reader :temporary_orders
   has_many :orders
@@ -527,944 +615,435 @@ until the file is totally organized.</p>
     email.split('@').last
   end
 end
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>So, that is what this cop does. I hope this cop to be useful for the community and
 make our code classes more organized. If you’re interested in the full history you can
 check my Pull Request <a href="https://github.com/bbatsov/rubocop/pull/5065">here</a>.</p>
 
-    </div>
   </div>
-
-  <div class="post-navigation mb-5">
-    <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0">
-        
-        <div class="card h-100">
-          <div class="card-body">
-            <span class="text-muted d-block mb-2"><i class="bi bi-arrow-left"></i> Previous Post</span>
-            <h5 class="card-title mb-0">
-              <a href="/the-dynamic-experiment-initiative" class="stretched-link">The dynamic experiment initiative</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-      <div class="col-md-6">
-        
-        <div class="card h-100">
-          <div class="card-body text-md-end">
-            <span class="text-muted d-block mb-2">Next Post <i class="bi bi-arrow-right"></i></span>
-            <h5 class="card-title mb-0">
-              <a href="/retrospective-2017" class="stretched-link">Retrospective 2017</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="post-author card mb-5">
-    <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-md-2 text-center mb-3 mb-md-0">
-          <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini" class="rounded-circle img-fluid" style="max-width: 100px;">
-        </div>
-        <div class="col-md-10">
-          <h4>About Jônatas Davi Paganini</h4>
-          <p>Developer Advocate at TimescaleDB, Ruby enthusiast, and PostgreSQL expert. Sharing knowledge through writing and speaking at conferences worldwide.</p>
-          <div class="social-links">
-            <a href="https://github.com/jonatas" class="btn btn-sm btn-outline-dark me-2" target="_blank">
-              <i class="bi bi-github"></i> GitHub
-            </a>
-            <a href="https://twitter.com/jonatasdp" class="btn btn-sm btn-outline-primary me-2" target="_blank">
-              <i class="bi bi-twitter"></i> Twitter
-            </a>
-            <a href="https://linkedin.com/in/jonatasdp" class="btn btn-sm btn-outline-primary" target="_blank">
-              <i class="bi bi-linkedin"></i> LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="post-related mb-5">
-    <h3 class="h4 mb-4 border-bottom pb-2">Related Posts</h3>
-    <div class="row">
-      
-      
-      
-      
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-      
-      
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/soulless-economy" class="stretched-link">The Souless Economy - How AI Agents will change our economy completely</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> November 22, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/timescaledb-gem-continuous-aggregates-updates" class="stretched-link">TimescaleDB Gem Continuous Aggregates Updates</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> October 07, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/my-first-contribution-to-rubygems" class="stretched-link">My First Contribution To Rubygems</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> July 04, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-      
-    </div>
-  </div>
-
   
+  
+  <div class="article-tags">
+    
+  </div>
+  
+  
+  
+<div class="social-sharing mb-4">
+  <h5>Share this article</h5>
+  <div class="sharing-buttons">
+    
+    <a href="https://twitter.com/intent/tweet?text=Customize+RuboCop+Layout%2FClassStructure+cop&url=https%3A%2F%2Fideia.me%2Fcustomize-rubocop-layout-class-structure-cop&via=jonatasdp" 
+       class="btn btn-twitter btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-twitter"></i> Twitter
+    </a>
+    
+    
+    
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Fcustomize-rubocop-layout-class-structure-cop" 
+       class="btn btn-facebook btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-facebook"></i> Facebook
+    </a>
+    
+    
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fcustomize-rubocop-layout-class-structure-cop&title=Customize+RuboCop+Layout%2FClassStructure+cop" 
+       class="btn btn-linkedin btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-linkedin"></i> LinkedIn
+    </a>
+    
+    
+    
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fcustomize-rubocop-layout-class-structure-cop&title=Customize+RuboCop+Layout%2FClassStructure+cop" 
+       class="btn btn-reddit btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-reddit"></i> Reddit
+    </a>
+    
+  </div>
+</div>
+ 
+  <div class="author-bio">
+  <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini">
+  <div class="author-bio-content">
+    <h4>Jônatas Davi Paganini</h4>
+    <p>Developer and writer passionate about PostgreSQL, TimescaleDB, and building better systems. Currently sharing knowledge about time series databases and system architecture.</p>
+    <div class="author-social">
+      <a href="https://github.com/jonatas" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+      <a href="https://twitter.com/jonatasdp" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+      <a href="https://linkedin.com/in/jonatasdp" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      
+      <a href="https://instagram.com/jonatasdp" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+      
+    </div>
+  </div>
+</div> 
+  <div class="content-nav">
+  <div class="content-nav-previous">
+    
+      <small>Previous</small>
+      <a href="/the-dynamic-experiment-initiative" title="The dynamic experiment initiative">
+        The dynamic experiment initiative
+      </a>
+    
+  </div>
+  
+  <div class="content-nav-next">
+    
+      <small>Next</small>
+      <a href="/retrospective-2017" title="Retrospective 2017">
+        Retrospective 2017
+      </a>
+    
+  </div>
+</div> 
+  
+<div class="related-posts">
+  <div class="card">
+    <div class="card-header">
+      <h4>Related Articles</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        
+        
+        
+        
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+            
+        
+        
+        
+        
+        
+        
+        
+          <div class="col-12">
+            <p>No related posts found. Check out <a href="/archive.html">recent posts</a> instead.</p>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <div class="comments-section card mb-4">
+  <div class="card-header">
+    <h4>Comments</h4>
+  </div>
+  <div class="card-body">
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      
+      var disqus_config = function () {
+        this.page.url = "https://ideia.me/customize-rubocop-layout-class-structure-cop";
+        this.page.identifier = "/customize-rubocop-layout-class-structure-cop";
+      };
+      
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ideiame.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div> 
 </div>
 
-<p>
-  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
-  <br />
-  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
-  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
-</p>
-<p>Check my
-  <a href="/talks">talks</a> or connect with me via
-  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
-  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
-  <a href="https://github.com/jonatas" target="_blank">github</a> /
-  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
-  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
-  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
-  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
-</p>
-
+<link rel="stylesheet" href="/css/enhanced.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
     </div>

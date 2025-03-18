@@ -311,61 +311,48 @@ crossorigin="anonymous"></script>
     
     <div class="container content-container mt-5 pt-5">
       
-<!-- Post layout with modern design -->
-<div class="post-container">
-  <div class="post-header mb-4">
-    <h1 class="post-title display-4">Como gerar um vídeo de fotos sequênciais</h1>
-    <div class="post-meta d-flex flex-wrap align-items-center text-muted mb-3">
-      <span class="me-3">
-        <i class="bi bi-calendar3"></i> April 03, 2014
-      </span>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <h1>Como gerar um vídeo de fotos sequênciais</h1>
+    <div class="article-meta">
+      <span><i class="bi bi-calendar3"></i> April 03, 2014</span>
+      <span class="separator">•</span>
       
-      <span class="me-3">
-        <i class="bi bi-folder"></i>
-        
-          <a href="/categories.html#video-ref" class="badge bg-primary text-decoration-none me-1">video</a>
-        
-          <a href="/categories.html#ffmpeg-ref" class="badge bg-primary text-decoration-none me-1">ffmpeg</a>
-        
-          <a href="/categories.html#ruby-ref" class="badge bg-primary text-decoration-none me-1">ruby</a>
-        
-          <a href="/categories.html#sh-ref" class="badge bg-primary text-decoration-none me-1">sh</a>
-        
-      </span>
+  
+  
+    <span class="reading-time" title="Estimated read time">
+      <i class="bi bi-clock"></i> 2 min read
+    </span>
+  
+ 
       
       
+      <span class="separator">•</span>
       <span>
-        <i class="bi bi-tags"></i>
+        <i class="bi bi-folder"></i> 
+        
+          <a href="#video-ref" class="text-muted">video</a>, 
+        
+          <a href="#ffmpeg-ref" class="text-muted">ffmpeg</a>, 
+        
+          <a href="#ruby-ref" class="text-muted">ruby</a>, 
+        
+          <a href="#sh-ref" class="text-muted">sh</a>
         
       </span>
       
-    </div>
-    
-    <div class="post-share d-flex align-items-center mb-4">
-      <span class="me-2 text-muted">Share:</span>
-      <a href="https://twitter.com/intent/tweet?text=Como+gerar+um+v%C3%ADdeo+de+fotos+sequ%C3%AAnciais&url=https://ideia.me%2Fcomo-gerar-um-video-de-fotos-sequenciais&via=jonatasdp" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ideia.me%2Fcomo-gerar-um-video-de-fotos-sequenciais&title=Como+gerar+um+v%C3%ADdeo+de+fotos+sequ%C3%AAnciais" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-linkedin"></i>
-      </a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://ideia.me%2Fcomo-gerar-um-video-de-fotos-sequenciais" 
-         class="btn btn-sm btn-outline-primary" target="_blank">
-        <i class="bi bi-facebook"></i>
-      </a>
     </div>
   </div>
-
-  <div class="post-content card mb-5">
-    <div class="card-body">
-      <p>Estive gerando uma série de vídeos com fotos sequências estilo <em>timelapse</em> e existem muitas formas de fazer isso. Aqui estou  usando o bom e velho <a href="http://www.ffmpeg.org/">ffmpeg</a>.</p>
+  
+  <div class="article-content">
+    <p>Estive gerando uma série de vídeos com fotos sequências estilo <em>timelapse</em> e existem muitas formas de fazer isso. Aqui estou  usando o bom e velho <a href="http://www.ffmpeg.org/">ffmpeg</a>.</p>
 
 <p>Coloquei todas as fotos em um diretório e digitei:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg -r 24 -i img%04d.jpg -c:v libx264 timelapse.mp4
-</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>ffmpeg -r 24 -i img%04d.jpg -c:v libx264 timelapse.mp4
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Onde:</p>
 
@@ -383,15 +370,17 @@ crossorigin="anonymous"></script>
 
 <p>O ffmpeg não consegue entender a ordem se as imagens não tiverem um número de casas fixo, por exemplo:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>img1.jpg, img2.jpg,..., img10.jpg, img11.jpg
-</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>img1.jpg, img2.jpg,..., img10.jpg, img11.jpg
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Neste caso, é necessário converter o nome das imagens para utilizar casa fixas como img001.jpg, img002.jpg.</p>
 
 <p>Para renomear as imagens necessárias, eu fiz um script ruby para gerar os nomes corretamente e depois executei o comando com <code class="language-plaintext highlighter-rouge">| sh</code> pegando o puts diretamenten do <code class="language-plaintext highlighter-rouge">$stdout</code>.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ruby -e "Dir['*.jpg'].each{|f|f =~ /img_(\d+).jpg/; g = \"img_#{'%04d' % \$1.to_i}.jpg\"; puts \"mv #{f} #{g}\" if f != g}" | sh
-</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>ruby -e "Dir['*.jpg'].each{|f|f =~ /img_(\d+).jpg/; g = \"img_#{'%04d' % \$1.to_i}.jpg\"; puts \"mv #{f} #{g}\" if f != g}" | sh
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Este é o tipo de comando rápido que as vezes não tenho tanta agilidade e prática com shell para fazer o rename. Mas com ruby flui rapidamente e consigo avançar.</p>
 
@@ -412,15 +401,17 @@ end
 
 <p>Executando ruby e fazendo o pipeline para o shell temos o mesmo resultado de uma forma mais bonita:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ruby converte.rb | sh
-</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>ruby converte.rb | sh
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h3 id="imagens-com-nomes-diferentes">Imagens com nomes diferentes</h3>
 
 <p>Se as suas imagens não tiverem um padrão de nomes também é possível utilizando o parâmetro <code class="language-plaintext highlighter-rouge">pattern_type glob</code>, veja o exemplo:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg -r 24 -pattern_type glob -i "*.jpg" out.mkv
-</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>ffmpeg -r 24 -pattern_type glob -i "*.jpg" out.mkv
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h3 id="veja-um-exemplo-de-vídeo">Veja um exemplo de vídeo</h3>
 
@@ -431,938 +422,777 @@ end
 <p>O vídeo foi gerado com o comando: <code class="language-plaintext highlighter-rouge">ffmpeg -r 24 -i deg%04d.jpg -c:v libx264 motolapse.mp4</code>.</p>
 
 
-    </div>
   </div>
-
-  <div class="post-navigation mb-5">
-    <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0">
-        
-        <div class="card h-100">
-          <div class="card-body">
-            <span class="text-muted d-block mb-2"><i class="bi bi-arrow-left"></i> Previous Post</span>
-            <h5 class="card-title mb-0">
-              <a href="/rotative-timelapse" class="stretched-link">Timelapse girando no Raspberry PI</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-      <div class="col-md-6">
-        
-        <div class="card h-100">
-          <div class="card-body text-md-end">
-            <span class="text-muted d-block mb-2">Next Post <i class="bi bi-arrow-right"></i></span>
-            <h5 class="card-title mb-0">
-              <a href="/bone-debian-rodando-no-beaglebone-black" class="stretched-link">Bone Debian rodando no BeagleBone Black</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="post-author card mb-5">
-    <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-md-2 text-center mb-3 mb-md-0">
-          <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini" class="rounded-circle img-fluid" style="max-width: 100px;">
-        </div>
-        <div class="col-md-10">
-          <h4>About Jônatas Davi Paganini</h4>
-          <p>Developer Advocate at TimescaleDB, Ruby enthusiast, and PostgreSQL expert. Sharing knowledge through writing and speaking at conferences worldwide.</p>
-          <div class="social-links">
-            <a href="https://github.com/jonatas" class="btn btn-sm btn-outline-dark me-2" target="_blank">
-              <i class="bi bi-github"></i> GitHub
-            </a>
-            <a href="https://twitter.com/jonatasdp" class="btn btn-sm btn-outline-primary me-2" target="_blank">
-              <i class="bi bi-twitter"></i> Twitter
-            </a>
-            <a href="https://linkedin.com/in/jonatasdp" class="btn btn-sm btn-outline-primary" target="_blank">
-              <i class="bi bi-linkedin"></i> LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="post-related mb-5">
-    <h3 class="h4 mb-4 border-bottom pb-2">Related Posts</h3>
-    <div class="row">
-      
-      
-      
-      
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-      
-      
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/soulless-economy" class="stretched-link">The Souless Economy - How AI Agents will change our economy completely</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> November 22, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/timescaledb-gem-continuous-aggregates-updates" class="stretched-link">TimescaleDB Gem Continuous Aggregates Updates</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> October 07, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/my-first-contribution-to-rubygems" class="stretched-link">My First Contribution To Rubygems</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> July 04, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-      
-    </div>
-  </div>
-
   
+  
+  <div class="article-tags">
+    
+      <a href="#video-ref" class="article-tag">video</a>
+    
+      <a href="#ffmpeg-ref" class="article-tag">ffmpeg</a>
+    
+      <a href="#ruby-ref" class="article-tag">ruby</a>
+    
+      <a href="#sh-ref" class="article-tag">sh</a>
+    
+  </div>
+  
+  
+  
+<div class="social-sharing mb-4">
+  <h5>Share this article</h5>
+  <div class="sharing-buttons">
+    
+    <a href="https://twitter.com/intent/tweet?text=Como+gerar+um+v%C3%ADdeo+de+fotos+sequ%C3%AAnciais&url=https%3A%2F%2Fideia.me%2Fcomo-gerar-um-video-de-fotos-sequenciais&via=jonatasdp" 
+       class="btn btn-twitter btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-twitter"></i> Twitter
+    </a>
+    
+    
+    
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Fcomo-gerar-um-video-de-fotos-sequenciais" 
+       class="btn btn-facebook btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-facebook"></i> Facebook
+    </a>
+    
+    
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fcomo-gerar-um-video-de-fotos-sequenciais&title=Como+gerar+um+v%C3%ADdeo+de+fotos+sequ%C3%AAnciais" 
+       class="btn btn-linkedin btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-linkedin"></i> LinkedIn
+    </a>
+    
+    
+    
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fcomo-gerar-um-video-de-fotos-sequenciais&title=Como+gerar+um+v%C3%ADdeo+de+fotos+sequ%C3%AAnciais" 
+       class="btn btn-reddit btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-reddit"></i> Reddit
+    </a>
+    
+  </div>
+</div>
+ 
+  <div class="author-bio">
+  <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini">
+  <div class="author-bio-content">
+    <h4>Jônatas Davi Paganini</h4>
+    <p>Developer and writer passionate about PostgreSQL, TimescaleDB, and building better systems. Currently sharing knowledge about time series databases and system architecture.</p>
+    <div class="author-social">
+      <a href="https://github.com/jonatas" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+      <a href="https://twitter.com/jonatasdp" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+      <a href="https://linkedin.com/in/jonatasdp" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      
+      <a href="https://instagram.com/jonatasdp" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+      
+    </div>
+  </div>
+</div> 
+  <div class="content-nav">
+  <div class="content-nav-previous">
+    
+      <small>Previous</small>
+      <a href="/rotative-timelapse" title="Timelapse girando no Raspberry PI">
+        Timelapse girando no Raspberry PI
+      </a>
+    
+  </div>
+  
+  <div class="content-nav-next">
+    
+      <small>Next</small>
+      <a href="/bone-debian-rodando-no-beaglebone-black" title="Bone Debian rodando no BeagleBone Black">
+        Bone Debian rodando no BeagleBone Black
+      </a>
+    
+  </div>
+</div> 
+  
+<div class="related-posts">
+  <div class="card">
+    <div class="card-header">
+      <h4>Related Articles</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        
+        
+        
+        
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+            
+        
+        
+        
+        
+        
+          
+            
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/my-first-contribution-to-rubygems">My First Contribution To Rubygems</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> July 04, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Adding to my goal of being helpful in the software world, I had my first contribution to RubyGems [merged][new_pr] 🎉</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <div class="comments-section card mb-4">
+  <div class="card-header">
+    <h4>Comments</h4>
+  </div>
+  <div class="card-body">
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      
+      var disqus_config = function () {
+        this.page.url = "https://ideia.me/como-gerar-um-video-de-fotos-sequenciais";
+        this.page.identifier = "/como-gerar-um-video-de-fotos-sequenciais";
+      };
+      
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ideiame.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div> 
 </div>
 
-<p>
-  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
-  <br />
-  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
-  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
-</p>
-<p>Check my
-  <a href="/talks">talks</a> or connect with me via
-  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
-  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
-  <a href="https://github.com/jonatas" target="_blank">github</a> /
-  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
-  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
-  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
-  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
-</p>
-
+<link rel="stylesheet" href="/css/enhanced.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
     </div>

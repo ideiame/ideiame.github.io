@@ -311,52 +311,38 @@ crossorigin="anonymous"></script>
     
     <div class="container content-container mt-5 pt-5">
       
-<!-- Post layout with modern design -->
-<div class="post-container">
-  <div class="post-header mb-4">
-    <h1 class="post-title display-4">Search in Ruby AST</h1>
-    <div class="post-meta d-flex flex-wrap align-items-center text-muted mb-3">
-      <span class="me-3">
-        <i class="bi bi-calendar3"></i> May 20, 2017
-      </span>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <h1>Search in Ruby AST</h1>
+    <div class="article-meta">
+      <span><i class="bi bi-calendar3"></i> May 20, 2017</span>
+      <span class="separator">•</span>
       
-      <span class="me-3">
-        <i class="bi bi-folder"></i>
-        
-          <a href="/categories.html#ruby-ref" class="badge bg-primary text-decoration-none me-1">ruby</a>
-        
-          <a href="/categories.html#ast-ref" class="badge bg-primary text-decoration-none me-1">ast</a>
-        
-      </span>
+  
+  
+    <span class="reading-time" title="Estimated read time">
+      <i class="bi bi-clock"></i> 9 min read
+    </span>
+  
+ 
       
       
+      <span class="separator">•</span>
       <span>
-        <i class="bi bi-tags"></i>
+        <i class="bi bi-folder"></i> 
+        
+          <a href="#ruby-ref" class="text-muted">ruby</a>, 
+        
+          <a href="#ast-ref" class="text-muted">ast</a>
         
       </span>
       
-    </div>
-    
-    <div class="post-share d-flex align-items-center mb-4">
-      <span class="me-2 text-muted">Share:</span>
-      <a href="https://twitter.com/intent/tweet?text=Search+in+Ruby+AST&url=https://ideia.me%2Fsearch-in-ruby-ast&via=jonatasdp" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ideia.me%2Fsearch-in-ruby-ast&title=Search+in+Ruby+AST" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-linkedin"></i>
-      </a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://ideia.me%2Fsearch-in-ruby-ast" 
-         class="btn btn-sm btn-outline-primary" target="_blank">
-        <i class="bi bi-facebook"></i>
-      </a>
     </div>
   </div>
-
-  <div class="post-content card mb-5">
-    <div class="card-body">
-      <p>Some months ago I started coding some cops for
+  
+  <div class="article-content">
+    <p>Some months ago I started coding some cops for
 <a href="https://github.com/bbatsov/rubocop">RuboCop</a>.</p>
 
 <p>I was amazed in my first contact with the Ruby <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">AST</a>
@@ -374,43 +360,61 @@ that can print the AST representation of some Ruby code.</p>
 <p>Let’s start looking for the AST and how it works. The following class
 declaration:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">SimpleClass</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">SimpleClass</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Looking the AST representation with the <code class="language-plaintext highlighter-rouge">ruby-parse</code> utility:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ruby-parse simple_class.rb
-</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>$ ruby-parse simple_class.rb
+</pre></td></tr></tbody></table></code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(class
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>(class
   (const nil :SimpleClass) nil nil)
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>I created a small project to help me understand and do experiments with Ruby AST
 and test the node pattern. You can check out it and follow this step by step:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git clone git@github.com:jonatas/rubocopular.git
-</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>$ git clone git@github.com:jonatas/rubocopular.git
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Then basically it has a <code class="language-plaintext highlighter-rouge">bin/console</code> that allows you to play with to simple
 methods <code class="language-plaintext highlighter-rouge">node</code> and <code class="language-plaintext highlighter-rouge">test</code>.</p>
 
 <p>Lets check how it works:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ cd rubocopular
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>$ cd rubocopular
 $ bin/console
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p><strong>node</strong> is a method that can parse the AST representation of some Ruby as
 string code.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; s(:lvasgn, :a, s(:int, 1))</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; s(:lvasgn, :a, s(:int, 1))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>So, the output is pretty similar with <code class="language-plaintext highlighter-rouge">ruby-parse</code>. As it’s using <code class="language-plaintext highlighter-rouge">pry</code> 
 you can check that the method <code class="language-plaintext highlighter-rouge">s</code> is a simple wrap to a node:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">show</span><span class="o">-</span><span class="nb">method</span> <span class="n">s</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="n">show</span><span class="o">-</span><span class="nb">method</span> <span class="n">s</span>
 <span class="c1"># From: /Users/jonatasdp/.rbenv/versions/2.3.3/lib/ruby/gems/2.3.0/gems/rubocop-0.48.1/lib/rubocop/ast/sexp.rb @ line 11:</span>
 <span class="c1"># Owner: RuboCop::AST::Sexp</span>
 <span class="c1"># Visibility: public</span>
@@ -419,65 +423,97 @@ you can check that the method <code class="language-plaintext highlighter-rouge"
 <span class="k">def</span> <span class="nf">s</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="o">*</span><span class="n">children</span><span class="p">)</span>
   <span class="no">Node</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">type</span><span class="p">,</span> <span class="n">children</span><span class="p">)</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>And basically, the node is an object that has a <code class="language-plaintext highlighter-rouge">#type</code> and <code class="language-plaintext highlighter-rouge">#children</code>.
 The children can be symbols or other nodes and so on.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">)</span>          <span class="c1"># =&gt; s(:lvasgn, :a, s(:int, 1))</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">)</span>          <span class="c1"># =&gt; s(:lvasgn, :a, s(:int, 1))</span>
 <span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">).</span><span class="nf">type</span>     <span class="c1"># =&gt; :lvasgn</span>
 <span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">).</span><span class="nf">children</span> <span class="c1"># =&gt; [:a, s(:int, i)]</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Let’s check a few more examples:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span><span class="p">(</span><span class="s1">'class A ; end'</span><span class="p">)</span>    <span class="c1"># =&gt; s(:class, s(:const, nil, :A), nil, nil)</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">node</span><span class="p">(</span><span class="s1">'class A ; end'</span><span class="p">)</span>    <span class="c1"># =&gt; s(:class, s(:const, nil, :A), nil, nil)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Extended class:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span><span class="p">(</span><span class="s1">'class A &lt; B; end'</span><span class="p">)</span> <span class="c1"># =&gt; s(:class, s(:const, nil, :A), s(:const, nil, :B), nil)</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">node</span><span class="p">(</span><span class="s1">'class A &lt; B; end'</span><span class="p">)</span> <span class="c1"># =&gt; s(:class, s(:const, nil, :A), s(:const, nil, :B), nil)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Implementing a method:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node('class A &lt; B; def method; end end')
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>node('class A &lt; B; def method; end end')
 # s(:class,
 #   s(:const, nil, :A),
 #   s(:const, nil, :B),
 #   s(:def, :method,
 #     s(:args), nil))
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>You can use puts to check the same result as <code class="language-plaintext highlighter-rouge">ruby-parse</code> outputs:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="n">node</span><span class="p">(</span><span class="s1">'class A &lt; B; def method; end end'</span><span class="p">)</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">puts</span> <span class="n">node</span><span class="p">(</span><span class="s1">'class A &lt; B; def method; end end'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The output should be:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(class
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>(class
   (const nil :A)
   (const nil :B)
   (def :method
     (args) nil))
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Then all are single nodes with a <code class="language-plaintext highlighter-rouge">#type</code> and possible <code class="language-plaintext highlighter-rouge">#children</code>.</p>
 
 <p>A few examples with math:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span><span class="p">(</span><span class="s1">'1 + 2 + 3'</span><span class="p">)</span> <span class="c1"># s(:send, s(:send, s(:int, 1), :+, s(:int, 2)), :+, s(:int, 3))</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">node</span><span class="p">(</span><span class="s1">'1 + 2 + 3'</span><span class="p">)</span> <span class="c1"># s(:send, s(:send, s(:int, 1), :+, s(:int, 2)), :+, s(:int, 3))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Going deeply in some levels:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span><span class="p">(</span><span class="s1">'1 + 2 + (3 / 5 * (6 ** 7))'</span><span class="p">)</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">node</span><span class="p">(</span><span class="s1">'1 + 2 + (3 / 5 * (6 ** 7))'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The output should be a tree a bit more complex:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>s(:send,
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre>s(:send,
   s(:send,
     s(:int, 1), :+,
     s(:int, 2)), :+,
@@ -490,22 +526,29 @@ The children can be symbols or other nodes and so on.</p>
         s(:send,
           s(:int, 6), :**,
           s(:int, 7))))))
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Other example with methods:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">puts</span> <span class="n">node</span><span class="p">(</span><span class="s1">'a.b.c(d).e(f)'</span><span class="p">)</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">puts</span> <span class="n">node</span><span class="p">(</span><span class="s1">'a.b.c(d).e(f)'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>AST output:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(send
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>(send
   (send
     (send
       (send nil :a) :b) :c
     (send nil :d)) :e
   (send nil :f))
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Cool yeah? Let’s have fun with the Node Pattern 🕶</p>
 
@@ -515,81 +558,95 @@ The children can be symbols or other nodes and so on.</p>
 using the <strong>node pattern</strong>. It’s pretty similar of use regular expressions for
 me. Let’s come back with our <code class="language-plaintext highlighter-rouge">a = 1</code> assignment example:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; s(:lvasgn, :a, s(:int, 1))</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">node</span><span class="p">(</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; s(:lvasgn, :a, s(:int, 1))</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Did you remember the <a href="https://github.com/jonatas/rubocopular/blob/master/lib/rubocopular.rb#L14">test</a>
 method I mentioned before?</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(...)'</span><span class="p">,</span> <span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(...)'</span><span class="p">,</span> <span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Cool, it matches with “something with last children”.</p>
 
 <p>Now let’s check if it’s a <code class="language-plaintext highlighter-rouge">:lvasg</code> aka local variable assignment:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; nil</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; nil</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>It does not match because the node has parameters. Lets specify that it comes
 with something else using the <code class="language-plaintext highlighter-rouge">...</code> shortcut:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn ...)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn ...)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h4 id="capturing">Capturing</h4>
 
 <p>It’s hard sometimes to just understand based on <code class="language-plaintext highlighter-rouge">true</code> and <code class="language-plaintext highlighter-rouge">false</code>. Let’s use
 <code class="language-plaintext highlighter-rouge">$</code> to capture and go deeply in the comprehension:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn $...)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; [:a, s(:int, 1)]</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn $...)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; [:a, s(:int, 1)]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Cool! It captures the children.</p>
 
 <p>Let’s ignore the variable name using <code class="language-plaintext highlighter-rouge">_</code> that for me represents “one thing”,
 I don’t care the name or value for a while.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ $...)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; [s(:int, 1)]</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ $...)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; [s(:int, 1)]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>We can also capture only the value:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (int $_)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; 1</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (int $_)'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; 1</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Or the assigned node:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ $(int _))'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; s(:int, 1)</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ $(int _))'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; s(:int, 1)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Or capture multiple things independently:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ ($int $_))'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; [:int, 1]</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ ($int $_))'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; [:int, 1]</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>That’s cool no?</p>
 
 <p>Let’s imagine we want to restrict our search for float or int:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (int _))'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (int _))'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Testing the expression with a float will not work:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (int _))'</span><span class="p">,</span><span class="s1">'a = 1.0'</span><span class="p">)</span> <span class="c1"># =&gt; nil</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (int _))'</span><span class="p">,</span><span class="s1">'a = 1.0'</span><span class="p">)</span> <span class="c1"># =&gt; nil</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Now let’s introduce <code class="language-plaintext highlighter-rouge">{}</code> that we can union patterns:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ ({int float} _))'</span><span class="p">,</span><span class="s1">'a = 1.0'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ ({int float} _))'</span><span class="p">,</span><span class="s1">'a = 1.0'</span><span class="p">)</span> <span class="c1"># =&gt; true</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>And we can capture the type of the field as well:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (${int float} _))'</span><span class="p">,</span><span class="s1">'a = 1.0'</span><span class="p">)</span> <span class="c1"># =&gt; :float</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (${int float} _))'</span><span class="p">,</span><span class="s1">'a = 1.0'</span><span class="p">)</span> <span class="c1"># =&gt; :float</span>
 <span class="nb">test</span><span class="p">(</span><span class="s1">'(:lvasgn _ (${int float} _))'</span><span class="p">,</span><span class="s1">'a = 1'</span><span class="p">)</span> <span class="c1"># =&gt; :int</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>This search thing was amazing for me, and I tried to encapsulate in a search 
 command to allow me to search in code with this expression as I do with <code class="language-plaintext highlighter-rouge">grep</code> or <code class="language-plaintext highlighter-rouge">ag</code>.</p>
@@ -599,12 +656,21 @@ it:</p>
 
 <p>The search command syntax is pretty simple:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/search 'pattern' *path-to-ruby-files
-</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>bin/search 'pattern' *path-to-ruby-files
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Let’s try something:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bin/search '(const ... )' lib/*.rb                                                                                                                  11:58:01
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>$ bin/search '(const ... )' lib/*.rb                                                                                                                  11:58:01
 lib/rubocopular.rb:5: Rubocopular
 lib/rubocopular.rb:7: RuboCop::ProcessedSource
 lib/rubocopular.rb:11: RuboCop::ProcessedSource
@@ -612,25 +678,45 @@ lib/rubocopular.rb:11: IO
 lib/rubocopular.rb:15: RuboCop::AST::Node
 lib/rubocopular.rb:16: RuboCop::NodePattern
 lib/rubocopular.rb:20: RuboCop::NodePattern
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Nice, we can filter a bit more and search only for things under <code class="language-plaintext highlighter-rouge">RuboCop</code>
 scope:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bin/search '(const nil :RuboCop ... )' lib/*.rb                                                                                                     11:59:09
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>bin/search '(const nil :RuboCop ... )' lib/*.rb                                                                                                     11:59:09
 lib/rubocopular.rb:7: RuboCop
 lib/rubocopular.rb:11: RuboCop
 lib/rubocopular.rb:15: RuboCop
 lib/rubocopular.rb:16: RuboCop
 lib/rubocopular.rb:20: RuboCop
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>It’s cool, but we can also do it with <code class="language-plaintext highlighter-rouge">grep</code>. The difference here is that we’re
 listing the nodes not only the code, than we can print some multiline nodes.</p>
 
 <p>Let’s print all check static methods defined in Rubocopular library:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ bin/search '(defs ... )' lib/*.rb                                                                                                                   12:00:48
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre>$ bin/search '(defs ... )' lib/*.rb                                                                                                                   12:00:48
 lib/rubocopular.rb:6: def self.node(code)
     RuboCop::ProcessedSource.new(code.to_s, 2.3).ast
   end
@@ -644,7 +730,7 @@ lib/rubocopular.rb:14: def self.test(pattern, code)
 lib/rubocopular.rb:19: def self.inspect(pattern, code)
     RuboCop::NodePattern.new(pattern.gsub(/(\.{3}|_)/, '$\1')).match(node(code))
   end
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Awesome, it works!</p>
 
@@ -654,951 +740,788 @@ RuboCop dependency. The idea is just starting: https://github.com/jonatas/fast</
 
 <p>You can do similar things with plain ruby code and arrays to build the matcher:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">match?</span><span class="p">(</span><span class="n">s</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">s</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="ss">:a</span><span class="p">),</span> <span class="ss">:b</span><span class="p">),</span> <span class="p">[</span><span class="ss">:send</span><span class="p">,</span> <span class="s1">'...'</span><span class="p">]))</span> <span class="c1"># =&gt; true</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="no">Fast</span><span class="p">.</span><span class="nf">match?</span><span class="p">(</span><span class="n">s</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">s</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="ss">:a</span><span class="p">),</span> <span class="ss">:b</span><span class="p">),</span> <span class="p">[</span><span class="ss">:send</span><span class="p">,</span> <span class="s1">'...'</span><span class="p">]))</span> <span class="c1"># =&gt; true</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Checkout the <a href="https://github.com/jonatas/fast/blob/master/spec/fast_spec.rb#L48">current specs</a>.</p>
 
 <p>In the next step, I’m thinking about do a <code class="language-plaintext highlighter-rouge">f()</code> for find and <code class="language-plaintext highlighter-rouge">c()</code> to capture things. Not sure
 exactly how to proceed but the idea is something like:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Fast</span><span class="p">.</span><span class="nf">match?</span><span class="p">(</span><span class="n">ast</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">c</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="s1">'_'</span><span class="p">),</span> <span class="s1">'_'</span><span class="p">),</span> <span class="ss">:c</span><span class="p">),</span> <span class="s1">'_'</span><span class="p">)))</span> <span class="c1"># =&gt; s(:send, nil, :a)</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="no">Fast</span><span class="p">.</span><span class="nf">match?</span><span class="p">(</span><span class="n">ast</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">f</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="n">c</span><span class="p">(</span><span class="ss">:send</span><span class="p">,</span> <span class="kp">nil</span><span class="p">,</span> <span class="s1">'_'</span><span class="p">),</span> <span class="s1">'_'</span><span class="p">),</span> <span class="ss">:c</span><span class="p">),</span> <span class="s1">'_'</span><span class="p">)))</span> <span class="c1"># =&gt; s(:send, nil, :a)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Any thoughts or ideas about how to be expressive in this search?</p>
 
-    </div>
   </div>
-
-  <div class="post-navigation mb-5">
-    <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0">
-        
-        <div class="card h-100">
-          <div class="card-body">
-            <span class="text-muted d-block mb-2"><i class="bi bi-arrow-left"></i> Previous Post</span>
-            <h5 class="card-title mb-0">
-              <a href="/ruby-puzzle-gridlock" class="stretched-link">Gridlock game - solving with Ruby</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-      <div class="col-md-6">
-        
-        <div class="card h-100">
-          <div class="card-body text-md-end">
-            <span class="text-muted d-block mb-2">Next Post <i class="bi bi-arrow-right"></i></span>
-            <h5 class="card-title mb-0">
-              <a href="/parsing-ruby-code" class="stretched-link">Parsing Ruby Code</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="post-author card mb-5">
-    <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-md-2 text-center mb-3 mb-md-0">
-          <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini" class="rounded-circle img-fluid" style="max-width: 100px;">
-        </div>
-        <div class="col-md-10">
-          <h4>About Jônatas Davi Paganini</h4>
-          <p>Developer Advocate at TimescaleDB, Ruby enthusiast, and PostgreSQL expert. Sharing knowledge through writing and speaking at conferences worldwide.</p>
-          <div class="social-links">
-            <a href="https://github.com/jonatas" class="btn btn-sm btn-outline-dark me-2" target="_blank">
-              <i class="bi bi-github"></i> GitHub
-            </a>
-            <a href="https://twitter.com/jonatasdp" class="btn btn-sm btn-outline-primary me-2" target="_blank">
-              <i class="bi bi-twitter"></i> Twitter
-            </a>
-            <a href="https://linkedin.com/in/jonatasdp" class="btn btn-sm btn-outline-primary" target="_blank">
-              <i class="bi bi-linkedin"></i> LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="post-related mb-5">
-    <h3 class="h4 mb-4 border-bottom pb-2">Related Posts</h3>
-    <div class="row">
-      
-      
-      
-      
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-      
-      
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/soulless-economy" class="stretched-link">The Souless Economy - How AI Agents will change our economy completely</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> November 22, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/timescaledb-gem-continuous-aggregates-updates" class="stretched-link">TimescaleDB Gem Continuous Aggregates Updates</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> October 07, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/my-first-contribution-to-rubygems" class="stretched-link">My First Contribution To Rubygems</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> July 04, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-      
-    </div>
-  </div>
-
   
+  
+  <div class="article-tags">
+    
+      <a href="#ruby-ref" class="article-tag">ruby</a>
+    
+      <a href="#ast-ref" class="article-tag">ast</a>
+    
+  </div>
+  
+  
+  
+<div class="social-sharing mb-4">
+  <h5>Share this article</h5>
+  <div class="sharing-buttons">
+    
+    <a href="https://twitter.com/intent/tweet?text=Search+in+Ruby+AST&url=https%3A%2F%2Fideia.me%2Fsearch-in-ruby-ast&via=jonatasdp" 
+       class="btn btn-twitter btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-twitter"></i> Twitter
+    </a>
+    
+    
+    
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Fsearch-in-ruby-ast" 
+       class="btn btn-facebook btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-facebook"></i> Facebook
+    </a>
+    
+    
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fsearch-in-ruby-ast&title=Search+in+Ruby+AST" 
+       class="btn btn-linkedin btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-linkedin"></i> LinkedIn
+    </a>
+    
+    
+    
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fsearch-in-ruby-ast&title=Search+in+Ruby+AST" 
+       class="btn btn-reddit btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-reddit"></i> Reddit
+    </a>
+    
+  </div>
+</div>
+ 
+  <div class="author-bio">
+  <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini">
+  <div class="author-bio-content">
+    <h4>Jônatas Davi Paganini</h4>
+    <p>Developer and writer passionate about PostgreSQL, TimescaleDB, and building better systems. Currently sharing knowledge about time series databases and system architecture.</p>
+    <div class="author-social">
+      <a href="https://github.com/jonatas" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+      <a href="https://twitter.com/jonatasdp" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+      <a href="https://linkedin.com/in/jonatasdp" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      
+      <a href="https://instagram.com/jonatasdp" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+      
+    </div>
+  </div>
+</div> 
+  <div class="content-nav">
+  <div class="content-nav-previous">
+    
+      <small>Previous</small>
+      <a href="/ruby-puzzle-gridlock" title="Gridlock game - solving with Ruby">
+        Gridlock game - solving with Ruby
+      </a>
+    
+  </div>
+  
+  <div class="content-nav-next">
+    
+      <small>Next</small>
+      <a href="/parsing-ruby-code" title="Parsing Ruby Code">
+        Parsing Ruby Code
+      </a>
+    
+  </div>
+</div> 
+  
+<div class="related-posts">
+  <div class="card">
+    <div class="card-header">
+      <h4>Related Articles</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        
+        
+        
+        
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+            
+        
+        
+        
+        
+        
+          
+            
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/my-first-contribution-to-rubygems">My First Contribution To Rubygems</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> July 04, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Adding to my goal of being helpful in the software world, I had my first contribution to RubyGems [merged][new_pr] 🎉</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <div class="comments-section card mb-4">
+  <div class="card-header">
+    <h4>Comments</h4>
+  </div>
+  <div class="card-body">
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      
+      var disqus_config = function () {
+        this.page.url = "https://ideia.me/search-in-ruby-ast";
+        this.page.identifier = "/search-in-ruby-ast";
+      };
+      
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ideiame.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div> 
 </div>
 
-<p>
-  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
-  <br />
-  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
-  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
-</p>
-<p>Check my
-  <a href="/talks">talks</a> or connect with me via
-  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
-  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
-  <a href="https://github.com/jonatas" target="_blank">github</a> /
-  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
-  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
-  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
-  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
-</p>
-
+<link rel="stylesheet" href="/css/enhanced.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
     </div>

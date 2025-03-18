@@ -70,7 +70,7 @@ crossorigin="anonymous"></script>
 
     <meta charset="utf-8">
     <title>Sistemas Operacionais - Gerência do processador - parte 1</title>
-    <meta name="description" content="{% include ads_lateral.html %}">
+    <meta name="description" content="Entenda como os sistemas operacionais gerenciam o processador, aplicam políticas de escalonamento e garantem a multiprogramação para maximizar a eficiência do sistema.">
     <meta name="author" content="Jônatas Davi Paganini">
 
     <!-- Enable responsive viewport -->
@@ -311,1434 +311,2220 @@ crossorigin="anonymous"></script>
     
     <div class="container content-container mt-5 pt-5">
       
-<!-- Post layout with modern design -->
-<div class="post-container">
-  <div class="post-header mb-4">
-    <h1 class="post-title display-4">Sistemas Operacionais - Gerência do processador - parte 1</h1>
-    <div class="post-meta d-flex flex-wrap align-items-center text-muted mb-3">
-      <span class="me-3">
-        <i class="bi bi-calendar3"></i> May 21, 2010
-      </span>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <h1>Sistemas Operacionais - Gerência do processador - parte 1</h1>
+    <div class="article-meta">
+      <span><i class="bi bi-calendar3"></i> May 21, 2010</span>
+      <span class="separator">•</span>
       
-      <span class="me-3">
-        <i class="bi bi-folder"></i>
-        
-      </span>
+  
+  
+    <span class="reading-time" title="Estimated read time">
+      <i class="bi bi-clock"></i> 10 min read
+    </span>
+  
+ 
       
       
+      <span class="separator">•</span>
       <span>
-        <i class="bi bi-tags"></i>
+        <i class="bi bi-folder"></i> 
+        
+          <a href="#sistemas-operacionais-ref" class="text-muted">sistemas-operacionais</a>, 
+        
+          <a href="#technical-ref" class="text-muted">technical</a>, 
+        
+          <a href="#aulas-ref" class="text-muted">aulas</a>, 
+        
+          <a href="#processador-ref" class="text-muted">processador</a>
         
       </span>
       
-    </div>
-    
-    <div class="post-share d-flex align-items-center mb-4">
-      <span class="me-2 text-muted">Share:</span>
-      <a href="https://twitter.com/intent/tweet?text=Sistemas+Operacionais+-+Ger%C3%AAncia+do+processador+-+parte+1&url=https://ideia.me%2Fsistemas-operacionais-gerencia-processador-pt1&via=jonatasdp" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ideia.me%2Fsistemas-operacionais-gerencia-processador-pt1&title=Sistemas+Operacionais+-+Ger%C3%AAncia+do+processador+-+parte+1" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-linkedin"></i>
-      </a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://ideia.me%2Fsistemas-operacionais-gerencia-processador-pt1" 
-         class="btn btn-sm btn-outline-primary" target="_blank">
-        <i class="bi bi-facebook"></i>
-      </a>
     </div>
   </div>
+  
+  <div class="article-content">
+    <h1 id="gerência-do-processador-em-sistemas-operacionais">Gerência do Processador em Sistemas Operacionais</h1>
 
-  <div class="post-content card mb-5">
-    <div class="card-body">
-      <script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<p>A gerência do processador é uma das funções mais importantes de um sistema operacional moderno. Através de diferentes algoritmos e políticas de escalonamento, o sistema consegue compartilhar os recursos do CPU entre múltiplos processos, garantindo eficiência e responsividade.</p>
+
+<h2 id="o-que-é-política-de-escalonamento-de-um-sistema-operacional">O que é política de escalonamento de um sistema operacional?</h2>
+
+<p>A política de escalonamento é a abordagem utilizada pelo sistema operacional para gerenciar o processador e tornar possível a multiprogramação. Ela define quais processos recebem tempo de processamento, por quanto tempo e em qual ordem, buscando atingir objetivos como:</p>
+
+<ul>
+  <li>Maximizar a utilização do processador</li>
+  <li>Minimizar o tempo de espera dos processos</li>
+  <li>Garantir tratamento justo aos diferentes processos</li>
+  <li>Priorizar processos críticos</li>
+  <li>Equilibrar a responsividade do sistema</li>
+</ul>
+
+<h2 id="componentes-do-sistema-de-escalonamento">Componentes do Sistema de Escalonamento</h2>
+
+<h3 id="funções-do-escalonador">Funções do escalonador</h3>
+
+<p>O escalonador é o componente do sistema operacional responsável por implementar a política de escalonamento escolhida. Suas principais funções incluem:</p>
+
+<ul>
+  <li>Selecionar o próximo processo a ser executado</li>
+  <li>Determinar por quanto tempo o processo selecionado poderá utilizar o processador</li>
+  <li>Monitorar o comportamento dos processos para informar decisões futuras</li>
+  <li>Manter filas de processos organizadas conforme a política adotada</li>
+</ul>
+
+<h3 id="o-papel-do-dispatcher">O papel do dispatcher</h3>
+
+<p>O dispatcher é responsável por realizar a troca de contexto entre os processos. Quando o escalonador decide que um novo processo deve ser executado, o dispatcher:</p>
+
+<ol>
+  <li>Salva o estado do processo atual (registradores, contador de programa, etc.)</li>
+  <li>Carrega o estado do próximo processo a ser executado</li>
+  <li>Transfere o controle do processador para o novo processo</li>
+</ol>
+
+<p>A eficiência do dispatcher é crítica para o desempenho do sistema, pois a troca de contexto representa um overhead que não contribui diretamente para o processamento útil.</p>
+
+<pre class="process-diagram">
+ +------------+
+ | Created/New|
+ +------------+
+        |
+        | admitted
+        v
+  +------------+             +------------+
+  |   Ready    |&lt;------------|   Waiting  |
+  +------------+    I/O or   +------------+
+        |          event           ^
+        | dispatch  complete       |
+        |                          | I/O or
+        v                          | event wait
+  +------------+             |     |
+  |  Running   |-------------+     |
+  +------------+                   |
+        |                          |
+        | exit                     |
+        v                          |
+  +------------+                   |
+  | Terminated |                   |
+  +------------+                   |
+        
+        +---------------+          |
+        |  CPU Scheduler|----------+
+        |  +-----------+|   time slice
+        |  |Dispatcher |&lt;----expired---+
+        |  +-----------+|              |
+        +---------------+              |
+               |                       |
+               | context switch        |
+               v                       |
+        +---------------+              |
+        |  Process      |--------------+
+        +---------------+
+          
+  Scheduling Algorithms:
+  - FCFS (First-Come, First-Served)
+  - SJF (Shortest Job First)
+  - Priority Scheduling  
+  - Round Robin
+  - Multilevel Feedback Queue
+</pre>
+
+<h2 id="critérios-de-avaliação-das-políticas-de-escalonamento">Critérios de Avaliação das Políticas de Escalonamento</h2>
+
+<p>As políticas de escalonamento são avaliadas com base em diversos critérios, que podem ter pesos diferentes dependendo do tipo de sistema:</p>
+
+<h3 id="tempo-de-espera">Tempo de espera</h3>
+
+<p>O tempo total que um processo passa na fila de prontos aguardando para ser executado. Quanto menor o tempo de espera, melhor a experiência do usuário.</p>
+
+<h3 id="tempo-de-resposta">Tempo de resposta</h3>
+
+<p>Tempo entre a solicitação de uma operação e o início da resposta. Este critério é particularmente importante em sistemas interativos, onde o usuário espera feedback rápido.</p>
+
+<h3 id="tempo-de-turnaround">Tempo de turnaround</h3>
+
+<p>Representa o tempo total de vida de um processo, desde sua criação até seu término. Este é um indicador importante da eficiência global do sistema.</p>
+
+<h3 id="tempo-de-cpu">Tempo de CPU</h3>
+
+<p>Quantidade total de tempo de processador utilizada por um processo. Processos que exigem mais tempo de CPU são chamados de CPU-bound.</p>
+
+<h3 id="utilização-do-processador">Utilização do processador</h3>
+
+<p>Porcentagem de tempo em que o processador está efetivamente executando processos. Uma alta taxa de utilização é desejável para maximizar o retorno sobre o investimento em hardware.</p>
+
+<h2 id="modos-de-escalonamento-preemptivo-vs-não-preemptivo">Modos de Escalonamento: Preemptivo vs. Não-preemptivo</h2>
+
+<p>O escalonamento pode ser classificado em dois tipos principais, com características e aplicações distintas:</p>
+
+<h3 id="escalonamento-não-preemptivo">Escalonamento Não-preemptivo</h3>
+
+<p>No escalonamento não-preemptivo, quando um processo recebe o controle do processador, ele mantém esse controle até:</p>
+<ul>
+  <li>Terminar sua execução</li>
+  <li>Realizar uma operação de I/O</li>
+  <li>Liberar voluntariamente o processador</li>
+</ul>
+
+<p><strong>Vantagens:</strong></p>
+<ul>
+  <li>Implementação mais simples</li>
+  <li>Menor overhead de troca de contexto</li>
+  <li>Previsibilidade</li>
+</ul>
+
+<p><strong>Desvantagens:</strong></p>
+<ul>
+  <li>Pode causar inanição (starvation) de processos</li>
+  <li>Tempos de resposta menos consistentes</li>
+  <li>Processos longos podem monopolizar o processador</li>
+</ul>
+
+<h3 id="escalonamento-preemptivo">Escalonamento Preemptivo</h3>
+
+<p>No escalonamento preemptivo, o sistema operacional pode interromper a execução de um processo e conceder o processador a outro, mesmo que o primeiro não tenha terminado ou solicitado uma operação de I/O.</p>
+
+<p><strong>Vantagens:</strong></p>
+<ul>
+  <li>Melhor distribuição do tempo de processador</li>
+  <li>Tempos de resposta mais consistentes</li>
+  <li>Maior justiça entre processos</li>
+</ul>
+
+<p><strong>Desvantagens:</strong></p>
+<ul>
+  <li>Maior complexidade de implementação</li>
+  <li>Overhead adicional de troca de contexto</li>
+  <li>Possíveis problemas de sincronização</li>
+</ul>
+
+<h2 id="algoritmos-de-escalonamento">Algoritmos de Escalonamento</h2>
+
+<h3 id="fifo-first-in-first-out">FIFO (First-In, First-Out)</h3>
+
+<p>Também conhecido como FCFS (First-Come, First-Served), este é o algoritmo mais simples, onde os processos são executados na ordem em que chegam.</p>
+
+<p><strong>Características:</strong></p>
+<ul>
+  <li>Não-preemptivo</li>
+  <li>Fácil implementação</li>
+  <li>Favorece processos que chegaram primeiro</li>
+  <li>Pode resultar em tempo de espera elevado se processos longos chegarem primeiro</li>
+</ul>
+
+<h3 id="escalonamento-circular-round-robin">Escalonamento Circular (Round Robin)</h3>
+
+<p>O algoritmo Round Robin atribui a cada processo um intervalo de tempo fixo (quantum), executando-os em ciclos. Se um processo não termina dentro do seu quantum, ele volta para o final da fila.</p>
+
+<p><strong>Características:</strong></p>
+<ul>
+  <li>Preemptivo</li>
+  <li>Distribui o tempo de processador igualmente</li>
+  <li>Tempo de resposta proporcional ao número de processos</li>
+  <li>O desempenho depende fortemente do tamanho do quantum</li>
+</ul>
+
+<h3 id="sjf-shortest-job-first">SJF (Shortest Job First)</h3>
+
+<p>Neste algoritmo, o processo com o menor tempo estimado de execução é selecionado primeiro.</p>
+
+<p><strong>Características:</strong></p>
+<ul>
+  <li>Pode ser preemptivo (SRTF - Shortest Remaining Time First) ou não-preemptivo</li>
+  <li>Minimiza o tempo médio de espera</li>
+  <li>Requer estimativa prévia do tempo de execução</li>
+  <li>Pode causar inanição de processos longos</li>
+</ul>
+
+<h3 id="escalonamento-por-prioridades">Escalonamento por Prioridades</h3>
+
+<p>Cada processo recebe uma prioridade, e o processo com maior prioridade é executado primeiro.</p>
+
+<p><strong>Características:</strong></p>
+<ul>
+  <li>Pode ser preemptivo ou não-preemptivo</li>
+  <li>Permite diferenciar a importância dos processos</li>
+  <li>Flexível e adaptável a diferentes contextos</li>
+  <li>Pode causar inanição de processos de baixa prioridade</li>
+</ul>
+
+<h2 id="diferenças-entre-tipos-de-preempção">Diferenças entre Tipos de Preempção</h2>
+
+<h3 id="preempção-por-tempo">Preempção por Tempo</h3>
+
+<p>Na preempção por tempo, um processo é interrompido após utilizar o processador por um tempo predeterminado (quantum). Este é o mecanismo utilizado no algoritmo Round Robin.</p>
+
+<h3 id="preempção-por-prioridades">Preempção por Prioridades</h3>
+
+<p>Na preempção por prioridade, um processo é interrompido quando um processo de maior prioridade se torna disponível para execução, independentemente de quanto tempo o processo atual já utilizou o processador.</p>
+
+<h2 id="escalonamento-adaptativo">Escalonamento Adaptativo</h2>
+
+<p>O mecanismo de escalonamento adaptativo busca ajustar dinamicamente a política de escalonamento ou seus parâmetros com base no comportamento observado do sistema. Os objetivos incluem:</p>
+
+<ul>
+  <li>Balancear a utilização do processador</li>
+  <li>Responder a mudanças na carga de trabalho</li>
+  <li>Otimizar para diferentes tipos de processos (I/O-bound vs. CPU-bound)</li>
+  <li>Adequar-se às necessidades do usuário ou aplicação</li>
+</ul>
+
+<p>Sistemas modernos frequentemente implementam políticas adaptativas que combinam elementos de diferentes algoritmos básicos.</p>
+
+<h2 id="escalonamento-para-sistemas-de-tempo-real">Escalonamento para Sistemas de Tempo Real</h2>
+
+<p>Aplicações de tempo real exigem respostas dentro de prazos (deadlines) predefinidos. O escalonamento para estes sistemas tem características específicas:</p>
+
+<ul>
+  <li>Processos têm prazos explícitos que devem ser cumpridos</li>
+  <li>A previsibilidade é mais importante que a eficiência média</li>
+  <li>Podem ser classificados em:
+    <ul>
+      <li><strong>Tempo real rígido (hard real-time)</strong>: Perder um prazo causa falha do sistema</li>
+      <li><strong>Tempo real flexível (soft real-time)</strong>: Perder um prazo reduz a qualidade do serviço, mas não causa falha</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Os algoritmos típicos para sistemas de tempo real incluem EDF (Earliest Deadline First) e RMS (Rate Monotonic Scheduling).</p>
+
+<h2 id="escalonamento-por-múltiplas-filas-com-realimentação">Escalonamento por Múltiplas Filas com Realimentação</h2>
+
+<p>O escalonamento por múltiplas filas com realimentação (Multilevel Feedback Queue) é um dos algoritmos mais sofisticados e amplamente utilizados em sistemas operacionais modernos.</p>
+
+<h3 id="como-funciona">Como funciona:</h3>
+
+<ol>
+  <li>Processos são organizados em múltiplas filas, cada uma com um nível de prioridade</li>
+  <li>Cada fila pode ter seu próprio algoritmo de escalonamento</li>
+  <li>Processos podem ser movidos entre filas com base em seu comportamento</li>
+</ol>
+
+<h3 id="favorecimento-de-processos">Favorecimento de processos:</h3>
+
+<p>Este algoritmo favorece processos I/O-bound sobre processos CPU-bound, porque:</p>
+
+<ul>
+  <li>Processos I/O-bound tipicamente têm surtos curtos de CPU seguidos por operações de I/O</li>
+  <li>Quando terminam seu pequeno tempo de CPU, eles são bloqueados para I/O</li>
+  <li>Ao retornarem da operação de I/O, frequentemente são colocados em filas de maior prioridade</li>
+  <li>Processos CPU-bound tendem a usar todo seu quantum e são movidos para filas de menor prioridade</li>
+</ul>
+
+<p>Esta abordagem melhora a responsividade do sistema e a utilização global dos recursos, pois mantém tanto o CPU quanto os dispositivos de I/O ocupados.</p>
+
+<h2 id="exemplos-práticos-de-escalonamento">Exemplos Práticos de Escalonamento</h2>
+
+<p>Vamos analisar como diferentes algoritmos de escalonamento processariam um conjunto de processos com as seguintes características:</p>
+
+<h3 id="informações-dos-processos">Informações dos processos:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Processo</th>
+      <th>Tempo de UCP</th>
+      <th>Prioridade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P1</td>
+      <td>10</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <td>P2</td>
+      <td>14</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>P3</td>
+      <td>7</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>20</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="fifo-first-in-first-out-1">FIFO (First-In, First-Out)</h3>
+
+<p>Os processos são executados na ordem em que chegam:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Processo</th>
+      <th>Tempo de UCP</th>
+      <th>Prioridade</th>
+      <th>Tempo de Conclusão</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P1</td>
+      <td>10</td>
+      <td>3</td>
+      <td>10</td>
+    </tr>
+    <tr>
+      <td>P2</td>
+      <td>14</td>
+      <td>4</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <td>P3</td>
+      <td>7</td>
+      <td>2</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>20</td>
+      <td>5</td>
+      <td>51</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Tempo médio de turnaround: (10 + 24 + 31 + 51) / 4 = 29 unidades de tempo</p>
+
+<h3 id="sjf-shortest-job-first-1">SJF (Shortest Job First)</h3>
+
+<p>Os processos são executados em ordem crescente de tempo de CPU:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Processo</th>
+      <th>Tempo de UCP</th>
+      <th>Prioridade</th>
+      <th>Tempo de Conclusão</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P3</td>
+      <td>7</td>
+      <td>2</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>10</td>
+      <td>3</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <td>P2</td>
+      <td>14</td>
+      <td>4</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>20</td>
+      <td>5</td>
+      <td>51</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Tempo médio de turnaround: (7 + 17 + 31 + 51) / 4 = 26.5 unidades de tempo</p>
+
+<h3 id="escalonamento-por-prioridade">Escalonamento por Prioridade</h3>
+
+<p>Os processos são executados em ordem crescente de número de prioridade (número menor significa maior prioridade):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Processo</th>
+      <th>Tempo de UCP</th>
+      <th>Prioridade</th>
+      <th>Tempo de Conclusão</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P3</td>
+      <td>7</td>
+      <td>2</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>10</td>
+      <td>3</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <td>P2</td>
+      <td>14</td>
+      <td>4</td>
+      <td>31</td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>20</td>
+      <td>5</td>
+      <td>51</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Tempo médio de turnaround: (7 + 17 + 31 + 51) / 4 = 26.5 unidades de tempo</p>
+
+<h3 id="circular-round-robin-com-quantum--2">Circular (Round Robin) com quantum = 2</h3>
+
+<p>Cada processo recebe 2 unidades de tempo de CPU antes de ser preemptado:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Processo</th>
+      <th>Tempo Restante</th>
+      <th>Prioridade</th>
+      <th>Tempo Atual</th>
+      <th>Tempo de Conclusão</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P1</td>
+      <td>10 → 8</td>
+      <td>3</td>
+      <td>2</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P2</td>
+      <td>14 → 12</td>
+      <td>4</td>
+      <td>4</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P3</td>
+      <td>7 → 5</td>
+      <td>2</td>
+      <td>6</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>20 → 18</td>
+      <td>5</td>
+      <td>8</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>8 → 6</td>
+      <td>3</td>
+      <td>10</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P2</td>
+      <td>12 → 10</td>
+      <td>4</td>
+      <td>12</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P3</td>
+      <td>5 → 3</td>
+      <td>2</td>
+      <td>14</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>18 → 16</td>
+      <td>5</td>
+      <td>16</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>6 → 4</td>
+      <td>3</td>
+      <td>18</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P2</td>
+      <td>10 → 8</td>
+      <td>4</td>
+      <td>20</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P3</td>
+      <td>3 → 1</td>
+      <td>2</td>
+      <td>22</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>16 → 14</td>
+      <td>5</td>
+      <td>24</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>4 → 2</td>
+      <td>3</td>
+      <td>26</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P2</td>
+      <td>8 → 6</td>
+      <td>4</td>
+      <td>28</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P3</td>
+      <td>1 → 0</td>
+      <td>2</td>
+      <td>30</td>
+      <td>P3 concluído em t=30</td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>14 → 12</td>
+      <td>5</td>
+      <td>32</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P1</td>
+      <td>2 → 0</td>
+      <td>3</td>
+      <td>34</td>
+      <td>P1 concluído em t=34</td>
+    </tr>
+    <tr>
+      <td>P2</td>
+      <td>6 → 4</td>
+      <td>4</td>
+      <td>36</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>12 → 10</td>
+      <td>5</td>
+      <td>38</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P2</td>
+      <td>4 → 2</td>
+      <td>4</td>
+      <td>40</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>8 → 6</td>
+      <td>5</td>
+      <td>42</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P2</td>
+      <td>2 → 0</td>
+      <td>4</td>
+      <td>44</td>
+      <td>P2 concluído em t=44</td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>6 → 4</td>
+      <td>5</td>
+      <td>46</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>4 → 2</td>
+      <td>5</td>
+      <td>48</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>2 → 0</td>
+      <td>5</td>
+      <td>50</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>0 → 0</td>
+      <td>5</td>
+      <td>52</td>
+      <td>P4 concluído em t=52</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Tempo de conclusão de cada processo:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Processo</th>
+      <th>Tempo de Conclusão</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P1</td>
+      <td>34</td>
+    </tr>
+    <tr>
+      <td>P2</td>
+      <td>44</td>
+    </tr>
+    <tr>
+      <td>P3</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>P4</td>
+      <td>52</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Tempo médio de turnaround: (34 + 44 + 30 + 52) / 4 = 40 unidades de tempo</p>
+
+<h3 id="comparação-dos-resultados">Comparação dos Resultados</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Algoritmo</th>
+      <th>Tempo Médio de Turnaround</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FIFO</td>
+      <td>29.0</td>
+    </tr>
+    <tr>
+      <td>SJF</td>
+      <td>26.5</td>
+    </tr>
+    <tr>
+      <td>Prioridade</td>
+      <td>26.5</td>
+    </tr>
+    <tr>
+      <td>Round Robin (q=2)</td>
+      <td>40.0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Neste exemplo específico, os algoritmos SJF e Prioridade produziram os melhores resultados em termos de tempo médio de turnaround. No entanto, é importante lembrar que o desempenho de cada algoritmo varia dependendo das características da carga de trabalho e dos objetivos do sistema.</p>
+
+<h2 id="considerações-finais">Considerações Finais</h2>
+
+<p>A escolha da política de escalonamento deve considerar as características e objetivos do sistema:</p>
+
+<ul>
+  <li><strong>Sistemas Interativos</strong>: Priorizam tempos de resposta baixos (Round Robin, Múltiplas Filas)</li>
+  <li><strong>Sistemas Batch</strong>: Priorizam throughput e utilização do CPU (SJF)</li>
+  <li><strong>Sistemas de Tempo Real</strong>: Priorizam cumprimento de prazos (EDF, RMS)</li>
+  <li><strong>Sistemas de Propósito Geral</strong>: Buscam equilíbrio usando abordagens adaptativas (Múltiplas Filas com Realimentação)</li>
+</ul>
+
+<p>Os sistemas operacionais modernos tipicamente implementam algoritmos híbridos que combinam características de múltiplas abordagens para atingir um bom desempenho em diversos cenários.</p>
+
+<script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1171230226237014" crossorigin="anonymous"></script>
+
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 
 <p><ins class="adsbygoogle" style="display:inline-block;width:300px;height:600px" data-ad-client="ca-pub-1171230226237014" data-ad-slot="3911925903"></ins>
 <script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script></p>
 
-<h2 id="o-que-é-política-de-escalonamento-de-um-sistema-operacional">O que é política de escalonamento de um sistema operacional?</h2>
 
-<p>Trata-se da abordagem utilizada pelo sistema operacionall para gerenciar o processador e tornar possível a multiprogramação do sistema operacional.</p>
-
-<h2 id="quais-as-funções-do-escalonador-e-do-dispatcher">Quais as funções do escalonador e do dispatcher?</h2>
-
-<p>O escalonador deve aplicar a política de escalonamento escolhida pelo S.O.</p>
-
-<p>O dispatcher é responsável por realizar a troca de contexto.</p>
-
-<h2 id="quais-os-principais-critérios-utilizados-pela-política-de-escalonamento">Quais os principais critérios utilizados pela política de escalonamento?</h2>
-
-<ul>
-  <li>Tempo de espera</li>
-  <li>Tempo de resposta</li>
-  <li>Tempo de turnaround</li>
-  <li>Tempo de cpu</li>
-  <li>Utilização do processador</li>
-</ul>
-
-<h2 id="diferencie-os-tempos-do-processador-espera-turnaround-e-resposta">Diferencie os tempos do processador, espera, turnaround e resposta</h2>
-
-<h3 id="espera">Espera</h3>
-
-<p>Permanece na fila</p>
-
-<h3 id="turnaround">Turnaround</h3>
-
-<p>Tempo de vida do ciclo do processo desde sua criação até o término</p>
-
-<h3 id="tempo-de-resposta">Tempo de resposta</h3>
-
-<p>Tempo entre a chamada e a resposta do CPU.</p>
-
-<h2 id="diferencie-os-escalonamentos-preemptivos-e-não-preemptivos">Diferencie os escalonamentos preemptivos e não-preemptivos?</h2>
-
-<p>Preemptivo permite parar a execução de um processo e iniciar outro.</p>
-
-<h2 id="qual-a-diferença-entre-os-escalonamentos-fifo-e-circular">Qual a diferença entre os escalonamentos FIFO e Circular?</h2>
-
-<p>O escalonamento FIFO procura primeiro terminar um processo antes de começar outro, enquanto o escalonamento circular, reserva um determinado tempo para que o processo circule compartilhando o mesmo momento com outros processos. O circular é do tipo preemptivo enquanto FIFO é First In First Out.</p>
-
-<h2 id="descreva-o-escalonamento-sjf-e-o-escalonamento-por-prioridades">Descreva o escalonamento SJF e o escalonamento por prioridades.</h2>
-
-<p>As prioridadse são baseadas no processo que tiver o menor tempo de processador e desta forma sempre serão executados nesta ordem. Esta política é preemptiva e está baseado na prioridade de execução.</p>
-
-<h2 id="qual-a-diferença-entre-preempção-por-tempo-e-preempção-por-prioridades">Qual a diferença entre preempção por tempo e preempção por prioridades?</h2>
-
-<p>A preempção por tempo visa iterromper os processos baseados no menor tempo de processo, enquanto quando basedo na prioridade visa processar a fila através do nível de prioridade.</p>
-
-<h2 id="o-que-é-um-mecanismo-de-escalonamento-adaptativo">O que é um mecanismo de escalonamento adaptativo?</h2>
-
-<p>Esta política busca ajustar dinamicamente qual é a ordem dos processos objetivando o balanceamento do uso do processador.</p>
-
-<h2 id="que-tipo-de-escalonamento-aplicações-de-tempo-real-exigem">Que tipo de escalonamento aplicações de tempo real exigem?</h2>
-
-<p>Estas aplicações Exigem respostas em tempo imediato.</p>
-
-<h2 id="o-escalonamento-por-múltiplas-filas-com-realimentação-favorece-processos-cpu-bound-ou-io-boundjustifique">O escalonamento por múltiplas filas com realimentação favorece processos CPU-bound ou I/O-bound?Justifique</h2>
-
-<p>O processo de IO tem um tempo de espera curto e por isso podem subir para as filas com prioridade maior enquanto processos de CPU exigem mais cpu e podem ser intercaladas para favorecer o processo de IO.</p>
-
-<h2 id="considere-que-cinco-processos-sejam-criados-no-instante-de-tempo-0-p1-p2-p3-p4-e-p5-e-possuam-as-características-descritas-na-tabela-a-seguir">Considere que cinco processos sejam criados no instante de tempo 0 (P1, P2, P3, P4 e P5) e possuam as características descritas na tabela a seguir:</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Processo</th>
-      <th>Tempo de UCP</th>
-      <th>Prioridade</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>P1</td>
-      <td>10</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>P2</td>
-      <td>14</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>P3</td>
-      <td>7</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>20</td>
-      <td>5</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Desenhe um diagrama ilustrando o escalonamento dos processos e seus respectivos tempos de turnaround, segundo as políticas específicadas a seguir. O tempo de troca de contexto deve ser desconsiderado.</p>
-
-<h3 id="fifo">FIFO</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Processo</th>
-      <th>Tempo de UCP</th>
-      <th>Prioridade</th>
-      <th>Tempo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>P1</td>
-      <td>10</td>
-      <td>3</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <td>P2</td>
-      <td>14</td>
-      <td>4</td>
-      <td>24</td>
-    </tr>
-    <tr>
-      <td>P3</td>
-      <td>7</td>
-      <td>2</td>
-      <td>31</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>20</td>
-      <td>5</td>
-      <td>51</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="sjf">SJF</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Processo</th>
-      <th>Tempo de UCP</th>
-      <th>Prioridade</th>
-      <th>Tempo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>P3</td>
-      <td>7</td>
-      <td>2</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <td>P1</td>
-      <td>10</td>
-      <td>3</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <td>P2</td>
-      <td>14</td>
-      <td>4</td>
-      <td>31</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>20</td>
-      <td>5</td>
-      <td>51</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="prioridade-número-menor-implica-a-prioridade-maior">Prioridade (número menor implica a prioridade maior)</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Processo</th>
-      <th>Tempo de UCP</th>
-      <th>Prioridade</th>
-      <th>Tempo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>P3</td>
-      <td>7</td>
-      <td>2</td>
-      <td>7</td>
-    </tr>
-    <tr>
-      <td>P1</td>
-      <td>10</td>
-      <td>3</td>
-      <td>17</td>
-    </tr>
-    <tr>
-      <td>P2</td>
-      <td>14</td>
-      <td>4</td>
-      <td>31</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>20</td>
-      <td>5</td>
-      <td>51</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="circular-com-fatia-de-tempo-igual-a-2-ut">Circular com fatia de tempo igual a 2 u.t.</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Processo</th>
-      <th>Tempo de UCP</th>
-      <th>Prioridade</th>
-      <th>Tempo</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>P1</td>
-      <td>10</td>
-      <td>3</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>P2</td>
-      <td>14</td>
-      <td>4</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>P3</td>
-      <td>7</td>
-      <td>2</td>
-      <td>6</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>20</td>
-      <td>5</td>
-      <td>8</td>
-    </tr>
-    <tr>
-      <td>P1</td>
-      <td>8</td>
-      <td>3</td>
-      <td>10</td>
-    </tr>
-    <tr>
-      <td>P2</td>
-      <td>12</td>
-      <td>4</td>
-      <td>12</td>
-    </tr>
-    <tr>
-      <td>P3</td>
-      <td>5</td>
-      <td>2</td>
-      <td>14</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>18</td>
-      <td>5</td>
-      <td>16</td>
-    </tr>
-    <tr>
-      <td>P1</td>
-      <td>6</td>
-      <td>3</td>
-      <td>18</td>
-    </tr>
-    <tr>
-      <td>P2</td>
-      <td>10</td>
-      <td>4</td>
-      <td>20</td>
-    </tr>
-    <tr>
-      <td>P3</td>
-      <td>3</td>
-      <td>2</td>
-      <td>22</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>16</td>
-      <td>5</td>
-      <td>24</td>
-    </tr>
-    <tr>
-      <td>P1</td>
-      <td>4</td>
-      <td>3</td>
-      <td>26</td>
-    </tr>
-    <tr>
-      <td>P2</td>
-      <td>8</td>
-      <td>4</td>
-      <td>28</td>
-    </tr>
-    <tr>
-      <td>P3</td>
-      <td>1</td>
-      <td>2</td>
-      <td>30</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>14</td>
-      <td>5</td>
-      <td>32</td>
-    </tr>
-    <tr>
-      <td>P1</td>
-      <td>2</td>
-      <td>3</td>
-      <td>34</td>
-    </tr>
-    <tr>
-      <td>P2</td>
-      <td>6</td>
-      <td>4</td>
-      <td>36</td>
-    </tr>
-    <tr>
-      <td>P3</td>
-      <td>-</td>
-      <td>2</td>
-      <td>37</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>12</td>
-      <td>5</td>
-      <td>39</td>
-    </tr>
-    <tr>
-      <td>P1</td>
-      <td>-</td>
-      <td>3</td>
-      <td>41</td>
-    </tr>
-    <tr>
-      <td>P2</td>
-      <td>4</td>
-      <td>4</td>
-      <td>43</td>
-    </tr>
-    <tr>
-      <td>P3</td>
-      <td>-</td>
-      <td>2</td>
-      <td>-</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>10</td>
-      <td>5</td>
-      <td>45</td>
-    </tr>
-    <tr>
-      <td>P2</td>
-      <td>2</td>
-      <td>4</td>
-      <td>47</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>8</td>
-      <td>5</td>
-      <td>49</td>
-    </tr>
-    <tr>
-      <td>P2</td>
-      <td>-</td>
-      <td>4</td>
-      <td>51</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>6</td>
-      <td>5</td>
-      <td>53</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>4</td>
-      <td>5</td>
-      <td>55</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>2</td>
-      <td>5</td>
-      <td>57</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>0</td>
-      <td>5</td>
-      <td>59</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Sendo assim os processos terminaram após os seguintes tempos:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Processo</th>
-      <th>Segundos</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>P1</td>
-      <td>41</td>
-    </tr>
-    <tr>
-      <td>P2</td>
-      <td>51</td>
-    </tr>
-    <tr>
-      <td>P3</td>
-      <td>37</td>
-    </tr>
-    <tr>
-      <td>P4</td>
-      <td>59</td>
-    </tr>
-  </tbody>
-</table>
-
-<script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1171230226237014" crossorigin="anonymous"></script>
-
-
-    </div>
   </div>
-
-  <div class="post-navigation mb-5">
-    <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0">
-        
-        <div class="card h-100">
-          <div class="card-body">
-            <span class="text-muted d-block mb-2"><i class="bi bi-arrow-left"></i> Previous Post</span>
-            <h5 class="card-title mb-0">
-              <a href="/javascript-legal" class="stretched-link">Javascript Ninja Legal</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-      <div class="col-md-6">
-        
-        <div class="card h-100">
-          <div class="card-body text-md-end">
-            <span class="text-muted d-block mb-2">Next Post <i class="bi bi-arrow-right"></i></span>
-            <h5 class="card-title mb-0">
-              <a href="/sh-legal" class="stretched-link">SH Legal</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="post-author card mb-5">
-    <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-md-2 text-center mb-3 mb-md-0">
-          <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini" class="rounded-circle img-fluid" style="max-width: 100px;">
-        </div>
-        <div class="col-md-10">
-          <h4>About Jônatas Davi Paganini</h4>
-          <p>Developer Advocate at TimescaleDB, Ruby enthusiast, and PostgreSQL expert. Sharing knowledge through writing and speaking at conferences worldwide.</p>
-          <div class="social-links">
-            <a href="https://github.com/jonatas" class="btn btn-sm btn-outline-dark me-2" target="_blank">
-              <i class="bi bi-github"></i> GitHub
-            </a>
-            <a href="https://twitter.com/jonatasdp" class="btn btn-sm btn-outline-primary me-2" target="_blank">
-              <i class="bi bi-twitter"></i> Twitter
-            </a>
-            <a href="https://linkedin.com/in/jonatasdp" class="btn btn-sm btn-outline-primary" target="_blank">
-              <i class="bi bi-linkedin"></i> LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="post-related mb-5">
-    <h3 class="h4 mb-4 border-bottom pb-2">Related Posts</h3>
-    <div class="row">
-      
-      
-      
-      
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-      
-      
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/soulless-economy" class="stretched-link">The Souless Economy - How AI Agents will change our economy completely</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> November 22, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/timescaledb-gem-continuous-aggregates-updates" class="stretched-link">TimescaleDB Gem Continuous Aggregates Updates</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> October 07, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/my-first-contribution-to-rubygems" class="stretched-link">My First Contribution To Rubygems</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> July 04, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-      
-    </div>
-  </div>
-
   
+  
+  <div class="article-tags">
+    
+      <a href="#sistemas-operacionais-ref" class="article-tag">sistemas-operacionais</a>
+    
+      <a href="#technical-ref" class="article-tag">technical</a>
+    
+      <a href="#aulas-ref" class="article-tag">aulas</a>
+    
+      <a href="#processador-ref" class="article-tag">processador</a>
+    
+  </div>
+  
+  
+  
+<div class="social-sharing mb-4">
+  <h5>Share this article</h5>
+  <div class="sharing-buttons">
+    
+    <a href="https://twitter.com/intent/tweet?text=Sistemas+Operacionais+-+Ger%C3%AAncia+do+processador+-+parte+1&url=https%3A%2F%2Fideia.me%2Fsistemas-operacionais-gerencia-processador-pt1&via=jonatasdp" 
+       class="btn btn-twitter btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-twitter"></i> Twitter
+    </a>
+    
+    
+    
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Fsistemas-operacionais-gerencia-processador-pt1" 
+       class="btn btn-facebook btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-facebook"></i> Facebook
+    </a>
+    
+    
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fsistemas-operacionais-gerencia-processador-pt1&title=Sistemas+Operacionais+-+Ger%C3%AAncia+do+processador+-+parte+1" 
+       class="btn btn-linkedin btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-linkedin"></i> LinkedIn
+    </a>
+    
+    
+    
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fsistemas-operacionais-gerencia-processador-pt1&title=Sistemas+Operacionais+-+Ger%C3%AAncia+do+processador+-+parte+1" 
+       class="btn btn-reddit btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-reddit"></i> Reddit
+    </a>
+    
+  </div>
+</div>
+ 
+  <div class="author-bio">
+  <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini">
+  <div class="author-bio-content">
+    <h4>Jônatas Davi Paganini</h4>
+    <p>Developer and writer passionate about PostgreSQL, TimescaleDB, and building better systems. Currently sharing knowledge about time series databases and system architecture.</p>
+    <div class="author-social">
+      <a href="https://github.com/jonatas" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+      <a href="https://twitter.com/jonatasdp" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+      <a href="https://linkedin.com/in/jonatasdp" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      
+      <a href="https://instagram.com/jonatasdp" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+      
+    </div>
+  </div>
+</div> 
+  <div class="content-nav">
+  <div class="content-nav-previous">
+    
+      <small>Previous</small>
+      <a href="/javascript-legal" title="Javascript Ninja Legal">
+        Javascript Ninja Legal
+      </a>
+    
+  </div>
+  
+  <div class="content-nav-next">
+    
+      <small>Next</small>
+      <a href="/sh-legal" title="SH Legal">
+        SH Legal
+      </a>
+    
+  </div>
+</div> 
+  
+<div class="related-posts">
+  <div class="card">
+    <div class="card-header">
+      <h4>Related Articles</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        
+        
+        
+        
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+            
+        
+        
+        
+        
+        
+          
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/website-seo-improvements-and-category-standardization">Enhancing Website Consistency and SEO: A Technical Journey</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> March 10, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Exploring the technical improvements made to ideia.me, including enhanced SEO, standardized categories, and a more co...</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+          
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/semantic-fields-through-ages">Semantic Fields through Ages - A Journey in Words</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> February 13, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Late at night, with sleep eluding me, my mind wandered through the labyrinth of semantic fields and the power of word...</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+          
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/semantic-fields-of-mind">Semantic fields of the mind</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> February 05, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Thursday night, I arrived from Athens and past weekend I had the most insightful update in my mindset until now. I'll...</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <div class="comments-section card mb-4">
+  <div class="card-header">
+    <h4>Comments</h4>
+  </div>
+  <div class="card-body">
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      
+      var disqus_config = function () {
+        this.page.url = "https://ideia.me/sistemas-operacionais-gerencia-processador-pt1";
+        this.page.identifier = "/sistemas-operacionais-gerencia-processador-pt1";
+      };
+      
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ideiame.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div> 
 </div>
 
-<p>
-  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
-  <br />
-  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
-  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
-</p>
-<p>Check my
-  <a href="/talks">talks</a> or connect with me via
-  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
-  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
-  <a href="https://github.com/jonatas" target="_blank">github</a> /
-  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
-  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
-  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
-  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
-</p>
-
+<link rel="stylesheet" href="/css/enhanced.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
     </div>

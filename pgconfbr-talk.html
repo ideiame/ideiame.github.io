@@ -311,60 +311,46 @@ crossorigin="anonymous"></script>
     
     <div class="container content-container mt-5 pt-5">
       
-<!-- Post layout with modern design -->
-<div class="post-container">
-  <div class="post-header mb-4">
-    <h1 class="post-title display-4">PGConf Brasil</h1>
-    <div class="post-meta d-flex flex-wrap align-items-center text-muted mb-3">
-      <span class="me-3">
-        <i class="bi bi-calendar3"></i> August 29, 2022
-      </span>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <h1>PGConf Brasil</h1>
+    <div class="article-meta">
+      <span><i class="bi bi-calendar3"></i> August 29, 2022</span>
+      <span class="separator">•</span>
       
-      <span class="me-3">
-        <i class="bi bi-folder"></i>
-        
-          <a href="/categories.html#terminal-ref" class="badge bg-primary text-decoration-none me-1">terminal</a>
-        
-          <a href="/categories.html#shell-ref" class="badge bg-primary text-decoration-none me-1">shell</a>
-        
-          <a href="/categories.html#unix-ref" class="badge bg-primary text-decoration-none me-1">unix</a>
-        
-          <a href="/categories.html#opensource-ref" class="badge bg-primary text-decoration-none me-1">opensource</a>
-        
-          <a href="/categories.html#postgresql-ref" class="badge bg-primary text-decoration-none me-1">postgresql</a>
-        
-          <a href="/categories.html#talk-ref" class="badge bg-primary text-decoration-none me-1">talk</a>
-        
-      </span>
+  
+  
+    <span class="reading-time" title="Estimated read time">
+      <i class="bi bi-clock"></i> 30 min read
+    </span>
+  
+ 
       
       
+      <span class="separator">•</span>
       <span>
-        <i class="bi bi-tags"></i>
+        <i class="bi bi-folder"></i> 
+        
+          <a href="#terminal-ref" class="text-muted">terminal</a>, 
+        
+          <a href="#shell-ref" class="text-muted">shell</a>, 
+        
+          <a href="#unix-ref" class="text-muted">unix</a>, 
+        
+          <a href="#opensource-ref" class="text-muted">opensource</a>, 
+        
+          <a href="#postgresql-ref" class="text-muted">postgresql</a>, 
+        
+          <a href="#talk-ref" class="text-muted">talk</a>
         
       </span>
       
-    </div>
-    
-    <div class="post-share d-flex align-items-center mb-4">
-      <span class="me-2 text-muted">Share:</span>
-      <a href="https://twitter.com/intent/tweet?text=PGConf+Brasil&url=https://ideia.me%2Fpgconfbr-talk&via=jonatasdp" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ideia.me%2Fpgconfbr-talk&title=PGConf+Brasil" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-linkedin"></i>
-      </a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://ideia.me%2Fpgconfbr-talk" 
-         class="btn btn-sm btn-outline-primary" target="_blank">
-        <i class="bi bi-facebook"></i>
-      </a>
     </div>
   </div>
-
-  <div class="post-content card mb-5">
-    <div class="card-body">
-      <p>Na minha palestra da <a href="https://www.pgconf.com.br/2022/">PGConf Brasil 2022</a>.
+  
+  <div class="article-content">
+    <p>Na minha palestra da <a href="https://www.pgconf.com.br/2022/">PGConf Brasil 2022</a>.
 falei sobre a “Vida Zen no Terminal”. Então resolvi compartilhar aqui um pouco
 dos aprendizados que compartilhei pois são dicas práticas que podem ser úteis
 para quem adora o terminal, ou gostaria de iniciar.</p>
@@ -467,19 +453,23 @@ trata-se de outro software que pode ser chamado pela linha de comando.</p>
 
 <p>O comando geralmente tem a seguinte sintaxe:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;comando&gt; &lt;*argumentos&gt;
-</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>&lt;comando&gt; &lt;*argumentos&gt;
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Cada comando ocupa uma linha e se você quiser fazer vários comandos na mesma
 linha, é possível com <code class="language-plaintext highlighter-rouge">;</code> para dividir eles. Ou seja:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"olá mundo."</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nb">echo</span> <span class="s2">"olá mundo."</span>
 <span class="nb">echo</span> <span class="s2">"seja bem vindo."</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>é o mesmo que:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"olá mundo."</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">"seja bem vindo."</span>
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">echo</span> <span class="s2">"olá mundo."</span><span class="p">;</span> <span class="nb">echo</span> <span class="s2">"seja bem vindo."</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Os comandos podem também conter argumentos especiais, que geralmente começam com
 um traço ou o sinal de menos <code class="language-plaintext highlighter-rouge">-</code> seguido de uma letra, ou dois traços e uma
@@ -488,24 +478,29 @@ palavra.</p>
 <p>Então, se eu quisesse unir as linhas anteriores, pensaria, hmm, só preciso usar
 o <code class="language-plaintext highlighter-rouge">\n</code> ali e consigo usar uma única linha no echo.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s2">"olá mundo.</span><span class="se">\n</span><span class="s2">seja bem vindo."</span>
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">echo</span> <span class="s2">"olá mundo.</span><span class="se">\n</span><span class="s2">seja bem vindo."</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Mas infelizmente o comando não irá quebrar linha naturalmente. Nesse caso é
 necessário que o <code class="language-plaintext highlighter-rouge">echo</code> tenha um parâmetro especial <code class="language-plaintext highlighter-rouge">-e</code>:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"olá mundo.</span><span class="se">\n</span><span class="s2">seja bem vindo."</span>
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">echo</span> <span class="nt">-e</span> <span class="s2">"olá mundo.</span><span class="se">\n</span><span class="s2">seja bem vindo."</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>No bash, também é possível reusar informações através do uso de variáveis.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">nome</span><span class="o">=</span><span class="s1">'fulano'</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nv">nome</span><span class="o">=</span><span class="s1">'fulano'</span>
 <span class="nb">echo</span> <span class="s2">"bem vindo </span><span class="nv">$nome</span><span class="s2">"</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>E também é possível calcular expressões matemáticas com o comando <code class="language-plaintext highlighter-rouge">expr</code>:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">A</span><span class="o">=</span>1<span class="p">;</span> <span class="nv">B</span><span class="o">=</span>2<span class="p">;</span> <span class="nb">echo </span>A + B <span class="o">=</span> <span class="si">$(</span><span class="nb">expr</span> <span class="nv">$A</span> + <span class="nv">$B</span><span class="si">)</span>
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nv">A</span><span class="o">=</span>1<span class="p">;</span> <span class="nv">B</span><span class="o">=</span>2<span class="p">;</span> <span class="nb">echo </span>A + B <span class="o">=</span> <span class="si">$(</span><span class="nb">expr</span> <span class="nv">$A</span> + <span class="nv">$B</span><span class="si">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>O comando também pode conversar com outros comandos através dos operadores. Por
 exemplo, o <code class="language-plaintext highlighter-rouge">&gt;</code> permite enviar os dados para uma saída diferente da saída da tela.</p>
@@ -513,24 +508,28 @@ exemplo, o <code class="language-plaintext highlighter-rouge">&gt;</code> permit
 <p>O <code class="language-plaintext highlighter-rouge">echo</code> imprime para tela, então no exemplo abaixo estou enviando o conteúdo do
 resultado para o arquivo <strong>ola.txt</strong>.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'olá mundo'</span> <span class="o">&gt;</span> ola.txt
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">echo</span> <span class="s1">'olá mundo'</span> <span class="o">&gt;</span> ola.txt
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>O <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> permite adicionar mais dados no mesmo arquivo enquanto o <code class="language-plaintext highlighter-rouge">&gt;</code> sempre
 recria o arquivo, mesmo que ele exista.</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'bem vindo'</span> <span class="o">&gt;&gt;</span> ola.txt
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">echo</span> <span class="s1">'bem vindo'</span> <span class="o">&gt;&gt;</span> ola.txt
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Agora, o arquivo tem duas linhas:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">echo</span> <span class="s1">'bem vindo'</span> <span class="o">&gt;&gt;</span> ola.txt
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">echo</span> <span class="s1">'bem vindo'</span> <span class="o">&gt;&gt;</span> ola.txt
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Ou pode receber informações de outros comandos com o <code class="language-plaintext highlighter-rouge">|</code>:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cat </span>ola.txt | <span class="nb">grep </span>vindo
-</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">cat </span>ola.txt | <span class="nb">grep </span>vindo
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>O comando irá filtrar apenas as linhas do resultado do <code class="language-plaintext highlighter-rouge">cat</code> que contenham a
 palavra <code class="language-plaintext highlighter-rouge">vindo</code>.</p>
@@ -601,8 +600,9 @@ também re-executar eles com facilidade.</p>
   </tbody>
 </table>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!&lt;numero-do-comando&gt;
-</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>!&lt;numero-do-comando&gt;
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Ou usar o <code class="language-plaintext highlighter-rouge">&lt;ctrl-r&gt;</code> e buscar pelo comando.</p>
 
@@ -621,7 +621,37 @@ hora certa.</p>
 
 <p>Exemplo buscando por exemplos do <code class="language-plaintext highlighter-rouge">sed</code>:</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> tldr <span class="nb">sed
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+</pre></td><td class="rouge-code"><pre> tldr <span class="nb">sed
 
 sed
 
@@ -651,7 +681,7 @@ More information: &lt;https://ss64.com/osx/sed.html&gt;.
 
 - <span class="o">[</span>d]elete the line at the specific line number <span class="o">[</span>i]n a file, overwriting the file:
     <span class="nb">sed</span> <span class="nt">-i</span> <span class="s1">''</span> <span class="s1">'line_numberd'</span> filename
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Bem mais objetivo que ler o <a href="https://linux.die.net/man/1/sed">manual do sed</a>.</p>
 
@@ -662,26 +692,77 @@ gerando uns dados só pra se divertir.</p>
 
 <p>Imagina que eu posso digitar:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="mi">1</span><span class="p">;</span>
-</code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">select</span> <span class="mi">1</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>Mas também posso digitar uma string com sql dentro do select.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="s1">'SELECT 1'</span><span class="p">;</span>
-</code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">select</span> <span class="s1">'SELECT 1'</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>Agora, se eu quiser fazer algo mais dinâmico, posso gerar várias linhas:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">a</span> <span class="k">from</span> <span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="n">a</span><span class="p">;</span>
-</code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">select</span> <span class="n">a</span> <span class="k">from</span> <span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="n">a</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>E gerar comandos SQLs a partir dessa sequência:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="s1">'select '</span><span class="o">||</span><span class="n">a</span> <span class="k">from</span> <span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="n">a</span><span class="p">;</span>
-</code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">select</span> <span class="s1">'select '</span><span class="o">||</span><span class="n">a</span> <span class="k">from</span> <span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="n">a</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Pra pegar esse último output e executar como SQL é só usar o <code class="language-plaintext highlighter-rouge">\gexec</code>.
 Exemplo completo:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">db</span><span class="o">=#</span> <span class="k">select</span> <span class="s1">'select '</span><span class="o">||</span><span class="n">a</span> <span class="k">from</span> <span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="n">a</span><span class="p">;</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+</pre></td><td class="rouge-code"><pre><span class="n">db</span><span class="o">=#</span> <span class="k">select</span> <span class="s1">'select '</span><span class="o">||</span><span class="n">a</span> <span class="k">from</span> <span class="n">generate_series</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="n">a</span><span class="p">;</span>
 <span class="err">┌───────────┐</span>
 <span class="err">│</span> <span class="o">?</span><span class="k">column</span><span class="o">?</span>  <span class="err">│</span>
 <span class="err">├───────────┤</span>
@@ -728,7 +809,7 @@ Exemplo completo:</p>
 <span class="err">└──────────┘</span>
 <span class="p">(</span><span class="mi">1</span> <span class="k">row</span><span class="p">)</span>
 
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h2 id="output">Output</h2>
 
@@ -752,7 +833,32 @@ que query o psql usou para mostrar os resultados.</p>
 
 <p>Exemplo:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="err">\</span><span class="n">dt</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td><td class="rouge-code"><pre> <span class="err">\</span><span class="n">dt</span>
 <span class="o">*********</span> <span class="n">QUERY</span> <span class="o">**********</span>
 <span class="k">SELECT</span> <span class="n">n</span><span class="p">.</span><span class="n">nspname</span> <span class="k">as</span> <span class="nv">"Schema"</span><span class="p">,</span>
   <span class="k">c</span><span class="p">.</span><span class="n">relname</span> <span class="k">as</span> <span class="nv">"Name"</span><span class="p">,</span>
@@ -777,7 +883,7 @@ que query o psql usou para mostrar os resultados.</p>
 <span class="err">│</span> <span class="k">public</span> <span class="err">│</span> <span class="n">another_table</span>    <span class="err">│</span> <span class="k">table</span> <span class="err">│</span> <span class="n">jonatasdp</span> <span class="err">│</span>
 <span class="err">└────────┴──────────────────┴───────┴───────────┘</span>
 <span class="p">(</span><span class="mi">2</span> <span class="k">rows</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Lembrando que o -E vai funcionar apenas para comandos que envolvem queries.</p>
 
@@ -788,19 +894,34 @@ vale a pena usar o <code class="language-plaintext highlighter-rouge">\x on</cod
 
 <p>Exemplo o <code class="language-plaintext highlighter-rouge">\x</code>. Observe o output:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">table</span> <span class="n">pings</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">;</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="k">table</span> <span class="n">pings</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">;</span>
 <span class="err">┌─</span><span class="p">[</span> <span class="n">RECORD</span> <span class="mi">1</span> <span class="p">]</span><span class="err">──────────────────────┐</span>
 <span class="err">│</span> <span class="n">t</span>    <span class="err">│</span> <span class="mi">2022</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span><span class="p">.</span><span class="mi">439023</span> <span class="err">│</span>
 <span class="err">│</span> <span class="n">ms</span>   <span class="err">│</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0031</span>                     <span class="err">│</span>
 <span class="err">│</span> <span class="k">host</span> <span class="err">│</span> <span class="n">google</span><span class="p">.</span><span class="n">com</span>                 <span class="err">│</span>
 <span class="err">└──────┴────────────────────────────┘</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>O <code class="language-plaintext highlighter-rouge">\x</code> serve para trocar o modo de visualização de tabelas em linhas ou colunas,
 de forma expandida ou não. Se você não usar argumentos o psql alterna o
 parâmetro entre <code class="language-plaintext highlighter-rouge">on</code> e <code class="language-plaintext highlighter-rouge">off</code> automaticamente.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">db</span><span class="o">=#</span> <span class="err">\</span><span class="n">x</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="n">db</span><span class="o">=#</span> <span class="err">\</span><span class="n">x</span>
 <span class="n">Expanded</span> <span class="n">display</span> <span class="k">is</span> <span class="k">off</span><span class="p">.</span>
 <span class="n">db</span><span class="o">=#</span> <span class="k">table</span> <span class="n">pings</span> <span class="k">limit</span> <span class="mi">1</span><span class="p">;</span>
 <span class="err">┌────────────────────────────┬────────┬────────────┐</span>
@@ -809,7 +930,7 @@ parâmetro entre <code class="language-plaintext highlighter-rouge">on</code> e 
 <span class="err">│</span> <span class="mi">2022</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">21</span><span class="p">.</span><span class="mi">439023</span> <span class="err">│</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0031</span> <span class="err">│</span> <span class="n">google</span><span class="p">.</span><span class="n">com</span> <span class="err">│</span>
 <span class="err">└────────────────────────────┴────────┴────────────┘</span>
 <span class="p">(</span><span class="mi">1</span> <span class="k">row</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Também é possível usar o <code class="language-plaintext highlighter-rouge">\x auto</code> que irá mudar a visão automaticamente para
 mostrar colunas em linhas caso o conteúdo tenha muitas colunas ou valores muito
@@ -821,8 +942,9 @@ longos que quebrem o layout da tela.</p>
 extremamente úteis para não ter que lembrar de todos os comandos. Então é só
 lembrar do <code class="language-plaintext highlighter-rouge">?</code> para listar esse help com todos os comandos com barra invertida.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\?
-</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>\?
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Aqui você pode relembrar sempre que precisar de um atalho rápido. Um detalhe
 importante quando você ver esse <code class="language-plaintext highlighter-rouge">:</code> na última linha da explicação, isso
@@ -834,7 +956,144 @@ significa que o pager está em ação. O more é um utilitário de pager assim c
 
 <p>Segue a lista de saída:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">db</span><span class="o">=#</span> <span class="err">\</span><span class="o">?</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+</pre></td><td class="rouge-code"><pre><span class="n">db</span><span class="o">=#</span> <span class="err">\</span><span class="o">?</span>
 <span class="k">General</span>
   <span class="err">\</span><span class="n">copyright</span>             <span class="k">show</span> <span class="n">PostgreSQL</span> <span class="k">usage</span> <span class="k">and</span> <span class="n">distribution</span> <span class="n">terms</span>
   <span class="err">\</span><span class="n">crosstabview</span> <span class="p">[</span><span class="n">COLUMNS</span><span class="p">]</span> <span class="k">execute</span> <span class="n">query</span> <span class="k">and</span> <span class="n">display</span> <span class="n">results</span> <span class="k">in</span> <span class="n">crosstab</span>
@@ -971,16 +1230,18 @@ significa que o pager está em ação. O more é um utilitário de pager assim c
   <span class="err">\</span><span class="n">lo_import</span> <span class="n">FILE</span> <span class="p">[</span><span class="k">COMMENT</span><span class="p">]</span>
   <span class="err">\</span><span class="n">lo_list</span>
   <span class="err">\</span><span class="n">lo_unlink</span> <span class="n">LOBOID</span>      <span class="k">large</span> <span class="k">object</span> <span class="n">operations</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>São muitas opções mesmo! apenas comandos internos do psql e são super úteis para
 navegar em qualquer detalhe do banco de dados sem ter que abrir o pgadmin 🤐</p>
 
 <h2 id="configurações">Configurações</h2>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">\</span><span class="n">pset</span> <span class="n">numericlocale</span> <span class="o">#</span> <span class="n">Locale</span><span class="o">-</span><span class="n">adjusted</span> <span class="nb">numeric</span> <span class="k">output</span> <span class="k">is</span> <span class="k">on</span><span class="p">.</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="err">\</span><span class="n">pset</span> <span class="n">numericlocale</span> <span class="o">#</span> <span class="n">Locale</span><span class="o">-</span><span class="n">adjusted</span> <span class="nb">numeric</span> <span class="k">output</span> <span class="k">is</span> <span class="k">on</span><span class="p">.</span>
 <span class="err">\</span><span class="k">set</span> <span class="n">io_timing_track</span> <span class="o">#</span> <span class="n">useful</span> <span class="k">to</span> <span class="k">explain</span> <span class="n">queries</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h2 id="print-set-com-pset">Print set com <code class="language-plaintext highlighter-rouge">\pset</code></h2>
 
@@ -992,34 +1253,46 @@ formatar a saída de dados do formato que você espera.</p>
 valores nulos.
 Por exemplo, se você usar:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">null</span><span class="p">;</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">select</span> <span class="k">null</span><span class="p">;</span>
 <span class="o">?</span><span class="k">column</span><span class="o">?</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>então fica difícil de entender que a linha em branco quer dizer nulo:</p>
 
 <p>Aí você pode reconfigurar o null para exibir algo de sua preferência:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>\pset null '&lt;nulo&gt;'
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>\pset null '&lt;nulo&gt;'
 Null display is "&lt;nulo&gt;".
 db=# select null;
 ?column?
 &lt;nulo&gt;
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Lembrando que é unicode também, e você pode ter os seus próprios emojis
 pra tornar tudo mais divertido:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="err">\</span><span class="n">pset</span> <span class="k">null</span> <span class="s1">'🙈'</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre> <span class="err">\</span><span class="n">pset</span> <span class="k">null</span> <span class="s1">'🙈'</span>
 <span class="k">Null</span> <span class="n">display</span> <span class="k">is</span> <span class="nv">"🙈"</span><span class="p">.</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Adoro esse macaquinho, bora testar ;)</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">null</span><span class="p">;</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">select</span> <span class="k">null</span><span class="p">;</span>
 <span class="o">?</span><span class="k">column</span><span class="o">?</span>
 <span class="err">🙈</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h2 id="watch-para-assistir-queries"><code class="language-plaintext highlighter-rouge">\watch</code> para assistir queries</h2>
 
@@ -1029,8 +1302,9 @@ query.</p>
 
 <p>Então se você executou uma query como:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">tabela</span> <span class="k">order</span> <span class="k">by</span> <span class="n">id</span> <span class="k">desc</span> <span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
-</code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">tabela</span> <span class="k">order</span> <span class="k">by</span> <span class="n">id</span> <span class="k">desc</span> <span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Este comando irá mostrar os últimos dez registros da tabela.</p>
 
@@ -1056,938 +1330,2151 @@ Me chama no <a href="https://twitter.com/jonatasdp">twitter</a> ou <a href="http
 <p>O conteúdo da minha palestra também foi publicado no github. Você pode ver no
 repositório <a href="https://github.com/jonatas/pgconfbr2022-talk">pgconfbr2022-talk</a>.</p>
 
-    </div>
   </div>
-
-  <div class="post-navigation mb-5">
-    <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0">
-        
-        <div class="card h-100">
-          <div class="card-body">
-            <span class="text-muted d-block mb-2"><i class="bi bi-arrow-left"></i> Previous Post</span>
-            <h5 class="card-title mb-0">
-              <a href="/time-series-benchmark-timescaledb-raspberry-pi" class="stretched-link">Time Series Benchmark Timescaledb Raspberry Pi</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-      <div class="col-md-6">
-        
-        <div class="card h-100">
-          <div class="card-body text-md-end">
-            <span class="text-muted d-block mb-2">Next Post <i class="bi bi-arrow-right"></i></span>
-            <h5 class="card-title mb-0">
-              <a href="/writing-plans" class="stretched-link">Writing plans</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="post-author card mb-5">
-    <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-md-2 text-center mb-3 mb-md-0">
-          <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini" class="rounded-circle img-fluid" style="max-width: 100px;">
-        </div>
-        <div class="col-md-10">
-          <h4>About Jônatas Davi Paganini</h4>
-          <p>Developer Advocate at TimescaleDB, Ruby enthusiast, and PostgreSQL expert. Sharing knowledge through writing and speaking at conferences worldwide.</p>
-          <div class="social-links">
-            <a href="https://github.com/jonatas" class="btn btn-sm btn-outline-dark me-2" target="_blank">
-              <i class="bi bi-github"></i> GitHub
-            </a>
-            <a href="https://twitter.com/jonatasdp" class="btn btn-sm btn-outline-primary me-2" target="_blank">
-              <i class="bi bi-twitter"></i> Twitter
-            </a>
-            <a href="https://linkedin.com/in/jonatasdp" class="btn btn-sm btn-outline-primary" target="_blank">
-              <i class="bi bi-linkedin"></i> LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="post-related mb-5">
-    <h3 class="h4 mb-4 border-bottom pb-2">Related Posts</h3>
-    <div class="row">
-      
-      
-      
-      
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-      
-      
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/soulless-economy" class="stretched-link">The Souless Economy - How AI Agents will change our economy completely</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> November 22, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/timescaledb-gem-continuous-aggregates-updates" class="stretched-link">TimescaleDB Gem Continuous Aggregates Updates</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> October 07, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/my-first-contribution-to-rubygems" class="stretched-link">My First Contribution To Rubygems</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> July 04, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-      
-    </div>
-  </div>
-
   
+  
+  <div class="article-tags">
+    
+      <a href="#terminal-ref" class="article-tag">terminal</a>
+    
+      <a href="#shell-ref" class="article-tag">shell</a>
+    
+      <a href="#unix-ref" class="article-tag">unix</a>
+    
+      <a href="#opensource-ref" class="article-tag">opensource</a>
+    
+      <a href="#postgresql-ref" class="article-tag">postgresql</a>
+    
+      <a href="#talk-ref" class="article-tag">talk</a>
+    
+  </div>
+  
+  
+  
+<div class="social-sharing mb-4">
+  <h5>Share this article</h5>
+  <div class="sharing-buttons">
+    
+    <a href="https://twitter.com/intent/tweet?text=PGConf+Brasil&url=https%3A%2F%2Fideia.me%2Fpgconfbr-talk&via=jonatasdp" 
+       class="btn btn-twitter btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-twitter"></i> Twitter
+    </a>
+    
+    
+    
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Fpgconfbr-talk" 
+       class="btn btn-facebook btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-facebook"></i> Facebook
+    </a>
+    
+    
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fpgconfbr-talk&title=PGConf+Brasil" 
+       class="btn btn-linkedin btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-linkedin"></i> LinkedIn
+    </a>
+    
+    
+    
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fpgconfbr-talk&title=PGConf+Brasil" 
+       class="btn btn-reddit btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-reddit"></i> Reddit
+    </a>
+    
+  </div>
+</div>
+ 
+  <div class="author-bio">
+  <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini">
+  <div class="author-bio-content">
+    <h4>Jônatas Davi Paganini</h4>
+    <p>Developer and writer passionate about PostgreSQL, TimescaleDB, and building better systems. Currently sharing knowledge about time series databases and system architecture.</p>
+    <div class="author-social">
+      <a href="https://github.com/jonatas" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+      <a href="https://twitter.com/jonatasdp" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+      <a href="https://linkedin.com/in/jonatasdp" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      
+      <a href="https://instagram.com/jonatasdp" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+      
+    </div>
+  </div>
+</div> 
+  <div class="content-nav">
+  <div class="content-nav-previous">
+    
+      <small>Previous</small>
+      <a href="/time-series-benchmark-timescaledb-raspberry-pi" title="Time Series Benchmark Timescaledb Raspberry Pi">
+        Time Series Benchmark Timescaledb Raspberry Pi
+      </a>
+    
+  </div>
+  
+  <div class="content-nav-next">
+    
+      <small>Next</small>
+      <a href="/writing-plans" title="Writing plans">
+        Writing plans
+      </a>
+    
+  </div>
+</div> 
+  
+<div class="related-posts">
+  <div class="card">
+    <div class="card-header">
+      <h4>Related Articles</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        
+        
+        
+        
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+            
+        
+        
+        
+        
+        
+          
+            
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/my-first-contribution-to-rubygems">My First Contribution To Rubygems</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> July 04, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Adding to my goal of being helpful in the software world, I had my first contribution to RubyGems [merged][new_pr] 🎉</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+          
+            
+            
+              
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/grepping-sql-code-like-a-boss">Grepping SQL Code like a boss</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> May 27, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Here's the outline of the content of my talk in Poland I presented at the Lambda Days 2024.</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+          
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/retrospective-2023">Retrospective 2023</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> December 20, 2023
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">I tried to have a restrospective moment every year and it always happen in the last few days of December.</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+          
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/sirva-sua-comunidade">Sirva sua comunidade</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> March 30, 2023
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Nos últimos anos, me sinto muito "sortudo" com todas as aprovações que recebi para falar em conferências e participar...</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+          
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/serve-your-community">Serve Your Community</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> March 30, 2023
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">In the last few years, I've felt incredibly fortunate to have received so many approvals to speak at conferences and ...</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+            
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <div class="comments-section card mb-4">
+  <div class="card-header">
+    <h4>Comments</h4>
+  </div>
+  <div class="card-body">
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      
+      var disqus_config = function () {
+        this.page.url = "https://ideia.me/pgconfbr-talk";
+        this.page.identifier = "/pgconfbr-talk";
+      };
+      
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ideiame.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div> 
 </div>
 
-<p>
-  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
-  <br />
-  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
-  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
-</p>
-<p>Check my
-  <a href="/talks">talks</a> or connect with me via
-  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
-  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
-  <a href="https://github.com/jonatas" target="_blank">github</a> /
-  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
-  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
-  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
-  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
-</p>
-
+<link rel="stylesheet" href="/css/enhanced.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
     </div>

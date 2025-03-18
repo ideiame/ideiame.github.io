@@ -70,7 +70,7 @@ crossorigin="anonymous"></script>
 
     <meta charset="utf-8">
     <title>Aula de Sistemas Operacionais - Modos do Kernel</title>
-    <meta name="description" content="O sistema operacional é dividido em dois modos básicos, sendo estes o modo Kernel e o modo Usuário. Esta divisão permite que os aplicativos sejam executados ...">
+    <meta name="description" content="O sistema operacional é dividido em dois modos básicos: modo Kernel e modo Usuário. Esta divisão permite que os aplicativos sejam executados com segurança, mantendo a integridade do sistema.">
     <meta name="author" content="Jônatas Davi Paganini">
 
     <!-- Enable responsive viewport -->
@@ -311,77 +311,352 @@ crossorigin="anonymous"></script>
     
     <div class="container content-container mt-5 pt-5">
       
-<!-- Post layout with modern design -->
-<div class="post-container">
-  <div class="post-header mb-4">
-    <h1 class="post-title display-4">Aula de Sistemas Operacionais - Modos do Kernel</h1>
-    <div class="post-meta d-flex flex-wrap align-items-center text-muted mb-3">
-      <span class="me-3">
-        <i class="bi bi-calendar3"></i> March 04, 2010
-      </span>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <h1>Aula de Sistemas Operacionais - Modos do Kernel</h1>
+    <div class="article-meta">
+      <span><i class="bi bi-calendar3"></i> March 04, 2010</span>
+      <span class="separator">•</span>
       
-      <span class="me-3">
-        <i class="bi bi-folder"></i>
-        
-      </span>
+  
+  
+    <span class="reading-time" title="Estimated read time">
+      <i class="bi bi-clock"></i> 10 min read
+    </span>
+  
+ 
       
       
+      <span class="separator">•</span>
       <span>
-        <i class="bi bi-tags"></i>
+        <i class="bi bi-folder"></i> 
+        
+          <a href="#sistemas-operacionais-ref" class="text-muted">sistemas-operacionais</a>, 
+        
+          <a href="#technical-ref" class="text-muted">technical</a>, 
+        
+          <a href="#aulas-ref" class="text-muted">aulas</a>, 
+        
+          <a href="#kernel-ref" class="text-muted">kernel</a>
         
       </span>
       
-    </div>
-    
-    <div class="post-share d-flex align-items-center mb-4">
-      <span class="me-2 text-muted">Share:</span>
-      <a href="https://twitter.com/intent/tweet?text=Aula+de+Sistemas+Operacionais+-+Modos+do+Kernel&url=https://ideia.me%2Fmodos-so&via=jonatasdp" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ideia.me%2Fmodos-so&title=Aula+de+Sistemas+Operacionais+-+Modos+do+Kernel" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-linkedin"></i>
-      </a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://ideia.me%2Fmodos-so" 
-         class="btn btn-sm btn-outline-primary" target="_blank">
-        <i class="bi bi-facebook"></i>
-      </a>
     </div>
   </div>
+  
+  <div class="article-content">
+    <h1 id="entendendo-os-modos-de-acesso-do-sistema-operacional">Entendendo os Modos de Acesso do Sistema Operacional</h1>
 
-  <div class="post-content card mb-5">
-    <div class="card-body">
-      <p>O sistema operacional é dividido em dois modos básicos, sendo estes o modo Kernel e o modo Usuário. Esta divisão permite que os aplicativos sejam executados com segurança.</p>
+<p>O sistema operacional é dividido em dois modos básicos, sendo estes o modo Kernel e o modo Usuário. Esta divisão permite que os aplicativos sejam executados com segurança.</p>
 
 <p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Kernel_Layout.svg/382px-Kernel_Layout.svg.png" alt="Kernel - imagem do wikipedia" /></p>
+
+<h2 id="arquitetura-em-camadas-do-sistema-operacional">Arquitetura em Camadas do Sistema Operacional</h2>
 
 <p>Em uma divisão de camadas do sistema em auto-nível seria uma sequência como:</p>
 
 <ul>
-  <li>Usuário</li>
-  <li>Aplicativo</li>
-  <li>Kernel</li>
-  <li>Hardware</li>
+  <li><strong>Usuário</strong> - Camada superior onde o usuário interage com o sistema</li>
+  <li><strong>Aplicativo</strong> - Programas e software que o usuário utiliza</li>
+  <li><strong>Kernel</strong> - Núcleo do sistema operacional que gerencia recursos</li>
+  <li><strong>Hardware</strong> - Componentes físicos do computador</li>
 </ul>
 
-<h1 id="modos-de-acesso">Modos de acesso</h1>
+<h2 id="modos-de-acesso">Modos de acesso</h2>
 
-<p>Os modos de acesso, referem-se aos privilégios de execução de um processo.</p>
+<p>Os modos de acesso referem-se aos privilégios de execução de um processo, determinando quais operações podem ser realizadas por cada tipo de software.</p>
 
-<h2 id="modo-usuário">modo usuário</h2>
+<h3 id="modo-usuário">Modo Usuário</h3>
 
-<p>O processador, entende um conjunto de instruções. Cada instrução pode fica no modo Kernel ou no modo Usuário. Do lado do aplicativo, é possível apenas trabalhar com o conjunto de instruções que está do modo usuário.</p>
+<p>O processador entende um conjunto de instruções. Cada instrução pode ficar no modo Kernel ou no modo Usuário. Do lado do aplicativo, é possível apenas trabalhar com o conjunto de instruções que está do modo usuário.</p>
 
-<h2 id="modo-kernel">modo Kernel</h2>
+<p>No modo usuário:</p>
+<ul>
+  <li>Os processos têm acesso limitado aos recursos do sistema</li>
+  <li>Não podem acessar diretamente o hardware</li>
+  <li>Precisam solicitar ao kernel quando necessitam executar operações privilegiadas</li>
+  <li>Não podem modificar configurações críticas do sistema</li>
+</ul>
 
-<p>O modo Kernel, é composto pelo modo usuário e também por outro conjunto de comandos que são restritos apenas ao uso interno. Os processos, quando são executados, consultam o Kernel e verificam se o comando pertence ao modo usuário e não tem privilégios, comparado a um estagiário.</p>
+<h3 id="modo-kernel">Modo Kernel</h3>
 
-<p>A linguagem de programação Assembly, é a linguagem que interpreta uma série de comandos e envia os comandos para o processador.</p>
+<p>O modo Kernel é composto pelo modo usuário e também por outro conjunto de comandos que são restritos apenas ao uso interno. Os processos, quando são executados, consultam o Kernel e verificam se o comando pertence ao modo usuário e não tem privilégios, comparado a um estagiário.</p>
 
-<p>As rotinas do sistema operacional, podem fazer chamadas a respeito de x comandos.</p>
+<p>No modo Kernel:</p>
+<ul>
+  <li>Acesso completo aos recursos do hardware</li>
+  <li>Capacidade de executar qualquer instrução do processador</li>
+  <li>Controle total sobre o sistema operacional</li>
+  <li>Gerenciamento direto da memória e dispositivos</li>
+</ul>
+
+<p>A linguagem de programação Assembly é a linguagem que interpreta uma série de comandos e envia os comandos para o processador, sendo frequentemente usada para implementar partes do kernel.</p>
+
+<p>As rotinas do sistema operacional podem fazer chamadas a respeito de x comandos.</p>
 
 <p>Veja como é <a href="http://www.linfo.org/kernel_mode.html">a definição do kernel do linux</a>.</p>
+
+<h2 id="funções-do-núcleo-do-sistema-operacional">Funções do Núcleo do Sistema Operacional</h2>
+
+<p>O núcleo do sistema operacional (kernel) é responsável por diversas funções essenciais:</p>
+
+<ol>
+  <li><strong>Tratamento de interrupções e exceções</strong> - Responder a eventos de hardware e erros de software</li>
+  <li><strong>Gerenciamento de processos e threads</strong> - Criação, eliminação, sincronização e comunicação</li>
+  <li><strong>Escalonamento e controle</strong> - Determinar qual processo utiliza o processador e por quanto tempo</li>
+  <li><strong>Gerência de memória</strong> - Alocação e liberação de espaço na memória RAM</li>
+  <li><strong>Gerência do sistema de arquivos</strong> - Organização e acesso a dados armazenados</li>
+  <li><strong>Gerência de dispositivos de E/S</strong> - Comunicação com periféricos</li>
+  <li><strong>Suporte a redes</strong> - Protocolos e serviços de comunicação</li>
+  <li><strong>Contabilização do uso</strong> - Monitoramento de recursos utilizados</li>
+  <li><strong>Auditoria e segurança</strong> - Proteção contra acessos não autorizados</li>
+</ol>
+
+<h2 id="instruções-privilegiadas-e-não-privilegiadas">Instruções Privilegiadas e Não Privilegiadas</h2>
+
+<h3 id="o-que-são-e-como-funcionam">O que são e como funcionam?</h3>
+
+<p>O processador se comunica com o sistema operacional através de funções, que podem ser executadas basicamente em dois modos: <strong>kernel</strong> e <strong>usuário</strong>.</p>
+
+<p>O modo <strong>kernel</strong> é conhecido como privilegiado por ter acesso completo ao computador, a todas as partes do hardware. Já o modo <strong>usuário</strong>, que limita as ações para garantir a segurança e não comprometer nenhuma parte do próprio sistema. Neste modo, é mais difícil de um aplicativo violar a privacidade de outro.</p>
+
+<p>Este mecanismo garante que nenhuma parte da memória será violada por outro aplicativo.</p>
+
+<h3 id="como-se-faz-uso-deste-mecanismo">Como se faz uso deste mecanismo?</h3>
+
+<p>O processador executa todas as operações em modo kernel, mas para isso, é necessário que as rotinas enviadas em modo usuário sejam carregadas e validadas e consideradas seguras. Se algum dos passos falhar, o sistema envia uma exceção e nega a execução da operação.</p>
+
+<p>Por exemplo, se desejo salvar um arquivo, uso uma linguagem de alto-nível como Java, Ruby e mando salvar, o sistema, em modo usuário tenta salvar, se o arquivo comprometer a integridade do SO de alguma forma, então o sistema lançará uma exceção, e não permitirá a alteração. A linguagem que programou esta execução também receberá uma exceção mapeada para linguagem, que é resultado da exceção lançada pelo modo kernel.</p>
+
+<p>Desta forma, foi enviado um comando do modo usuário, passado para o kernel, o qual se recusa a executar, e responde para a linguagem que deve tratar o erro.</p>
+
+<p>As chamadas ao sistema são chamadas de “<a href="https://en.wikipedia.org/wiki/System_call">system calls</a>” ou seja, chamada ao sistema.</p>
+
+<h3 id="system-calls-a-ponte-entre-usuário-e-kernel">System Calls: A Ponte Entre Usuário e Kernel</h3>
+
+<p>System call é uma chamada do sistema, como sua própria tradução indica. Em uma chamada ao sistema, o sistema operacional recebe um comando e possíveis parâmetros. Como resposta, recebe um outro código, que pode indicar sucesso, falha ou até mesmo o resultado do próprio comando.</p>
+
+<p>No processo de receber o comando, o sistema identifica o aplicativo que fez a chamada e verifica a sua permissão para execução do comando. Dada a permissão executa e retorna o resultado.</p>
+
+<pre class="system-diagram">
++------------------+     +------------------+
+|   User Space     |     |                  |
+|   +----------+   |     |   +----------+   |
+|   |Application|  |     |   |Application|  |
+|   |Process A  |  |     |   |Process B  |  |
+|   +----------+   |     |   +----------+   |
+|        |         |     |        |         |
++--------|---------|-----+--------|---------|
+         |                        |
+         v                        v
++--------------------------------------------+
+|         System Calls Interface             |
++--------------------------------------------+
+                   |
+                   v
++--------------------------------------------+
+|                Kernel Space                |
+|   +------------+                           |
+|   |System Call |                           |
+|   |Handler     |                           |
+|   +------------+                           |
+|         |                                  |
+|         v                                  |
+|   +---------------------------+            |
+|   |Kernel Services &amp; Functions|            |
+|   |  +--------------+        |            |
+|   |  |Process       |        |            |
+|   |  |Management    |        |            |
+|   |  +--------------+        |            |
+|   |  +--------------+        |            |
+|   |  |Memory        |        |            |
+|   |  |Management    |        |            |
+|   |  +--------------+        |            |
+|   |  +--------------+        |            |
+|   |  |File System   |        |            |
+|   |  +--------------+        |            |
+|   |  +--------------+        |            |
+|   |  |Device Drivers|        |            |
+|   |  +--------------+        |            |
+|   |  +--------------+        |            |
+|   |  |Network Stack |        |            |
+|   |  +--------------+        |            |
+|   +---------------------------+            |
++--------------------------------------------+
+          |       |       |       |
+          v       v       v       v
++--------------------------------------------+
+|                Hardware                    |
+|  +-----+  +------+  +-----+  +-------+    |
+|  | CPU |  |Memory|  |Disks|  |Network|    |
+|  +-----+  +------+  +-----+  +-------+    |
++--------------------------------------------+
+</pre>
+
+<h2 id="proteção-do-kernel">Proteção do Kernel</h2>
+
+<p>O kernel do sistema operacional pode ser protegido pelos mecanismos e modos de acesso através do modo <strong>usuário</strong>. Neste modo, todos os comandos não privilegiados podem ser executados. Todos os aplicativos são executados no modo usuário, e enviam as instruções para o modo kernel que avaliam a segurança e garantia da execução protegida de cada “system call”.</p>
+
+<p>Esta forma de chamadas identifica se o aplicativo possui permissão para executar o comando.</p>
+
+<h2 id="instruções-privilegiadas">Instruções Privilegiadas</h2>
+
+<h3 id="por-que-as-rotinas-do-sistema-operacional-possuem-instruções-privilegiadas">Por que as rotinas do sistema operacional possuem instruções privilegiadas?</h3>
+
+<p>Como é o sistema operacional que controla tudo, apenas ele tem o poder de dizer o que está certo ou errado. Assim ele mesmo é responsável por qualquer situação de risco para o hardware ou software. Usar o modo kernel, o sistema pode administrar a memória de forma transparente, e também deve saber a hora de cada evento acontecer. No modo kernel, ações delicadas são realizadas e é seguro ao máximo para não falhar.</p>
+
+<p>Para gerenciar uma memória, liberar o espaço de memória utilizado por um aplicativo, não deve ser uma tarefa realizada pela programação do programador, mas sim pela observação do sistema operacional. Operações deste tipo, são delicadas e devem ser executadas com segurança. Para evitar erros e intenções maliciosas, apenas o sistema operacional consegue fazer isso, e só realmente faz se estiver seguro.</p>
+
+<h3 id="exemplos-de-instruções-que-devem-ser-executadas-apenas-no-modo-kernel">Exemplos de instruções que devem ser executadas apenas no modo kernel:</h3>
+
+<ul>
+  <li>Desabilitar todas as interrupções</li>
+  <li>Alterar a data e hora do sistema</li>
+  <li>Realizar um desvio para uma instrução dentro do programa e acessar diretamente posições do disco</li>
+</ul>
+
+<h2 id="comandos-em-sistemas-operacionais">Comandos em Sistemas Operacionais</h2>
+
+<h3 id="unixlinux">Unix/Linux</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">ps</code>: Lista processos do sistema operacional</li>
+  <li><code class="language-plaintext highlighter-rouge">ls</code>: Lista conteúdos e diretórios</li>
+  <li><code class="language-plaintext highlighter-rouge">rm</code>: Remove algum arquivo, passando o parâmetro -r é possível remover um diretório</li>
+  <li><code class="language-plaintext highlighter-rouge">cat</code>: Concatena e imprime arquivos</li>
+  <li><code class="language-plaintext highlighter-rouge">&gt;</code>: Aponta a saída de um programa para outro dispositivo ou arquivo</li>
+  <li><code class="language-plaintext highlighter-rouge">|</code>: Concatena um comando a outro</li>
+  <li><code class="language-plaintext highlighter-rouge">touch</code>: Altera a data de modificação de um arquivo</li>
+</ul>
+
+<h3 id="windows-ms-dos">Windows (MS-DOS)</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">md</code>: Cria uma pasta</li>
+  <li><code class="language-plaintext highlighter-rouge">del</code>: Remove algum arquivo</li>
+</ul>
+
+<h3 id="comandos-interativos">Comandos interativos</h3>
+
+<p>Os comandos interativos são eficientes e auxiliam muito no desenvolvimento de software. A interface de comandos com o Linux é muito mais fácil e compreensível que o cmd default do Windows. Para estudar e conhecer mais os comandos no Linux, existe um comando chamado “man” que abre o <strong>manual</strong> de um determinado comando. Por exemplo: “man ls” vai abrir a especificação do funcionamento do comando “ls”.</p>
+
+<h2 id="processo-de-inicialização-do-sistema-operacional">Processo de Inicialização do Sistema Operacional</h2>
+
+<p>Quando o computador é ligado, não existe nada na memória, então o primeiro programa a ser chamado é chamado boot, que fica gravado na memória ROM.</p>
+
+<p>O processo de inicialização segue estas etapas:</p>
+
+<ol>
+  <li><strong>POST (Power-On Self Test)</strong> - Testa a existência dos recursos mínimos para inicializar o sistema</li>
+  <li><strong>Boot Loader</strong> - Busca por um sistema operacional instalado em algum dispositivo</li>
+  <li><strong>Boot Sector</strong> - Contém informações iniciais para carregar o sistema operacional na memória</li>
+  <li><strong>Carregamento do Kernel</strong> - O núcleo do sistema é carregado na memória</li>
+  <li><strong>Inicialização de Serviços</strong> - Carregamento de drivers e processos essenciais</li>
+</ol>
+
+<h2 id="arquiteturas-de-sistemas-operacionais">Arquiteturas de Sistemas Operacionais</h2>
+
+<h3 id="arquitetura-monolítica-vs-arquitetura-em-camadas">Arquitetura Monolítica vs. Arquitetura em Camadas</h3>
+
+<p>A arquitetura monolítica é composta por módulos que se comunicam livremente, enquanto a arquitetura em camadas classifica as funções em níveis hierárquicos.</p>
+
+<h4 id="vantagens-da-arquitetura-monolítica">Vantagens da Arquitetura Monolítica:</h4>
+<ul>
+  <li>Desempenho geralmente superior</li>
+  <li>Comunicação direta entre componentes</li>
+  <li>Implementação mais simples</li>
+</ul>
+
+<h4 id="desvantagens-da-arquitetura-monolítica">Desvantagens da Arquitetura Monolítica:</h4>
+<ul>
+  <li>Difícil manutenção à medida que o sistema cresce</li>
+  <li>Menor isolamento entre componentes</li>
+  <li>Falhas podem comprometer todo o sistema</li>
+</ul>
+
+<h4 id="vantagens-da-arquitetura-em-camadas">Vantagens da Arquitetura em Camadas:</h4>
+<ul>
+  <li>Melhor organização do código</li>
+  <li>Isolamento de funções</li>
+  <li>Facilidade de manutenção e evolução</li>
+  <li>Maior segurança por hierarquia de privilégios</li>
+</ul>
+
+<h4 id="desvantagens-da-arquitetura-em-camadas">Desvantagens da Arquitetura em Camadas:</h4>
+<ul>
+  <li>Possível redução de desempenho</li>
+  <li>Maior complexidade de implementação</li>
+  <li>Potencial overhead na comunicação entre camadas</li>
+</ul>
+
+<p>Em 1968 foi programado o primeiro sistema operacional em camadas implementando este conceito. Como vantagem, este sistema consegue isolar as funções do sistema operacional e cria uma hierarquia dos modos de acesso, aumentando a segurança.</p>
+
+<h3 id="máquinas-virtuais">Máquinas Virtuais</h3>
+
+<p>Uma das grandes inovações na arquitetura de sistemas operacionais é o conceito de máquinas virtuais.</p>
+
+<h4 id="vantagens-do-modelo-de-máquina-virtual">Vantagens do modelo de máquina virtual:</h4>
+
+<ul>
+  <li>Permite executar instruções sobre um computador virtual, sem prejudicar o hardware real</li>
+  <li>Isolamento entre diferentes sistemas operacionais</li>
+  <li>Melhor aproveitamento de recursos de hardware</li>
+  <li>Facilidade para testes e desenvolvimento</li>
+  <li>Recuperação rápida de falhas</li>
+</ul>
+
+<h3 id="modelo-cliente-servidor-microkernel">Modelo Cliente-Servidor (Microkernel)</h3>
+
+<p>O modelo cliente-servidor na arquitetura micro-kernel funciona com um núcleo mínimo, onde a maioria dos serviços são implementados como processos servidores.</p>
+
+<h4 id="vantagens">Vantagens:</h4>
+<ul>
+  <li>Maior modularidade</li>
+  <li>Facilidade de extensão</li>
+  <li>Melhor isolamento de falhas</li>
+  <li>Maior segurança</li>
+</ul>
+
+<h4 id="desvantagens">Desvantagens:</h4>
+<ul>
+  <li>Potencial overhead na comunicação entre cliente e servidor</li>
+  <li>Problemas com acesso a certas partes diretas do hardware</li>
+  <li>Possível redução de desempenho em algumas operações</li>
+</ul>
+
+<h2 id="programação-orientada-a-objetos-em-sistemas-operacionais">Programação Orientada a Objetos em Sistemas Operacionais</h2>
+
+<p>A programação orientada a objetos (OOP) é considerada um caminho natural para o projeto de sistemas operacionais devido às suas características e benefícios. Embora nem todos os sistemas operacionais modernos sejam projetados inteiramente com base na OOP, muitos incorporam alguns de seus princípios.</p>
+
+<h3 id="razões-para-usar-oop-em-sistemas-operacionais">Razões para usar OOP em Sistemas Operacionais:</h3>
+
+<ul>
+  <li>
+    <p><strong>Modularidade</strong>: A OOP permite projetar sistemas complexos de maneira modular, dividindo-os em componentes menores e mais gerenciáveis, chamados de objetos.</p>
+  </li>
+  <li>
+    <p><strong>Abstração</strong>: Permite a criação de abstrações em diferentes níveis, o que ajuda a simplificar a complexidade do sistema operacional.</p>
+  </li>
+  <li>
+    <p><strong>Encapsulamento</strong>: Agrupa dados e comportamentos relacionados em um único objeto, protegendo a integridade dos dados.</p>
+  </li>
+  <li>
+    <p><strong>Herança</strong>: Facilita a reutilização de código e a criação de hierarquias de classes.</p>
+  </li>
+  <li>
+    <p><strong>Polimorfismo</strong>: Permite que objetos de diferentes classes sejam tratados como objetos de uma classe comum.</p>
+  </li>
+  <li>
+    <p><strong>Reutilização de código</strong>: Reduz a quantidade de código duplicado e melhora a eficiência do desenvolvimento.</p>
+  </li>
+</ul>
+
+<h2 id="considerações-finais">Considerações Finais</h2>
+
+<p>A compreensão dos modos de acesso do sistema operacional é fundamental para entender como os sistemas modernos funcionam. A divisão entre modo kernel e modo usuário permite que o sistema operacional mantenha sua integridade enquanto oferece flexibilidade aos aplicativos.</p>
+
+<p>Através dos mecanismos de proteção, system calls e arquiteturas adequadas, os sistemas operacionais conseguem equilibrar desempenho, segurança e usabilidade, permitindo que usuários executem suas tarefas sem comprometer a estabilidade do sistema.</p>
 
 <script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1171230226237014" crossorigin="anonymous"></script>
 
@@ -392,1069 +667,1464 @@ crossorigin="anonymous"></script>
 (adsbygoogle = window.adsbygoogle || []).push({});
 </script></p>
 
-<h1 id="questões-sobre-a-arquitetura-do-sistema-operacional">Questões sobre a arquitetura do Sistema Operacional</h1>
 
-<h2 id="1-o-que-é-um-núcleo-do-sistema-e-quais-são-suas-principais-funções">1. o que é um núcleo do sistema e quais são suas principais funções?</h2>
-
-<p>O núcleo do sistema é composto por um conjunto de rotinas, que estão disponíveis para ser usado pelo usuário e às suas aplicações. este núcleo, também recebe um outro nome: kernel, e as suas principais funções são:</p>
-
-<ul>
-  <li>tratamento de interrupções e excessões</li>
-  <li>criação e eliminação de processos e threads</li>
-  <li>sincronização e comunicação entre processos e threads</li>
-  <li>escalonamento e controle dos processos e threads</li>
-  <li>gerência de memória</li>
-  <li>gerência do sistema de arquivos</li>
-  <li>gerência de dispositíivos de e/s</li>
-  <li>suporte a redes locais e distribuídas</li>
-  <li>contabilização do uso do sistema</li>
-  <li>auditoria e segurança</li>
-</ul>
-
-<h2 id="2-o-que-são-instrucões-privilegiadas-e-não-privilegiadas-qual-a-relação-entre-as-instruções-e-seus-modos-de-acesso">2. o que são instrucões privilegiadas e não privilegiadas? qual a relação entre as instruções e seus modos de acesso?</h2>
-
-<p>O processador se comunica com o sistema operacional através de funções, que podem ser executadas básicamente em dois modos:  <strong>kernel</strong> e <strong>usuário</strong>.</p>
-
-<p>O modo <strong>kernel</strong> é conhecido como privilegiado por ter acesso completo ao computador, a todas as partes do hardware. Já o modo <strong>usuário</strong>, que limita as ações para garantir a segurança e não comprometer nenhuma parte do próprio sistema. neste modo, é mais difícil de um aplicativo violar a privacidade de outro.</p>
-
-<p>Este mecanismo, garante que nenhuma parte da memória será violada por outro aplicativo.</p>
-
-<h2 id="3-como-se-faz-uso-deste-mecanismo">3. como se faz uso deste mecanismo</h2>
-
-<p>O processador executa todas as operações em modo kernel, mas para isso, é necessário que as rotinas enviadas em modo usuário sejam carregadas e validadas e consideradas seguras. se algum dos passos falhar, o sistema envia uma excessão e nega a execução da operação.</p>
-
-<p>Por exemplo, se desejo salvar um arquivo, uso uma linguagem de alto-nível como java, ruby e mando salvar, o sistema, em modo usuário tenta salvar, se o arquivo comprometer a integridade do so de alguma forma, então o sistema lançara uma excessão, e não permitirá a alteração. A linguagem que programou esta execução também receberá uma excessão mapeada para linguagem, que é resultado da excessão lançada pelo modo kernel.</p>
-
-<p>Desta forma, foi enviado um comando do modo usuário, passado para o kernel, o qual se recusa a executar, e responde para a linguagem que deve tratar o erro.</p>
-
-<p>As chamadas ao sistema são chamadas de “<a href="https://en.wikipedia.org/wiki/System_call">system calls</a>” ou seja, chamada ao sistema.</p>
-
-<h2 id="4-como-o-kernel-do-sistema-operacional-pode-ser-protegido-pelos-mecanismos-e-modos-de-acesso">4. como o kernel do sistema operacional pode ser protegido pelos mecanismos e modos de acesso?</h2>
-
-<p>Através do modo <strong>usuário</strong>. Neste modo, todos os comandos não privilegiados podem ser executados. Todos os aplicativos são executados no modo usuário, e enviam as instruções para o modo kernel que avaliam a segurança e garantia da execução protegida de cada “system call”.</p>
-
-<p>Este forma de chamadas identifica se o aplicativo possúi permissão para executar o comando.</p>
-
-<h2 id="5-por-que-as-rotinas-do-sistema-operacional-possuem-instruções-privilegiadas">5. por que as rotinas do sistema operacional possuem instruções privilegiadas?</h2>
-
-<p>Como é o sistema operacional que controla tudo, apenas ele tem o poder de dizer o que está certo ou errado. Assim ele mesmo é responsável por qualquer situação de risco para o hardware ou software. Usar o modo kernel, o sistema pode administrar a memória de forma transparente, e também deve saber a hora de cada evento acontecer. No modo kernel, ações delicadas são realizadas e é seguro ao máximo para não falhar.</p>
-
-<p>para gerenciar uma memória, liberar o espaço de memória utilizado por um aplicativo, não deve ser uma tarefa realizada pela programação do programador, mas sim pela observação do sistema operacional. operações deste tipo, são delicadas e devem ser executadas com segurança. para evitar erros e intenções maliciosas, apenas o sistema operacional consegue fazer isso, e só realmente faz se estiver seguro.</p>
-
-<h2 id="6-o-que-é-uma-system-calll-e-qual-a-sua-importância-para-a-segurança-do-sistema">6. o que é uma system calll e qual a sua importância para a segurança do sistema?</h2>
-
-<p>system call é uma chamada do sistema, como sua própria tradução indica. em uma chamada ao sistema, o sistema operacional recebe um comando e possíveis parâmetros. como resposta, recebe um outro código, que pode indicar sucesso, falha ou até mesmo o resultado do próprio comando.</p>
-
-<p>no processo de receber o comando, o sistema identifica o aplicativo que fez a chamada e verifica a sua permissão para execução do comando. dada a permissão executa e retorna o resultado.</p>
-
-<h2 id="7-quais-das-instruções-abaixo-devem-ser-executadas-apenas-no-modo-kernel">7. quais das instruções abaixo devem ser executadas apenas no modo kernel?</h2>
-
-<ul>
-  <li>desabilitar todas as interrupções</li>
-  <li>alterar a data e hora do sistema</li>
-  <li>realizar um desvio para uma instrução dentro do programa e acessar diretamente posições do disco</li>
-</ul>
-
-<h2 id="8-pesquise-comandos-disponíveis-em-linguagens-de-controle-do-sistema-operacional">8. pesquise comandos disponíveis em linguagens de controle do sistema operacional.</h2>
-
-<h3 id="unix">unix</h3>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">ps</code>: lista processos do sistema operacional</li>
-  <li><code class="language-plaintext highlighter-rouge">ls</code>: lista conteúdos e diretórios</li>
-  <li><code class="language-plaintext highlighter-rouge">rm</code>: remove algum arquivo, passando o parâmetro -r é possível remover um diretório</li>
-  <li><code class="language-plaintext highlighter-rouge">cat</code>: concatena e imprime arquivos</li>
-  <li><code class="language-plaintext highlighter-rouge">&gt;</code>: aponta a saída de um programa para outro dispositivo ou arquivo</li>
-  <li><code class="language-plaintext highlighter-rouge">|</code>: concatena um comando a outro</li>
-  <li><code class="language-plaintext highlighter-rouge">touch</code>: altera a data de modificação de um arquivo</li>
-</ul>
-
-<h3 id="ms-dos">ms-dos</h3>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">md</code>: cria uma pasta</li>
-  <li><code class="language-plaintext highlighter-rouge">del</code>: remove algum arquivo</li>
-</ul>
-
-<h3 id="um-pouco-mais-sobre-comandos">Um pouco mais sobre comandos</h3>
-
-<p>Sou um fã de comandos interativos. Eles são eficientes e auxiliam muito no desenvolvimento de software. Porém a interface de comandos com o linux é
-muito mais fácil e compreensível que o cmd default do windows. Para estudar e conhecer mais os comandos no linux, existe um comando chamando “man” que abre o <strong>manual</strong> de um determinado comando. Por exemplo: “man ls” vai abrir a especificação do funcionamento do comando “ls”.</p>
-
-<h2 id="9-explique-o-processo-de-ativação-do-sistema-operacional">9. explique o processo de ativação do sistema operacional:</h2>
-
-<p>Quando o computador é ligado, não existe nada na memória, então o primeiro programa a ser chamado, é chamado boot, que fica gravado na memória rom.</p>
-
-<p>Este programa chama um programa que testa a existência dos recursos mínimos para inicializar o sistema e se comunicar com o hardware. este sistema se chama post (power on self test), que identifica possíveis erros do hardware, como falta de memória, teclado etc. Se tudo estiver ok, é verificado a existência de algum sistema operacional instalado em algum dispositivo. Quando encontrado ele chama procura por um espaço chamado boot sector, que contém as informações iniciais para carregar o sistema operacional na memória.</p>
-
-<h2 id="compare-as-arquiteturas-monolítica-e-de-camadas-quais-as-vantagens-e-desvantagens">compare as arquiteturas monolítica e de camadas. quais as vantagens e desvantagens?</h2>
-
-<p>A primeira, é composta por módulos que se comunicam livremente e a segunda é arquitetada em camadas, classificando as funções em cada uma destas camadas.</p>
-
-<p>A arquitetura monolítica funcionou muito bem até o sistema operacional se tornar complexo. Como foi evoluindo muito rápido, também se tornou complexo e de difícil manutenção.</p>
-
-<p>Em 1968 foi programado o primeiro sistema operacional em camadas implementando este conceito. E como vantagem, este sistema consegue isolar as funções do sistema operacional e cria uma hierarquia dos modos de acesso. isso é segurança.</p>
-
-<h2 id="quais-as-vantagens-do-modelo-de-máquina-virtual">quais as vantagens do modelo de máquina virtual?</h2>
-
-<p>Permite executar uma instrução sobre um computador virtual, desta forma não prejudica o hardware real. Sendo que uma computador real pode conter várias máquinas virtuais, qualquer comando não prejudica as outras máquinas virtuais, apenas a que está em execução.</p>
-
-<h2 id="como-funciona-o-modelo-cliente-servidor-na-arquitetura-micro-kernel-quais-as-vantagens-e-desvantagens">como funciona o modelo cliente-servidor na arquitetura micro-kernel? quais as vantagens e desvantagens?</h2>
-
-<p>Funciona como um sistema de chamadas cliente-servidor. o cliente, que pode ser um usuário ou recurso do sistema, faz uma chamada e o sistema verifica a possibilidade de execução ou não do comando.</p>
-
-<p>Como vantagem, o sistema desabilita e recusa as chamadas comprometedoras e disponibiliza mais recursos para as que possuem.</p>
-
-<p>Como desvantagem, o sistema têm problemas com acesso a certas partes diretas do hardware, que seriam necessárias.</p>
-
-<h2 id="por-que-a-programação-orientada-a-objetos-é-o-caminho-natural-para-o-projeto-de-sistemas-operacionais">Por que a programação orientada a objetos é o caminho natural para o projeto de sistemas operacionais?</h2>
-
-<p>A programação orientada a objetos (OOP) é considerada um caminho natural para o projeto de sistemas operacionais devido às suas características e benefícios. Embora nem todos os sistemas operacionais modernos sejam projetados inteiramente com base na OOP, muitos incorporam alguns de seus princípios. Aqui estão algumas razões pelas quais a OOP é considerada adequada para o projeto de sistemas operacionais:</p>
-
-<ul>
-  <li>Modularidade: A OOP permite projetar sistemas complexos de maneira modular, dividindo-os em componentes menores e mais gerenciáveis, chamados de objetos. Isso facilita o desenvolvimento, a manutenção e a evolução do sistema operacional, já que as mudanças em um objeto têm menos probabilidade de afetar outros objetos.</li>
-  <li>Abstração: A OOP permite a criação de abstrações em diferentes níveis, o que ajuda a simplificar a complexidade do sistema operacional. Por exemplo, um sistema operacional pode ter uma classe abstrata “Arquivo”, que pode ser estendida por diferentes tipos de arquivos, como texto, imagem ou vídeo, simplificando a interação do usuário com diferentes tipos de arquivos.</li>
-  <li>Encapsulamento: O encapsulamento permite agrupar dados e comportamentos relacionados em um único objeto, protegendo a integridade dos dados e restringindo o acesso a partes específicas do objeto. Isso ajuda a criar uma camada de proteção entre diferentes componentes do sistema operacional e minimiza o acoplamento entre eles.</li>
-  <li>Herança: A herança permite a reutilização de código e a criação de hierarquias de classes, facilitando a extensão e a manutenção do sistema operacional. Isso também ajuda a manter a consistência e a padronização em todo o sistema.</li>
-  <li>Polimorfismo: O polimorfismo permite que objetos de diferentes classes sejam tratados como objetos de uma classe comum. Isso simplifica a interação entre diferentes componentes do sistema operacional e permite que os desenvolvedores criem novas funcionalidades com facilidade.</li>
-  <li>Reutilização de código: A OOP promove a reutilização de código, o que ajuda a reduzir a quantidade de código duplicado e a melhorar a eficiência do desenvolvimento. Isso é especialmente útil em um sistema operacional, onde a consistência e a eficiência são cruciais.</li>
-</ul>
-
-<p>Apesar dessas vantagens, vale ressaltar que a OOP não é a única abordagem para projetar sistemas operacionais, e outras abordagens, como a programação procedural ou a programação orientada a eventos, também podem ser utilizadas em diferentes contextos. A escolha da abordagem depende das necessidades específicas do projeto e das preferências dos desenvolvedores envolvidos.</p>
-
-
-    </div>
   </div>
-
-  <div class="post-navigation mb-5">
-    <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0">
-        
-        <div class="card h-100">
-          <div class="card-body">
-            <span class="text-muted d-block mb-2"><i class="bi bi-arrow-left"></i> Previous Post</span>
-            <h5 class="card-title mb-0">
-              <a href="/cartao-de-visitas" class="stretched-link">Cartão de visitas</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-      <div class="col-md-6">
-        
-        <div class="card h-100">
-          <div class="card-body text-md-end">
-            <span class="text-muted d-block mb-2">Next Post <i class="bi bi-arrow-right"></i></span>
-            <h5 class="card-title mb-0">
-              <a href="/helplate" class="stretched-link">Helplate = Help + Template</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="post-author card mb-5">
-    <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-md-2 text-center mb-3 mb-md-0">
-          <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini" class="rounded-circle img-fluid" style="max-width: 100px;">
-        </div>
-        <div class="col-md-10">
-          <h4>About Jônatas Davi Paganini</h4>
-          <p>Developer Advocate at TimescaleDB, Ruby enthusiast, and PostgreSQL expert. Sharing knowledge through writing and speaking at conferences worldwide.</p>
-          <div class="social-links">
-            <a href="https://github.com/jonatas" class="btn btn-sm btn-outline-dark me-2" target="_blank">
-              <i class="bi bi-github"></i> GitHub
-            </a>
-            <a href="https://twitter.com/jonatasdp" class="btn btn-sm btn-outline-primary me-2" target="_blank">
-              <i class="bi bi-twitter"></i> Twitter
-            </a>
-            <a href="https://linkedin.com/in/jonatasdp" class="btn btn-sm btn-outline-primary" target="_blank">
-              <i class="bi bi-linkedin"></i> LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="post-related mb-5">
-    <h3 class="h4 mb-4 border-bottom pb-2">Related Posts</h3>
-    <div class="row">
-      
-      
-      
-      
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-      
-      
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/soulless-economy" class="stretched-link">The Souless Economy - How AI Agents will change our economy completely</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> November 22, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/timescaledb-gem-continuous-aggregates-updates" class="stretched-link">TimescaleDB Gem Continuous Aggregates Updates</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> October 07, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/my-first-contribution-to-rubygems" class="stretched-link">My First Contribution To Rubygems</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> July 04, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-      
-    </div>
-  </div>
-
   
+  
+  <div class="article-tags">
+    
+      <a href="#sistemas-operacionais-ref" class="article-tag">sistemas-operacionais</a>
+    
+      <a href="#technical-ref" class="article-tag">technical</a>
+    
+      <a href="#aulas-ref" class="article-tag">aulas</a>
+    
+      <a href="#kernel-ref" class="article-tag">kernel</a>
+    
+  </div>
+  
+  
+  
+<div class="social-sharing mb-4">
+  <h5>Share this article</h5>
+  <div class="sharing-buttons">
+    
+    <a href="https://twitter.com/intent/tweet?text=Aula+de+Sistemas+Operacionais+-+Modos+do+Kernel&url=https%3A%2F%2Fideia.me%2Fmodos-so&via=jonatasdp" 
+       class="btn btn-twitter btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-twitter"></i> Twitter
+    </a>
+    
+    
+    
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Fmodos-so" 
+       class="btn btn-facebook btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-facebook"></i> Facebook
+    </a>
+    
+    
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fmodos-so&title=Aula+de+Sistemas+Operacionais+-+Modos+do+Kernel" 
+       class="btn btn-linkedin btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-linkedin"></i> LinkedIn
+    </a>
+    
+    
+    
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fmodos-so&title=Aula+de+Sistemas+Operacionais+-+Modos+do+Kernel" 
+       class="btn btn-reddit btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-reddit"></i> Reddit
+    </a>
+    
+  </div>
+</div>
+ 
+  <div class="author-bio">
+  <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini">
+  <div class="author-bio-content">
+    <h4>Jônatas Davi Paganini</h4>
+    <p>Developer and writer passionate about PostgreSQL, TimescaleDB, and building better systems. Currently sharing knowledge about time series databases and system architecture.</p>
+    <div class="author-social">
+      <a href="https://github.com/jonatas" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+      <a href="https://twitter.com/jonatasdp" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+      <a href="https://linkedin.com/in/jonatasdp" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      
+      <a href="https://instagram.com/jonatasdp" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+      
+    </div>
+  </div>
+</div> 
+  <div class="content-nav">
+  <div class="content-nav-previous">
+    
+      <small>Previous</small>
+      <a href="/cartao-de-visitas" title="Cartão de visitas">
+        Cartão de visitas
+      </a>
+    
+  </div>
+  
+  <div class="content-nav-next">
+    
+      <small>Next</small>
+      <a href="/helplate" title="Helplate = Help + Template">
+        Helplate = Help + Template
+      </a>
+    
+  </div>
+</div> 
+  
+<div class="related-posts">
+  <div class="card">
+    <div class="card-header">
+      <h4>Related Articles</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        
+        
+        
+        
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+            
+        
+        
+        
+        
+        
+          
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/website-seo-improvements-and-category-standardization">Enhancing Website Consistency and SEO: A Technical Journey</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> March 10, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Exploring the technical improvements made to ideia.me, including enhanced SEO, standardized categories, and a more co...</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+          
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/semantic-fields-through-ages">Semantic Fields through Ages - A Journey in Words</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> February 13, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Late at night, with sleep eluding me, my mind wandered through the labyrinth of semantic fields and the power of word...</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+          
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/semantic-fields-of-mind">Semantic fields of the mind</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> February 05, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Thursday night, I arrived from Athens and past weekend I had the most insightful update in my mindset until now. I'll...</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <div class="comments-section card mb-4">
+  <div class="card-header">
+    <h4>Comments</h4>
+  </div>
+  <div class="card-body">
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      
+      var disqus_config = function () {
+        this.page.url = "https://ideia.me/modos-so";
+        this.page.identifier = "/modos-so";
+      };
+      
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ideiame.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div> 
 </div>
 
-<p>
-  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
-  <br />
-  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
-  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
-</p>
-<p>Check my
-  <a href="/talks">talks</a> or connect with me via
-  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
-  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
-  <a href="https://github.com/jonatas" target="_blank">github</a> /
-  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
-  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
-  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
-  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
-</p>
-
+<link rel="stylesheet" href="/css/enhanced.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
     </div>

@@ -311,54 +311,40 @@ crossorigin="anonymous"></script>
     
     <div class="container content-container mt-5 pt-5">
       
-<!-- Post layout with modern design -->
-<div class="post-container">
-  <div class="post-header mb-4">
-    <h1 class="post-title display-4">ActiveRecord update without primary key</h1>
-    <div class="post-meta d-flex flex-wrap align-items-center text-muted mb-3">
-      <span class="me-3">
-        <i class="bi bi-calendar3"></i> October 18, 2022
-      </span>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <h1>ActiveRecord update without primary key</h1>
+    <div class="article-meta">
+      <span><i class="bi bi-calendar3"></i> October 18, 2022</span>
+      <span class="separator">•</span>
       
-      <span class="me-3">
-        <i class="bi bi-folder"></i>
-        
-          <a href="/categories.html#ruby-ref" class="badge bg-primary text-decoration-none me-1">ruby</a>
-        
-          <a href="/categories.html#postgresql-ref" class="badge bg-primary text-decoration-none me-1">postgresql</a>
-        
-          <a href="/categories.html#timescaledb-ref" class="badge bg-primary text-decoration-none me-1">timescaledb</a>
-        
-      </span>
+  
+  
+    <span class="reading-time" title="Estimated read time">
+      <i class="bi bi-clock"></i> 7 min read
+    </span>
+  
+ 
       
       
+      <span class="separator">•</span>
       <span>
-        <i class="bi bi-tags"></i>
+        <i class="bi bi-folder"></i> 
+        
+          <a href="#ruby-ref" class="text-muted">ruby</a>, 
+        
+          <a href="#postgresql-ref" class="text-muted">postgresql</a>, 
+        
+          <a href="#timescaledb-ref" class="text-muted">timescaledb</a>
         
       </span>
       
-    </div>
-    
-    <div class="post-share d-flex align-items-center mb-4">
-      <span class="me-2 text-muted">Share:</span>
-      <a href="https://twitter.com/intent/tweet?text=ActiveRecord+update+without+primary+key&url=https://ideia.me%2Factiverecord-update-without-primary-key&via=jonatasdp" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ideia.me%2Factiverecord-update-without-primary-key&title=ActiveRecord+update+without+primary+key" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-linkedin"></i>
-      </a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://ideia.me%2Factiverecord-update-without-primary-key" 
-         class="btn btn-sm btn-outline-primary" target="_blank">
-        <i class="bi bi-facebook"></i>
-      </a>
     </div>
   </div>
-
-  <div class="post-content card mb-5">
-    <div class="card-body">
-      <p>This weekend I <a href="https://twitter.com/XasinTheSystem/status/1581424684301979648">crossed a Twitter thread</a> that ended up motivating me to write this blog post.</p>
+  
+  <div class="article-content">
+    <p>This weekend I <a href="https://twitter.com/XasinTheSystem/status/1581424684301979648">crossed a Twitter thread</a> that ended up motivating me to write this blog post.</p>
 
 <blockquote>
   <p>Thanks, find_by works perfectly, but IIRC, ActiveRecord needs an ID field to save/modify data. I’ll try out composite_primary_keys with an ID+Timestamp combo, then. I’ve got a use case where I want to change a record in a hypertable to add metadata info.</p>
@@ -380,25 +366,35 @@ instead of having a unique index for the entire hypertable. Check what the <a hr
 
 <p>I have the following ActiveRecord model as an example:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Tick</span> <span class="c1"># =&gt; Timescaledb::Tick(symbol: text, price: decimal, time: datetime)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="no">Tick</span> <span class="c1"># =&gt; Timescaledb::Tick(symbol: text, price: decimal, time: datetime)</span>
 <span class="n">tick</span> <span class="o">=</span> <span class="no">Tick</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">symbol: </span><span class="s2">"TEST"</span><span class="p">,</span> <span class="ss">price: </span><span class="mf">123.4</span><span class="p">,</span> <span class="ss">time: </span><span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">)</span>
 <span class="c1"># =&gt; #&lt;Timescaledb::Tick:0x00007f9fd96f5358 symbol: "TEST", price: 0.1234e3, time: 2022-10-18 12:56:13.409779 UTC&gt;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Now, if I try to update an attribute of the record:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tick</span><span class="p">.</span><span class="nf">symbol</span> <span class="o">=</span> <span class="s2">"OTHER"</span> <span class="c1"># =&gt; "OTHER"</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">tick</span><span class="p">.</span><span class="nf">symbol</span> <span class="o">=</span> <span class="s2">"OTHER"</span> <span class="c1"># =&gt; "OTHER"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>And then, when I try to save it:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tick</span><span class="p">.</span><span class="nf">save</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="n">tick</span><span class="p">.</span><span class="nf">save</span>
 <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">StatementInvalid</span><span class="p">:</span> <span class="no">PG</span><span class="o">::</span><span class="no">SyntaxError</span><span class="p">:</span> <span class="no">ERROR</span><span class="p">:</span>  <span class="n">zero</span><span class="o">-</span><span class="n">length</span> <span class="n">delimited</span> <span class="n">identifier</span> <span class="n">at</span> <span class="ow">or</span> <span class="n">near</span> <span class="s2">""""</span>
 <span class="no">LINE</span> <span class="mi">1</span><span class="p">:</span> <span class="no">UPDATE</span> <span class="s2">"ticks"</span> <span class="no">SET</span> <span class="s2">"symbol"</span> <span class="o">=</span> <span class="vg">$1</span> <span class="no">WHERE</span> <span class="s2">"ticks"</span><span class="o">.</span><span class="s2">""</span> <span class="no">IS</span> <span class="no">NULL</span>
                                                        <span class="o">^</span>
 <span class="no">Caused</span> <span class="n">by</span> <span class="no">PG</span><span class="o">::</span><span class="no">SyntaxError</span><span class="p">:</span> <span class="no">ERROR</span><span class="p">:</span>  <span class="n">zero</span><span class="o">-</span><span class="n">length</span> <span class="n">delimited</span> <span class="n">identifier</span> <span class="n">at</span> <span class="ow">or</span> <span class="n">near</span> <span class="s2">""""</span>
 <span class="no">LINE</span> <span class="mi">1</span><span class="p">:</span> <span class="no">UPDATE</span> <span class="s2">"ticks"</span> <span class="no">SET</span> <span class="s2">"symbol"</span> <span class="o">=</span> <span class="vg">$1</span> <span class="no">WHERE</span> <span class="s2">"ticks"</span><span class="o">.</span><span class="s2">""</span> <span class="no">IS</span> <span class="no">NULL</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Boom! 💥</p>
 
@@ -414,64 +410,84 @@ the attributes that should be used in the primary key.</p>
 
 <p>Let’s continue using the Tick model  as an example:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Tick</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Tick</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="nb">self</span><span class="p">.</span><span class="nf">primary_key</span> <span class="o">=</span> <span class="kp">nil</span>
 
   <span class="n">acts_as_hypertable</span> <span class="o">...</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The primary key is nil, but we can get a simple record by limiting it. Probably you’ll also be managing a few records that are already in the memory, so it will work fine:</p>
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span> <span class="o">=</span> <span class="no">Tick</span><span class="p">.</span><span class="nf">first</span> <span class="c1"># =&gt; #&lt;Timescaledb::Tick:0x00007fb0a77a9360 symbol: "TEST", price: 0.1234e3, time: 2022-10-18 12:56:13.409779 UTC&gt;</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">t</span> <span class="o">=</span> <span class="no">Tick</span><span class="p">.</span><span class="nf">first</span> <span class="c1"># =&gt; #&lt;Timescaledb::Tick:0x00007fb0a77a9360 symbol: "TEST", price: 0.1234e3, time: 2022-10-18 12:56:13.409779 UTC&gt;</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Now, let’s change the record attributes:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span><span class="p">.</span><span class="nf">symbol</span> <span class="o">=</span> <span class="s2">"Other"</span> <span class="c1"># =&gt; "Other"</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">t</span><span class="p">.</span><span class="nf">symbol</span> <span class="o">=</span> <span class="s2">"Other"</span> <span class="c1"># =&gt; "Other"</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Now, you can see the <a href="https://apidock.com/rails/ActiveRecord/Dirty/changes">changes</a> are being tracked on memory:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span><span class="p">.</span><span class="nf">changes</span> <span class="c1"># =&gt; {"symbol"=&gt;["TEST", "Other"]}</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">t</span><span class="p">.</span><span class="nf">changes</span> <span class="c1"># =&gt; {"symbol"=&gt;["TEST", "Other"]}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>If you make more changes, they’ll continue being tracked:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span><span class="p">.</span><span class="nf">price</span> <span class="o">=</span> <span class="mi">999</span> <span class="c1"># =&gt; 999</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">t</span><span class="p">.</span><span class="nf">price</span> <span class="o">=</span> <span class="mi">999</span> <span class="c1"># =&gt; 999</span>
 <span class="n">t</span><span class="p">.</span><span class="nf">changes</span> <span class="c1"># =&gt; {"symbol"=&gt;["TEST", "Other"], "price"=&gt;[0.1234e3, 0.999e3]}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Now, let’s rebuild hashes to use <code class="language-plaintext highlighter-rouge">before</code> and <code class="language-plaintext highlighter-rouge">after</code> the changes:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">before</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="nf">changes</span><span class="p">.</span><span class="nf">transform_values</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:first</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="n">before</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="nf">changes</span><span class="p">.</span><span class="nf">transform_values</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:first</span><span class="p">)</span>
 <span class="c1"># =&gt; {"symbol"=&gt;"TEST", "price"=&gt;0.1234e3}</span>
 <span class="n">after</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="nf">changes</span><span class="p">.</span><span class="nf">transform_values</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:last</span><span class="p">)</span>
 <span class="c1"># =&gt; {"symbol"=&gt;"Other", "price"=&gt;0.999e3}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>We still need to combine and merge the values with the
 <code class="language-plaintext highlighter-rouge">attributes</code>:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">t</span><span class="p">.</span><span class="nf">attributes</span> <span class="c1"># =&gt; {"symbol"=&gt;"Other", "price"=&gt;0.999e3, "time"=&gt;2022-10-18 12:56:13.409779 UTC}</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">t</span><span class="p">.</span><span class="nf">attributes</span> <span class="c1"># =&gt; {"symbol"=&gt;"Other", "price"=&gt;0.999e3, "time"=&gt;2022-10-18 12:56:13.409779 UTC}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Now, we can build a variable merging the actual attributes which the changes <code class="language-plaintext highlighter-rouge">before</code>, meaning where they came <code class="language-plaintext highlighter-rouge">from</code>.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">from</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="nf">attributes</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="n">before</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">from</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="nf">attributes</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="n">before</span><span class="p">)</span>
 <span class="c1"># =&gt; {"symbol"=&gt;"TEST", "price"=&gt;0.1234e3, "time"=&gt;2022-10-18 12:56:13.409779 UTC}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>And another variable merging attributes with where they’re going <code class="language-plaintext highlighter-rouge">to</code>:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">to</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="nf">attributes</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="n">after</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="n">to</span> <span class="o">=</span> <span class="n">t</span><span class="p">.</span><span class="nf">attributes</span><span class="p">.</span><span class="nf">merge</span><span class="p">(</span><span class="n">after</span><span class="p">)</span>
 <span class="c1"># =&gt; {"symbol"=&gt;"Other", "price"=&gt;0.999e3, "time"=&gt;2022-10-18 12:56:13.409779 UTC}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Indeed this is the same as <code class="language-plaintext highlighter-rouge">attributes</code>, and the <code class="language-plaintext highlighter-rouge">to</code> variable could be simply <code class="language-plaintext highlighter-rouge">t.attributes</code>, but for learning purposes, let’s use the explicit mode here.</p>
 
 <p>Now, <a href="https://apidock.com/rails/ActiveRecord/Base/update_all/class">update_all</a> can use select data-building conditions <code class="language-plaintext highlighter-rouge">from</code> the original scenario and update all <code class="language-plaintext highlighter-rouge">to</code> the new state:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Tick</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="n">from</span><span class="p">).</span><span class="nf">update_all</span><span class="p">(</span><span class="n">to</span><span class="p">)</span> <span class="c1"># =&gt; 1</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="no">Tick</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="n">from</span><span class="p">).</span><span class="nf">update_all</span><span class="p">(</span><span class="n">to</span><span class="p">)</span> <span class="c1"># =&gt; 1</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>Note that it can be expensive if you don’t build the proper indices
 to find the records and you have a huge dataset. Keep in mind this example is for learning purposes, and you’ll need to update and adjust it to your needs if you want to use it in production.</p>
 
@@ -481,7 +497,27 @@ to find the records and you have a huge dataset. Keep in mind this example is fo
 
 <p>Now, to wrap up here, let’s implement the new <code class="language-plaintext highlighter-rouge">save</code> method that allows you to reuse the scenario in several models.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Tick</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Tick</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="nb">self</span><span class="p">.</span><span class="nf">primary_key</span> <span class="o">=</span> <span class="kp">nil</span>
 
   <span class="n">acts_as_hypertable</span> <span class="o">...</span>
@@ -501,7 +537,7 @@ to find the records and you have a huge dataset. Keep in mind this example is fo
     <span class="n">clear_changes_information</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Note that in the first lines of the save method, there’s a clause to use
 the default behavior in case the model is configured with a primary key or has a composite primary key.</p>
@@ -518,938 +554,769 @@ makes several changes in the same record without reloading it.</p>
 <p>Thanks for reading.</p>
 
 
-    </div>
   </div>
-
-  <div class="post-navigation mb-5">
-    <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0">
-        
-        <div class="card h-100">
-          <div class="card-body">
-            <span class="text-muted d-block mb-2"><i class="bi bi-arrow-left"></i> Previous Post</span>
-            <h5 class="card-title mb-0">
-              <a href="/libpq-no-such-file-load-error" class="stretched-link">Load error - libpq no such file</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-      <div class="col-md-6">
-        
-        <div class="card h-100">
-          <div class="card-body text-md-end">
-            <span class="text-muted d-block mb-2">Next Post <i class="bi bi-arrow-right"></i></span>
-            <h5 class="card-title mb-0">
-              <a href="/hierarchical-continuous-aggregates-with-ruby" class="stretched-link">Hierarchical continuous aggregates with Ruby and Timescaledb</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="post-author card mb-5">
-    <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-md-2 text-center mb-3 mb-md-0">
-          <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini" class="rounded-circle img-fluid" style="max-width: 100px;">
-        </div>
-        <div class="col-md-10">
-          <h4>About Jônatas Davi Paganini</h4>
-          <p>Developer Advocate at TimescaleDB, Ruby enthusiast, and PostgreSQL expert. Sharing knowledge through writing and speaking at conferences worldwide.</p>
-          <div class="social-links">
-            <a href="https://github.com/jonatas" class="btn btn-sm btn-outline-dark me-2" target="_blank">
-              <i class="bi bi-github"></i> GitHub
-            </a>
-            <a href="https://twitter.com/jonatasdp" class="btn btn-sm btn-outline-primary me-2" target="_blank">
-              <i class="bi bi-twitter"></i> Twitter
-            </a>
-            <a href="https://linkedin.com/in/jonatasdp" class="btn btn-sm btn-outline-primary" target="_blank">
-              <i class="bi bi-linkedin"></i> LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="post-related mb-5">
-    <h3 class="h4 mb-4 border-bottom pb-2">Related Posts</h3>
-    <div class="row">
-      
-      
-      
-      
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-      
-      
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/soulless-economy" class="stretched-link">The Souless Economy - How AI Agents will change our economy completely</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> November 22, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/timescaledb-gem-continuous-aggregates-updates" class="stretched-link">TimescaleDB Gem Continuous Aggregates Updates</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> October 07, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/my-first-contribution-to-rubygems" class="stretched-link">My First Contribution To Rubygems</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> July 04, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-      
-    </div>
-  </div>
-
   
+  
+  <div class="article-tags">
+    
+      <a href="#ruby-ref" class="article-tag">ruby</a>
+    
+      <a href="#postgresql-ref" class="article-tag">postgresql</a>
+    
+      <a href="#timescaledb-ref" class="article-tag">timescaledb</a>
+    
+  </div>
+  
+  
+  
+<div class="social-sharing mb-4">
+  <h5>Share this article</h5>
+  <div class="sharing-buttons">
+    
+    <a href="https://twitter.com/intent/tweet?text=ActiveRecord+update+without+primary+key&url=https%3A%2F%2Fideia.me%2Factiverecord-update-without-primary-key&via=jonatasdp" 
+       class="btn btn-twitter btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-twitter"></i> Twitter
+    </a>
+    
+    
+    
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Factiverecord-update-without-primary-key" 
+       class="btn btn-facebook btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-facebook"></i> Facebook
+    </a>
+    
+    
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Factiverecord-update-without-primary-key&title=ActiveRecord+update+without+primary+key" 
+       class="btn btn-linkedin btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-linkedin"></i> LinkedIn
+    </a>
+    
+    
+    
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Factiverecord-update-without-primary-key&title=ActiveRecord+update+without+primary+key" 
+       class="btn btn-reddit btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-reddit"></i> Reddit
+    </a>
+    
+  </div>
+</div>
+ 
+  <div class="author-bio">
+  <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini">
+  <div class="author-bio-content">
+    <h4>Jônatas Davi Paganini</h4>
+    <p>Developer and writer passionate about PostgreSQL, TimescaleDB, and building better systems. Currently sharing knowledge about time series databases and system architecture.</p>
+    <div class="author-social">
+      <a href="https://github.com/jonatas" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+      <a href="https://twitter.com/jonatasdp" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+      <a href="https://linkedin.com/in/jonatasdp" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      
+      <a href="https://instagram.com/jonatasdp" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+      
+    </div>
+  </div>
+</div> 
+  <div class="content-nav">
+  <div class="content-nav-previous">
+    
+      <small>Previous</small>
+      <a href="/libpq-no-such-file-load-error" title="Load error - libpq no such file">
+        Load error - libpq no such file
+      </a>
+    
+  </div>
+  
+  <div class="content-nav-next">
+    
+      <small>Next</small>
+      <a href="/hierarchical-continuous-aggregates-with-ruby" title="Hierarchical continuous aggregates with Ruby and Timescaledb">
+        Hierarchical continuous aggregates with Ruby an...
+      </a>
+    
+  </div>
+</div> 
+  
+<div class="related-posts">
+  <div class="card">
+    <div class="card-header">
+      <h4>Related Articles</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        
+        
+        
+        
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+            
+        
+        
+        
+        
+        
+          
+            
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/my-first-contribution-to-rubygems">My First Contribution To Rubygems</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> July 04, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Adding to my goal of being helpful in the software world, I had my first contribution to RubyGems [merged][new_pr] 🎉</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <div class="comments-section card mb-4">
+  <div class="card-header">
+    <h4>Comments</h4>
+  </div>
+  <div class="card-body">
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      
+      var disqus_config = function () {
+        this.page.url = "https://ideia.me/activerecord-update-without-primary-key";
+        this.page.identifier = "/activerecord-update-without-primary-key";
+      };
+      
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ideiame.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div> 
 </div>
 
-<p>
-  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
-  <br />
-  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
-  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
-</p>
-<p>Check my
-  <a href="/talks">talks</a> or connect with me via
-  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
-  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
-  <a href="https://github.com/jonatas" target="_blank">github</a> /
-  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
-  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
-  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
-  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
-</p>
-
+<link rel="stylesheet" href="/css/enhanced.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
     </div>

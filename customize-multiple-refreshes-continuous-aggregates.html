@@ -311,48 +311,34 @@ crossorigin="anonymous"></script>
     
     <div class="container content-container mt-5 pt-5">
       
-<!-- Post layout with modern design -->
-<div class="post-container">
-  <div class="post-header mb-4">
-    <h1 class="post-title display-4">Customize multiple refreshes for continuous aggregates</h1>
-    <div class="post-meta d-flex flex-wrap align-items-center text-muted mb-3">
-      <span class="me-3">
-        <i class="bi bi-calendar3"></i> November 30, 2023
-      </span>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <h1>Customize multiple refreshes for continuous aggregates</h1>
+    <div class="article-meta">
+      <span><i class="bi bi-calendar3"></i> November 30, 2023</span>
+      <span class="separator">•</span>
       
-      <span class="me-3">
-        <i class="bi bi-folder"></i>
-        
-      </span>
+  
+  
+    <span class="reading-time" title="Estimated read time">
+      <i class="bi bi-clock"></i> 9 min read
+    </span>
+  
+ 
       
       
+      <span class="separator">•</span>
       <span>
-        <i class="bi bi-tags"></i>
+        <i class="bi bi-folder"></i> 
         
       </span>
       
-    </div>
-    
-    <div class="post-share d-flex align-items-center mb-4">
-      <span class="me-2 text-muted">Share:</span>
-      <a href="https://twitter.com/intent/tweet?text=Customize+multiple+refreshes+for+continuous+aggregates&url=https://ideia.me%2Fcustomize-multiple-refreshes-continuous-aggregates&via=jonatasdp" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ideia.me%2Fcustomize-multiple-refreshes-continuous-aggregates&title=Customize+multiple+refreshes+for+continuous+aggregates" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-linkedin"></i>
-      </a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://ideia.me%2Fcustomize-multiple-refreshes-continuous-aggregates" 
-         class="btn btn-sm btn-outline-primary" target="_blank">
-        <i class="bi bi-facebook"></i>
-      </a>
     </div>
   </div>
-
-  <div class="post-content card mb-5">
-    <div class="card-body">
-      <p>TimescaleDB, an open-source time-series database optimized for fast ingest and complex queries, offers a unique feature called Continuous Aggregates (CAGGs). These CAGGs are game-changers in how we handle time-series data, allowing for real-time aggregate views that are automatically refreshed. In this post, we’ll explore how to create a custom refresh policy for hierarchical continuous aggregates and delve into the flexibility and simplicity TimescaleDB offers.</p>
+  
+  <div class="article-content">
+    <p>TimescaleDB, an open-source time-series database optimized for fast ingest and complex queries, offers a unique feature called Continuous Aggregates (CAGGs). These CAGGs are game-changers in how we handle time-series data, allowing for real-time aggregate views that are automatically refreshed. In this post, we’ll explore how to create a custom refresh policy for hierarchical continuous aggregates and delve into the flexibility and simplicity TimescaleDB offers.</p>
 
 <h2 id="the-scenario">The scenario</h2>
 
@@ -360,13 +346,19 @@ crossorigin="anonymous"></script>
 
 <h3 id="setting-up-the-hypertable">Setting up the hypertable</h3>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">metrics</span> <span class="p">(</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">metrics</span> <span class="p">(</span>
   <span class="nb">time</span> <span class="n">timestamptz</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
   <span class="n">device_id</span> <span class="nb">int</span><span class="p">,</span>
   <span class="n">value</span> <span class="nb">float</span>
 <span class="p">);</span>
 <span class="k">SELECT</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'metrics'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">);</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h3 id="setting-up-caggs">Setting up CAGGS</h3>
 
@@ -374,28 +366,41 @@ crossorigin="anonymous"></script>
 
 <p>The hourly view goes to raw data:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">metrics_by_hour</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">metrics_by_hour</span>
 <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
 <span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1 hour'</span><span class="p">,</span> <span class="nb">time</span><span class="p">)</span> <span class="k">AS</span> <span class="n">bucket</span><span class="p">,</span>
 <span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
 <span class="k">FROM</span> <span class="n">metrics</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The daily view reuses hourly data:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">metrics_by_day</span> <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">metrics_by_day</span> <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
 <span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1 day'</span><span class="p">,</span> <span class="n">bucket</span><span class="p">)</span> <span class="k">AS</span> <span class="n">bucket</span><span class="p">,</span>
   <span class="k">sum</span><span class="p">(</span><span class="k">count</span><span class="p">)</span> <span class="k">AS</span> <span class="k">count</span>
 <span class="k">FROM</span> <span class="n">metrics_by_hour</span>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The week view reuses daily data:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">metrics_by_week</span> <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">metrics_by_week</span> <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
 <span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1 week'</span><span class="p">,</span> <span class="n">bucket</span><span class="p">)</span> <span class="k">AS</span> <span class="n">bucket</span><span class="p">,</span> <span class="k">sum</span><span class="p">(</span><span class="k">count</span><span class="p">)</span> <span class="k">AS</span> <span class="k">count</span> <span class="k">FROM</span> <span class="n">metrics_by_day</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h2 id="the-power-of-recursive-in-sql">The power of RECURSIVE in SQL</h2>
 
@@ -405,7 +410,17 @@ crossorigin="anonymous"></script>
 
 <p>Consider the following SQL snippet:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">WITH</span> <span class="k">RECURSIVE</span> <span class="n">caggs</span> <span class="k">AS</span> <span class="p">(</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="k">WITH</span> <span class="k">RECURSIVE</span> <span class="n">caggs</span> <span class="k">AS</span> <span class="p">(</span>
     <span class="k">SELECT</span> <span class="n">mat_hypertable_id</span><span class="p">,</span> <span class="n">parent_mat_hypertable_id</span><span class="p">,</span> <span class="n">user_view_name</span>
     <span class="k">FROM</span> <span class="n">_timescaledb_catalog</span><span class="p">.</span><span class="n">continuous_agg</span>
     <span class="k">WHERE</span> <span class="n">user_view_name</span> <span class="o">=</span> <span class="s1">'metrics_by_week'</span>
@@ -415,7 +430,7 @@ crossorigin="anonymous"></script>
     <span class="k">JOIN</span> <span class="n">caggs</span> <span class="k">ON</span> <span class="n">caggs</span><span class="p">.</span><span class="n">parent_mat_hypertable_id</span> <span class="o">=</span> <span class="n">continuous_agg</span><span class="p">.</span><span class="n">mat_hypertable_id</span>
 <span class="p">)</span>
 <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">caggs</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">mat_hypertable_id</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>In this snippet, we are using a <code class="language-plaintext highlighter-rouge">WITH RECURSIVE</code> query to create a Common Table Expression (CTE) named <code class="language-plaintext highlighter-rouge">caggs</code>. The recursive part of this CTE does two things:</p>
 <ol>
@@ -425,14 +440,21 @@ crossorigin="anonymous"></script>
 
 <p>The result is a neatly organized list of continuous aggregates along with their parent-child relationships. Understanding this relationship is key to setting up a custom refresh policy that respects the dependency chain.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">┌───────────────────┬──────────────────────────┬─────────────────┐</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="err">┌───────────────────┬──────────────────────────┬─────────────────┐</span>
 <span class="err">│</span> <span class="n">mat_hypertable_id</span> <span class="err">│</span> <span class="n">parent_mat_hypertable_id</span> <span class="err">│</span> <span class="n">user_view_name</span>  <span class="err">│</span>
 <span class="err">├───────────────────┼──────────────────────────┼─────────────────┤</span>
 <span class="err">│</span>               <span class="mi">148</span> <span class="err">│</span>                          <span class="err">│</span> <span class="n">metrics_by_hour</span> <span class="err">│</span>
 <span class="err">│</span>               <span class="mi">149</span> <span class="err">│</span>                      <span class="mi">148</span> <span class="err">│</span> <span class="n">metrics_by_day</span>  <span class="err">│</span>
 <span class="err">│</span>               <span class="mi">150</span> <span class="err">│</span>                      <span class="mi">149</span> <span class="err">│</span> <span class="n">metrics_by_week</span> <span class="err">│</span>
 <span class="err">└───────────────────┴──────────────────────────┴─────────────────┘</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h2 id="implementing-the-custom-refresh-policy">Implementing the custom refresh policy</h2>
 
@@ -442,7 +464,29 @@ crossorigin="anonymous"></script>
 
 <p>To ensure our aggregates are refreshed in the right order, we’ll write a procedure that refreshes each aggregate in sequence. This is crucial because our daily aggregate depends on the hourly one, and the weekly aggregate depends on the daily one.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">refresh_all_caggs</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">refresh_all_caggs</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
 <span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
 <span class="k">DECLARE</span>
     <span class="n">_cagg</span> <span class="n">RECORD</span><span class="p">;</span>
@@ -464,14 +508,15 @@ crossorigin="anonymous"></script>
     <span class="k">END</span> <span class="n">LOOP</span><span class="p">;</span>
 <span class="k">END</span><span class="p">;</span>
 <span class="err">$$</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h3 id="scheduling-the-jobs">Scheduling the jobs</h3>
 
 <p>Now, just schedule the function to run every 5 seconds:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'refresh_all_caggs'</span><span class="p">,</span> <span class="s1">'5 seconds'</span><span class="p">);</span>
-</code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'refresh_all_caggs'</span><span class="p">,</span> <span class="s1">'5 seconds'</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>With our functions ready, we use TimescaleDB’s job scheduling feature to run these functions at regular intervals. This step is where the “magic happens” - our database is now self-managing, continuously updating our aggregate views and inserting new data.</p>
 
@@ -481,7 +526,31 @@ crossorigin="anonymous"></script>
 
 <p>To test our setup, we’ll create another custom action that inserts random metrics into our <code class="language-plaintext highlighter-rouge">metrics</code> table. This action simulates real-time data insertion, helping us see our continuous aggregates in action.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">FUNCTION</span> <span class="n">insert_random_metrics</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">FUNCTION</span> <span class="n">insert_random_metrics</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
 <span class="k">RETURNS</span> <span class="n">VOID</span> <span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
 <span class="k">DECLARE</span>
     <span class="n">last_time</span> <span class="n">timestamptz</span><span class="p">;</span>
@@ -505,12 +574,13 @@ crossorigin="anonymous"></script>
     <span class="k">VALUES</span> <span class="p">(</span><span class="n">last_time</span> <span class="o">+</span> <span class="n">interval_value</span><span class="p">,</span> <span class="n">trunc</span><span class="p">(</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)::</span><span class="nb">int</span><span class="p">,</span> <span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="mi">100</span><span class="p">);</span>
 <span class="k">END</span><span class="p">;</span>
 <span class="err">$$</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>After creating the function, you can schedule it to run at regular intervals using TimescaleDB’s job scheduling system. In this case, as we’re just wanting results fast as possible, we’ll insert a new row every second with data starting from a week ago and appending 35 min from the previous time.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'insert_random_metrics'</span><span class="p">,</span> <span class="s1">'1 second'</span><span class="p">,</span> <span class="s1">'{"interval": "35 minutes"}'</span><span class="p">);</span>
-</code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'insert_random_metrics'</span><span class="p">,</span> <span class="s1">'1 second'</span><span class="p">,</span> <span class="s1">'{"interval": "35 minutes"}'</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>We’ve also made this function flexible, allowing us to specify the interval between data points using a JSONB payload.</p>
 
@@ -539,938 +609,422 @@ crossorigin="anonymous"></script>
 <p>Happy coding!</p>
 
 
-    </div>
   </div>
-
-  <div class="post-navigation mb-5">
-    <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0">
-        
-        <div class="card h-100">
-          <div class="card-body">
-            <span class="text-muted d-block mb-2"><i class="bi bi-arrow-left"></i> Previous Post</span>
-            <h5 class="card-title mb-0">
-              <a href="/anonymizing-your-sql" class="stretched-link">Anonymize your SQL statements</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-      <div class="col-md-6">
-        
-        <div class="card h-100">
-          <div class="card-body text-md-end">
-            <span class="text-muted d-block mb-2">Next Post <i class="bi bi-arrow-right"></i></span>
-            <h5 class="card-title mb-0">
-              <a href="/retrospective-2023" class="stretched-link">Retrospective 2023</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="post-author card mb-5">
-    <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-md-2 text-center mb-3 mb-md-0">
-          <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini" class="rounded-circle img-fluid" style="max-width: 100px;">
-        </div>
-        <div class="col-md-10">
-          <h4>About Jônatas Davi Paganini</h4>
-          <p>Developer Advocate at TimescaleDB, Ruby enthusiast, and PostgreSQL expert. Sharing knowledge through writing and speaking at conferences worldwide.</p>
-          <div class="social-links">
-            <a href="https://github.com/jonatas" class="btn btn-sm btn-outline-dark me-2" target="_blank">
-              <i class="bi bi-github"></i> GitHub
-            </a>
-            <a href="https://twitter.com/jonatasdp" class="btn btn-sm btn-outline-primary me-2" target="_blank">
-              <i class="bi bi-twitter"></i> Twitter
-            </a>
-            <a href="https://linkedin.com/in/jonatasdp" class="btn btn-sm btn-outline-primary" target="_blank">
-              <i class="bi bi-linkedin"></i> LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="post-related mb-5">
-    <h3 class="h4 mb-4 border-bottom pb-2">Related Posts</h3>
-    <div class="row">
-      
-      
-      
-      
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-      
-      
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/soulless-economy" class="stretched-link">The Souless Economy - How AI Agents will change our economy completely</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> November 22, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/timescaledb-gem-continuous-aggregates-updates" class="stretched-link">TimescaleDB Gem Continuous Aggregates Updates</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> October 07, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/my-first-contribution-to-rubygems" class="stretched-link">My First Contribution To Rubygems</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> July 04, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-      
-    </div>
-  </div>
-
   
+  
+  <div class="article-tags">
+    
+  </div>
+  
+  
+  
+<div class="social-sharing mb-4">
+  <h5>Share this article</h5>
+  <div class="sharing-buttons">
+    
+    <a href="https://twitter.com/intent/tweet?text=Customize+multiple+refreshes+for+continuous+aggregates&url=https%3A%2F%2Fideia.me%2Fcustomize-multiple-refreshes-continuous-aggregates&via=jonatasdp" 
+       class="btn btn-twitter btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-twitter"></i> Twitter
+    </a>
+    
+    
+    
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Fcustomize-multiple-refreshes-continuous-aggregates" 
+       class="btn btn-facebook btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-facebook"></i> Facebook
+    </a>
+    
+    
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fcustomize-multiple-refreshes-continuous-aggregates&title=Customize+multiple+refreshes+for+continuous+aggregates" 
+       class="btn btn-linkedin btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-linkedin"></i> LinkedIn
+    </a>
+    
+    
+    
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fcustomize-multiple-refreshes-continuous-aggregates&title=Customize+multiple+refreshes+for+continuous+aggregates" 
+       class="btn btn-reddit btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-reddit"></i> Reddit
+    </a>
+    
+  </div>
+</div>
+ 
+  <div class="author-bio">
+  <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini">
+  <div class="author-bio-content">
+    <h4>Jônatas Davi Paganini</h4>
+    <p>Developer and writer passionate about PostgreSQL, TimescaleDB, and building better systems. Currently sharing knowledge about time series databases and system architecture.</p>
+    <div class="author-social">
+      <a href="https://github.com/jonatas" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+      <a href="https://twitter.com/jonatasdp" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+      <a href="https://linkedin.com/in/jonatasdp" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      
+      <a href="https://instagram.com/jonatasdp" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+      
+    </div>
+  </div>
+</div> 
+  <div class="content-nav">
+  <div class="content-nav-previous">
+    
+      <small>Previous</small>
+      <a href="/anonymizing-your-sql" title="Anonymize your SQL statements">
+        Anonymize your SQL statements
+      </a>
+    
+  </div>
+  
+  <div class="content-nav-next">
+    
+      <small>Next</small>
+      <a href="/retrospective-2023" title="Retrospective 2023">
+        Retrospective 2023
+      </a>
+    
+  </div>
+</div> 
+  
+<div class="related-posts">
+  <div class="card">
+    <div class="card-header">
+      <h4>Related Articles</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        
+        
+        
+        
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+            
+        
+        
+        
+        
+        
+        
+        
+          <div class="col-12">
+            <p>No related posts found. Check out <a href="/archive.html">recent posts</a> instead.</p>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <div class="comments-section card mb-4">
+  <div class="card-header">
+    <h4>Comments</h4>
+  </div>
+  <div class="card-body">
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      
+      var disqus_config = function () {
+        this.page.url = "https://ideia.me/customize-multiple-refreshes-continuous-aggregates";
+        this.page.identifier = "/customize-multiple-refreshes-continuous-aggregates";
+      };
+      
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ideiame.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div> 
 </div>
 
-<p>
-  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
-  <br />
-  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
-  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
-</p>
-<p>Check my
-  <a href="/talks">talks</a> or connect with me via
-  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
-  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
-  <a href="https://github.com/jonatas" target="_blank">github</a> /
-  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
-  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
-  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
-  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
-</p>
-
+<link rel="stylesheet" href="/css/enhanced.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
     </div>

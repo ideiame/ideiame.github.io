@@ -311,48 +311,34 @@ crossorigin="anonymous"></script>
     
     <div class="container content-container mt-5 pt-5">
       
-<!-- Post layout with modern design -->
-<div class="post-container">
-  <div class="post-header mb-4">
-    <h1 class="post-title display-4">Hierarchical continuous aggregates with Ruby and Timescaledb</h1>
-    <div class="post-meta d-flex flex-wrap align-items-center text-muted mb-3">
-      <span class="me-3">
-        <i class="bi bi-calendar3"></i> February 04, 2023
-      </span>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <h1>Hierarchical continuous aggregates with Ruby and Timescaledb</h1>
+    <div class="article-meta">
+      <span><i class="bi bi-calendar3"></i> February 04, 2023</span>
+      <span class="separator">•</span>
       
-      <span class="me-3">
-        <i class="bi bi-folder"></i>
-        
-      </span>
+  
+  
+    <span class="reading-time" title="Estimated read time">
+      <i class="bi bi-clock"></i> 23 min read
+    </span>
+  
+ 
       
       
+      <span class="separator">•</span>
       <span>
-        <i class="bi bi-tags"></i>
+        <i class="bi bi-folder"></i> 
         
       </span>
       
-    </div>
-    
-    <div class="post-share d-flex align-items-center mb-4">
-      <span class="me-2 text-muted">Share:</span>
-      <a href="https://twitter.com/intent/tweet?text=Hierarchical+continuous+aggregates+with+Ruby+and+Timescaledb&url=https://ideia.me%2Fhierarchical-continuous-aggregates-with-ruby&via=jonatasdp" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ideia.me%2Fhierarchical-continuous-aggregates-with-ruby&title=Hierarchical+continuous+aggregates+with+Ruby+and+Timescaledb" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-linkedin"></i>
-      </a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://ideia.me%2Fhierarchical-continuous-aggregates-with-ruby" 
-         class="btn btn-sm btn-outline-primary" target="_blank">
-        <i class="bi bi-facebook"></i>
-      </a>
     </div>
   </div>
-
-  <div class="post-content card mb-5">
-    <div class="card-body">
-      <p>Today I’m very happy to share that a new version of the <a href="https://github.com/jonatas/timescaledb">timescaledb gem</a>
+  
+  <div class="article-content">
+    <p>Today I’m very happy to share that a new version of the <a href="https://github.com/jonatas/timescaledb">timescaledb gem</a>
 is available. It’s compatible with TimescaleDB 2.9 and the objective of this
 post is exemplify how to use <a href="https://docs.timescale.com/timescaledb/latest/how-to-guides/continuous-aggregates/hierarchical-continuous-aggregates/">hierarchical continuous aggregates</a>.</p>
 
@@ -465,7 +451,24 @@ adopting compression.</p>
 <p>The timescaledb gem adds the <code class="language-plaintext highlighter-rouge">hypertable</code> keyword to the <code class="language-plaintext highlighter-rouge">create_table</code> method,
 which allows you to specify anything related to the hypertable.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="rouge-code"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
   <span class="n">hypertable_options</span> <span class="o">=</span> <span class="p">{</span>
     <span class="ss">time_column: </span><span class="s1">'time'</span><span class="p">,</span>
     <span class="ss">chunk_time_interval: </span><span class="s1">'1 week'</span><span class="p">,</span>
@@ -482,7 +485,7 @@ which allows you to specify anything related to the hypertable.</p>
 
   <span class="n">add_index</span> <span class="ss">:ticks</span><span class="p">,</span> <span class="p">[</span><span class="ss">:time</span><span class="p">,</span> <span class="ss">:symbol</span><span class="p">]</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Note that the previous command is a standard <code class="language-plaintext highlighter-rouge">create_table</code> method call. The
 timescaledb gem is just adding the <code class="language-plaintext highlighter-rouge">hypertable</code> keyword which allows to
@@ -494,30 +497,41 @@ configure everything in the same point.</p>
   <li>Create the standard table</li>
 </ol>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nv">"ticks"</span> <span class="p">(</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nv">"ticks"</span> <span class="p">(</span>
   <span class="nv">"time"</span> <span class="nb">timestamp</span> <span class="k">with</span> <span class="nb">time</span> <span class="k">zone</span><span class="p">,</span>
   <span class="nv">"symbol"</span> <span class="nb">text</span><span class="p">,</span>
   <span class="nv">"price"</span> <span class="nb">decimal</span><span class="p">,</span>
   <span class="nv">"volume"</span> <span class="nb">float</span><span class="p">);</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <ol>
   <li>Convert it to a hypertable with <code class="language-plaintext highlighter-rouge">chunk_time_interval</code> of <strong>1 week</strong>.</li>
 </ol>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'ticks'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">,</span> <span class="n">chunk_time_interval</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">'1 week'</span><span class="p">)</span>
-</code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'ticks'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">,</span> <span class="n">chunk_time_interval</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">'1 week'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <ol>
   <li>The compression is enabled and configured in the hypertable.</li>
 </ol>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">ticks</span> <span class="k">SET</span> <span class="p">(</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">ticks</span> <span class="k">SET</span> <span class="p">(</span>
   <span class="n">timescaledb</span><span class="p">.</span><span class="n">compress</span><span class="p">,</span>
   <span class="n">timescaledb</span><span class="p">.</span><span class="n">compress_orderby</span> <span class="o">=</span> <span class="s1">'time'</span><span class="p">,</span>
   <span class="n">timescaledb</span><span class="p">.</span><span class="n">compress_segmentby</span> <span class="o">=</span> <span class="s1">'symbol'</span>
 <span class="p">)</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <ol>
   <li>Index by time and symbol</li>
@@ -527,15 +541,17 @@ configure everything in the same point.</p>
 symbol. The <code class="language-plaintext highlighter-rouge">create_index</code> is the last call and it will make common queries run
 faster.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">INDEX</span> <span class="nv">"index_ticks_on_time_and_symbol"</span> <span class="k">ON</span> <span class="nv">"ticks"</span> <span class="p">(</span><span class="nv">"time"</span><span class="p">,</span> <span class="nv">"symbol"</span><span class="p">)</span>
-</code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">INDEX</span> <span class="nv">"index_ticks_on_time_and_symbol"</span> <span class="k">ON</span> <span class="nv">"ticks"</span> <span class="p">(</span><span class="nv">"time"</span><span class="p">,</span> <span class="nv">"symbol"</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <ol>
   <li>Add the compression policy to compress data after a month</li>
 </ol>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">add_compression_policy</span><span class="p">(</span><span class="s1">'ticks'</span><span class="p">,</span> <span class="n">INTERVAL</span> <span class="s1">'1 month'</span><span class="p">);</span>
-</code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">add_compression_policy</span><span class="p">(</span><span class="s1">'ticks'</span><span class="p">,</span> <span class="n">INTERVAL</span> <span class="s1">'1 month'</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h2 id="create-the-orm-model">Create the ORM model</h2>
 
@@ -549,11 +565,15 @@ object.</p>
 <p>The model is the best place to describe how you’ll be using the timescaledb to
 keep your model DRY and consistent.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Tick</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Tick</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="n">acts_as_hypertable</span> <span class="ss">time_column: :time</span>
   <span class="n">acts_as_time_vector</span> <span class="ss">value_column: :price</span><span class="p">,</span> <span class="ss">segment_by: :symbol</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The <code class="language-plaintext highlighter-rouge">acts_as_hypertable</code> macro will assume the actual model corresponds to a
 hypertable and inject useful scopes and methods that can be wrapping to the
@@ -613,7 +633,18 @@ data and make it available to start playing with the queries.</p>
 <p>The following code will insert tick data simulating prices from the previews
 week until yesterday. We’re using a single symbol and one tick every 10 seconds.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
   <span class="n">data_range</span> <span class="o">=</span> <span class="p">{</span><span class="ss">from: </span><span class="mi">1</span><span class="p">.</span><span class="nf">week</span><span class="p">.</span><span class="nf">ago</span><span class="p">.</span><span class="nf">to_date</span><span class="p">,</span> <span class="ss">to: </span><span class="mi">1</span><span class="p">.</span><span class="nf">day</span><span class="p">.</span><span class="nf">from_now</span><span class="p">.</span><span class="nf">to_date</span><span class="p">}</span>
   <span class="n">execute</span><span class="p">(</span><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">sanitize_sql_for_conditions</span><span class="p">(</span> <span class="p">[</span><span class="o">&lt;&lt;~</span><span class="no">SQL</span><span class="p">,</span> <span class="n">data_range</span><span class="p">]))</span><span class="sh">
     INSERT INTO ticks
@@ -624,7 +655,7 @@ week until yesterday. We’re using a single symbol and one tick every 10 second
       INTERVAL '10 second') AS time;
 </span><span class="no">    SQL</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The database will seed a week of trade data with a randomize prices and volumes
 simulating one event every 10 seconds.</p>
@@ -647,12 +678,31 @@ configuration from the <code class="language-plaintext highlighter-rouge">acts_a
 
 <p>The simplest query is:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Tick</span><span class="p">.</span><span class="nf">candlestick</span><span class="p">(</span><span class="ss">timeframe: </span><span class="s1">'1m'</span><span class="p">)</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="no">Tick</span><span class="p">.</span><span class="nf">candlestick</span><span class="p">(</span><span class="ss">timeframe: </span><span class="s1">'1m'</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>It will generate the following SQL:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">SELECT</span> <span class="n">symbol</span><span class="p">,</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre> <span class="k">SELECT</span> <span class="n">symbol</span><span class="p">,</span>
     <span class="nv">"time"</span><span class="p">,</span>
     <span class="n">toolkit_experimental</span><span class="p">.</span><span class="k">open</span><span class="p">(</span><span class="n">candlestick</span><span class="p">),</span>
     <span class="n">toolkit_experimental</span><span class="p">.</span><span class="n">high</span><span class="p">(</span><span class="n">candlestick</span><span class="p">),</span>
@@ -670,17 +720,20 @@ configuration from the <code class="language-plaintext highlighter-rouge">acts_a
       <span class="n">toolkit_experimental</span><span class="p">.</span><span class="n">candlestick</span><span class="p">(</span><span class="nb">time</span><span class="p">,</span> <span class="n">price</span><span class="p">,</span> <span class="n">volume</span><span class="p">)</span>
     <span class="k">FROM</span> <span class="nv">"ticks"</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">)</span>
 <span class="k">AS</span> <span class="n">candlestick</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The timeframe argument can also be skipped and the default is <code class="language-plaintext highlighter-rouge">1 hour</code>.</p>
 
 <p>You can also combine other scopes to filter data before you get the data from
 the candlestick:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Tick</span><span class="p">.</span><span class="nf">yesterday</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="no">Tick</span><span class="p">.</span><span class="nf">yesterday</span>
   <span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">symbol: </span><span class="s2">"SYMBOL"</span><span class="p">)</span>
   <span class="p">.</span><span class="nf">candlestick</span><span class="p">(</span><span class="ss">timeframe: </span><span class="s1">'1m'</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The <code class="language-plaintext highlighter-rouge">yesterday</code> scope is automatically included because of the <code class="language-plaintext highlighter-rouge">acts_as_hypertable</code> macro. And it will be combining with other where clauses.</p>
 
@@ -692,7 +745,18 @@ on a materialized view you can use continuous aggregates for it.</p>
 <p>The next examples shows how to create a continuous aggregates of 1 minute
 candlesticks:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
   <span class="n">options</span> <span class="o">=</span> <span class="p">{</span>
     <span class="ss">with_data: </span><span class="kp">true</span><span class="p">,</span>
     <span class="ss">refresh_policies: </span><span class="p">{</span>
@@ -703,7 +767,7 @@ candlesticks:</p>
   <span class="p">}</span>
   <span class="n">create_continuous_aggregate</span><span class="p">(</span><span class="s1">'candlestick_1m'</span><span class="p">,</span> <span class="no">Tick</span><span class="p">.</span><span class="nf">_candlestick</span><span class="p">(</span><span class="ss">timeframe: </span><span class="s1">'1m'</span><span class="p">),</span> <span class="o">**</span><span class="n">options</span><span class="p">)</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Note that the <code class="language-plaintext highlighter-rouge">create_continuous_aggregate</code> calls the <code class="language-plaintext highlighter-rouge">to_sql</code> method in case
 the second parameter is not a string.</p>
@@ -723,7 +787,21 @@ candlestick using the information from the one minute candlesticks.</p>
 <p>It’s very convenient to setup models for continuous aggregates which can
 make it easy to inherit all smart methods to compose queries.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Candlestick1m</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Candlestick1m</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="nb">self</span><span class="p">.</span><span class="nf">table_name</span> <span class="o">=</span> <span class="s1">'candlestick_1m'</span>
   <span class="kp">include</span> <span class="no">Candlestick</span>
 <span class="k">end</span>
@@ -737,7 +815,7 @@ make it easy to inherit all smart methods to compose queries.</p>
   <span class="nb">self</span><span class="p">.</span><span class="nf">table_name</span> <span class="o">=</span> <span class="s1">'candlestick_1d'</span>
   <span class="kp">include</span> <span class="no">Candlestick</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Note that all classes include the <code class="language-plaintext highlighter-rouge">Candlestick</code> module. Let’s define it to make
 it easy to use the shared behavior.</p>
@@ -756,7 +834,41 @@ organize shared logic that can be included in multiple models.</p>
   <li>Mark the model as readonly.</li>
 </ol>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"active_support/concern"</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+</pre></td><td class="rouge-code"><pre><span class="nb">require</span> <span class="s2">"active_support/concern"</span>
 
 <span class="k">module</span> <span class="nn">Candlestick</span>
   <span class="kp">extend</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span>
@@ -790,7 +902,7 @@ organize shared logic that can be included in multiple models.</p>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h2 id="hierarchical-continuous-aggregates">Hierarchical continuous aggregates</h2>
 
@@ -819,7 +931,22 @@ objects into a bigger timeframe.</p>
 
 <p>Let’s rollup the structures:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">Candlestick</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="k">module</span> <span class="nn">Candlestick</span>
   <span class="kp">extend</span> <span class="no">ActiveSupport</span><span class="o">::</span><span class="no">Concern</span>
 
   <span class="n">included</span> <span class="k">do</span>
@@ -834,11 +961,25 @@ objects into a bigger timeframe.</p>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Now, the new views in bigger timeframes can be added using it’s own objects.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
   <span class="n">options</span> <span class="o">=</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">timeframe</span><span class="p">)</span> <span class="p">{</span>
     <span class="p">{</span>
       <span class="ss">with_data: </span><span class="kp">false</span><span class="p">,</span>
@@ -852,12 +993,21 @@ objects into a bigger timeframe.</p>
   <span class="n">create_continuous_aggregate</span><span class="p">(</span><span class="s1">'candlestick_1h'</span><span class="p">,</span> <span class="no">Candlestick1m</span><span class="p">.</span><span class="nf">rollup</span><span class="p">(</span><span class="ss">timeframe: </span><span class="s1">'1 hour'</span><span class="p">),</span> <span class="o">**</span><span class="n">options</span><span class="p">[</span><span class="s1">'1 hour'</span><span class="p">])</span>
   <span class="n">create_continuous_aggregate</span><span class="p">(</span><span class="s1">'candlestick_1d'</span><span class="p">,</span> <span class="no">Candlestick1h</span><span class="p">.</span><span class="nf">rollup</span><span class="p">(</span><span class="ss">timeframe: </span><span class="s1">'1 day'</span><span class="p">),</span>  <span class="o">**</span><span class="n">options</span><span class="p">[</span><span class="s1">'1 day'</span><span class="p">])</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The final SQL executed to create the first <a href="https://docs.timescale.com/timescaledb/latest/how-to-guides/continuous-aggregates/hierarchical-continuous-aggregates/">hierarchical continuous aggregates</a>
 is the following:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_1h</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_1h</span>
 <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
   <span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1 hour'</span><span class="p">,</span> <span class="nv">"time_bucket"</span><span class="p">),</span>
     <span class="nv">"candlestick_1m"</span><span class="p">.</span><span class="nv">"symbol"</span><span class="p">,</span>
@@ -866,7 +1016,7 @@ is the following:</p>
   <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
   <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
 <span class="k">WITH</span> <span class="k">DATA</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>So, as you can see all candlestick of one hour views follows the same interface of
 one minute, having the same column names and values, allowing to be reuse in
@@ -881,11 +1031,15 @@ to time.</p>
 <p>When <code class="language-plaintext highlighter-rouge">create_continuous_aggregate</code> is called with a <code class="language-plaintext highlighter-rouge">schedule_interval</code> it will
 also execute the following SQL line:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">add_continuous_aggregate_policy</span><span class="p">(</span><span class="s1">'candlestick_1h'</span><span class="p">,</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">add_continuous_aggregate_policy</span><span class="p">(</span><span class="s1">'candlestick_1h'</span><span class="p">,</span>
   <span class="n">start_offset</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">'1 month'</span><span class="p">,</span>
   <span class="n">end_offset</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">'1 hour'</span><span class="p">,</span>
   <span class="n">schedule_interval</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">'1 hour'</span><span class="p">);</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Instead of updating the values row by row, the refresh policy will automatically
 run in background and aggregate the new data with the configured timeframe.</p>
@@ -896,18 +1050,37 @@ run in background and aggregate the new data with the configured timeframe.</p>
 into models, now, it’s time to explore the available scopes and what to do with
 it.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Candlestick1m</span><span class="p">.</span><span class="nf">yesterday</span><span class="p">.</span><span class="nf">first</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="no">Candlestick1m</span><span class="p">.</span><span class="nf">yesterday</span><span class="p">.</span><span class="nf">first</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>It will run the following SQL:</p>
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="nv">"candlestick_1m"</span><span class="p">.</span><span class="o">*</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="nv">"candlestick_1m"</span><span class="p">.</span><span class="o">*</span>
 <span class="k">FROM</span> <span class="nv">"candlestick_1m"</span>
 <span class="k">WHERE</span> <span class="p">(</span><span class="nb">DATE</span><span class="p">(</span><span class="n">time_bucket</span><span class="p">)</span> <span class="o">=</span> <span class="s1">'2023-01-23'</span><span class="p">)</span> <span class="k">LIMIT</span> <span class="mi">1</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>And return the following object:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">#&lt;Candlestick1m:0x000000010fbeff68</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="rouge-code"><pre><span class="c1">#&lt;Candlestick1m:0x000000010fbeff68</span>
  <span class="ss">time_bucket: </span><span class="mi">2023</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">23</span> <span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span> <span class="no">UTC</span><span class="p">,</span>
  <span class="ss">symbol: </span><span class="s2">"SYMBOL"</span><span class="p">,</span>
  <span class="ss">candlestick:
@@ -922,16 +1095,30 @@ it.</p>
  <span class="ss">close_time: </span><span class="kp">nil</span><span class="p">,</span>
  <span class="ss">volume: </span><span class="kp">nil</span><span class="p">,</span>
  <span class="ss">vwap: </span><span class="kp">nil</span><span class="o">&gt;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Note that the attributes are not available in the object but a <code class="language-plaintext highlighter-rouge">candlestick</code>
 attribute is present holding all the information. That’s why it’s necessary to
 use the <code class="language-plaintext highlighter-rouge">attributes</code> scope:</p>
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Candlestick1m</span><span class="p">.</span><span class="nf">yesterday</span><span class="p">.</span><span class="nf">attributes</span><span class="p">.</span><span class="nf">first</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="no">Candlestick1m</span><span class="p">.</span><span class="nf">yesterday</span><span class="p">.</span><span class="nf">attributes</span><span class="p">.</span><span class="nf">first</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Which will run the following query:</p>
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">time_bucket</span><span class="p">,</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">time_bucket</span><span class="p">,</span>
   <span class="n">toolkit_experimental</span><span class="p">.</span><span class="k">open</span><span class="p">(</span><span class="n">candlestick</span><span class="p">),</span>
   <span class="n">toolkit_experimental</span><span class="p">.</span><span class="n">high</span><span class="p">(</span><span class="n">candlestick</span><span class="p">),</span>
   <span class="n">toolkit_experimental</span><span class="p">.</span><span class="n">low</span><span class="p">(</span><span class="n">candlestick</span><span class="p">),</span>
@@ -944,11 +1131,24 @@ use the <code class="language-plaintext highlighter-rouge">attributes</code> sco
   <span class="n">toolkit_experimental</span><span class="p">.</span><span class="n">vwap</span><span class="p">(</span><span class="n">candlestick</span><span class="p">)</span>
 <span class="k">FROM</span> <span class="nv">"candlestick_1m"</span>
 <span class="k">WHERE</span> <span class="p">(</span><span class="nb">DATE</span><span class="p">(</span><span class="n">time_bucket</span><span class="p">)</span> <span class="o">=</span> <span class="s1">'2023-01-23'</span><span class="p">)</span> <span class="k">LIMIT</span> <span class="mi">1</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>And the object will be filled with the attributes:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">=&gt;</span> <span class="c1">#&lt;Candlestick1m:0x000000010fc3e578</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="o">=&gt;</span> <span class="c1">#&lt;Candlestick1m:0x000000010fc3e578</span>
  <span class="ss">time_bucket: </span><span class="mi">2023</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">23</span> <span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mo">00</span> <span class="no">UTC</span><span class="p">,</span>
  <span class="ss">symbol: </span><span class="s2">"SYMBOL"</span><span class="p">,</span>
  <span class="ss">open: </span><span class="mf">0.9e1</span><span class="p">,</span>
@@ -961,7 +1161,7 @@ use the <code class="language-plaintext highlighter-rouge">attributes</code> sco
  <span class="ss">close_time: </span><span class="mi">2023</span><span class="o">-</span><span class="mo">01</span><span class="o">-</span><span class="mi">23</span> <span class="mo">00</span><span class="p">:</span><span class="mo">00</span><span class="p">:</span><span class="mi">50</span> <span class="o">+</span><span class="mo">0000</span><span class="p">,</span>
  <span class="ss">volume: </span><span class="mf">0.24e4</span><span class="p">,</span>
  <span class="ss">vwap: </span><span class="mf">0.1091666666666666e2</span><span class="o">&gt;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>It’s a very convenient strategy to have the <code class="language-plaintext highlighter-rouge">Candlestick</code> as a shared concern
 to allow to reuse queries in different views of the same type.</p>
@@ -973,19 +1173,27 @@ and the <code class="language-plaintext highlighter-rouge">attributes</code> all
 just nesting the model scope. For example, to rollup from a minute to one hour,
 you can do:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Candlestick1m</span><span class="p">.</span><span class="nf">attributes</span><span class="p">.</span><span class="nf">from</span><span class="p">(</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="no">Candlestick1m</span><span class="p">.</span><span class="nf">attributes</span><span class="p">.</span><span class="nf">from</span><span class="p">(</span>
   <span class="no">Candlestick1m</span><span class="p">.</span><span class="nf">rollup</span><span class="p">(</span><span class="ss">timeframe: </span><span class="s1">'1 hour'</span><span class="p">)</span>
 <span class="p">)</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>And from minute to one hour to a day:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Candlestick1m</span><span class="p">.</span><span class="nf">attributes</span><span class="p">.</span><span class="nf">from</span><span class="p">(</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="no">Candlestick1m</span><span class="p">.</span><span class="nf">attributes</span><span class="p">.</span><span class="nf">from</span><span class="p">(</span>
   <span class="no">Candlestick1m</span><span class="p">.</span><span class="nf">rollup</span><span class="p">(</span><span class="ss">timeframe: </span><span class="s1">'1 day'</span><span class="p">).</span><span class="nf">from</span><span class="p">(</span>
     <span class="no">Candlestick1m</span><span class="p">.</span><span class="nf">rollup</span><span class="p">(</span><span class="ss">timeframe: </span><span class="s1">'1 hour'</span><span class="p">)</span>
   <span class="p">)</span>
 <span class="p">)</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Both examples are just using the one minute continuous aggregates view and
 reprocessing it from there.</p>
@@ -994,7 +1202,29 @@ reprocessing it from there.</p>
 already created more continuous aggregates in the top of another continuous
 aggregates. Here is the SQL generated from the last nested rollups code:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">time_bucket</span><span class="p">,</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">time_bucket</span><span class="p">,</span>
   <span class="n">toolkit_experimental</span><span class="p">.</span><span class="k">open</span><span class="p">(</span><span class="n">candlestick</span><span class="p">),</span>
   <span class="n">toolkit_experimental</span><span class="p">.</span><span class="n">high</span><span class="p">(</span><span class="n">candlestick</span><span class="p">),</span>
   <span class="n">toolkit_experimental</span><span class="p">.</span><span class="n">low</span><span class="p">(</span><span class="n">candlestick</span><span class="p">),</span>
@@ -1016,7 +1246,7 @@ aggregates. Here is the SQL generated from the last nested rollups code:</p>
     <span class="k">FROM</span> <span class="nv">"candlestick_1m"</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
   <span class="p">)</span> <span class="n">subquery</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
 <span class="p">)</span> <span class="n">subquery</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h2 id="feedback-or-questions">Feedback or questions?</h2>
 
@@ -1036,938 +1266,429 @@ RubyConf Thailand last December about processing data and here is the video of m
 <p>If you liked it, you can see more content like this in my <a href="/talks">talks</a>.</p>
 
 
-    </div>
   </div>
-
-  <div class="post-navigation mb-5">
-    <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0">
-        
-        <div class="card h-100">
-          <div class="card-body">
-            <span class="text-muted d-block mb-2"><i class="bi bi-arrow-left"></i> Previous Post</span>
-            <h5 class="card-title mb-0">
-              <a href="/activerecord-update-without-primary-key" class="stretched-link">ActiveRecord update without primary key</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-      <div class="col-md-6">
-        
-        <div class="card h-100">
-          <div class="card-body text-md-end">
-            <span class="text-muted d-block mb-2">Next Post <i class="bi bi-arrow-right"></i></span>
-            <h5 class="card-title mb-0">
-              <a href="/life-before-and-after-gpt" class="stretched-link">Life before and after Chat GPT</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="post-author card mb-5">
-    <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-md-2 text-center mb-3 mb-md-0">
-          <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini" class="rounded-circle img-fluid" style="max-width: 100px;">
-        </div>
-        <div class="col-md-10">
-          <h4>About Jônatas Davi Paganini</h4>
-          <p>Developer Advocate at TimescaleDB, Ruby enthusiast, and PostgreSQL expert. Sharing knowledge through writing and speaking at conferences worldwide.</p>
-          <div class="social-links">
-            <a href="https://github.com/jonatas" class="btn btn-sm btn-outline-dark me-2" target="_blank">
-              <i class="bi bi-github"></i> GitHub
-            </a>
-            <a href="https://twitter.com/jonatasdp" class="btn btn-sm btn-outline-primary me-2" target="_blank">
-              <i class="bi bi-twitter"></i> Twitter
-            </a>
-            <a href="https://linkedin.com/in/jonatasdp" class="btn btn-sm btn-outline-primary" target="_blank">
-              <i class="bi bi-linkedin"></i> LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="post-related mb-5">
-    <h3 class="h4 mb-4 border-bottom pb-2">Related Posts</h3>
-    <div class="row">
-      
-      
-      
-      
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-      
-      
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/soulless-economy" class="stretched-link">The Souless Economy - How AI Agents will change our economy completely</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> November 22, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/timescaledb-gem-continuous-aggregates-updates" class="stretched-link">TimescaleDB Gem Continuous Aggregates Updates</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> October 07, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/my-first-contribution-to-rubygems" class="stretched-link">My First Contribution To Rubygems</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> July 04, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-      
-    </div>
-  </div>
-
   
+  
+  <div class="article-tags">
+    
+  </div>
+  
+  
+  
+<div class="social-sharing mb-4">
+  <h5>Share this article</h5>
+  <div class="sharing-buttons">
+    
+    <a href="https://twitter.com/intent/tweet?text=Hierarchical+continuous+aggregates+with+Ruby+and+Timescaledb&url=https%3A%2F%2Fideia.me%2Fhierarchical-continuous-aggregates-with-ruby&via=jonatasdp" 
+       class="btn btn-twitter btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-twitter"></i> Twitter
+    </a>
+    
+    
+    
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Fhierarchical-continuous-aggregates-with-ruby" 
+       class="btn btn-facebook btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-facebook"></i> Facebook
+    </a>
+    
+    
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fhierarchical-continuous-aggregates-with-ruby&title=Hierarchical+continuous+aggregates+with+Ruby+and+Timescaledb" 
+       class="btn btn-linkedin btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-linkedin"></i> LinkedIn
+    </a>
+    
+    
+    
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fhierarchical-continuous-aggregates-with-ruby&title=Hierarchical+continuous+aggregates+with+Ruby+and+Timescaledb" 
+       class="btn btn-reddit btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-reddit"></i> Reddit
+    </a>
+    
+  </div>
+</div>
+ 
+  <div class="author-bio">
+  <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini">
+  <div class="author-bio-content">
+    <h4>Jônatas Davi Paganini</h4>
+    <p>Developer and writer passionate about PostgreSQL, TimescaleDB, and building better systems. Currently sharing knowledge about time series databases and system architecture.</p>
+    <div class="author-social">
+      <a href="https://github.com/jonatas" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+      <a href="https://twitter.com/jonatasdp" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+      <a href="https://linkedin.com/in/jonatasdp" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      
+      <a href="https://instagram.com/jonatasdp" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+      
+    </div>
+  </div>
+</div> 
+  <div class="content-nav">
+  <div class="content-nav-previous">
+    
+      <small>Previous</small>
+      <a href="/activerecord-update-without-primary-key" title="ActiveRecord update without primary key">
+        ActiveRecord update without primary key
+      </a>
+    
+  </div>
+  
+  <div class="content-nav-next">
+    
+      <small>Next</small>
+      <a href="/life-before-and-after-gpt" title="Life before and after Chat GPT">
+        Life before and after Chat GPT
+      </a>
+    
+  </div>
+</div> 
+  
+<div class="related-posts">
+  <div class="card">
+    <div class="card-header">
+      <h4>Related Articles</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        
+        
+        
+        
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+            
+        
+        
+        
+        
+        
+        
+        
+          <div class="col-12">
+            <p>No related posts found. Check out <a href="/archive.html">recent posts</a> instead.</p>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <div class="comments-section card mb-4">
+  <div class="card-header">
+    <h4>Comments</h4>
+  </div>
+  <div class="card-body">
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      
+      var disqus_config = function () {
+        this.page.url = "https://ideia.me/hierarchical-continuous-aggregates-with-ruby";
+        this.page.identifier = "/hierarchical-continuous-aggregates-with-ruby";
+      };
+      
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ideiame.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div> 
 </div>
 
-<p>
-  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
-  <br />
-  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
-  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
-</p>
-<p>Check my
-  <a href="/talks">talks</a> or connect with me via
-  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
-  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
-  <a href="https://github.com/jonatas" target="_blank">github</a> /
-  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
-  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
-  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
-  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
-</p>
-
+<link rel="stylesheet" href="/css/enhanced.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
     </div>

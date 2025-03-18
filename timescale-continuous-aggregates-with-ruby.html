@@ -311,54 +311,40 @@ crossorigin="anonymous"></script>
     
     <div class="container content-container mt-5 pt-5">
       
-<!-- Post layout with modern design -->
-<div class="post-container">
-  <div class="post-header mb-4">
-    <h1 class="post-title display-4">Creating continuous aggregates with Ruby and Timescale</h1>
-    <div class="post-meta d-flex flex-wrap align-items-center text-muted mb-3">
-      <span class="me-3">
-        <i class="bi bi-calendar3"></i> September 21, 2022
-      </span>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <h1>Creating continuous aggregates with Ruby and Timescale</h1>
+    <div class="article-meta">
+      <span><i class="bi bi-calendar3"></i> September 21, 2022</span>
+      <span class="separator">•</span>
       
-      <span class="me-3">
-        <i class="bi bi-folder"></i>
-        
-          <a href="/categories.html#time-series-ref" class="badge bg-primary text-decoration-none me-1">time-series</a>
-        
-          <a href="/categories.html#PostgreSQL-ref" class="badge bg-primary text-decoration-none me-1">PostgreSQL</a>
-        
-          <a href="/categories.html#ruby-ref" class="badge bg-primary text-decoration-none me-1">ruby</a>
-        
-      </span>
+  
+  
+    <span class="reading-time" title="Estimated read time">
+      <i class="bi bi-clock"></i> 11 min read
+    </span>
+  
+ 
       
       
+      <span class="separator">•</span>
       <span>
-        <i class="bi bi-tags"></i>
+        <i class="bi bi-folder"></i> 
+        
+          <a href="#time-series-ref" class="text-muted">time-series</a>, 
+        
+          <a href="#PostgreSQL-ref" class="text-muted">PostgreSQL</a>, 
+        
+          <a href="#ruby-ref" class="text-muted">ruby</a>
         
       </span>
       
-    </div>
-    
-    <div class="post-share d-flex align-items-center mb-4">
-      <span class="me-2 text-muted">Share:</span>
-      <a href="https://twitter.com/intent/tweet?text=Creating+continuous+aggregates+with+Ruby+and+Timescale&url=https://ideia.me%2Ftimescale-continuous-aggregates-with-ruby&via=jonatasdp" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ideia.me%2Ftimescale-continuous-aggregates-with-ruby&title=Creating+continuous+aggregates+with+Ruby+and+Timescale" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-linkedin"></i>
-      </a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://ideia.me%2Ftimescale-continuous-aggregates-with-ruby" 
-         class="btn btn-sm btn-outline-primary" target="_blank">
-        <i class="bi bi-facebook"></i>
-      </a>
     </div>
   </div>
-
-  <div class="post-content card mb-5">
-    <div class="card-body">
-      <p>I created the <a href="https://github.com/jonatas/timescaledb">timescale gem</a> and wrote an introductory post on how <a href="/using-the-timescale-gem-with-ruby">using the timescale gem with ruby</a>.</p>
+  
+  <div class="article-content">
+    <p>I created the <a href="https://github.com/jonatas/timescaledb">timescale gem</a> and wrote an introductory post on how <a href="/using-the-timescale-gem-with-ruby">using the timescale gem with ruby</a>.</p>
 
 <p>Now, it’s time to learn more about the <a href="https://docs.timescale.com/timescaledb/latest/how-to-guides/continuous-aggregates/">continuous aggregates</a> feature. Accordingly, the Timescale website says:</p>
 
@@ -379,7 +365,25 @@ crossorigin="anonymous"></script>
 <p>Let’s continue with a minimal migration system to prove the concept before we jump into a more advanced migration scenario.
 In this example, we’ll start with creating the ticks table representing stock market events and then group the events by minute to show the candlestick pattern.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
   <span class="n">drop_table</span> <span class="ss">:ticks</span><span class="p">,</span> <span class="ss">force: :cascade</span>
 
   <span class="n">hypertable_options</span> <span class="o">=</span> <span class="p">{</span>
@@ -397,7 +401,7 @@ In this example, we’ll start with creating the ticks table representing stock 
     <span class="n">t</span><span class="p">.</span><span class="nf">integer</span> <span class="ss">:volume</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The previous code instruction only involves the hypertable creation, and \ the continuous aggregate steps will be covered soon.</p>
 
@@ -407,13 +411,19 @@ In this example, we’ll start with creating the ticks table representing stock 
 
 <p>And here is the ActiveRecord model simplified for the example.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Tick</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Tick</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="nb">self</span><span class="p">.</span><span class="nf">table_name</span> <span class="o">=</span> <span class="s1">'ticks'</span>
   <span class="nb">self</span><span class="p">.</span><span class="nf">primary_key</span> <span class="o">=</span> <span class="kp">nil</span>
 
   <span class="n">acts_as_hypertable</span> <span class="ss">time_column: </span><span class="s1">'time'</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The only data we need to override for now is the <code class="language-plaintext highlighter-rouge">time_column</code>, but you can override anything in the official documentation.</p>
 
@@ -426,10 +436,13 @@ generate some fake data to just understand how to use it.</p>
 
 <p>Let’s define some helper variables that can help to generate the data:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">FAANG</span> <span class="o">=</span> <span class="sx">%w[META AMZN AAPL NFLX GOOG]</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="no">FAANG</span> <span class="o">=</span> <span class="sx">%w[META AMZN AAPL NFLX GOOG]</span>
 <span class="no">OPERATION</span> <span class="o">=</span> <span class="p">[:</span><span class="o">+</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="p">]</span>
 <span class="no">RAND_VOLUME</span> <span class="o">=</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="p">(</span><span class="nb">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="o">*</span> <span class="nb">rand</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span> <span class="p">}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Clarifying step by step:</p>
 
@@ -441,7 +454,24 @@ generate some fake data to just understand how to use it.</p>
 
 <p>Now defining the fake data:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">generate_fake_data</span><span class="p">(</span><span class="ss">total: </span><span class="mi">100</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td><td class="rouge-code"><pre><span class="k">def</span> <span class="nf">generate_fake_data</span><span class="p">(</span><span class="ss">total: </span><span class="mi">100</span><span class="p">)</span>
   <span class="n">previous_price</span> <span class="o">=</span> <span class="p">{}</span>
   <span class="n">time</span> <span class="o">=</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span>
   <span class="p">(</span><span class="n">total</span> <span class="o">/</span> <span class="no">FAANG</span><span class="p">.</span><span class="nf">size</span><span class="p">).</span><span class="nf">times</span><span class="p">.</span><span class="nf">flat_map</span> <span class="k">do</span>
@@ -458,44 +488,71 @@ generate some fake data to just understand how to use it.</p>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>It will generate a bunch of payloads that can be inserted.</p>
 
 <p>The last step in generating the data is combining the data generated with the insert command. Again, we can go with <code class="language-plaintext highlighter-rouge">insert_all</code>, a faster method to persist the data using ActiveRecord.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">batch</span> <span class="o">=</span> <span class="n">generate_fake_data</span> <span class="ss">total: </span><span class="mi">50</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="n">batch</span> <span class="o">=</span> <span class="n">generate_fake_data</span> <span class="ss">total: </span><span class="mi">50</span>
 <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">logger</span> <span class="o">=</span> <span class="kp">nil</span>
 <span class="no">Tick</span><span class="p">.</span><span class="nf">insert_all</span><span class="p">(</span><span class="n">batch</span><span class="p">,</span> <span class="ss">returning: </span><span class="kp">false</span><span class="p">)</span>
 <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">logger</span> <span class="o">=</span> <span class="no">Logger</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="no">STDOUT</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>To confirm the data is of good quality, take a look on what are the generated prices:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">FAANG</span><span class="p">.</span><span class="nf">inject</span><span class="p">({})</span> <span class="k">do</span> <span class="o">|</span><span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="o">|</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="no">FAANG</span><span class="p">.</span><span class="nf">inject</span><span class="p">({})</span> <span class="k">do</span> <span class="o">|</span><span class="n">h</span><span class="p">,</span> <span class="n">s</span><span class="o">|</span>
   <span class="n">h</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="o">=</span> <span class="no">Tick</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span> <span class="ss">symbol: </span><span class="n">s</span><span class="p">).</span><span class="nf">order</span><span class="p">(</span><span class="ss">:time</span><span class="p">).</span><span class="nf">pluck</span><span class="p">(</span><span class="ss">:price</span><span class="p">).</span><span class="nf">map</span><span class="p">(</span><span class="o">&amp;</span><span class="ss">:to_f</span><span class="p">)</span>
   <span class="n">h</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The results will be a hash like this:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="s2">"META"</span><span class="o">=&gt;</span><span class="p">[</span><span class="mf">142.0</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.96</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.96</span><span class="p">,</span> <span class="mf">141.96</span><span class="p">,</span> <span class="mf">141.97</span><span class="p">,</span> <span class="mf">141.97</span><span class="p">],</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="p">{</span><span class="s2">"META"</span><span class="o">=&gt;</span><span class="p">[</span><span class="mf">142.0</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.96</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.98</span><span class="p">,</span> <span class="mf">141.96</span><span class="p">,</span> <span class="mf">141.96</span><span class="p">,</span> <span class="mf">141.97</span><span class="p">,</span> <span class="mf">141.97</span><span class="p">],</span>
  <span class="s2">"AMZN"</span><span class="o">=&gt;</span><span class="p">[</span><span class="mf">103.0</span><span class="p">,</span> <span class="mf">103.0</span><span class="p">,</span> <span class="mf">103.01</span><span class="p">,</span> <span class="mf">103.0</span><span class="p">,</span> <span class="mf">103.01</span><span class="p">,</span> <span class="mf">103.0</span><span class="p">,</span> <span class="mf">103.0</span><span class="p">,</span> <span class="mf">103.01</span><span class="p">,</span> <span class="mf">103.03</span><span class="p">,</span> <span class="mf">103.05</span><span class="p">],</span>
  <span class="s2">"AAPL"</span><span class="o">=&gt;</span><span class="p">[</span><span class="mf">82.0</span><span class="p">,</span> <span class="mf">81.99</span><span class="p">,</span> <span class="mf">81.98</span><span class="p">,</span> <span class="mf">81.96</span><span class="p">,</span> <span class="mf">81.96</span><span class="p">,</span> <span class="mf">81.96</span><span class="p">,</span> <span class="mf">81.97</span><span class="p">,</span> <span class="mf">81.99</span><span class="p">,</span> <span class="mf">81.97</span><span class="p">,</span> <span class="mf">81.97</span><span class="p">],</span>
  <span class="s2">"NFLX"</span><span class="o">=&gt;</span><span class="p">[</span><span class="mf">60.0</span><span class="p">,</span> <span class="mf">59.99</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">,</span> <span class="mf">59.99</span><span class="p">,</span> <span class="mf">59.99</span><span class="p">,</span> <span class="mf">60.01</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">,</span> <span class="mf">60.02</span><span class="p">,</span> <span class="mf">60.02</span><span class="p">,</span> <span class="mf">60.02</span><span class="p">],</span>
  <span class="s2">"GOOG"</span><span class="o">=&gt;</span><span class="p">[</span><span class="mf">148.0</span><span class="p">,</span> <span class="mf">147.99</span><span class="p">,</span> <span class="mf">147.98</span><span class="p">,</span> <span class="mf">148.0</span><span class="p">,</span> <span class="mf">148.01</span><span class="p">,</span> <span class="mf">148.02</span><span class="p">,</span> <span class="mf">148.03</span><span class="p">,</span> <span class="mf">148.02</span><span class="p">,</span> <span class="mf">148.02</span><span class="p">,</span> <span class="mf">148.01</span><span class="p">]}</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The data varies very slowly, as expected. Now, feel free to change the fake data generation to generate at least a few hours of data. 10k will generate at least a few hours.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">batch</span> <span class="o">=</span> <span class="n">generate_fake_data</span> <span class="ss">total: </span><span class="mi">10_000</span>
-</code></pre></div></div>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="n">batch</span> <span class="o">=</span> <span class="n">generate_fake_data</span> <span class="ss">total: </span><span class="mi">10_000</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h3 id="querying-the-candlestick">Querying the candlestick</h3>
 
 <p>Now, it’s time to focus on the <code class="language-plaintext highlighter-rouge">Tick</code> model again and add the <code class="language-plaintext highlighter-rouge">OHLC</code> method to return the candlestick from ActiveRecord. As it will return attributes not recognized by the model, let’s declare the accessors to be easier to read the values later.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Tick</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Tick</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="c1"># skipping previous code for readability</span>
   <span class="sx">%w[open high low close]</span><span class="p">.</span><span class="nf">each</span><span class="p">{</span><span class="o">|</span><span class="nb">name</span><span class="o">|</span> <span class="n">attribute</span> <span class="nb">name</span><span class="p">,</span> <span class="ss">:decimal</span><span class="p">}</span>
 
@@ -508,25 +565,35 @@ generate some fake data to just understand how to use it.</p>
       LAST(price, time) as close,
       SUM(volume) as volume"</span><span class="p">).</span><span class="nf">group</span><span class="p">(</span><span class="s2">"1,2"</span><span class="p">)</span>
   <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Testing the data:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Tick</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">symbol: </span><span class="s2">"GOOG"</span><span class="p">).</span><span class="nf">ohlc</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="no">Tick</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">symbol: </span><span class="s2">"GOOG"</span><span class="p">).</span><span class="nf">ohlc</span>
 <span class="p">[</span><span class="c1">#&lt;Tick:0x00007f9d62fdbb58 time: 2022-09-20 12:00:00 UTC, symbol: "GOOG", volume: 18600, open: 0.83e2, high: 0.8305e2, low: 0.8298e2, close: 0.8305e2&gt;,</span>
  <span class="c1">#&lt;Tick:0x00007f9d62fdba90 time: 2022-09-20 12:01:00 UTC, symbol: "GOOG", volume: 6000, open: 0.8305e2, high: 0.8307e2, low: 0.8305e2, close: 0.8306e2&gt;,</span>
  <span class="c1">#&lt;Tick:0x00007f9d62fdb9c8 time: 2022-09-20 12:02:00 UTC, symbol: "GOOG", volume: 55400, open: 0.8307e2, high: 0.8314e2, low: 0.8307e2, close: 0.8313e2&gt;,</span>
  <span class="c1">#&lt;Tick:0x00007f9d62fdb900 time: 2022-09-20 12:03:00 UTC, symbol: "GOOG", volume: 29300, open: 0.8315e2, high: 0.832e2, low: 0.8315e2, close: 0.832e2&gt;,</span>
  <span class="o">...</span> <span class="c1"># more records here ]</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Now testing with one-hour intervals:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Tick</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="s1">'time'</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="ss">symbol: </span><span class="s2">"GOOG"</span><span class="p">).</span><span class="nf">ohlc</span><span class="p">(</span><span class="s1">'1h'</span><span class="p">)</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="no">Tick</span><span class="p">.</span><span class="nf">order</span><span class="p">(</span><span class="s1">'time'</span><span class="p">).</span><span class="nf">where</span><span class="p">(</span><span class="ss">symbol: </span><span class="s2">"GOOG"</span><span class="p">).</span><span class="nf">ohlc</span><span class="p">(</span><span class="s1">'1h'</span><span class="p">)</span>
 <span class="c1"># =&gt; [#&lt;Tick:0x00007f9d62f2ae98 time: 2022-09-20 12:00:00 UTC, symbol: "GOOG", volume: 1617800, open: 0.83e2, high: 0.8325e2, low: 0.829e2, close: 0.83e2&gt;,</span>
 <span class="c1">#   #&lt;Tick:0x00007f9d62f2add0 time: 2022-09-20 13:00:00 UTC, symbol: "GOOG", volume: 1634600, open: 0.83e2, high: 0.832e2, low: 0.8261e2, close: 0.8261e2&gt;,</span>
 <span class="c1">#   #&lt;Tick:0x00007f9d62f2ad08 time: 2022-09-20 14:00:00 UTC, symbol: "GOOG", volume: 783300, open: 0.826e2, high: 0.826e2, low: 0.8231e2, close: 0.8249e2&gt;]</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>It seems like everything is working as expected, and the last step is finally to create the continuous aggregates 🎉</p>
 
@@ -536,15 +603,28 @@ generate some fake data to just understand how to use it.</p>
 
 <p>Continuous aggregates will persist the data from past minutes and only compute the data for the still open candlesticks. So, for example, if you’re processing buckets of one hour, it will materialize the data from previous hours and only compute the data from the last hour.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span><span class="p">.</span><span class="nf">connection</span><span class="p">.</span><span class="nf">instance_exec</span> <span class="k">do</span>
   <span class="n">create_continuous_aggregates</span><span class="p">(</span><span class="s1">'ohlc_1m'</span><span class="p">,</span> <span class="no">Tick</span><span class="p">.</span><span class="nf">ohlc</span><span class="p">(</span><span class="s1">'1m'</span><span class="p">),</span> <span class="ss">with_data: </span><span class="kp">true</span><span class="p">)</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The <code class="language-plaintext highlighter-rouge">create_continuous_aggregates</code> method is available in the connection scope that is the same of the Rails Migrations.
 In the background, the following query is being executed:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">ohlc_1m</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">ohlc_1m</span>
 <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
 <span class="k">SELECT</span> <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1m'</span><span class="p">,</span> <span class="nb">time</span><span class="p">)</span> <span class="k">as</span> <span class="nb">time</span><span class="p">,</span>
       <span class="n">symbol</span><span class="p">,</span>
@@ -554,11 +634,21 @@ In the background, the following query is being executed:</p>
       <span class="k">LAST</span><span class="p">(</span><span class="n">price</span><span class="p">,</span> <span class="nb">time</span><span class="p">)</span> <span class="k">as</span> <span class="k">close</span><span class="p">,</span>
       <span class="k">SUM</span><span class="p">(</span><span class="n">volume</span><span class="p">)</span> <span class="k">as</span> <span class="n">volume</span> <span class="k">FROM</span> <span class="nv">"ticks"</span> <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span><span class="mi">2</span>
 <span class="k">WITH</span> <span class="k">DATA</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The last parameter, <code class="language-plaintext highlighter-rouge">with_data</code>, will automatically process the present data. If false, the <a href="https://docs.timescale.com/api/latest/continuous-aggregates/refresh_continuous_aggregate/#refresh-continuous-aggregate">refresh_continous_aggregates</a> can do the job later. If you have too much data to process, and you’re adding it to a Rails migration, maybe that’s a good idea to process it in a background job to not block your deployment.</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Ohlc1m</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="k">class</span> <span class="nc">Ohlc1m</span> <span class="o">&lt;</span> <span class="no">ActiveRecord</span><span class="o">::</span><span class="no">Base</span>
   <span class="nb">self</span><span class="p">.</span><span class="nf">table_name</span> <span class="o">=</span> <span class="s1">'ohlc_1m'</span>
   <span class="n">attribute</span> <span class="ss">:time</span><span class="p">,</span> <span class="ss">:time</span>
   <span class="n">attribute</span> <span class="ss">:symbol</span><span class="p">,</span> <span class="ss">:string</span>
@@ -568,13 +658,15 @@ In the background, the following query is being executed:</p>
    <span class="kp">true</span>
   <span class="k">end</span>
 <span class="k">end</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>Comparing performance here is unfair as we don’t have enough data to see too much difference. But, testing with 10k, it’s already 4 times faster using pre-processed data:</p>
 
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Tick</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="n">symbol</span><span class="ss">:"AAPL"</span><span class="p">).</span><span class="nf">ohlc</span><span class="p">(</span><span class="s1">'1m'</span><span class="p">)</span> <span class="c1"># Tick Load (13.8ms) </span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="no">Tick</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="n">symbol</span><span class="ss">:"AAPL"</span><span class="p">).</span><span class="nf">ohlc</span><span class="p">(</span><span class="s1">'1m'</span><span class="p">)</span> <span class="c1"># Tick Load (13.8ms) </span>
 <span class="no">Ohlc1m</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="n">symbol</span><span class="ss">:"AAPL"</span><span class="p">).</span><span class="nf">all</span>      <span class="c1"># Ohlc1m Load (3.6ms)</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h3 id="scenic-support">Scenic support</h3>
 
@@ -599,938 +691,767 @@ with Ruby.</p>
 Aggregates and how it compares to PostgreSQL materialized views.</p>
 
 
-    </div>
   </div>
-
-  <div class="post-navigation mb-5">
-    <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0">
-        
-        <div class="card h-100">
-          <div class="card-body">
-            <span class="text-muted d-block mb-2"><i class="bi bi-arrow-left"></i> Previous Post</span>
-            <h5 class="card-title mb-0">
-              <a href="/tips-to-duplicate-massive-time-series-data-on-postgresql" class="stretched-link">Tips to duplicate massive time series data on Postgresql</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-      <div class="col-md-6">
-        
-        <div class="card h-100">
-          <div class="card-body text-md-end">
-            <span class="text-muted d-block mb-2">Next Post <i class="bi bi-arrow-right"></i></span>
-            <h5 class="card-title mb-0">
-              <a href="/identify-your-needs-and-feelings" class="stretched-link">Identify Your Needs And Feelings</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="post-author card mb-5">
-    <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-md-2 text-center mb-3 mb-md-0">
-          <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini" class="rounded-circle img-fluid" style="max-width: 100px;">
-        </div>
-        <div class="col-md-10">
-          <h4>About Jônatas Davi Paganini</h4>
-          <p>Developer Advocate at TimescaleDB, Ruby enthusiast, and PostgreSQL expert. Sharing knowledge through writing and speaking at conferences worldwide.</p>
-          <div class="social-links">
-            <a href="https://github.com/jonatas" class="btn btn-sm btn-outline-dark me-2" target="_blank">
-              <i class="bi bi-github"></i> GitHub
-            </a>
-            <a href="https://twitter.com/jonatasdp" class="btn btn-sm btn-outline-primary me-2" target="_blank">
-              <i class="bi bi-twitter"></i> Twitter
-            </a>
-            <a href="https://linkedin.com/in/jonatasdp" class="btn btn-sm btn-outline-primary" target="_blank">
-              <i class="bi bi-linkedin"></i> LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="post-related mb-5">
-    <h3 class="h4 mb-4 border-bottom pb-2">Related Posts</h3>
-    <div class="row">
-      
-      
-      
-      
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-      
-      
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/soulless-economy" class="stretched-link">The Souless Economy - How AI Agents will change our economy completely</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> November 22, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/timescaledb-gem-continuous-aggregates-updates" class="stretched-link">TimescaleDB Gem Continuous Aggregates Updates</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> October 07, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/my-first-contribution-to-rubygems" class="stretched-link">My First Contribution To Rubygems</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> July 04, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-      
-    </div>
-  </div>
-
   
+  
+  <div class="article-tags">
+    
+      <a href="#time-series-ref" class="article-tag">time-series</a>
+    
+      <a href="#PostgreSQL-ref" class="article-tag">PostgreSQL</a>
+    
+      <a href="#ruby-ref" class="article-tag">ruby</a>
+    
+  </div>
+  
+  
+  
+<div class="social-sharing mb-4">
+  <h5>Share this article</h5>
+  <div class="sharing-buttons">
+    
+    <a href="https://twitter.com/intent/tweet?text=Creating+continuous+aggregates+with+Ruby+and+Timescale&url=https%3A%2F%2Fideia.me%2Ftimescale-continuous-aggregates-with-ruby&via=jonatasdp" 
+       class="btn btn-twitter btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-twitter"></i> Twitter
+    </a>
+    
+    
+    
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Ftimescale-continuous-aggregates-with-ruby" 
+       class="btn btn-facebook btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-facebook"></i> Facebook
+    </a>
+    
+    
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Ftimescale-continuous-aggregates-with-ruby&title=Creating+continuous+aggregates+with+Ruby+and+Timescale" 
+       class="btn btn-linkedin btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-linkedin"></i> LinkedIn
+    </a>
+    
+    
+    
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Ftimescale-continuous-aggregates-with-ruby&title=Creating+continuous+aggregates+with+Ruby+and+Timescale" 
+       class="btn btn-reddit btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-reddit"></i> Reddit
+    </a>
+    
+  </div>
+</div>
+ 
+  <div class="author-bio">
+  <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini">
+  <div class="author-bio-content">
+    <h4>Jônatas Davi Paganini</h4>
+    <p>Developer and writer passionate about PostgreSQL, TimescaleDB, and building better systems. Currently sharing knowledge about time series databases and system architecture.</p>
+    <div class="author-social">
+      <a href="https://github.com/jonatas" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+      <a href="https://twitter.com/jonatasdp" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+      <a href="https://linkedin.com/in/jonatasdp" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      
+      <a href="https://instagram.com/jonatasdp" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+      
+    </div>
+  </div>
+</div> 
+  <div class="content-nav">
+  <div class="content-nav-previous">
+    
+      <small>Previous</small>
+      <a href="/tips-to-duplicate-massive-time-series-data-on-postgresql" title="Tips to duplicate massive time series data on Postgresql">
+        Tips to duplicate massive time series data on P...
+      </a>
+    
+  </div>
+  
+  <div class="content-nav-next">
+    
+      <small>Next</small>
+      <a href="/identify-your-needs-and-feelings" title="Identify Your Needs And Feelings">
+        Identify Your Needs And Feelings
+      </a>
+    
+  </div>
+</div> 
+  
+<div class="related-posts">
+  <div class="card">
+    <div class="card-header">
+      <h4>Related Articles</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        
+        
+        
+        
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+            
+        
+        
+        
+        
+        
+          
+            
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/my-first-contribution-to-rubygems">My First Contribution To Rubygems</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> July 04, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Adding to my goal of being helpful in the software world, I had my first contribution to RubyGems [merged][new_pr] 🎉</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <div class="comments-section card mb-4">
+  <div class="card-header">
+    <h4>Comments</h4>
+  </div>
+  <div class="card-body">
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      
+      var disqus_config = function () {
+        this.page.url = "https://ideia.me/timescale-continuous-aggregates-with-ruby";
+        this.page.identifier = "/timescale-continuous-aggregates-with-ruby";
+      };
+      
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ideiame.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div> 
 </div>
 
-<p>
-  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
-  <br />
-  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
-  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
-</p>
-<p>Check my
-  <a href="/talks">talks</a> or connect with me via
-  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
-  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
-  <a href="https://github.com/jonatas" target="_blank">github</a> /
-  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
-  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
-  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
-  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
-</p>
-
+<link rel="stylesheet" href="/css/enhanced.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
     </div>

@@ -311,54 +311,40 @@ crossorigin="anonymous"></script>
     
     <div class="container content-container mt-5 pt-5">
       
-<!-- Post layout with modern design -->
-<div class="post-container">
-  <div class="post-header mb-4">
-    <h1 class="post-title display-4">Two ways to notify new data from Timescaledb Continuous Aggregates</h1>
-    <div class="post-meta d-flex flex-wrap align-items-center text-muted mb-3">
-      <span class="me-3">
-        <i class="bi bi-calendar3"></i> February 12, 2023
-      </span>
+
+<div class="article-wrapper">
+  <div class="article-header">
+    <h1>Two ways to notify new data from Timescaledb Continuous Aggregates</h1>
+    <div class="article-meta">
+      <span><i class="bi bi-calendar3"></i> February 12, 2023</span>
+      <span class="separator">•</span>
       
-      <span class="me-3">
-        <i class="bi bi-folder"></i>
-        
-          <a href="/categories.html#time-series-ref" class="badge bg-primary text-decoration-none me-1">time-series</a>
-        
-          <a href="/categories.html#timescaledb-ref" class="badge bg-primary text-decoration-none me-1">timescaledb</a>
-        
-          <a href="/categories.html#postgresql-ref" class="badge bg-primary text-decoration-none me-1">postgresql</a>
-        
-      </span>
+  
+  
+    <span class="reading-time" title="Estimated read time">
+      <i class="bi bi-clock"></i> 12 min read
+    </span>
+  
+ 
       
       
+      <span class="separator">•</span>
       <span>
-        <i class="bi bi-tags"></i>
+        <i class="bi bi-folder"></i> 
+        
+          <a href="#time-series-ref" class="text-muted">time-series</a>, 
+        
+          <a href="#timescaledb-ref" class="text-muted">timescaledb</a>, 
+        
+          <a href="#postgresql-ref" class="text-muted">postgresql</a>
         
       </span>
       
-    </div>
-    
-    <div class="post-share d-flex align-items-center mb-4">
-      <span class="me-2 text-muted">Share:</span>
-      <a href="https://twitter.com/intent/tweet?text=Two+ways+to+notify+new+data+from+Timescaledb+Continuous+Aggregates&url=https://ideia.me%2Ftwo-ways-to-notify-new-data-from-timescaledb-continuous-aggregates&via=jonatasdp" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-twitter"></i>
-      </a>
-      <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://ideia.me%2Ftwo-ways-to-notify-new-data-from-timescaledb-continuous-aggregates&title=Two+ways+to+notify+new+data+from+Timescaledb+Continuous+Aggregates" 
-         class="btn btn-sm btn-outline-primary me-2" target="_blank">
-        <i class="bi bi-linkedin"></i>
-      </a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u=https://ideia.me%2Ftwo-ways-to-notify-new-data-from-timescaledb-continuous-aggregates" 
-         class="btn btn-sm btn-outline-primary" target="_blank">
-        <i class="bi bi-facebook"></i>
-      </a>
     </div>
   </div>
-
-  <div class="post-content card mb-5">
-    <div class="card-body">
-      <p>As a Developer Advocate at Timescale, I have a unique opportunity to work with the community and teach people how to use TimescaleDB. Recently, a community member asked about a way to publish the results of the continuous aggregate to a messaging system. This sparked my interest, and I challenged myself to come up with a solution.</p>
+  
+  <div class="article-content">
+    <p>As a Developer Advocate at Timescale, I have a unique opportunity to work with the community and teach people how to use TimescaleDB. Recently, a community member asked about a way to publish the results of the continuous aggregate to a messaging system. This sparked my interest, and I challenged myself to come up with a solution.</p>
 
 <p>In this article, I will share my approach to the problem. First, I will introduce the basics of materialized views with continuous aggregates in TimescaleDB. Then, I will show how to use a trigger-based solution to publish the results to a messaging system. Finally, I will demonstrate how to use background jobs to achieve the same result.</p>
 
@@ -376,20 +362,27 @@ crossorigin="anonymous"></script>
 
 <p>In this section, we will walk through an example of how to build a real-time data pipeline using TimescaleDB. Let’s assume we have a table of stock tick data, which includes the timestamp of the trade, the stock symbol, the price, and the volume.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nv">"ticks"</span> <span class="p">(</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nv">"ticks"</span> <span class="p">(</span>
   <span class="nv">"time"</span> <span class="nb">timestamp</span> <span class="k">with</span> <span class="nb">time</span> <span class="k">zone</span> <span class="k">not</span> <span class="k">null</span><span class="p">,</span> 
   <span class="nv">"symbol"</span> <span class="nb">text</span><span class="p">,</span> 
   <span class="nv">"price"</span> <span class="nb">decimal</span><span class="p">,</span> 
   <span class="nv">"volume"</span> <span class="nb">float</span>
 <span class="p">);</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h3 id="creating-a-hypertable">Creating a hypertable</h3>
 
 <p>To create a hypertable in TimescaleDB, we use the create_hypertable function. This function takes the name of the table we want to convert to a hypertable, the name of the time column, and an optional argument chunk_time_interval that specifies the duration of each chunk.</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'ticks'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">,</span> <span class="n">chunk_time_interval</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">'1 day'</span><span class="p">);</span>
-</code></pre></div></div>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">create_hypertable</span><span class="p">(</span><span class="s1">'ticks'</span><span class="p">,</span> <span class="s1">'time'</span><span class="p">,</span> <span class="n">chunk_time_interval</span> <span class="o">=&gt;</span> <span class="n">INTERVAL</span> <span class="s1">'1 day'</span><span class="p">);</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>In the above code, we create a hypertable named ticks using the create_hypertable function. The hypertable is created based on the ticks table and is partitioned on the time column. We set the chunk_time_interval parameter to INTERVAL ‘1 day’ to specify that each chunk should contain data for a single day.</p>
 
@@ -399,7 +392,17 @@ crossorigin="anonymous"></script>
 
 <p>Now, let’s create a continuous aggregate materialized view that aggregates the tick data on a 10 second time interval:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_10s</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_10s</span>
 <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
 <span class="k">SELECT</span> 
   <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'10s'</span><span class="p">,</span> <span class="nb">time</span><span class="p">),</span>
@@ -409,13 +412,23 @@ crossorigin="anonymous"></script>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
 <span class="k">WITH</span> <span class="k">DATA</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The above view calculates the candlestick data for the 10-second interval using the candlestick_agg function from the TimescaleDB toolkit. We group the data by the 10-second interval and the stock symbol, and we order the result by the interval start time.</p>
 
 <p>Next, we can create a continuous aggregate materialized view that aggregates the 10-second candlestick data on a 1-minute time interval:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_1m</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_1m</span>
 <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span> <span class="p">)</span> <span class="k">AS</span>
 <span class="k">SELECT</span> 
   <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'1m'</span><span class="p">,</span> <span class="nv">"time_bucket"</span><span class="p">),</span>
@@ -425,13 +438,21 @@ crossorigin="anonymous"></script>
 <span class="k">GROUP</span> <span class="k">BY</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="mi">1</span>
 <span class="k">WITH</span> <span class="k">NO</span> <span class="k">DATA</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The above view rolls up the 10-second candlestick data into the 1-minute intervals using the rollup function from the TimescaleDB toolkit. We group the data by the 1-minute interval and the stock symbol, and we order the result by the interval start time.</p>
 
 <p>Finally, we can create a continuous aggregate materialized view that aggregates the 1-minute candlestick data on a 5-minute time interval:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_5m</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="n">MATERIALIZED</span> <span class="k">VIEW</span> <span class="n">candlestick_5m</span>
 <span class="k">WITH</span> <span class="p">(</span><span class="n">timescaledb</span><span class="p">.</span><span class="n">continuous</span><span class="p">)</span> <span class="k">AS</span>
 <span class="k">SELECT</span> 
   <span class="n">time_bucket</span><span class="p">(</span><span class="s1">'5m'</span><span class="p">,</span> <span class="nv">"time_bucket"</span><span class="p">),</span>
@@ -439,13 +460,32 @@ crossorigin="anonymous"></script>
   <span class="n">toolkit_experimental</span><span class="p">.</span><span class="k">rollup</span><span class="p">(</span><span class="n">candlestick</span><span class="p">)</span> <span class="k">as</span> <span class="n">candlestick</span>
 <span class="k">FROM</span> <span class="nv">"candlestick_1m"</span>
 <span class="k">GROUP</span> <span class="k">BY</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h2 id="trigger-based-solution-to-notify-new-row">Trigger-based solution to notify new row</h2>
 
 <p>To notify when a new row is added to the ticks table, we can use a trigger to send a notification to a listening client. Here’s how to create the trigger:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">FUNCTION</span> <span class="n">notify_new_row</span><span class="p">()</span> <span class="k">RETURNS</span> <span class="k">TRIGGER</span> <span class="k">AS</span> <span class="err">$$</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">FUNCTION</span> <span class="n">notify_new_row</span><span class="p">()</span> <span class="k">RETURNS</span> <span class="k">TRIGGER</span> <span class="k">AS</span> <span class="err">$$</span>
   <span class="k">DECLARE</span>
   <span class="n">threshold</span> <span class="n">INTERVAL</span> <span class="p">:</span><span class="o">=</span> <span class="n">INTERVAL</span> <span class="s1">'0 seconds'</span><span class="p">;</span>
   <span class="n">candlestick</span> <span class="n">record</span><span class="p">;</span>
@@ -464,7 +504,7 @@ crossorigin="anonymous"></script>
 <span class="k">AFTER</span> <span class="k">INSERT</span> <span class="k">ON</span> <span class="n">ticks</span>
 <span class="k">FOR</span> <span class="k">EACH</span> <span class="k">ROW</span>
 <span class="k">EXECUTE</span> <span class="k">FUNCTION</span> <span class="n">notify_new_row</span><span class="p">();</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The <code class="language-plaintext highlighter-rouge">notify_new_row</code> function selects the latest <code class="language-plaintext highlighter-rouge">candlestick_1m</code> row and compares its time_bucket value to the time value of the newly inserted row in the ticks table. If the difference is greater than or equal to the specified threshold, the function sends a notification to a listening client using the pg_notify function.</p>
 
@@ -484,7 +524,19 @@ crossorigin="anonymous"></script>
 
 <p>First, let’s create a procedure to simulate the tick data:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">simulate_tick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">simulate_tick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
 <span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
 <span class="k">DECLARE</span>
   <span class="n">candlestick</span> <span class="n">record</span> <span class="p">:</span><span class="o">=</span> <span class="k">null</span><span class="p">;</span>
@@ -496,7 +548,7 @@ crossorigin="anonymous"></script>
     <span class="k">USING</span> <span class="n">config</span><span class="o">-&gt;&gt;</span><span class="s1">'symbol'</span><span class="p">;</span>
 <span class="k">END</span>
 <span class="err">$$</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The procedure takes in a configuration object that specifies the stock symbol to use. It generates random tick data for the specified symbol and inserts it into the ticks table.</p>
 
@@ -504,15 +556,28 @@ crossorigin="anonymous"></script>
 
 <p>Next, let’s create a background job to run the procedure every second for two different symbols:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'simulate_tick'</span><span class="p">,</span> <span class="s1">'1s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"symbol": "APPL"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'simulate_tick'</span><span class="p">,</span> <span class="s1">'1s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"symbol": "APPL"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
 <span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'simulate_tick'</span><span class="p">,</span> <span class="s1">'0.5s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"symbol": "GOOG"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The above code schedules the <code class="language-plaintext highlighter-rouge">simulate_tick</code> procedure to run every second for the APPL symbol and every 0.5 seconds for the GOOG symbol.</p>
 
 <p>Now, let’s create a procedure to notify us when a new candlestick is generated:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">notify_new_candlestick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">notify_new_candlestick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
 <span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
 <span class="k">DECLARE</span>
   <span class="n">view_name</span> <span class="nb">TEXT</span> <span class="p">:</span><span class="o">=</span> <span class="n">config</span> <span class="o">-&gt;&gt;</span> <span class="s1">'view_name'</span><span class="p">;</span>
@@ -523,28 +588,45 @@ crossorigin="anonymous"></script>
   <span class="n">PERFORM</span> <span class="n">pg_notify</span><span class="p">(</span><span class="n">view_name</span><span class="p">,</span> <span class="n">row_to_json</span><span class="p">(</span><span class="n">last_row</span><span class="p">)::</span><span class="nb">text</span><span class="p">);</span>
 <span class="k">END</span>
 <span class="err">$$</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The procedure takes in a configuration object that specifies the name of the view to monitor. It retrieves the most recent candlestick from the specified view and sends a notification with the view name and the JSON representation of the candlestick.</p>
 
 <p>Finally, let’s create background jobs to monitor the three materialized views we created earlier:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'notify_new_candlestick'</span><span class="p">,</span> <span class="s1">'10s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"view_name": "candlestick_10s"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'notify_new_candlestick'</span><span class="p">,</span> <span class="s1">'10s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"view_name": "candlestick_10s"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
 <span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'notify_new_candlestick'</span><span class="p">,</span> <span class="s1">'1m'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"view_name": "candlestick_1m"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
 <span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'notify_new_candlestick'</span><span class="p">,</span> <span class="s1">'5m'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"view_name": "candlestick_5m"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 <p>he above code schedules the notify_new_candlestick procedure to run every 10 seconds for the 10-second candlestick view, every minute for the 1-minute candlestick view, and every 5 minutes for the 5-minute candlestick view.</p>
 
 <p>To listen for notifications, we can use the LISTEN command:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">LISTEN</span> <span class="n">candlestick_10s</span><span class="p">;</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="k">LISTEN</span> <span class="n">candlestick_10s</span><span class="p">;</span>
 <span class="k">LISTEN</span> <span class="n">candlestick_1m</span><span class="p">;</span>
 <span class="k">LISTEN</span> <span class="n">candlestick_5m</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>With the LISTEN command in place, we can use the NOTIFY command to receive notifications whenever a new candlestick is generated:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">notify_new_candlestick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">notify_new_candlestick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
 <span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
 <span class="k">DECLARE</span>
   <span class="n">view_name</span> <span class="nb">TEXT</span> <span class="p">:</span><span class="o">=</span> <span class="n">config</span> <span class="o">-&gt;&gt;</span> <span class="s1">'view_name'</span><span class="p">;</span>
@@ -555,11 +637,23 @@ crossorigin="anonymous"></script>
   <span class="n">PERFORM</span> <span class="n">pg_notify</span><span class="p">(</span><span class="n">view_name</span><span class="p">,</span> <span class="n">row_to_json</span><span class="p">(</span><span class="n">last_row</span><span class="p">)::</span><span class="nb">text</span><span class="p">);</span>
 <span class="k">END</span>
 <span class="err">$$</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>First, let’s create a procedure to simulate the tick data:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">simulate_tick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">PROCEDURE</span> <span class="n">simulate_tick</span><span class="p">(</span><span class="n">job_id</span> <span class="nb">int</span><span class="p">,</span> <span class="n">config</span> <span class="n">jsonb</span><span class="p">)</span>
 <span class="k">LANGUAGE</span> <span class="n">PLPGSQL</span> <span class="k">AS</span> <span class="err">$$</span>
 <span class="k">DECLARE</span>
   <span class="n">candlestick</span> <span class="n">record</span> <span class="p">:</span><span class="o">=</span> <span class="k">null</span><span class="p">;</span>
@@ -571,15 +665,17 @@ crossorigin="anonymous"></script>
     <span class="k">USING</span> <span class="n">config</span><span class="o">-&gt;&gt;</span><span class="s1">'symbol'</span><span class="p">;</span>
 <span class="k">END</span>
 <span class="err">$$</span><span class="p">;</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The procedure takes in a configuration object that specifies the stock symbol to use. It generates random tick data for the specified symbol and inserts it into the ticks table.</p>
 
 <p>Next, let’s create a background job to run the procedure every second for two different symbols:</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'simulate_tick'</span><span class="p">,</span> <span class="s1">'1s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"symbol": "APPL"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'simulate_tick'</span><span class="p">,</span> <span class="s1">'1s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"symbol": "APPL"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
 <span class="k">SELECT</span> <span class="n">add_job</span><span class="p">(</span><span class="s1">'simulate_tick'</span><span class="p">,</span> <span class="s1">'0.5s'</span><span class="p">,</span> <span class="n">config</span> <span class="o">=&gt;</span> <span class="s1">'{"symbol": "GOOG"}'</span><span class="p">,</span> <span class="n">fixed_schedule</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">);</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>The above code schedules the <code class="language-plaintext highlighter-rouge">simulate_tick</code> procedure to run every second for the APPL symbol and every 0.5 seconds for the GOOG symbol.</p>
 
@@ -595,938 +691,767 @@ crossorigin="anonymous"></script>
 
 <p>If you’re interested in learning more about TimescaleDB or have questions about the solutions presented in this article, please don’t hesitate to reach out. Join the <a href="https://www.timescale.com/community/">Timescale community</a> and talk directly to me. I’m happy to help!</p>
 
-    </div>
   </div>
-
-  <div class="post-navigation mb-5">
-    <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0">
-        
-        <div class="card h-100">
-          <div class="card-body">
-            <span class="text-muted d-block mb-2"><i class="bi bi-arrow-left"></i> Previous Post</span>
-            <h5 class="card-title mb-0">
-              <a href="/life-before-and-after-gpt" class="stretched-link">Life before and after Chat GPT</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-      <div class="col-md-6">
-        
-        <div class="card h-100">
-          <div class="card-body text-md-end">
-            <span class="text-muted d-block mb-2">Next Post <i class="bi bi-arrow-right"></i></span>
-            <h5 class="card-title mb-0">
-              <a href="/serve-your-community" class="stretched-link">Serve Your Community</a>
-            </h5>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="post-author card mb-5">
-    <div class="card-body">
-      <div class="row align-items-center">
-        <div class="col-md-2 text-center mb-3 mb-md-0">
-          <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini" class="rounded-circle img-fluid" style="max-width: 100px;">
-        </div>
-        <div class="col-md-10">
-          <h4>About Jônatas Davi Paganini</h4>
-          <p>Developer Advocate at TimescaleDB, Ruby enthusiast, and PostgreSQL expert. Sharing knowledge through writing and speaking at conferences worldwide.</p>
-          <div class="social-links">
-            <a href="https://github.com/jonatas" class="btn btn-sm btn-outline-dark me-2" target="_blank">
-              <i class="bi bi-github"></i> GitHub
-            </a>
-            <a href="https://twitter.com/jonatasdp" class="btn btn-sm btn-outline-primary me-2" target="_blank">
-              <i class="bi bi-twitter"></i> Twitter
-            </a>
-            <a href="https://linkedin.com/in/jonatasdp" class="btn btn-sm btn-outline-primary" target="_blank">
-              <i class="bi bi-linkedin"></i> LinkedIn
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="post-related mb-5">
-    <h3 class="h4 mb-4 border-bottom pb-2">Related Posts</h3>
-    <div class="row">
-      
-      
-      
-      
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-        
-        
-        
-        
-      
-      
-      
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/soulless-economy" class="stretched-link">The Souless Economy - How AI Agents will change our economy completely</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> November 22, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/timescaledb-gem-continuous-aggregates-updates" class="stretched-link">TimescaleDB Gem Continuous Aggregates Updates</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> October 07, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-          
-            <div class="col-md-4 mb-3">
-              <div class="card h-100">
-                <div class="card-body">
-                  <h5 class="card-title">
-                    <a href="/my-first-contribution-to-rubygems" class="stretched-link">My First Contribution To Rubygems</a>
-                  </h5>
-                  <p class="card-text text-muted small">
-                    <i class="bi bi-calendar3"></i> July 04, 2024
-                  </p>
-                </div>
-              </div>
-            </div>
-          
-        
-      
-    </div>
-  </div>
-
   
+  
+  <div class="article-tags">
+    
+      <a href="#time-series-ref" class="article-tag">time-series</a>
+    
+      <a href="#timescaledb-ref" class="article-tag">timescaledb</a>
+    
+      <a href="#postgresql-ref" class="article-tag">postgresql</a>
+    
+  </div>
+  
+  
+  
+<div class="social-sharing mb-4">
+  <h5>Share this article</h5>
+  <div class="sharing-buttons">
+    
+    <a href="https://twitter.com/intent/tweet?text=Two+ways+to+notify+new+data+from+Timescaledb+Continuous+Aggregates&url=https%3A%2F%2Fideia.me%2Ftwo-ways-to-notify-new-data-from-timescaledb-continuous-aggregates&via=jonatasdp" 
+       class="btn btn-twitter btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-twitter"></i> Twitter
+    </a>
+    
+    
+    
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Ftwo-ways-to-notify-new-data-from-timescaledb-continuous-aggregates" 
+       class="btn btn-facebook btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-facebook"></i> Facebook
+    </a>
+    
+    
+    
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Ftwo-ways-to-notify-new-data-from-timescaledb-continuous-aggregates&title=Two+ways+to+notify+new+data+from+Timescaledb+Continuous+Aggregates" 
+       class="btn btn-linkedin btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-linkedin"></i> LinkedIn
+    </a>
+    
+    
+    
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Ftwo-ways-to-notify-new-data-from-timescaledb-continuous-aggregates&title=Two+ways+to+notify+new+data+from+Timescaledb+Continuous+Aggregates" 
+       class="btn btn-reddit btn-sm" 
+       target="_blank"
+       rel="noopener noreferrer">
+      <i class="bi bi-reddit"></i> Reddit
+    </a>
+    
+  </div>
+</div>
+ 
+  <div class="author-bio">
+  <img src="/images/jonatas-davi-paganini-profile-2025.png" alt="Jônatas Davi Paganini">
+  <div class="author-bio-content">
+    <h4>Jônatas Davi Paganini</h4>
+    <p>Developer and writer passionate about PostgreSQL, TimescaleDB, and building better systems. Currently sharing knowledge about time series databases and system architecture.</p>
+    <div class="author-social">
+      <a href="https://github.com/jonatas" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+      <a href="https://twitter.com/jonatasdp" target="_blank" title="Twitter"><i class="bi bi-twitter"></i></a>
+      <a href="https://linkedin.com/in/jonatasdp" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+      
+      <a href="https://instagram.com/jonatasdp" target="_blank" title="Instagram"><i class="bi bi-instagram"></i></a>
+      
+    </div>
+  </div>
+</div> 
+  <div class="content-nav">
+  <div class="content-nav-previous">
+    
+      <small>Previous</small>
+      <a href="/life-before-and-after-gpt" title="Life before and after Chat GPT">
+        Life before and after Chat GPT
+      </a>
+    
+  </div>
+  
+  <div class="content-nav-next">
+    
+      <small>Next</small>
+      <a href="/serve-your-community" title="Serve Your Community">
+        Serve Your Community
+      </a>
+    
+  </div>
+</div> 
+  
+<div class="related-posts">
+  <div class="card">
+    <div class="card-header">
+      <h4>Related Articles</h4>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        
+        
+        
+        
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+                  
+                  
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+        
+          
+            
+              
+              
+                
+              
+                
+              
+                
+              
+                
+              
+              
+              
+            
+          
+          
+          
+            
+        
+        
+        
+        
+        
+          
+            
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/my-first-contribution-to-rubygems">My First Contribution To Rubygems</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> July 04, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Adding to my goal of being helpful in the software world, I had my first contribution to RubyGems [merged][new_pr] 🎉</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+ 
+  <div class="comments-section card mb-4">
+  <div class="card-header">
+    <h4>Comments</h4>
+  </div>
+  <div class="card-body">
+    <div id="disqus_thread"></div>
+    <script>
+      /**
+      *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+      *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+      
+      var disqus_config = function () {
+        this.page.url = "https://ideia.me/two-ways-to-notify-new-data-from-timescaledb-continuous-aggregates";
+        this.page.identifier = "/two-ways-to-notify-new-data-from-timescaledb-continuous-aggregates";
+      };
+      
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://ideiame.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</div> 
 </div>
 
-<p>
-  Hello there, my name is Jônatas Davi Paganini and this is my personal blog.
-  <br />
-  I'm developer advocate at <a href="https://timescale.com">Timescale</a> and
-  I also have a few open source projects on <a href="https://github.com/jonatas">github</a>.
-</p>
-<p>Check my
-  <a href="/talks">talks</a> or connect with me via
-  <a href="https://br.linkedin.com/in/jonatasdp" target="_blank">linkedin</a> /
-  <a href="https://twitter.com/jonatasdp" target="_blank">twitter</a> /
-  <a href="https://github.com/jonatas" target="_blank">github</a> /
-  <a href="https://instagram.com/jonatasdp" target="_blank">instagram</a> /
-  <a href="https://fb.com/jonatas.paganini" target="_blank">facebook</a> /
-  <a href="https://www.strava.com/athletes/12104550" target="_blank">strava</a> /
-  <a href="http://www.meetup.com/members/185190193/" target="_blank">meetup</a>.
-</p>
-
+<link rel="stylesheet" href="/css/enhanced.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 
     </div>
