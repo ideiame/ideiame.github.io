@@ -408,11 +408,29 @@ ActiveRecord - method chain:     2221.2 i/s - 1.10x  slower
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p><strong>Results:</strong>
-| Implementation | Performance (i/s) | Comparison |
-|—————-|——————-|————|
-| Sequel | 2,774.5 i/s | baseline |
-| ActiveRecord | 417.0 i/s | 6.65x slower |</p>
+<p><strong>Results:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Implementation</th>
+      <th>Performance (i/s)</th>
+      <th>Comparison</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sequel</td>
+      <td>2,774.5 i/s</td>
+      <td>baseline</td>
+    </tr>
+    <tr>
+      <td>ActiveRecord</td>
+      <td>417.0 i/s</td>
+      <td>6.65x slower</td>
+    </tr>
+  </tbody>
+</table>
 
 <h4 id="complex-join-performance">Complex Join Performance</h4>
 
@@ -445,11 +463,29 @@ ActiveRecord - method chain:     2221.2 i/s - 1.10x  slower
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p><strong>Results:</strong>
-| Implementation | Performance (i/s) | Comparison |
-|—————-|——————-|————|
-| Sequel | 62.9 i/s | baseline |
-| ActiveRecord | 60.3 i/s | 1.04x slower |</p>
+<p><strong>Results:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Implementation</th>
+      <th>Performance (i/s)</th>
+      <th>Comparison</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sequel</td>
+      <td>62.9 i/s</td>
+      <td>baseline</td>
+    </tr>
+    <tr>
+      <td>ActiveRecord</td>
+      <td>60.3 i/s</td>
+      <td>1.04x slower</td>
+    </tr>
+  </tbody>
+</table>
 
 <h4 id="aggregation-performance">Aggregation Performance</h4>
 
@@ -479,11 +515,29 @@ ActiveRecord - method chain:     2221.2 i/s - 1.10x  slower
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p><strong>Results:</strong>
-| Implementation | Performance (i/s) | Comparison |
-|—————-|——————-|————|
-| Sequel | 211.7 i/s | baseline |
-| ActiveRecord | 154.0 i/s | 1.38x slower |</p>
+<p><strong>Results:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Implementation</th>
+      <th>Performance (i/s)</th>
+      <th>Comparison</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sequel</td>
+      <td>211.7 i/s</td>
+      <td>baseline</td>
+    </tr>
+    <tr>
+      <td>ActiveRecord</td>
+      <td>154.0 i/s</td>
+      <td>1.38x slower</td>
+    </tr>
+  </tbody>
+</table>
 
 <h4 id="bulk-update-performance">Bulk Update Performance</h4>
 
@@ -516,11 +570,29 @@ ActiveRecord - method chain:     2221.2 i/s - 1.10x  slower
 <span class="k">end</span>
 </code></pre></div></div>
 
-<p><strong>Results from previous run:</strong>
-| Implementation | Performance (i/s) | Comparison |
-|—————-|——————-|————|
-| ActiveRecord | 1,643.7 i/s | baseline |
-| Sequel | 1,474.6 i/s | 1.11x slower |</p>
+<p><strong>Results from previous run:</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Implementation</th>
+      <th>Performance (i/s)</th>
+      <th>Comparison</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ActiveRecord</td>
+      <td>1,643.7 i/s</td>
+      <td>baseline</td>
+    </tr>
+    <tr>
+      <td>Sequel</td>
+      <td>1,474.6 i/s</td>
+      <td>1.11x slower</td>
+    </tr>
+  </tbody>
+</table>
 
 <h3 id="memory-usage-patterns-mb">Memory Usage Patterns (MB)</h3>
 
@@ -776,8 +848,6 @@ ActiveRecord - method chain:     2221.2 i/s - 1.10x  slower
   <li>Sometimes I use both in the same application where appropriate (yes, this works!)</li>
   <li>I always profile my specific use case with equivalent queries before committing to an ORM</li>
   <li>I use bulk operations whenever possible for better performance</li>
-  <li>I pay special attention to query patterns (like index-friendly LIKE clauses) that affect performance regardless of ORM choice</li>
-  <li>I ensure my benchmarks use proper warmup times and multiple runs for stable results</li>
 </ol>
 
 <p>Remember that the best ORM for your application depends on your specific requirements and constraints. My updated benchmarks provide a more realistic starting point for your decision-making process, but your mileage may vary based on your specific architecture and usage patterns.</p>
