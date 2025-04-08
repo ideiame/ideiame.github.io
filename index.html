@@ -273,607 +273,102 @@ crossorigin="anonymous"></script>
   <div class="card latest-post-card">
     <div class="card-body">
       <h3 class="card-title h2">
-        <a class="post animated-link" href="/benchmarking-ruby-orms">Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</a>
+        <a class="post animated-link" href="/tech-community-universities-building-mindful-partnerships">Tech Community and Universities: Building Mindful Partnerships</a>
       </h3>
       <p class="card-subtitle text-muted mb-3">
-        <i class="bi bi-calendar3"></i> March 19, 2025
+        <i class="bi bi-calendar3"></i> April 08, 2025
         
         <span class="ms-3">
           
-          <span class="badge bg-primary">ruby</span>
+          <span class="badge bg-primary">community</span>
           
-          <span class="badge bg-primary">postgresql</span>
+          <span class="badge bg-primary">partnerships</span>
           
-          <span class="badge bg-primary">performance</span>
+          <span class="badge bg-primary">leadership</span>
+          
+          <span class="badge bg-primary">tech-events</span>
           
         </span>
         
       </p>
       <div class="card-text">
-        <p>Hey Ruby friends! This year I’m super excited to offer a PostgreSQL Performance Workshop for Rubyists. I already ran the first one at the <a href="https://rubycommunityconference.com">Ruby Community Conference</a>, and it was a blast!</p>
+        <p>A few weeks ago I participated in a series of events in the local community in
+my home state. I have a series of 3 nights in a row, participating on local
+communities and talking about <a href="/talks">Real time analytics with Timescale</a>.</p>
 
-<p>I wanted to share some key learnings we discovered during the workshop and reflect on how our technology choices impact performance. I’m particularly interested in how we can mix technologies to keep all the conveniences Rails offers while still achieving fast execution and low memory footprint for those high-throughput bottlenecks we all struggle with.</p>
+<p>I love true community work and I love to think about how important is that
+<a href="/community-is-not-for-sale">community is not for sale</a>.</p>
 
-<p><img src="/images/postgresql-performance-workshop.webp" alt="Performance Workshop" title="Performance Workshop ORMs comparison" /></p>
+<p>This post is a reflection on building mindful partnerships between tech communities and universities, exploring both opportunities and potential challenges.</p>
 
-<p>With Ruby 3.3’s impressive performance improvements and Rails 8’s focus on speed, I’ve been watching the ORM performance landscape evolve rapidly. The benchmarks I’ve been running show up to 70% faster Ruby code execution with YJIT in Ruby 3.3, but I kept wondering: how does this translate to real-world database operations? As our applications scale and data grows, choosing the right ORM strategy becomes more critical than ever.</p>
+<h2 id="community-engagement">Community Engagement</h2>
 
-<p>In this post, I’ll dive into the latest performance differences I found between ActiveRecord and Sequel when working with TimescaleDB, a specialized PostgreSQL extension for time-series data. My benchmarks were conducted using Ruby 3.3.6 and the latest versions of both ORMs running on an Apple M4 chip, and I’ve made special efforts to ensure the comparisons are fair and accurate.</p>
+<p>A community engagement is like a dating with folks that you like and share
+preferences. The groups are genuinely connected because they have a desire and
+want to grow together.</p>
 
-<h2 id="the-orm-performance-benchmark-challenge">The ORM Performance Benchmark Challenge</h2>
+<p>The community meetups are those groups of people that want to beyond and hack
+some code together, learn with each other and make content accessible for free.</p>
 
-<p>My no-brain choice is always ActiveRecord but for the Performance workshop, I started collecting also information from the community and decided to also build comparison between different ORMs for the workshop. Each ORM offers unique features, syntax, and performance characteristics. The benchmarks I’m sharing aim to provide insights into these performance differences to help you make informed decisions for your projects.</p>
+<h2 id="university-engagement">University Engagement</h2>
 
-<blockquote>
-  <p><strong>UPDATE (March 21, 2025)</strong>: After receiving valuable feedback from the community (special thanks to Maurício Szabo!), I’ve updated these benchmarks to ensure the queries being compared are equivalent. This post now contains the updated results from these improved benchmarks.</p>
-</blockquote>
+<p>Universities bring unique assets to community partnerships - physical spaces, diverse student talent, and academic expertise. While my experience has primarily been with Brazilian universities, I’ve observed that these institutions globally share similar goals around education and professional development.</p>
 
-<p>It’s important to note that these benchmarks focus purely on execution time and memory usage - they don’t account for developer productivity, which is a crucial factor when choosing an ORM. While Sequel may outperform ActiveRecord in raw speed for certain operations, ActiveRecord’s integration with Rails and familiar syntax can significantly reduce development time. The true cost of an ORM includes both execution performance and the time developers spend writing and maintaining code.</p>
+<p>Many universities are genuinely interested in connecting students with real-world practitioners, though engagement levels can vary widely depending on faculty involvement and institutional priorities.</p>
 
-<h3 id="updated-benchmark-results-march-2025">Updated Benchmark Results (March 2025)</h3>
+<h2 id="building-mindful-partnerships">Building Mindful Partnerships</h2>
 
-<p>After ensuring that the SQL queries generated by both ORMs are equivalent, here are the updated benchmark results. All tests were performed on a MacBook Pro with an Apple M4 chip, running Ruby 3.3.6 with TimescaleDB 2.18 on PostgreSQL 17.2 through the timescaledb-ha docker image.</p>
+<p>When communities and universities collaborate, both sides need to align expectations. Here are some insights for community builders:</p>
 
-<p>Here’s the full output of the benchmark, you can get the <a href="https://github.com/timescale/postgresql-performance-for-rubyists/blob/main/examples/05_ruby/03_orm_comparison.rb">orm_comparison.rb</a>:</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ruby 03_orm_comparison.rb
-Fetching gem metadata from https://rubygems.org/.......
-Resolving dependencies...
-[✔] Generating sample data ... Done!
-
-Generated:
-┌──────────┬────────┐
-│ Users    │ 1,000  │
-│ Posts    │ 10,000 │
-│ Comments │ 50,000 │
-└──────────┴────────┘
-
-=== ORM Comparison Examples (Significant Differences &gt;10%) ===
-Dataset: 1000 users, 10000 posts, 50000 comments
-
-1. Simple Query Performance (1000 users, limit: 100)
-Query: WHERE created_at &lt; current_time LIMIT 100
-ruby 3.3.6 (2024-11-05 revision 75015d4c1f) [arm64-darwin24]
-Warming up --------------------------------------
-ActiveRecord - simple query
-                        34.000 i/100ms
-Sequel - simple query
-                       275.000 i/100ms
-Calculating -------------------------------------
-ActiveRecord - simple query
-                        372.005 (±23.7%) i/s    (2.69 ms/i) -      1.802k in   5.038347s
-Sequel - simple query
-                          2.777k (± 4.6%) i/s  (360.12 μs/i) -     14.025k in   5.063636s
-
-Comparison:
-Sequel - simple query:     2776.9 i/s
-ActiveRecord - simple query:      372.0 i/s - 7.46x  slower
-
-
-2. Aggregation Performance (10000 posts)
-Query: GROUP BY user_id HAVING COUNT(*) &gt; 5
-ruby 3.3.6 (2024-11-05 revision 75015d4c1f) [arm64-darwin24]
-Warming up --------------------------------------
-ActiveRecord - aggregation with HAVING
-                        15.000 i/100ms
-Sequel - aggregation with HAVING
-                        22.000 i/100ms
-Calculating -------------------------------------
-ActiveRecord - aggregation with HAVING
-                        152.437 (± 7.9%) i/s    (6.56 ms/i) -    765.000 in   5.046387s
-Sequel - aggregation with HAVING
-                        208.504 (± 4.8%) i/s    (4.80 ms/i) -      1.056k in   5.075211s
-
-Comparison:
-Sequel - aggregation with HAVING:      208.5 i/s
-ActiveRecord - aggregation with HAVING:      152.4 i/s - 1.37x  slower
-
-
-3. Query Building Approaches (1000 users, limit: 100)
-Query: Complex conditions with LIKE pattern '%test%', date range, order by created_at desc
-ruby 3.3.6 (2024-11-05 revision 75015d4c1f) [arm64-darwin24]
-Warming up --------------------------------------
-ActiveRecord - method chain
-                       234.000 i/100ms
-Sequel - method chain
-                       252.000 i/100ms
-Calculating -------------------------------------
-ActiveRecord - method chain
-                          2.221k (± 6.0%) i/s  (450.22 μs/i) -     11.232k in   5.075242s
-Sequel - method chain
-                          2.449k (± 2.8%) i/s  (408.39 μs/i) -     12.348k in   5.046805s
-
-Comparison:
-Sequel - method chain:     2448.7 i/s
-ActiveRecord - method chain:     2221.2 i/s - 1.10x  slower
-</code></pre></div></div>
-
-<p>Ok, now let’s go case by case and check what’s going on.</p>
-
-<h4 id="simple-queries-performance">Simple Queries Performance</h4>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Benchmark</span><span class="p">.</span><span class="nf">ips</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
-  <span class="c1"># Using proper warmup and measurement times for stability</span>
-  <span class="n">x</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="ss">time: </span><span class="mi">5</span><span class="p">,</span> <span class="ss">warmup: </span><span class="mi">2</span><span class="p">)</span>
-
-  <span class="n">x</span><span class="p">.</span><span class="nf">report</span><span class="p">(</span><span class="s2">"ActiveRecord - simple query"</span><span class="p">)</span> <span class="k">do</span>
-    <span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &lt; ?"</span><span class="p">,</span> <span class="no">Time</span><span class="p">.</span><span class="nf">current</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">100</span><span class="p">).</span><span class="nf">to_a</span>
-  <span class="k">end</span>
-
-  <span class="n">x</span><span class="p">.</span><span class="nf">report</span><span class="p">(</span><span class="s2">"Sequel - simple query"</span><span class="p">)</span> <span class="k">do</span>
-    <span class="no">DB</span><span class="p">[</span><span class="ss">:users</span><span class="p">].</span><span class="nf">where</span><span class="p">(</span><span class="no">Sequel</span><span class="p">.</span><span class="nf">lit</span><span class="p">(</span><span class="s2">"created_at &lt; ?"</span><span class="p">,</span> <span class="no">Time</span><span class="p">.</span><span class="nf">current</span><span class="p">)).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">100</span><span class="p">).</span><span class="nf">all</span>
-  <span class="k">end</span>
-
-  <span class="n">x</span><span class="p">.</span><span class="nf">compare!</span>
-<span class="k">end</span>
-</code></pre></div></div>
-
-<p><strong>Results:</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Implementation</th>
-      <th>Performance (i/s)</th>
-      <th>Comparison</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Sequel</td>
-      <td>2,774.5 i/s</td>
-      <td>baseline</td>
-    </tr>
-    <tr>
-      <td>ActiveRecord</td>
-      <td>417.0 i/s</td>
-      <td>6.65x slower</td>
-    </tr>
-  </tbody>
-</table>
-
-<h4 id="complex-join-performance">Complex Join Performance</h4>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Benchmark</span><span class="p">.</span><span class="nf">ips</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
-  <span class="n">x</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="ss">time: </span><span class="mi">5</span><span class="p">,</span> <span class="ss">warmup: </span><span class="mi">2</span><span class="p">)</span>
-
-  <span class="n">x</span><span class="p">.</span><span class="nf">report</span><span class="p">(</span><span class="s2">"ActiveRecord - complex join"</span><span class="p">)</span> <span class="k">do</span>
-    <span class="c1"># Both queries select the same columns and use the same GROUP BY</span>
-    <span class="no">User</span><span class="p">.</span><span class="nf">joins</span><span class="p">(</span><span class="ss">posts: :comments</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="s1">'users.id, users.name, COUNT(DISTINCT posts.id) as posts_count, COUNT(comments.id) as comments_count'</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="s1">'users.id, users.name'</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">to_a</span>
-  <span class="k">end</span>
-
-  <span class="n">x</span><span class="p">.</span><span class="nf">report</span><span class="p">(</span><span class="s2">"Sequel - complex join"</span><span class="p">)</span> <span class="k">do</span>
-    <span class="no">DB</span><span class="p">[</span><span class="ss">:users</span><span class="p">]</span>
-      <span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">user_id: :id</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="ss">:comments</span><span class="p">,</span> <span class="ss">post_id: </span><span class="no">Sequel</span><span class="p">[</span><span class="ss">:posts</span><span class="p">][</span><span class="ss">:id</span><span class="p">])</span>
-      <span class="p">.</span><span class="nf">select</span><span class="p">(</span>
-        <span class="no">Sequel</span><span class="p">[</span><span class="ss">:users</span><span class="p">][</span><span class="ss">:id</span><span class="p">],</span>
-        <span class="no">Sequel</span><span class="p">[</span><span class="ss">:users</span><span class="p">][</span><span class="ss">:name</span><span class="p">],</span>
-        <span class="no">Sequel</span><span class="p">.</span><span class="nf">lit</span><span class="p">(</span><span class="s1">'COUNT(DISTINCT posts.id) as posts_count'</span><span class="p">),</span>
-        <span class="no">Sequel</span><span class="p">.</span><span class="nf">function</span><span class="p">(</span><span class="ss">:count</span><span class="p">,</span> <span class="no">Sequel</span><span class="p">[</span><span class="ss">:comments</span><span class="p">][</span><span class="ss">:id</span><span class="p">]).</span><span class="nf">as</span><span class="p">(</span><span class="ss">:comments_count</span><span class="p">)</span>
-      <span class="p">)</span>
-      <span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="no">Sequel</span><span class="p">[</span><span class="ss">:users</span><span class="p">][</span><span class="ss">:id</span><span class="p">],</span> <span class="no">Sequel</span><span class="p">[</span><span class="ss">:users</span><span class="p">][</span><span class="ss">:name</span><span class="p">])</span>
-      <span class="p">.</span><span class="nf">all</span>
-  <span class="k">end</span>
-
-  <span class="n">x</span><span class="p">.</span><span class="nf">compare!</span>
-<span class="k">end</span>
-</code></pre></div></div>
-
-<p><strong>Results:</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Implementation</th>
-      <th>Performance (i/s)</th>
-      <th>Comparison</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Sequel</td>
-      <td>62.9 i/s</td>
-      <td>baseline</td>
-    </tr>
-    <tr>
-      <td>ActiveRecord</td>
-      <td>60.3 i/s</td>
-      <td>1.04x slower</td>
-    </tr>
-  </tbody>
-</table>
-
-<h4 id="aggregation-performance">Aggregation Performance</h4>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Benchmark</span><span class="p">.</span><span class="nf">ips</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
-  <span class="n">x</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="ss">time: </span><span class="mi">5</span><span class="p">,</span> <span class="ss">warmup: </span><span class="mi">2</span><span class="p">)</span>
-
-  <span class="n">x</span><span class="p">.</span><span class="nf">report</span><span class="p">(</span><span class="s2">"ActiveRecord - aggregation with HAVING"</span><span class="p">)</span> <span class="k">do</span>
-    <span class="no">Post</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="ss">:user_id</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="s1">'user_id, COUNT(*) as posts_count, AVG(LENGTH(content)) as avg_content_length'</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">having</span><span class="p">(</span><span class="s1">'COUNT(*) &gt; 5'</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">to_a</span>
-  <span class="k">end</span>
-
-  <span class="n">x</span><span class="p">.</span><span class="nf">report</span><span class="p">(</span><span class="s2">"Sequel - aggregation with HAVING"</span><span class="p">)</span> <span class="k">do</span>
-    <span class="no">DB</span><span class="p">[</span><span class="ss">:posts</span><span class="p">]</span>
-      <span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="ss">:user_id</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">select_append</span> <span class="p">{</span> <span class="p">[</span>
-        <span class="n">count</span><span class="p">(</span><span class="nb">id</span><span class="p">).</span><span class="nf">as</span><span class="p">(</span><span class="ss">:posts_count</span><span class="p">),</span>
-        <span class="n">avg</span><span class="p">(</span><span class="n">length</span><span class="p">(</span><span class="n">content</span><span class="p">)).</span><span class="nf">as</span><span class="p">(</span><span class="ss">:avg_content_length</span><span class="p">)</span>
-      <span class="p">]</span> <span class="p">}</span>
-      <span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="ss">:user_id</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">having</span> <span class="p">{</span> <span class="n">count</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="p">}</span>
-      <span class="p">.</span><span class="nf">all</span>
-  <span class="k">end</span>
-
-  <span class="n">x</span><span class="p">.</span><span class="nf">compare!</span>
-<span class="k">end</span>
-</code></pre></div></div>
-
-<p><strong>Results:</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Implementation</th>
-      <th>Performance (i/s)</th>
-      <th>Comparison</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Sequel</td>
-      <td>211.7 i/s</td>
-      <td>baseline</td>
-    </tr>
-    <tr>
-      <td>ActiveRecord</td>
-      <td>154.0 i/s</td>
-      <td>1.38x slower</td>
-    </tr>
-  </tbody>
-</table>
-
-<h4 id="bulk-update-performance">Bulk Update Performance</h4>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">Benchmark</span><span class="p">.</span><span class="nf">ips</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
-  <span class="n">x</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="ss">time: </span><span class="mi">5</span><span class="p">,</span> <span class="ss">warmup: </span><span class="mi">2</span><span class="p">)</span>
-
-  <span class="n">x</span><span class="p">.</span><span class="nf">report</span><span class="p">(</span><span class="s2">"ActiveRecord - bulk update"</span><span class="p">)</span> <span class="k">do</span>
-    <span class="c1"># Update all users who were created before now</span>
-    <span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &lt; ?"</span><span class="p">,</span> <span class="no">Time</span><span class="p">.</span><span class="nf">current</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">limit</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-        <span class="p">.</span><span class="nf">update_all</span><span class="p">(</span><span class="ss">updated_at: </span><span class="no">Time</span><span class="p">.</span><span class="nf">current</span><span class="p">)</span>
-  <span class="k">end</span>
-
-  <span class="n">x</span><span class="p">.</span><span class="nf">report</span><span class="p">(</span><span class="s2">"Sequel - bulk update"</span><span class="p">)</span> <span class="k">do</span>
-    <span class="c1"># Sequel doesn't support updates with limit, so we use a different approach</span>
-    <span class="c1"># First get the ids of 100 users</span>
-    <span class="n">ids</span> <span class="o">=</span> <span class="no">DB</span><span class="p">[</span><span class="ss">:users</span><span class="p">]</span>
-      <span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="no">Sequel</span><span class="p">.</span><span class="nf">lit</span><span class="p">(</span><span class="s2">"created_at &lt; ?"</span><span class="p">,</span> <span class="no">Time</span><span class="p">.</span><span class="nf">current</span><span class="p">))</span>
-      <span class="p">.</span><span class="nf">limit</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="ss">:id</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">map</span><span class="p">(</span><span class="ss">:id</span><span class="p">)</span>
-    
-    <span class="c1"># Then update those specific users</span>
-    <span class="no">DB</span><span class="p">[</span><span class="ss">:users</span><span class="p">]</span>
-      <span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="ss">id: </span><span class="n">ids</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">updated_at: </span><span class="no">Time</span><span class="p">.</span><span class="nf">current</span><span class="p">)</span>
-  <span class="k">end</span>
-
-  <span class="n">x</span><span class="p">.</span><span class="nf">compare!</span>
-<span class="k">end</span>
-</code></pre></div></div>
-
-<p><strong>Results from previous run:</strong></p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Implementation</th>
-      <th>Performance (i/s)</th>
-      <th>Comparison</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>ActiveRecord</td>
-      <td>1,643.7 i/s</td>
-      <td>baseline</td>
-    </tr>
-    <tr>
-      <td>Sequel</td>
-      <td>1,474.6 i/s</td>
-      <td>1.11x slower</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="memory-usage-patterns-mb">Memory Usage Patterns (MB)</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Operation Type</th>
-      <th>ActiveRecord</th>
-      <th>Sequel</th>
-      <th>Key Insights</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Large Result Set</td>
-      <td>125</td>
-      <td>45</td>
-      <td>ActiveRecord objects consume ~2.8x more memory than Sequel</td>
-    </tr>
-    <tr>
-      <td>Batch Processing</td>
-      <td>60</td>
-      <td>35</td>
-      <td>Using <code class="language-plaintext highlighter-rouge">find_each</code> with ActiveRecord helps control memory usage</td>
-    </tr>
-    <tr>
-      <td>JSON Processing</td>
-      <td>80</td>
-      <td>50</td>
-      <td>JSONB is more memory-efficient than standard JSON</td>
-    </tr>
-    <tr>
-      <td>Aggregations</td>
-      <td>40</td>
-      <td>35</td>
-      <td>Memory patterns are similar for aggregation operations</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="key-findings-from-the-updated-benchmarks">Key Findings from the Updated Benchmarks</h2>
-
-<p>Before diving into the detailed results, I want to share some revised insights from my benchmarking study. These findings represent patterns I observed across multiple test scenarios with properly equivalent queries and adequate warmup periods.</p>
-
-<p><img src="/images/jonatas-paganini-jeremy-evans-polished-ruby-book-rubyconf-thailand-2023.jpeg" alt="Jeremy Evans and I discussing Ruby performance at RubyConf Thailand" title="Meeting with Jeremy Evans, the creator of Sequel, at RubyConf Thailand 2023" /></p>
-
-<p>I had the incredible privilege of meeting Jeremy Evans (that’s us in the photo above), the creator of Sequel and author of “Polished Ruby Programming,” at RubyConf Thailand 2023. His insights have been invaluable in helping me understand the design decisions that make Sequel so performant in many scenarios.</p>
-
-<p>Jeremy recently <a href="https://x.com/jeremyevans0/status/1902733224574693528">shared some valuable insights on Twitter</a> about why Sequel performs so well:</p>
-
-<blockquote>
-  <p>Sequel does not use async queries, it has a lot of optimizations and a more efficient design. Some of the Sequel examples shown in the blog post could be tuned even further (where/cond.all-&gt;where_all/cond), storing static intermediate datasets instead of rebuilding them)</p>
-</blockquote>
-
-<p>This confirms what my benchmarks revealed - Sequel’s design emphasizes efficiency and optimization at every level, from query building to execution.</p>
-
-<p>My updated benchmarks revealed several consistent patterns:</p>
+<h3 id="opportunities-worth-pursuing">Opportunities Worth Pursuing</h3>
 
 <ol>
   <li>
-    <p><strong>Sequel still excels at raw speed for simple queries</strong> - For basic CRUD operations with properly warmed-up benchmarks, Sequel consistently outperforms ActiveRecord by 6-7x for simple selects, though this is less dramatic than my initial tests showed.</p>
+    <p><strong>Knowledge Exchange</strong>: Universities offer academic perspectives while communities bring practical insights - this combination can be powerful when balanced.</p>
   </li>
   <li>
-    <p><strong>With equivalent complex queries, the performance gap narrows dramatically</strong> - When comparing truly equivalent complex joins and aggregations, the performance difference is much smaller than I initially reported (1.04-1.38x).</p>
+    <p><strong>Resource Sharing</strong>: Universities can provide space and infrastructure while communities offer connections to industry professionals.</p>
   </li>
   <li>
-    <p><strong>ActiveRecord leads in bulk updates</strong> - ActiveRecord appears to have better optimizations for bulk update operations, showing about a 11% performance advantage over Sequel in this specific use case.</p>
-  </li>
-  <li>
-    <p><strong>Proper benchmark methodology is crucial</strong> - Using adequate warmup periods (2+ seconds) and multiple runs produces much more stable and reliable results than quick benchmarks.</p>
-  </li>
-  <li>
-    <p><strong>Memory usage remains a significant differentiator</strong> - In high-throughput applications, memory consumption frequently becomes the bottleneck before query speed, making lightweight ORMs particularly valuable.</p>
+    <p><strong>Career Pathways</strong>: Students gain exposure to working professionals, while communities gain fresh perspectives and potential new members.</p>
   </li>
 </ol>
 
-<p>Let’s examine these findings in more detail with some additional benchmark results:</p>
-
-<h3 id="batch-processing-comparison">Batch Processing Comparison</h3>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Benchmark setup</span>
-<span class="n">users</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">limit</span><span class="p">(</span><span class="mi">30000</span><span class="p">)</span>
-
-<span class="no">Benchmark</span><span class="p">.</span><span class="nf">measure</span> <span class="k">do</span>
-  <span class="c1"># Processing all records at once</span>
-  <span class="n">users</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span> <span class="n">user</span><span class="p">.</span><span class="nf">touch</span> <span class="p">}</span>
-<span class="k">end</span>
-
-<span class="no">Benchmark</span><span class="p">.</span><span class="nf">measure</span> <span class="k">do</span>
-  <span class="c1"># Using find_each with default batch size</span>
-  <span class="no">User</span><span class="p">.</span><span class="nf">limit</span><span class="p">(</span><span class="mi">30000</span><span class="p">).</span><span class="nf">find_each</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
-    <span class="n">user</span><span class="p">.</span><span class="nf">touch</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="no">Benchmark</span><span class="p">.</span><span class="nf">measure</span> <span class="k">do</span>
-  <span class="c1"># Using update_all</span>
-  <span class="no">User</span><span class="p">.</span><span class="nf">limit</span><span class="p">(</span><span class="mi">30000</span><span class="p">).</span><span class="nf">update_all</span><span class="p">(</span><span class="ss">updated_at: </span><span class="no">Time</span><span class="p">.</span><span class="nf">current</span><span class="p">)</span>
-<span class="k">end</span>
-</code></pre></div></div>
-
-<p><strong>Results:</strong>
-|  Operation                              |    Time  | Queries |     Rate  | Relative Speed |
-|—————————————–|———-|———|———–|—————-|
-| Processing all records at once          | 10.342 s | 30,001  |   2.9k/s  | baseline       |
-| Using find_each with default batch size |  9.657 s | 30,031  |   3.1k/s  | 1.1x faster    |
-| Using update_all                        |  0.282 s |      1  | 106.4k/s  | 36.6x faster   |</p>
-
-<p>The results are clear: bulk operations like <code class="language-plaintext highlighter-rouge">update_all</code> are dramatically faster (36.6x) but bypass ActiveRecord callbacks and validations. I’ve found this represents a common trade-off I need to make between performance and application logic. Sometimes I choose performance, sometimes I need those callbacks!</p>
-
-<h3 id="multiple-runs-for-stability">Multiple Runs for Stability</h3>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">3</span><span class="p">.</span><span class="nf">times</span> <span class="k">do</span> <span class="o">|</span><span class="n">i</span><span class="o">|</span>
-  <span class="nb">puts</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">Run </span><span class="si">#{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">/3:"</span>
-  <span class="no">Benchmark</span><span class="p">.</span><span class="nf">ips</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
-    <span class="n">x</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="ss">time: </span><span class="mi">5</span><span class="p">,</span> <span class="ss">warmup: </span><span class="mi">2</span><span class="p">)</span>
-
-    <span class="n">x</span><span class="p">.</span><span class="nf">report</span><span class="p">(</span><span class="s2">"ActiveRecord - simple query"</span><span class="p">)</span> <span class="k">do</span>
-      <span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"created_at &lt; ?"</span><span class="p">,</span> <span class="no">Time</span><span class="p">.</span><span class="nf">current</span><span class="p">).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">100</span><span class="p">).</span><span class="nf">to_a</span>
-    <span class="k">end</span>
-
-    <span class="n">x</span><span class="p">.</span><span class="nf">report</span><span class="p">(</span><span class="s2">"Sequel - simple query"</span><span class="p">)</span> <span class="k">do</span>
-      <span class="no">DB</span><span class="p">[</span><span class="ss">:users</span><span class="p">].</span><span class="nf">where</span><span class="p">(</span><span class="no">Sequel</span><span class="p">.</span><span class="nf">lit</span><span class="p">(</span><span class="s2">"created_at &lt; ?"</span><span class="p">,</span> <span class="no">Time</span><span class="p">.</span><span class="nf">current</span><span class="p">)).</span><span class="nf">limit</span><span class="p">(</span><span class="mi">100</span><span class="p">).</span><span class="nf">all</span>
-    <span class="k">end</span>
-
-    <span class="n">x</span><span class="p">.</span><span class="nf">compare!</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-</code></pre></div></div>
-
-<p><strong>Results:</strong>
-| Run | ActiveRecord | Sequel | Difference |
-|—–|————–|——–|————|
-| 1 | 414.1 i/s | 2,823.8 i/s | 6.82x faster |
-| 2 | 405.2 i/s | 2,739.4 i/s | 6.76x faster |
-| 3 | 431.8 i/s | 2,760.3 i/s | 6.39x faster |</p>
-
-<p>This demonstrates that with proper warmup periods, benchmark results become more stable across runs, providing more reliable data for decision-making.</p>
-
-<h2 id="memory-optimization-with-occamsrecord">Memory Optimization with OccamsRecord</h2>
-
-<p>One of the most impressive optimizations I’ve found for memory usage is OccamsRecord:</p>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Standard ActiveRecord</span>
-<span class="no">Benchmark</span><span class="p">.</span><span class="nf">memory</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
-  <span class="n">x</span><span class="p">.</span><span class="nf">report</span><span class="p">(</span><span class="s2">"ActiveRecord with associations"</span><span class="p">)</span> <span class="k">do</span>
-    <span class="n">users_data</span> <span class="o">=</span> <span class="no">User</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="ss">:posts</span><span class="p">).</span><span class="nf">map</span> <span class="k">do</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span>
-      <span class="p">{</span>
-        <span class="ss">name: </span><span class="n">user</span><span class="p">.</span><span class="nf">name</span><span class="p">,</span>
-        <span class="ss">email: </span><span class="n">user</span><span class="p">.</span><span class="nf">email</span><span class="p">,</span>
-        <span class="ss">post_count: </span><span class="n">user</span><span class="p">.</span><span class="nf">posts</span><span class="p">.</span><span class="nf">size</span>
-      <span class="p">}</span>
-    <span class="k">end</span>
-  <span class="k">end</span>
-
-  <span class="n">x</span><span class="p">.</span><span class="nf">report</span><span class="p">(</span><span class="s2">"OccamsRecord"</span><span class="p">)</span> <span class="k">do</span>
-    <span class="n">users_data</span> <span class="o">=</span> <span class="no">OccamsRecord</span>
-      <span class="p">.</span><span class="nf">query</span><span class="p">(</span><span class="no">User</span><span class="p">.</span><span class="nf">all</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">eager_load</span><span class="p">(</span><span class="ss">:posts</span><span class="p">)</span>
-      <span class="p">.</span><span class="nf">run</span>
-      <span class="p">.</span><span class="nf">map</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span> <span class="p">{</span>
-        <span class="ss">name: </span><span class="n">user</span><span class="p">.</span><span class="nf">name</span><span class="p">,</span>
-        <span class="ss">email: </span><span class="n">user</span><span class="p">.</span><span class="nf">email</span><span class="p">,</span>
-        <span class="ss">post_count: </span><span class="n">user</span><span class="p">.</span><span class="nf">posts</span><span class="p">.</span><span class="nf">size</span>
-      <span class="p">}}</span>
-  <span class="k">end</span>
-
-  <span class="n">x</span><span class="p">.</span><span class="nf">compare!</span>
-<span class="k">end</span>
-</code></pre></div></div>
-
-<p><strong>Results:</strong>
-| Implementation | Memory Allocated | Memory Retained |
-|—————-|——————|—————–|
-| ActiveRecord with associations | 27.30 MB | 68.34 KB |
-| OccamsRecord | 16.03 MB | 16.30 KB |</p>
-
-<p>This is a dramatic improvement in memory usage - OccamsRecord uses 41% less allocated memory and 76% less retained memory compared to standard ActiveRecord!</p>
-
-<h2 id="best-practices-for-orm-performance">Best Practices for ORM Performance</h2>
-
-<p>Based on my updated benchmarks, I’ve revised some best practices for optimizing ORM performance:</p>
-
-<h3 id="1-ensure-benchmark-accuracy">1. Ensure Benchmark Accuracy</h3>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Poor benchmark methodology</span>
-<span class="no">Benchmark</span><span class="p">.</span><span class="nf">ips</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
-  <span class="n">x</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="ss">time: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">warmup: </span><span class="mf">0.5</span><span class="p">)</span>
-  <span class="c1"># This will produce unstable results...</span>
-<span class="k">end</span>
-
-<span class="c1"># Better benchmark methodology </span>
-<span class="no">Benchmark</span><span class="p">.</span><span class="nf">ips</span> <span class="k">do</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span>
-  <span class="n">x</span><span class="p">.</span><span class="nf">config</span><span class="p">(</span><span class="ss">time: </span><span class="mi">5</span><span class="p">,</span> <span class="ss">warmup: </span><span class="mi">2</span><span class="p">)</span>
-  <span class="c1"># This provides more stable and realistic results</span>
-<span class="k">end</span>
-</code></pre></div></div>
-
-<h3 id="2-compare-equivalent-queries">2. Compare Equivalent Queries</h3>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Inequivalent queries lead to misleading comparisons</span>
-<span class="no">ActiveRecord</span><span class="p">:</span> <span class="no">User</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="s1">'*'</span><span class="p">).</span><span class="nf">joins</span><span class="p">(</span><span class="ss">:posts</span><span class="p">).</span><span class="nf">group</span><span class="p">(</span><span class="s1">'users.id'</span><span class="p">)</span>  
-<span class="no">Sequel</span><span class="p">:</span> <span class="no">DB</span><span class="p">[</span><span class="ss">:users</span><span class="p">].</span><span class="nf">join</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">user_id: :id</span><span class="p">).</span><span class="nf">select</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">group</span><span class="p">(</span><span class="ss">:id</span><span class="p">,</span> <span class="ss">:name</span><span class="p">)</span>
-
-<span class="c1"># Equivalent queries for fair comparison</span>
-<span class="no">ActiveRecord</span><span class="p">:</span> <span class="no">User</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="s1">'users.id, users.name'</span><span class="p">).</span><span class="nf">joins</span><span class="p">(</span><span class="ss">:posts</span><span class="p">).</span><span class="nf">group</span><span class="p">(</span><span class="s1">'users.id, users.name'</span><span class="p">)</span>
-<span class="no">Sequel</span><span class="p">:</span> <span class="no">DB</span><span class="p">[</span><span class="ss">:users</span><span class="p">].</span><span class="nf">join</span><span class="p">(</span><span class="ss">:posts</span><span class="p">,</span> <span class="ss">user_id: :id</span><span class="p">).</span><span class="nf">select</span><span class="p">(</span><span class="no">Sequel</span><span class="p">[</span><span class="ss">:users</span><span class="p">][</span><span class="ss">:id</span><span class="p">],</span> <span class="no">Sequel</span><span class="p">[</span><span class="ss">:users</span><span class="p">][</span><span class="ss">:name</span><span class="p">]).</span><span class="nf">group</span><span class="p">(</span><span class="no">Sequel</span><span class="p">[</span><span class="ss">:users</span><span class="p">][</span><span class="ss">:id</span><span class="p">],</span> <span class="no">Sequel</span><span class="p">[</span><span class="ss">:users</span><span class="p">][</span><span class="ss">:name</span><span class="p">])</span>
-</code></pre></div></div>
-
-<h3 id="3-use-index-friendly-query-patterns">3. Use Index-Friendly Query Patterns</h3>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Poor index usage (can't use index on name column)</span>
-<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"name LIKE ?"</span><span class="p">,</span> <span class="s2">"%smith%"</span><span class="p">)</span>
-
-<span class="c1"># Better index usage (can use index on name column)</span>
-<span class="no">User</span><span class="p">.</span><span class="nf">where</span><span class="p">(</span><span class="s2">"name LIKE ?"</span><span class="p">,</span> <span class="s2">"smith%"</span><span class="p">)</span>
-</code></pre></div></div>
-
-<h3 id="4-batch-processing">4. Batch Processing</h3>
-
-<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Inefficient</span>
-<span class="no">User</span><span class="p">.</span><span class="nf">all</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">user</span><span class="o">|</span> <span class="n">user</span><span class="p">.</span><span class="nf">update</span><span class="p">(</span><span class="ss">status: </span><span class="s1">'active'</span><span class="p">)</span> <span class="p">}</span>
-
-<span class="c1"># Efficient (36x faster)</span>
-<span class="no">User</span><span class="p">.</span><span class="nf">update_all</span><span class="p">(</span><span class="ss">status: </span><span class="s1">'active'</span><span class="p">)</span>
-</code></pre></div></div>
-
-<h2 id="join-me-for-postgresql-performance-optimization-at-tropical-on-rails-2025">Join Me for PostgreSQL Performance Optimization at Tropical on Rails 2025!</h2>
-
-<p>Want to dive deeper into these concepts and learn how to optimize your Ruby applications with PostgreSQL? Come hang out with me at my upcoming <strong>PostgreSQL Performance for Ruby Developers</strong> workshop at Tropical on Rails 2025!</p>
-
-<p>The workshop is based on our PostgreSQL Performance course, which has helped hundreds of developers optimize their database interactions and improve application performance. I’ve refined it based on feedback from previous sessions.</p>
-
-<h3 id="workshop-details">Workshop Details:</h3>
-<ul>
-  <li><strong>When</strong>: April 2nd, 2025 -  2 PM to 6 PM</li>
-  <li><strong>Language</strong>: English</li>
-  <li><strong>Location</strong>: São Paulo, Brazil</li>
-</ul>
-
-<p><a href="https://www.tropicalonrails.com/#workshops"><img src="/images/banners/tropicalonrails-2025-banner.png" alt="Tropical On Rails Banner" /></a></p>
-
-<p><a href="https://www.tropicalonrails.com/#workshops">Register for the workshop</a></p>
-
-<h2 id="my-updated-conclusions">My Updated Conclusions</h2>
-
-<p>After addressing the feedback from the community and running more accurate benchmarks, my conclusions have evolved. The choice between ActiveRecord and Sequel isn’t as clear-cut as my initial benchmarks suggested. While Sequel still generally offers better raw performance for simple queries, the gap is much smaller for complex operations when comparing equivalent queries.</p>
-
-<p>Here’s what I consider when choosing an ORM:</p>
-<ol>
-  <li>I use Sequel for performance-critical, simple data operations where raw speed matters</li>
-  <li>I stick with ActiveRecord for standard CRUD and Rails integration</li>
-  <li>Sometimes I use both in the same application where appropriate (yes, this works!)</li>
-  <li>I always profile my specific use case with equivalent queries before committing to an ORM</li>
-  <li>I use bulk operations whenever possible for better performance</li>
-</ol>
-
-<p>Remember that the best ORM for your application depends on your specific requirements and constraints. My updated benchmarks provide a more realistic starting point for your decision-making process, but your mileage may vary based on your specific architecture and usage patterns.</p>
-
-<p>What’s your experience with ORM performance? I’d love to hear your thoughts in the comments. And if you’re interested in diving deeper, join me at Tropical on Rails 2025 to continue the conversation!</p>
-
-<h2 id="resources">Resources</h2>
+<h3 id="potential-misalignments-to-address">Potential Misalignments to Address</h3>
 
 <ol>
-  <li><a href="https://github.com/timescale/timescaledb-ruby">TimescaleDB Ruby Gem</a></li>
-  <li><a href="https://github.com/timescale/postgresql-performance-for-rubyists">PostgreSQL Performance Workshop for Rubyists</a></li>
-  <li><a href="https://github.com/jeremyevans/sequel">Sequel Documentation</a></li>
-  <li><a href="https://guides.rubyonrails.org/active_record_querying.html">ActiveRecord Query Interface</a></li>
-  <li><a href="https://github.com/jhollinger/occams-record">OccamsRecord</a></li>
-  <li><a href="https://github.com/evanphx/benchmark-ips">Benchmark-ips Gem</a></li>
-  <li><a href="https://pragprog.com/titles/adrpo/ruby-performance-optimization/">Ruby Performance Optimization Book</a></li>
-  <li><a href="https://www.manning.com/books/polished-ruby-programming">Polished Ruby Programming by Jeremy Evans</a></li>
+  <li>
+    <p><strong>Engagement Expectations</strong>: Community events thrive on active participation, while universities may focus on attendance metrics. Be explicit about the type of engagement you’re seeking.</p>
+  </li>
+  <li>
+    <p><strong>Content Focus</strong>: Academic environments might prefer theoretical discussions, while practitioner communities often want hands-on problem-solving. Find a middle ground that serves both audiences.</p>
+  </li>
+  <li>
+    <p><strong>Scheduling and Commitment</strong>: University calendars follow academic cycles, while community events may require more flexible scheduling.</p>
+  </li>
 </ol>
 
-<h2 id="take-your-postgresql-performance-to-the-next-level">Take Your PostgreSQL Performance to the Next Level!</h2>
+<h3 id="creating-successful-partnerships">Creating Successful Partnerships</h3>
 
-<p>Looking for even more dramatic performance improvements in your Ruby + PostgreSQL applications? Check out the <a href="https://github.com/timescale/timescaledb-ruby">timescaledb gem</a> that I maintain! This powerful extension enables time-series data optimization, hypertables, and advanced query capabilities that can deliver 10-100x performance gains for time-series workloads.</p>
+<p>For community builders considering university partnerships, consider these approaches:</p>
 
-<p>As a maintainer, I’ve seen teams transform their application performance with minimal code changes. Drop me a message if you have questions or need implementation advice - I love helping people optimize their database performance!</p>
+<ol>
+  <li>
+    <p><strong>Start with Clear Objectives</strong>: Define what both parties hope to gain and contribute.</p>
+  </li>
+  <li>
+    <p><strong>Identify Champions</strong>: Find faculty members and administrators who genuinely understand community values.</p>
+  </li>
+  <li>
+    <p><strong>Create Balanced Events</strong>: Design formats that serve both students and professionals, perhaps with networking time followed by hands-on activities.</p>
+  </li>
+  <li>
+    <p><strong>Measure What Matters</strong>: Look beyond attendance numbers to engagement quality - discussions started, projects initiated, or connections made.</p>
+  </li>
+</ol>
 
-<p>👉 <strong><a href="https://github.com/timescale/timescaledb-ruby">Get started with TimescaleDB for Ruby today!</a></strong></p>
+<p>The most successful community-university partnerships recognize and respect the different cultures while finding common ground in shared learning goals. When mindfully constructed, these partnerships can enrich both the academic and practitioner communities they serve.</p>
+
 
       </div>
     </div>
@@ -884,6 +379,31 @@ ActiveRecord - method chain:     2221.2 i/s - 1.10x  slower
 <div class="post-list">
   <h2 class="h3 fw-bold border-bottom pb-3 mb-4">Recent Posts</h2>
   <div class="list-group post-list-group">
+    
+    <a href="/tech-community-universities-building-mindful-partnerships" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+      <div>
+        <h5 class="mb-1">Tech Community and Universities: Building Mindful Partnerships</h5>
+        <small class="text-muted">
+          <i class="bi bi-calendar3"></i> April 08, 2025
+          
+          <span class="ms-3">
+            
+            <span class="badge bg-primary">community</span>
+            
+            <span class="badge bg-primary">partnerships</span>
+            
+            <span class="badge bg-primary">leadership</span>
+            
+            <span class="badge bg-primary">tech-events</span>
+            
+          </span>
+          
+        </small>
+      </div>
+      <span class="badge bg-light text-dark rounded-pill">
+        <i class="bi bi-arrow-right"></i>
+      </span>
+    </a>
     
     <a href="/benchmarking-ruby-orms" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
       <div>
@@ -1068,25 +588,6 @@ ActiveRecord - method chain:     2221.2 i/s - 1.10x  slower
             <span class="badge bg-primary">community</span>
             
             <span class="badge bg-primary">talks</span>
-            
-          </span>
-          
-        </small>
-      </div>
-      <span class="badge bg-light text-dark rounded-pill">
-        <i class="bi bi-arrow-right"></i>
-      </span>
-    </a>
-    
-    <a href="/community-is-not-for-sale" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-      <div>
-        <h5 class="mb-1">Community is not for Sale</h5>
-        <small class="text-muted">
-          <i class="bi bi-calendar3"></i> March 01, 2024
-          
-          <span class="ms-3">
-            
-            <span class="badge bg-primary">community</span>
             
           </span>
           
