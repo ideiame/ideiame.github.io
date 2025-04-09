@@ -69,8 +69,8 @@ src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pu
 crossorigin="anonymous"></script>
 
     <meta charset="utf-8">
-    <title>Modos de Acesso</title>
-    <meta name="description" content="Modos de Acesso do SO">
+    <title>Tropical on Rails 2025: A Celebration of Ruby and PostgreSQL</title>
+    
     <meta name="author" content="Jônatas Davi Paganini">
 
     <!-- Immediate dark mode application to prevent flash -->
@@ -177,7 +177,7 @@ crossorigin="anonymous"></script>
           </ul>
           
           <div class="d-none d-md-block page-title-nav me-auto ms-2">
-            Modos de Acesso
+            Tropical on Rails 2025: A Celebration of Ruby and PostgreSQL
           </div>
           
           <div class="form-check form-switch d-flex align-items-center ms-auto">
@@ -195,15 +195,15 @@ crossorigin="anonymous"></script>
 
 <div class="article-wrapper">
   <div class="article-header">
-    <h1>Modos de Acesso</h1>
+    <h1>Tropical on Rails 2025: A Celebration of Ruby and PostgreSQL</h1>
     <div class="article-meta">
-      <span><i class="bi bi-calendar3"></i> March 04, 2010</span>
+      <span><i class="bi bi-calendar3"></i> April 09, 2025</span>
       <span class="separator">•</span>
       
   
   
     <span class="reading-time" title="Estimated read time">
-      <i class="bi bi-clock"></i> 9 min read
+      <i class="bi bi-clock"></i> 5 min read
     </span>
   
  
@@ -213,7 +213,13 @@ crossorigin="anonymous"></script>
       <span>
         <i class="bi bi-folder"></i> 
         
-          <a href="#sistemas-operacionais-ref" class="text-muted">sistemas-operacionais</a>
+          <a href="#ruby-ref" class="text-muted">ruby</a>, 
+        
+          <a href="#rails-ref" class="text-muted">rails</a>, 
+        
+          <a href="#conference-ref" class="text-muted">conference</a>, 
+        
+          <a href="#postgresql-ref" class="text-muted">postgresql</a>
         
       </span>
       
@@ -221,282 +227,107 @@ crossorigin="anonymous"></script>
   </div>
   
   <div class="article-content">
-    
-<h1 id="entendendo-os-modos-de-acesso-do-sistema-operacional">Entendendo os Modos de Acesso do Sistema Operacional</h1>
+    <p>The <a href="https://www.tropicalonrails.com/en/">Tropical on Rails 2025</a> conference has wrapped up, and I’m still buzzing with excitement from this incredible gathering of the Ruby community in São Paulo! Held on April 3-4 at the Pullman Vila Olímpia hotel, this event brought together passionate Ruby and Rails developers from across Brazil and beyond.</p>
 
-<p>O sistema operacional é dividido em dois modos básicos, sendo estes o modo Kernel e o modo Usuário. Esta divisão permite que os aplicativos sejam executados com segurança.</p>
+<p><img src="/images/tropicalonrails-2025-audience.jpg" alt="Audience at Tropical On Rails conference 2025" /></p>
 
-<p><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Kernel_Layout.svg/382px-Kernel_Layout.svg.png" alt="Kernel - imagem do wikipedia" /></p>
+<p>The energy and enthusiasm from attendees were absolutely infectious, making this one of the most memorable conference experiences I’ve had recently. I’d like to share some highlights from this fantastic event and the connections made during these few days of Ruby celebration.</p>
 
-<h2 id="arquitetura-em-camadas-do-sistema-operacional">Arquitetura em Camadas do Sistema Operacional</h2>
+<h2 id="my-postgresql-performance-workshop">My PostgreSQL Performance Workshop</h2>
 
-<p>Em uma divisão de camadas do sistema em auto-nível seria uma sequência como:</p>
+<p>As a speaker who conducted a workshop the day before the conference officially began, I had the unique privilege to enjoy the conference without worrying about my talk. I was fortunate to spend quality time with fellow speakers while sharing my knowledge about PostgreSQL performance optimization for Ruby developers. In an interesting twist, despite being in my home country of Brazil, this was actually my first time presenting this workshop in English here! The room was packed with most senior developers eager to dive deep into PostgreSQL internals and optimization.</p>
+
+<p>My 4-hour workshop was named “PostgreSQL Performance Workshop for Ruby Developers.” This hands-on session focused on helping Ruby developers understand how Postgresql works to then easily avoid under optimized choices. Learning to benchmark and queeze maximum performance from PostgreSQL when working with Ruby applications.</p>
+
+<p>We explored various topics including:</p>
 
 <ul>
-  <li><strong>Usuário</strong> - Camada superior onde o usuário interage com o sistema</li>
-  <li><strong>Aplicativo</strong> - Programas e software que o usuário utiliza</li>
-  <li><strong>Kernel</strong> - Núcleo do sistema operacional que gerencia recursos</li>
-  <li><strong>Hardware</strong> - Componentes físicos do computador</li>
+  <li>Getting deep into Storage Layout and WAL</li>
+  <li>Understanding and using PostgreSQL explain plans</li>
+  <li>How TimescaleDB architectures leverage Postgresql performance.</li>
+  <li>Comparing ORM performance (ActiveRecord vs Sequel vs OccamsRecord)</li>
 </ul>
 
-<h2 id="modos-de-acesso">Modos de acesso</h2>
+<p><img src="/images/tropicalonrails-2025-workshop-audience.jpg" alt="Workshop audience at Tropical on Rails 2025" /></p>
 
-<p>Os modos de acesso referem-se aos privilégios de execução de um processo, determinando quais operações podem ser realizadas por cada tipo de software.</p>
+<p>It was particularly special to have Cirdes Henrique, the main organizer of Tropical on Rails, drop by the workshop. His enthusiasm for building up the Ruby community in Brazil is truly inspiring. Cirdes has been a driving force behind this event, and his dedication shows in every aspect of the conference 🫶.</p>
 
-<h3 id="modo-usuário">Modo Usuário</h3>
+<p><img src="/images/tropicalonrails-2025-jonatas-e-cirdes.jpeg" alt="With Cirdes at Tropical on Rails 2025" /></p>
 
-<p>O processador entende um conjunto de instruções. Cada instrução pode ficar no modo Kernel ou no modo Usuário. Do lado do aplicativo, é possível apenas trabalhar com o conjunto de instruções que está do modo usuário.</p>
+<h2 id="meeting-the-ruby-on-rails-core-team">Meeting the Ruby on Rails Core Team</h2>
 
-<p>No modo usuário:</p>
-<ul>
-  <li>Os processos têm acesso limitado aos recursos do sistema</li>
-  <li>Não podem acessar diretamente o hardware</li>
-  <li>Precisam solicitar ao kernel quando necessitam executar operações privilegiadas</li>
-  <li>Não podem modificar configurações críticas do sistema</li>
-</ul>
+<p>One of the highlights of the conference was meeting Rafael França, a key member of the Rails core team. He is an incredible humble person that is so amazing to talk with.</p>
 
-<h3 id="modo-kernel">Modo Kernel</h3>
+<p><img src="/images/tropicalonrails-2025-jonatas-e-rafael-franca.jpg" alt="With Rafael França at Tropical on Rails 2025" /></p>
 
-<p>O modo Kernel é composto pelo modo usuário e também por outro conjunto de comandos que são restritos apenas ao uso interno. Os processos, quando são executados, consultam o Kernel e verificam se o comando pertence ao modo usuário e não tem privilégios, comparado a um estagiário.</p>
+<p>Our conversation centered around validating a security improvement I’d like to bring to bundler around validating permissions on different levels of usage of libraries. Imagine that you have a library and you want to explicitly allow it to grant access to disk or network. I’d like to bring this improvement to bundler and may go deeper and start tracking what permissions each library requires for the scope of your usage.</p>
 
-<p>No modo Kernel:</p>
-<ul>
-  <li>Acesso completo aos recursos do hardware</li>
-  <li>Capacidade de executar qualquer instrução do processador</li>
-  <li>Controle total sobre o sistema operacional</li>
-  <li>Gerenciamento direto da memória e dispositivos</li>
-</ul>
+<p>He already opened my mind sharing about the <a href="https://lkrg.org/">Linux Kernel Runtime Guard</a> which is in my list to explore 🤓</p>
 
-<p>A linguagem de programação Assembly é a linguagem que interpreta uma série de comandos e envia os comandos para o processador, sendo frequentemente usada para implementar partes do kernel.</p>
+<h2 id="community-discussions">Community Discussions</h2>
 
-<p>As rotinas do sistema operacional podem fazer chamadas a respeito de x comandos.</p>
+<p>During the event, I had the opportunity to chat a few times with Rosa, main developer of the <a href="https://github.com/rails/solid_queue">SolidQueue</a> gem and also a big start of the event. She went very deep into the Rails code encapsulation and how it organizes initializers and other internals that was awesome.</p>
 
-<p>Veja como é <a href="http://www.linfo.org/kernel_mode.html">a definição do kernel do linux</a>.</p>
+<p><img src="/images/tropicalonrails-2025-jonatas-e-rosa-e-tim.jpg" alt="With Rosa and Tim at Tropical on Rails 2025" /></p>
 
-<h2 id="funções-do-núcleo-do-sistema-operacional">Funções do Núcleo do Sistema Operacional</h2>
+<p>This real-life conversation felt like a podcast recording as we dove deep into Rails internals, exploring the architecture and design decisions behind SolidQueue and how it integrates with the Rails ecosystem.</p>
 
-<p>O núcleo do sistema operacional (kernel) é responsável por diversas funções essenciais:</p>
+<p>Funny fact: I love the Ruby community and especially making Ruby friends. I met Rosa in Poland and mentioned I was going to visit Spain, and it matched exactly with the <a href="https://madridrb.com/events/march-2025-intro-to-the-timescaledb-gem-1376">Madrid.rb</a> meetup.</p>
+
+<h2 id="brainstorming-and-idea-validation">Brainstorming and Idea Validation</h2>
+
+<p>The conference also provided valuable opportunities for brainstorming and validating my ideas. My conversation with Vinicius Stock was particularly productive, as we talked about AST and cool stuff behind the hype of LLM + MCP and how we’ll use all the power of the actual LSP to empower the MCP coverage for the Ruby community.</p>
+
+<p><img src="/images/tropicalonrails-2025-jonatas-e-vinicius-stock.jpg" alt="With Vinicius Stock at Tropical on Rails 2025" /></p>
+
+<p>One of the things I love most about conferences like Tropical on Rails is the chance to test ideas with smart, experienced developers. Vinicius provided valuable feedback on some concepts I’ve been considering around security in the Ruby ecosystem.</p>
+
+<h2 id="ruby-and-postgresql-a-perfect-match">Ruby and PostgreSQL: A Perfect Match</h2>
+
+<p>A particularly had a great connection with Rodrigo Serradura, where we explored the synergies between Ruby and PostgreSQL.</p>
+
+<p><img src="/images/tropicalonrails-2025-jonatasdp-e-rodrigo-serradura.jpeg" alt="With Rodrigo Serradura at Tropical on Rails 2025" /></p>
+
+<p>I’m a big fan of Rodrigo because he leads the <a href="https://www.meetup.com/pt-BR/arquitetura-e-design-de-aplicacoes-ruby/">ADA.rb</a> meetup. I’ve already spoken at and participated in the meetup several times.</p>
+
+<p>Rodrigo and I spent a good time going deep into community engagement and how to not be the “support” of your community but encourage and build autonomy. We discussed strategies for empowering community members to take ownership and contribute their own ideas and solutions.</p>
+
+<h2 id="conference-highlights">Conference Highlights</h2>
+
+<p>The conference featured an impressive lineup of speakers covering a wide range of topics:</p>
 
 <ol>
-  <li><strong>Tratamento de interrupções e exceções</strong> - Responder a eventos de hardware e erros de software</li>
-  <li><strong>Gerenciamento de processos e threads</strong> - Criação, eliminação, sincronização e comunicação</li>
-  <li><strong>Escalonamento e controle</strong> - Determinar qual processo utiliza o processador e por quanto tempo</li>
-  <li><strong>Gerência de memória</strong> - Alocação e liberação de espaço na memória RAM</li>
-  <li><strong>Gerência do sistema de arquivos</strong> - Organização e acesso a dados armazenados</li>
-  <li><strong>Gerência de dispositivos de E/S</strong> - Comunicação com periféricos</li>
-  <li><strong>Suporte a redes</strong> - Protocolos e serviços de comunicação</li>
-  <li><strong>Contabilização do uso</strong> - Monitoramento de recursos utilizados</li>
-  <li><strong>Auditoria e segurança</strong> - Proteção contra acessos não autorizados</li>
+  <li>Modern front-end development with Rails using Hotwire, RubyUI, and Phlex</li>
+  <li>Performance optimization techniques for Ruby applications</li>
+  <li>Real-world case studies of Rails at scale</li>
+  <li>The future of Ruby and Rails in the AI era</li>
+  <li>Community-building and open source contribution</li>
 </ol>
 
-<h2 id="instruções-privilegiadas-e-não-privilegiadas">Instruções Privilegiadas e Não Privilegiadas</h2>
+<p>The mix of technical deep dives and community-focused talks created a well-rounded program that catered to both technical growth and community connection. The venue’s tropical-themed decorations and the warm Brazilian hospitality created an atmosphere that perfectly balanced professionalism with the relaxed, friendly nature of the Ruby community.</p>
 
-<h3 id="o-que-são-e-como-funcionam">O que são e como funcionam?</h3>
+<h2 id="looking-forward">Looking Forward</h2>
 
-<p>O processador se comunica com o sistema operacional através de funções, que podem ser executadas basicamente em dois modos: <strong>kernel</strong> e <strong>usuário</strong>.</p>
+<p>As Tropical on Rails 2025 comes to a close, I’m left with a renewed appreciation for the Ruby community and excitement about the future of Rails development. The blend of technical excellence and community warmth that defines the Ruby ecosystem was on full display throughout the event.</p>
 
-<p>O modo <strong>kernel</strong> é conhecido como privilegiado por ter acesso completo ao computador, a todas as partes do hardware. Já o modo <strong>usuário</strong>, que limita as ações para garantir a segurança e não comprometer nenhuma parte do próprio sistema. Neste modo, é mais difícil de um aplicativo violar a privacidade de outro.</p>
+<p>I’ll be taking the connections made and lessons learned from this conference forward into my work with PostgreSQL and TimescaleDB, and I’m already looking forward to next year’s event!</p>
 
-<p>Este mecanismo garante que nenhuma parte da memória será violada por outro aplicativo.</p>
+<p>If you attended Tropical on Rails 2025, I’d love to hear about your experience and the key takeaways you’re implementing in your own work. Drop me a comment below or reach out on social media to continue the conversation.</p>
 
-<h3 id="como-se-faz-uso-deste-mecanismo">Como se faz uso deste mecanismo?</h3>
-
-<p>O processador executa todas as operações em modo kernel, mas para isso, é necessário que as rotinas enviadas em modo usuário sejam carregadas e validadas e consideradas seguras. Se algum dos passos falhar, o sistema envia uma exceção e nega a execução da operação.</p>
-
-<p>Por exemplo, se desejo salvar um arquivo, uso uma linguagem de alto-nível como Java, Ruby e mando salvar, o sistema, em modo usuário tenta salvar, se o arquivo comprometer a integridade do SO de alguma forma, então o sistema lançará uma exceção, e não permitirá a alteração. A linguagem que programou esta execução também receberá uma exceção mapeada para linguagem, que é resultado da exceção lançada pelo modo kernel.</p>
-
-<p>Desta forma, foi enviado um comando do modo usuário, passado para o kernel, o qual se recusa a executar, e responde para a linguagem que deve tratar o erro.</p>
-
-<p>As chamadas ao sistema são chamadas de “<a href="https://en.wikipedia.org/wiki/System_call">system calls</a>” ou seja, chamada ao sistema.</p>
-
-<h3 id="system-calls-a-ponte-entre-usuário-e-kernel">System Calls: A Ponte Entre Usuário e Kernel</h3>
-
-<p>System call é uma chamada do sistema, como sua própria tradução indica. Em uma chamada ao sistema, o sistema operacional recebe um comando e possíveis parâmetros. Como resposta, recebe um outro código, que pode indicar sucesso, falha ou até mesmo o resultado do próprio comando.</p>
-
-<p>No processo de receber o comando, o sistema identifica o aplicativo que fez a chamada e verifica a sua permissão para execução do comando. Dada a permissão executa e retorna o resultado.</p>
-
-<p><img src="/images/system-calls-diagram.png" alt="System Calls Diagram" /></p>
-
-<h2 id="proteção-do-kernel">Proteção do Kernel</h2>
-
-<p>O kernel do sistema operacional pode ser protegido pelos mecanismos e modos de acesso através do modo <strong>usuário</strong>. Neste modo, todos os comandos não privilegiados podem ser executados. Todos os aplicativos são executados no modo usuário, e enviam as instruções para o modo kernel que avaliam a segurança e garantia da execução protegida de cada “system call”.</p>
-
-<p>Esta forma de chamadas identifica se o aplicativo possui permissão para executar o comando.</p>
-
-<h2 id="instruções-privilegiadas">Instruções Privilegiadas</h2>
-
-<h3 id="por-que-as-rotinas-do-sistema-operacional-possuem-instruções-privilegiadas">Por que as rotinas do sistema operacional possuem instruções privilegiadas?</h3>
-
-<p>Como é o sistema operacional que controla tudo, apenas ele tem o poder de dizer o que está certo ou errado. Assim ele mesmo é responsável por qualquer situação de risco para o hardware ou software. Usar o modo kernel, o sistema pode administrar a memória de forma transparente, e também deve saber a hora de cada evento acontecer. No modo kernel, ações delicadas são realizadas e é seguro ao máximo para não falhar.</p>
-
-<p>Para gerenciar uma memória, liberar o espaço de memória utilizado por um aplicativo, não deve ser uma tarefa realizada pela programação do programador, mas sim pela observação do sistema operacional. Operações deste tipo, são delicadas e devem ser executadas com segurança. Para evitar erros e intenções maliciosas, apenas o sistema operacional consegue fazer isso, e só realmente faz se estiver seguro.</p>
-
-<h3 id="exemplos-de-instruções-que-devem-ser-executadas-apenas-no-modo-kernel">Exemplos de instruções que devem ser executadas apenas no modo kernel:</h3>
-
-<ul>
-  <li>Desabilitar todas as interrupções</li>
-  <li>Alterar a data e hora do sistema</li>
-  <li>Realizar um desvio para uma instrução dentro do programa e acessar diretamente posições do disco</li>
-</ul>
-
-<h2 id="comandos-em-sistemas-operacionais">Comandos em Sistemas Operacionais</h2>
-
-<h3 id="unixlinux">Unix/Linux</h3>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">ps</code>: Lista processos do sistema operacional</li>
-  <li><code class="language-plaintext highlighter-rouge">ls</code>: Lista conteúdos e diretórios</li>
-  <li><code class="language-plaintext highlighter-rouge">rm</code>: Remove algum arquivo, passando o parâmetro -r é possível remover um diretório</li>
-  <li><code class="language-plaintext highlighter-rouge">cat</code>: Concatena e imprime arquivos</li>
-  <li><code class="language-plaintext highlighter-rouge">&gt;</code>: Aponta a saída de um programa para outro dispositivo ou arquivo</li>
-  <li><code class="language-plaintext highlighter-rouge">|</code>: Concatena um comando a outro</li>
-  <li><code class="language-plaintext highlighter-rouge">touch</code>: Altera a data de modificação de um arquivo</li>
-</ul>
-
-<h3 id="windows-ms-dos">Windows (MS-DOS)</h3>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">md</code>: Cria uma pasta</li>
-  <li><code class="language-plaintext highlighter-rouge">del</code>: Remove algum arquivo</li>
-</ul>
-
-<h3 id="comandos-interativos">Comandos interativos</h3>
-
-<p>Os comandos interativos são eficientes e auxiliam muito no desenvolvimento de software. A interface de comandos com o Linux é muito mais fácil e compreensível que o cmd default do Windows. Para estudar e conhecer mais os comandos no Linux, existe um comando chamado “man” que abre o <strong>manual</strong> de um determinado comando. Por exemplo: “man ls” vai abrir a especificação do funcionamento do comando “ls”.</p>
-
-<h2 id="processo-de-inicialização-do-sistema-operacional">Processo de Inicialização do Sistema Operacional</h2>
-
-<p>Quando o computador é ligado, não existe nada na memória, então o primeiro programa a ser chamado é chamado boot, que fica gravado na memória ROM.</p>
-
-<p>O processo de inicialização segue estas etapas:</p>
-
-<ol>
-  <li><strong>POST (Power-On Self Test)</strong> - Testa a existência dos recursos mínimos para inicializar o sistema</li>
-  <li><strong>Boot Loader</strong> - Busca por um sistema operacional instalado em algum dispositivo</li>
-  <li><strong>Boot Sector</strong> - Contém informações iniciais para carregar o sistema operacional na memória</li>
-  <li><strong>Carregamento do Kernel</strong> - O núcleo do sistema é carregado na memória</li>
-  <li><strong>Inicialização de Serviços</strong> - Carregamento de drivers e processos essenciais</li>
-</ol>
-
-<h2 id="arquiteturas-de-sistemas-operacionais">Arquiteturas de Sistemas Operacionais</h2>
-
-<h3 id="arquitetura-monolítica-vs-arquitetura-em-camadas">Arquitetura Monolítica vs. Arquitetura em Camadas</h3>
-
-<p>A arquitetura monolítica é composta por módulos que se comunicam livremente, enquanto a arquitetura em camadas classifica as funções em níveis hierárquicos.</p>
-
-<h4 id="vantagens-da-arquitetura-monolítica">Vantagens da Arquitetura Monolítica:</h4>
-<ul>
-  <li>Desempenho geralmente superior</li>
-  <li>Comunicação direta entre componentes</li>
-  <li>Implementação mais simples</li>
-</ul>
-
-<h4 id="desvantagens-da-arquitetura-monolítica">Desvantagens da Arquitetura Monolítica:</h4>
-<ul>
-  <li>Difícil manutenção à medida que o sistema cresce</li>
-  <li>Menor isolamento entre componentes</li>
-  <li>Falhas podem comprometer todo o sistema</li>
-</ul>
-
-<h4 id="vantagens-da-arquitetura-em-camadas">Vantagens da Arquitetura em Camadas:</h4>
-<ul>
-  <li>Melhor organização do código</li>
-  <li>Isolamento de funções</li>
-  <li>Facilidade de manutenção e evolução</li>
-  <li>Maior segurança por hierarquia de privilégios</li>
-</ul>
-
-<h4 id="desvantagens-da-arquitetura-em-camadas">Desvantagens da Arquitetura em Camadas:</h4>
-<ul>
-  <li>Possível redução de desempenho</li>
-  <li>Maior complexidade de implementação</li>
-  <li>Potencial overhead na comunicação entre camadas</li>
-</ul>
-
-<p>Em 1968 foi programado o primeiro sistema operacional em camadas implementando este conceito. Como vantagem, este sistema consegue isolar as funções do sistema operacional e cria uma hierarquia dos modos de acesso, aumentando a segurança.</p>
-
-<h3 id="máquinas-virtuais">Máquinas Virtuais</h3>
-
-<p>Uma das grandes inovações na arquitetura de sistemas operacionais é o conceito de máquinas virtuais.</p>
-
-<h4 id="vantagens-do-modelo-de-máquina-virtual">Vantagens do modelo de máquina virtual:</h4>
-
-<ul>
-  <li>Permite executar instruções sobre um computador virtual, sem prejudicar o hardware real</li>
-  <li>Isolamento entre diferentes sistemas operacionais</li>
-  <li>Melhor aproveitamento de recursos de hardware</li>
-  <li>Facilidade para testes e desenvolvimento</li>
-  <li>Recuperação rápida de falhas</li>
-</ul>
-
-<h3 id="modelo-cliente-servidor-microkernel">Modelo Cliente-Servidor (Microkernel)</h3>
-
-<p>O modelo cliente-servidor na arquitetura micro-kernel funciona com um núcleo mínimo, onde a maioria dos serviços são implementados como processos servidores.</p>
-
-<h4 id="vantagens">Vantagens:</h4>
-<ul>
-  <li>Maior modularidade</li>
-  <li>Facilidade de extensão</li>
-  <li>Melhor isolamento de falhas</li>
-  <li>Maior segurança</li>
-</ul>
-
-<h4 id="desvantagens">Desvantagens:</h4>
-<ul>
-  <li>Potencial overhead na comunicação entre cliente e servidor</li>
-  <li>Problemas com acesso a certas partes diretas do hardware</li>
-  <li>Possível redução de desempenho em algumas operações</li>
-</ul>
-
-<h2 id="programação-orientada-a-objetos-em-sistemas-operacionais">Programação Orientada a Objetos em Sistemas Operacionais</h2>
-
-<p>A programação orientada a objetos (OOP) é considerada um caminho natural para o projeto de sistemas operacionais devido às suas características e benefícios. Embora nem todos os sistemas operacionais modernos sejam projetados inteiramente com base na OOP, muitos incorporam alguns de seus princípios.</p>
-
-<h3 id="razões-para-usar-oop-em-sistemas-operacionais">Razões para usar OOP em Sistemas Operacionais:</h3>
-
-<ul>
-  <li>
-    <p><strong>Modularidade</strong>: A OOP permite projetar sistemas complexos de maneira modular, dividindo-os em componentes menores e mais gerenciáveis, chamados de objetos.</p>
-  </li>
-  <li>
-    <p><strong>Abstração</strong>: Permite a criação de abstrações em diferentes níveis, o que ajuda a simplificar a complexidade do sistema operacional.</p>
-  </li>
-  <li>
-    <p><strong>Encapsulamento</strong>: Agrupa dados e comportamentos relacionados em um único objeto, protegendo a integridade dos dados.</p>
-  </li>
-  <li>
-    <p><strong>Herança</strong>: Facilita a reutilização de código e a criação de hierarquias de classes.</p>
-  </li>
-  <li>
-    <p><strong>Polimorfismo</strong>: Permite que objetos de diferentes classes sejam tratados como objetos de uma classe comum.</p>
-  </li>
-  <li>
-    <p><strong>Reutilização de código</strong>: Reduz a quantidade de código duplicado e melhora a eficiência do desenvolvimento.</p>
-  </li>
-</ul>
-
-<h2 id="considerações-finais">Considerações Finais</h2>
-
-<p>A compreensão dos modos de acesso do sistema operacional é fundamental para entender como os sistemas modernos funcionam. A divisão entre modo kernel e modo usuário permite que o sistema operacional mantenha sua integridade enquanto oferece flexibilidade aos aplicativos.</p>
-
-<p>Através dos mecanismos de proteção, system calls e arquiteturas adequadas, os sistemas operacionais conseguem equilibrar desempenho, segurança e usabilidade, permitindo que usuários executem suas tarefas sem comprometer a estabilidade do sistema.</p>
-
-<script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1171230226237014" crossorigin="anonymous"></script>
-
-<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-
-<p><ins class="adsbygoogle" style="display:inline-block;width:300px;height:600px" data-ad-client="ca-pub-1171230226237014" data-ad-slot="3911925903"></ins>
-<script>
-(adsbygoogle = window.adsbygoogle || []).push({});
-</script></p>
-
+<p>And if you missed my workshop but are interested in PostgreSQL performance optimization for Ruby applications, check out the <a href="https://github.com/timescale/postgresql-performance-for-rubyists/">GitHub repository</a> with all the workshop materials.</p>
 
   </div>
   
   
   <div class="article-tags">
     
-      <a href="#sistemas-operacionais-ref" class="article-tag">sistemas-operacionais</a>
+      <a href="#ruby-ref" class="article-tag">ruby</a>
+    
+      <a href="#rails-ref" class="article-tag">rails</a>
+    
+      <a href="#conference-ref" class="article-tag">conference</a>
+    
+      <a href="#postgresql-ref" class="article-tag">postgresql</a>
     
   </div>
   
@@ -506,7 +337,7 @@ crossorigin="anonymous"></script>
   <h5>Share this article</h5>
   <div class="sharing-buttons">
     
-    <a href="https://twitter.com/intent/tweet?text=Modos+de+Acesso&url=https%3A%2F%2Fideia.me%2Fmodos-so&via=jonatasdp" 
+    <a href="https://twitter.com/intent/tweet?text=Tropical+on+Rails+2025%3A+A+Celebration+of+Ruby+and+PostgreSQL&url=https%3A%2F%2Fideia.me%2Ftropical-on-rails-2025-a-celebration-of-ruby-community&via=jonatasdp" 
        class="btn btn-twitter btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -515,7 +346,7 @@ crossorigin="anonymous"></script>
     
     
     
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Fmodos-so" 
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fideia.me%2Ftropical-on-rails-2025-a-celebration-of-ruby-community" 
        class="btn btn-facebook btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -524,7 +355,7 @@ crossorigin="anonymous"></script>
     
     
     
-    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Fmodos-so&title=Modos+de+Acesso" 
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fideia.me%2Ftropical-on-rails-2025-a-celebration-of-ruby-community&title=Tropical+on+Rails+2025%3A+A+Celebration+of+Ruby+and+PostgreSQL" 
        class="btn btn-linkedin btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -533,7 +364,7 @@ crossorigin="anonymous"></script>
     
     
     
-    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Fmodos-so&title=Modos+de+Acesso" 
+    <a href="https://reddit.com/submit?url=https%3A%2F%2Fideia.me%2Ftropical-on-rails-2025-a-celebration-of-ruby-community&title=Tropical+on+Rails+2025%3A+A+Celebration+of+Ruby+and+PostgreSQL" 
        class="btn btn-reddit btn-sm" 
        target="_blank"
        rel="noopener noreferrer">
@@ -562,18 +393,13 @@ crossorigin="anonymous"></script>
   <div class="content-nav-previous">
     
       <small>Previous</small>
-      <a href="/cartao-de-visitas" title="Cartão de visitas">
-        Cartão de visitas
+      <a href="/tech-community-universities-building-mindful-partnerships" title="Tech Community and Universities: Building Mindful Partnerships">
+        Tech Community and Universities: Building Mindf...
       </a>
     
   </div>
   
   <div class="content-nav-next">
-    
-      <small>Next</small>
-      <a href="/helplate" title="Helplate = Help + Template">
-        Helplate = Help + Template
-      </a>
     
   </div>
 </div> 
@@ -591,21 +417,6 @@ crossorigin="anonymous"></script>
         
         
           
-            
-              
-              
-                
-              
-                
-              
-                
-              
-                
-              
-              
-              
-            
-          
           
           
         
@@ -633,11 +444,8 @@ crossorigin="anonymous"></script>
               
               
                 
-              
-                
-              
-                
-              
+                  
+                  
               
               
             
@@ -699,7 +507,8 @@ crossorigin="anonymous"></script>
                 
               
                 
-              
+                  
+                  
               
               
             
@@ -883,11 +692,707 @@ crossorigin="anonymous"></script>
         
         
         
+          
+            
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/benchmarking-ruby-orms">Benchmarking Ruby ORMs: ActiveRecord vs Sequel Performance with TimescaleDB</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> March 19, 2025
+                        </small>
+                      </p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
+        
+          
+            
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+                <div class="col-md-6 mb-3">
+                  <div class="card h-100">
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <a href="/my-first-contribution-to-rubygems">My First Contribution To Rubygems</a>
+                      </h5>
+                      <p class="card-text text-muted">
+                        <small>
+                          <i class="bi bi-calendar3"></i> July 04, 2024
+                        </small>
+                      </p>
+                      
+                        <p class="card-text">Adding to my goal of being helpful in the software world, I had my first contribution to RubyGems [merged][new_pr] 🎉</p>
+                      
+                    </div>
+                  </div>
+                </div>
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+              
+            
+          
+          
+          
         
         
-          <div class="col-12">
-            <p>No related posts found. Check out <a href="/archive.html">recent posts</a> instead.</p>
-          </div>
         
       </div>
     </div>
@@ -898,8 +1403,8 @@ crossorigin="anonymous"></script>
 <div id="disqus_thread" class="comments-section"></div>
 <script>
   var disqus_config = function () {
-    this.page.url = '/modos-so';
-    this.page.identifier = '/modos-so';
+    this.page.url = '/tropical-on-rails-2025-a-celebration-of-ruby-community';
+    this.page.identifier = '/tropical-on-rails-2025-a-celebration-of-ruby-community';
     
     // Handle dark mode for Disqus
     const isDarkMode = document.documentElement.classList.contains('dark-mode') || 
