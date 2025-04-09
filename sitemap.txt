@@ -9,7 +9,6 @@ https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml
 https://ideia.me/talks
 
-https://ideia.me/tropical-on-rails-2025-a-celebration-of-ruby-community
 https://ideia.me/tech-community-universities-building-mindful-partnerships
 https://ideia.me/benchmarking-ruby-orms
 https://ideia.me/programming-is-a-drug
