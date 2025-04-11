@@ -96,6 +96,7 @@ crossorigin="anonymous"></script>
     <!-- Site styles -->
     <link href="/css/nimbus-pygments.css" rel="stylesheet">
     <link href="/css/modern-theme.css" rel="stylesheet">
+    <link href="/css/main.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <!-- Modern JavaScript -->
@@ -144,7 +145,16 @@ crossorigin="anonymous"></script>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
       <div class="container">
         <a class="navbar-brand py-0" href="/">
-          <img class="rounded-circle" alt="ideiame logo" src="/images/ideiame.png">
+          <span class="logo">
+            <span class="i">i</span>
+            <span class="d">d</span>
+            <span class="e">e</span>
+            <span class="i2">i</span>
+            <span class="a">a</span>
+            <span class="dot">.</span>
+            <span class="m">m</span>
+            <span class="e2">e</span>
+          </span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -153,7 +163,6 @@ crossorigin="anonymous"></script>
           <ul class="navbar-nav">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle py-1" href="#" id="pagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-               Ideia.me 
               </a>
               <ul class="dropdown-menu shadow-sm glass-card" aria-labelledby="pagesDropdown">
                 <li><a class="dropdown-item" href="/archive">Archive</a></li>
@@ -206,15 +215,6 @@ crossorigin="anonymous"></script>
           <input type="text" id="post-search" class="form-control" placeholder="Search posts...">
           <button class="btn btn-primary" id="search-clear"><i class="fas fa-times"></i></button>
         </div>
-      </div>
-      <div class="col-md-6">
-        <select id="year-filter" class="form-select">
-          <option value="all">All Years</option>
-          
-          
-            <option value=""></option>
-          
-        </select>
       </div>
     </div>
   </div>
@@ -1079,7 +1079,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="Resultados Digitais-ref" data-category="Resultados Digitais">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Resultados digitais</h3>
+                    <h3 class="mb-0 category-label">Resultados digitais</h3>
                     <span class="badge bg-light text-primary rounded-pill">4 posts</span>
                   </div>
                   <div class="card-body">
@@ -1168,7 +1168,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="android-ref" data-category="android">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Android</h3>
+                    <h3 class="mb-0 category-label">Android</h3>
                     <span class="badge bg-light text-primary rounded-pill">3 posts</span>
                   </div>
                   <div class="card-body">
@@ -1240,7 +1240,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="ast-ref" data-category="ast">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Ast</h3>
+                    <h3 class="mb-0 category-label">Ast</h3>
                     <span class="badge bg-light text-primary rounded-pill">3 posts</span>
                   </div>
                   <div class="card-body">
@@ -1332,7 +1332,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="community-ref" data-category="community">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Community</h3>
+                    <h3 class="mb-0 category-label">Community</h3>
                     <span class="badge bg-light text-primary rounded-pill">9 posts</span>
                   </div>
                   <div class="card-body">
@@ -1536,7 +1536,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="css-ref" data-category="css">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Css</h3>
+                    <h3 class="mb-0 category-label">Css</h3>
                     <span class="badge bg-light text-primary rounded-pill">3 posts</span>
                   </div>
                   <div class="card-body">
@@ -1656,7 +1656,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="javascript-ref" data-category="javascript">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Javascript</h3>
+                    <h3 class="mb-0 category-label">Javascript</h3>
                     <span class="badge bg-light text-primary rounded-pill">7 posts</span>
                   </div>
                   <div class="card-body">
@@ -1792,7 +1792,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="jekyll-ref" data-category="jekyll">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Jekyll</h3>
+                    <h3 class="mb-0 category-label">Jekyll</h3>
                     <span class="badge bg-light text-primary rounded-pill">3 posts</span>
                   </div>
                   <div class="card-body">
@@ -1864,7 +1864,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="linguagem-ref" data-category="linguagem">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Linguagem</h3>
+                    <h3 class="mb-0 category-label">Linguagem</h3>
                     <span class="badge bg-light text-primary rounded-pill">6 posts</span>
                   </div>
                   <div class="card-body">
@@ -1985,7 +1985,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="linux-ref" data-category="linux">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Linux</h3>
+                    <h3 class="mb-0 category-label">Linux</h3>
                     <span class="badge bg-light text-primary rounded-pill">4 posts</span>
                   </div>
                   <div class="card-body">
@@ -2080,7 +2080,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="opensource-ref" data-category="opensource">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Opensource</h3>
+                    <h3 class="mb-0 category-label">Opensource</h3>
                     <span class="badge bg-light text-primary rounded-pill">7 posts</span>
                   </div>
                   <div class="card-body">
@@ -2224,7 +2224,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="pense-ref" data-category="pense">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Pense</h3>
+                    <h3 class="mb-0 category-label">Pense</h3>
                     <span class="badge bg-light text-primary rounded-pill">17 posts</span>
                   </div>
                   <div class="card-body">
@@ -2532,7 +2532,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="personal-ref" data-category="personal">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Personal</h3>
+                    <h3 class="mb-0 category-label">Personal</h3>
                     <span class="badge bg-light text-primary rounded-pill">22 posts</span>
                   </div>
                   <div class="card-body">
@@ -2957,7 +2957,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="postgresql-ref" data-category="postgresql">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Postgresql</h3>
+                    <h3 class="mb-0 category-label">Postgresql</h3>
                     <span class="badge bg-light text-primary rounded-pill">8 posts</span>
                   </div>
                   <div class="card-body">
@@ -3114,7 +3114,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="programming-ref" data-category="programming">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Programming</h3>
+                    <h3 class="mb-0 category-label">Programming</h3>
                     <span class="badge bg-light text-primary rounded-pill">8 posts</span>
                   </div>
                   <div class="card-body">
@@ -3363,7 +3363,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="rails-ref" data-category="rails">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Rails</h3>
+                    <h3 class="mb-0 category-label">Rails</h3>
                     <span class="badge bg-light text-primary rounded-pill">5 posts</span>
                   </div>
                   <div class="card-body">
@@ -3467,7 +3467,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="raspberry pi-ref" data-category="raspberry pi">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Raspberry pi</h3>
+                    <h3 class="mb-0 category-label">Raspberry pi</h3>
                     <span class="badge bg-light text-primary rounded-pill">3 posts</span>
                   </div>
                   <div class="card-body">
@@ -3537,7 +3537,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="regexp-ref" data-category="regexp">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Regexp</h3>
+                    <h3 class="mb-0 category-label">Regexp</h3>
                     <span class="badge bg-light text-primary rounded-pill">5 posts</span>
                   </div>
                   <div class="card-body">
@@ -3641,7 +3641,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="retrospective-ref" data-category="retrospective">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Retrospective</h3>
+                    <h3 class="mb-0 category-label">Retrospective</h3>
                     <span class="badge bg-light text-primary rounded-pill">4 posts</span>
                   </div>
                   <div class="card-body">
@@ -3726,7 +3726,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="ruby-ref" data-category="ruby">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Ruby</h3>
+                    <h3 class="mb-0 category-label">Ruby</h3>
                     <span class="badge bg-light text-primary rounded-pill">23 posts</span>
                   </div>
                   <div class="card-body">
@@ -4136,7 +4136,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="sh-ref" data-category="sh">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Sh</h3>
+                    <h3 class="mb-0 category-label">Sh</h3>
                     <span class="badge bg-light text-primary rounded-pill">3 posts</span>
                   </div>
                   <div class="card-body">
@@ -4204,7 +4204,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="shell-ref" data-category="shell">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Shell</h3>
+                    <h3 class="mb-0 category-label">Shell</h3>
                     <span class="badge bg-light text-primary rounded-pill">4 posts</span>
                   </div>
                   <div class="card-body">
@@ -4297,7 +4297,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="sou-pai-ref" data-category="sou-pai">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Sou-pai</h3>
+                    <h3 class="mb-0 category-label">Sou-pai</h3>
                     <span class="badge bg-light text-primary rounded-pill">4 posts</span>
                   </div>
                   <div class="card-body">
@@ -4382,7 +4382,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="talk-ref" data-category="talk">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Talk</h3>
+                    <h3 class="mb-0 category-label">Talk</h3>
                     <span class="badge bg-light text-primary rounded-pill">10 posts</span>
                   </div>
                   <div class="card-body">
@@ -4583,7 +4583,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="technical-ref" data-category="technical">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Technical</h3>
+                    <h3 class="mb-0 category-label">Technical</h3>
                     <span class="badge bg-light text-primary rounded-pill">11 posts</span>
                   </div>
                   <div class="card-body">
@@ -4801,7 +4801,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="technology-ref" data-category="technology">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Technology</h3>
+                    <h3 class="mb-0 category-label">Technology</h3>
                     <span class="badge bg-light text-primary rounded-pill">5 posts</span>
                   </div>
                   <div class="card-body">
@@ -4965,7 +4965,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="terminal-ref" data-category="terminal">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Terminal</h3>
+                    <h3 class="mb-0 category-label">Terminal</h3>
                     <span class="badge bg-light text-primary rounded-pill">6 posts</span>
                   </div>
                   <div class="card-body">
@@ -5084,7 +5084,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="time-series-ref" data-category="time-series">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Time-series</h3>
+                    <h3 class="mb-0 category-label">Time-series</h3>
                     <span class="badge bg-light text-primary rounded-pill">4 posts</span>
                   </div>
                   <div class="card-body">
@@ -5171,7 +5171,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="tools-ref" data-category="tools">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Tools</h3>
+                    <h3 class="mb-0 category-label">Tools</h3>
                     <span class="badge bg-light text-primary rounded-pill">7 posts</span>
                   </div>
                   <div class="card-body">
@@ -5313,7 +5313,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="unix-ref" data-category="unix">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Unix</h3>
+                    <h3 class="mb-0 category-label">Unix</h3>
                     <span class="badge bg-light text-primary rounded-pill">5 posts</span>
                   </div>
                   <div class="card-body">
@@ -5423,7 +5423,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="web-ref" data-category="web">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Web</h3>
+                    <h3 class="mb-0 category-label">Web</h3>
                     <span class="badge bg-light text-primary rounded-pill">6 posts</span>
                   </div>
                   <div class="card-body">
@@ -5546,7 +5546,7 @@ crossorigin="anonymous"></script>
               <div class="category-section mb-5" id="xp-ref" data-category="xp">
                 <div class="card">
                   <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Xp</h3>
+                    <h3 class="mb-0 category-label">Xp</h3>
                     <span class="badge bg-light text-primary rounded-pill">3 posts</span>
                   </div>
                   <div class="card-body">
@@ -5631,9 +5631,6 @@ crossorigin="anonymous"></script>
     
     // Setup search functionality
     setupSearch();
-    
-    // Setup year filter
-    setupYearFilter();
     
     // Setup smooth scrolling
     setupSmoothScrolling();
@@ -5758,17 +5755,8 @@ crossorigin="anonymous"></script>
     });
   }
   
-  function setupYearFilter() {
-    const yearFilter = document.getElementById('year-filter');
-    
-    yearFilter.addEventListener('change', function() {
-      applyFilters();
-    });
-  }
-  
   function applyFilters() {
     const searchTerm = document.getElementById('post-search').value.toLowerCase();
-    const selectedYear = document.getElementById('year-filter').value;
     const activeCategory = document.querySelector('.category-filter-btn.active').getAttribute('data-category');
     const filteredPostsContainer = document.getElementById('filtered-posts');
     const categorySections = document.getElementById('category-sections');
@@ -5782,16 +5770,13 @@ crossorigin="anonymous"></script>
         const title = post.getAttribute('data-title');
         const description = post.querySelector('.post-description')?.textContent.toLowerCase() || '';
         const tags = Array.from(post.querySelectorAll('.post-tag')).map(tag => tag.textContent.toLowerCase());
-        const year = post.getAttribute('data-year');
         
         const matchesSearch = searchTerm === '' || 
                              title.includes(searchTerm) || 
                              description.includes(searchTerm) || 
                              tags.some(tag => tag.includes(searchTerm));
         
-        const matchesYear = selectedYear === 'all' || year === selectedYear;
-        
-        if (matchesSearch && matchesYear) {
+        if (matchesSearch) {
           post.style.display = 'block';
           visiblePosts++;
         } else {
