@@ -4,6 +4,7 @@ https://ideia.me/branding
 https://ideia.me/categories
 https://ideia.me/
 https://ideia.me/pages
+https://ideia.me/preview-new-design
 https://ideia.me/resume
 https://ideia.me/sitemap.txt
 https://ideia.me/sitemap.xml

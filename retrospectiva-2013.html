@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-mode">
   <head>
     <!-- Google tag (gtag.js) -->
 <link rel="stylesheet"
@@ -73,49 +73,40 @@ crossorigin="anonymous"></script>
     <meta name="description" content="Impossível lembrar de tantas coisas que acontecem em apenas um ano. Completei 27 a poucos dias e refletir sobre o passado nos ajuda a estabelecer perspectiva...">
     <meta name="author" content="Jônatas Davi Paganini">
 
-    <!-- Immediate dark mode application to prevent flash -->
+    <!-- Always use dark mode -->
     <script>
       (function() {
-        // Force dark mode for testing purposes
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
-          document.documentElement.classList.add('dark-mode');
-          document.write('<style>body,html{background-color:#121212!important;color:#f0f2f5!important;}div{background-color:transparent!important;}</style>');
-        }
+        document.documentElement.classList.add('dark-mode');
+        document.write('<style>body,html{background-color:#0c0c0c!important;color:#f0f2f5!important;}div{background-color:transparent!important;}</style>');
       })();
     </script>
 
     <!-- Enable responsive viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- JetBrains Mono and other developer fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- Modern stylesheet links -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Poppins:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <!-- GitHub-style syntax highlighting -->
+    
+    <!-- Site styles -->
     <link href="/css/nimbus-pygments.css" rel="stylesheet">
-    <link href="/css/custom.css" rel="stylesheet">
-    <link href="/css/disqus-dark.css" rel="stylesheet">
+    <link href="/css/modern-theme.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <!-- Modern JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="/js/modern-effects.js"></script>
     
     <!-- GitHub-style code block enhancement -->
     <script src="/js/github-code-blocks.js"></script>
     
     <div id="fb-root"></div>
-
-    <!-- Le fav and touch icons -->
-  <!-- Update these with your own images
-    <link rel="shortcut icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
-  -->
 
     <!-- atom & rss feed -->
     <link href="/atom.xml" type="application/atom+xml" rel="alternate" title="Sitewide ATOM Feed">
@@ -137,7 +128,7 @@ crossorigin="anonymous"></script>
 // ]]>
 </script>
 </head>
-<body>
+<body class="dark-mode">
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -147,7 +138,10 @@ crossorigin="anonymous"></script>
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <!-- Geometric background pattern -->
+    <div class="geometric-bg"></div>
+
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
       <div class="container">
         <a class="navbar-brand py-0" href="/">
           <img class="rounded-circle" alt="ideiame logo" src="/images/ideiame.png">
@@ -161,7 +155,7 @@ crossorigin="anonymous"></script>
               <a class="nav-link dropdown-toggle py-1" href="#" id="pagesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                Ideia.me 
               </a>
-              <ul class="dropdown-menu shadow-sm" aria-labelledby="pagesDropdown">
+              <ul class="dropdown-menu shadow-sm glass-card" aria-labelledby="pagesDropdown">
                 <li><a class="dropdown-item" href="/archive">Archive</a></li>
                 <li><a class="dropdown-item" href="/talks">Talks</a></li>
                 <li><a class="dropdown-item" href="/categories">Categories</a></li>
@@ -179,12 +173,6 @@ crossorigin="anonymous"></script>
             Retrospectiva 2013
           </div>
           
-          <div class="form-check form-switch d-flex align-items-center ms-auto">
-            <input class="form-check-input me-1" type="checkbox" id="darkModeToggle">
-            <label class="form-check-label text-light" for="darkModeToggle">
-              <i class="bi bi-moon-stars"></i>
-            </label>
-          </div>
         </div>
       </div>
     </nav>
@@ -889,47 +877,11 @@ consegui perceber algumas coisas basicas:</p>
 </div>
  
   
-<div id="disqus_thread" class="comments-section"></div>
+<div id="disqus_thread"></div>
 <script>
   var disqus_config = function () {
     this.page.url = '/retrospectiva-2013';
     this.page.identifier = '/retrospectiva-2013';
-    
-    // Handle dark mode for Disqus
-    const isDarkMode = document.documentElement.classList.contains('dark-mode') || 
-                        document.body.classList.contains('dark-mode') || 
-                        window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (isDarkMode) {
-      // Enable dark mode for Disqus
-      this.page.functions = [];
-      this.callbacks = {
-        onReady: [function() {
-          // Message the iframe to apply dark theme once loaded
-          const message = {
-            name: 'theme',
-            data: {
-              theme: 'dark'
-            }
-          };
-          
-          // Try to send the message multiple times as Disqus can load slowly
-          setTimeout(function() {
-            const iframe = document.querySelector('iframe[title="Disqus"]');
-            if (iframe && iframe.contentWindow) {
-              iframe.contentWindow.postMessage(message, '*');
-            }
-          }, 2000);
-          
-          setTimeout(function() {
-            const iframe = document.querySelector('iframe[title="Disqus"]');
-            if (iframe && iframe.contentWindow) {
-              iframe.contentWindow.postMessage(message, '*');
-            }
-          }, 4000);
-        }]
-      };
-    }
   };
 
   (function() {
@@ -937,37 +889,6 @@ consegui perceber algumas coisas basicas:</p>
     s.src = 'https://ideiame.disqus.com/embed.js';
     s.setAttribute('data-timestamp', +new Date());
     (d.head || d.body).appendChild(s);
-    
-    // Add dark styling for container
-    if (document.documentElement.classList.contains('dark-mode') || 
-        document.body.classList.contains('dark-mode') || 
-        window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      // Style the container immediately
-      const style = document.createElement('style');
-      style.textContent = `
-        #disqus_thread {
-          background-color: #1e1e1e !important;
-          color: #f0f2f5 !important;
-          padding: 20px;
-          border-radius: 8px;
-          border: 1px solid rgba(255, 255, 255, 0.1) !important;
-          margin-top: 30px;
-          margin-bottom: 30px;
-        }
-        
-        iframe {
-          background-color: #1e1e1e !important;
-          color-scheme: dark !important;
-        }
-        
-        /* Force the iframe document to use dark mode */
-        iframe[src*="disqus.com"] {
-          color-scheme: dark !important;
-          filter: invert(90%) hue-rotate(180deg) !important;
-        }
-      `;
-      document.head.appendChild(style);
-    }
   })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
@@ -980,140 +901,27 @@ consegui perceber algumas coisas basicas:</p>
 
     </div>
     
-    <footer class="footer bg-light py-4 mt-5">
+    <footer class="footer py-4 mt-5">
       <div class="container text-center">
         <p class="text-muted mb-0">© 2025 Jônatas Davi Paganini. All rights reserved.</p>
       </div>
     </footer>
 
-    <!-- Additional scripts for code highlighting and dark mode toggle -->
+    <!-- Consolidated JS -->
     <script>
-      // Toggle dark mode manually with smoother transition
       document.addEventListener('DOMContentLoaded', function() {
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        if (darkModeToggle) {
-          darkModeToggle.addEventListener('change', function() {
-            if (this.checked) {
-              document.documentElement.classList.add('dark-mode');
-              document.body.classList.add('dark-mode');
-              localStorage.setItem('theme', 'dark');
-              console.log('Dark mode enabled via toggle');
-              
-              // Update Disqus theme if it exists
-              if (window.DISQUS) {
-                try {
-                  DISQUS.reset({
-                    reload: true,
-                    config: function () {
-                      this.page.identifier = window.disqus_identifier;
-                      this.page.url = window.disqus_url;
-                      this.page.title = window.disqus_title;
-                      this.forum = window.disqus_shortname;
-                    }
-                  });
-                } catch (e) {
-                  console.log('Error resetting Disqus:', e);
-                }
-              }
-            } else {
-              document.documentElement.classList.remove('dark-mode');
-              document.body.classList.remove('dark-mode');
-              localStorage.setItem('theme', 'light');
-              console.log('Light mode enabled via toggle');
-              
-              // Update Disqus theme if it exists
-              if (window.DISQUS) {
-                try {
-                  DISQUS.reset({
-                    reload: true,
-                    config: function () {
-                      this.page.identifier = window.disqus_identifier;
-                      this.page.url = window.disqus_url;
-                      this.page.title = window.disqus_title;
-                      this.forum = window.disqus_shortname;
-                    }
-                  });
-                } catch (e) {
-                  console.log('Error resetting Disqus:', e);
-                }
-              }
-            }
-            
-            // Force reload the page to ensure all styles are applied correctly
-            setTimeout(() => {
-              window.location.reload();
-            }, 100);
-          });
-        }
-        
         // Apply highlighting to code blocks after content loads
-        enhanceCodeBlocks();
+        if (typeof enhanceCodeBlocks === 'function') {
+          enhanceCodeBlocks();
+        }
+        
         if (window.Prism) {
           setTimeout(function() {
             Prism.highlightAll();
           }, 100);
         }
         
-        // Configure Disqus for dark mode if needed
-        const isDarkMode = document.documentElement.classList.contains('dark-mode');
-        if (isDarkMode) {
-          // Insert dark mode CSS for Disqus
-          const style = document.createElement('style');
-          style.innerHTML = `
-            #disqus_thread {
-              background-color: #1e1e1e !important;
-              color: #f0f2f5 !important;
-              padding: 20px;
-              border-radius: 8px;
-              border: 1px solid rgba(255, 255, 255, 0.1);
-            }
-          `;
-          document.head.appendChild(style);
-          
-          // Set Disqus config variable for dark mode
-          window.disqus_config = function() {
-            this.page.identifier = window.location.pathname;
-            this.page.url = window.location.href;
-            this.language = 'en';
-            this.sso = {
-              name: 'SiteName',
-            };
-            this.callbacks.onReady = [function() {
-              const interval = setInterval(function() {
-                if (document.getElementById('dsq-app2')) {
-                  clearInterval(interval);
-                  const disqusIframe = document.getElementById('dsq-app2');
-                  disqusIframe.contentWindow.postMessage({
-                    name: 'setTheme',
-                    data: 'dark',
-                  }, '*');
-                }
-              }, 100);
-            }];
-          };
-        }
-      });
-      
-      // Reapply highlighting after any AJAX content loads
-      document.addEventListener('ajaxComplete', function() {
-        enhanceCodeBlocks();
-        if (window.Prism) {
-          setTimeout(function() {
-            Prism.highlightAll();
-          }, 100);
-        }
-      });
-    </script>
-
-    <!-- SEO and content improvement scripts -->
-    <script src="/assets/js/seo-helper.js"></script>
-    <script src="/assets/js/category-standardizer.js"></script>
-    <script src="/assets/js/link-validator.js"></script>
-
-    <!-- Add this at the end of the body, just before closing body tag -->
-    <script>
-      // Scroll animation for fade-in elements - modified to be more selective
-      document.addEventListener('DOMContentLoaded', function() {
+        // Add fade-in animations
         const fadeElements = document.querySelectorAll('.fade-in');
         
         const observer = new IntersectionObserver((entries) => {
@@ -1130,13 +938,11 @@ consegui perceber algumas coisas basicas:</p>
           observer.observe(element);
         });
         
-        // Only apply fade-in to non-critical UI elements
-        // Avoid applying to main content or navigation elements
-        const animateElements = document.querySelectorAll('.card:not(.latest-post-card):not(.post-content), .featured-content .card, .post-list-group .list-group-item');
+        // Apply fade-in to cards and other elements
+        const animateElements = document.querySelectorAll('.card:not(.latest-post-card):not(.post-content), .glass-card, .post-list-group .list-group-item');
         animateElements.forEach((element, index) => {
-          // Add minimal delay to reduce blinking effect
           element.classList.add('fade-in');
-          element.style.transitionDelay = `${index * 0.02}s`; // Reduced delay
+          element.style.transitionDelay = `${index * 0.02}s`; // Minimal delay
         });
         
         // Copy code button functionality
@@ -1163,13 +969,8 @@ consegui perceber algumas coisas basicas:</p>
             block.appendChild(button);
           }
         });
-      });
-    </script>
-
-    <!-- Ensure smooth page transitions -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Add fade-in class to the main content container
+        
+        // Smooth page transitions
         const contentContainer = document.querySelector('.content-container');
         if (contentContainer) {
           // Set initial opacity
@@ -1182,7 +983,7 @@ consegui perceber algumas coisas basicas:</p>
           }, 50);
         }
         
-        // Handle page navigation with smooth transitions
+        // Handle page navigation transitions
         document.querySelectorAll('a').forEach(link => {
           // Only apply to internal links
           if (link.hostname === window.location.hostname && !link.hasAttribute('target')) {
@@ -1209,150 +1010,8 @@ consegui perceber algumas coisas basicas:</p>
         });
       });
     </script>
-    <!-- Profile image swap functionality -->
-    <script src="/js/profile-image-swap.js"></script>
     
-    <!-- Disqus Dark Mode Handler -->
-    <script>
-      // Function to handle Disqus dark mode
-      function setupDisqusDarkMode() {
-        const isDarkMode = document.documentElement.classList.contains('dark-mode');
-        
-        // Add a style element to target the Disqus iframe
-        const disqusStyle = document.createElement('style');
-        disqusStyle.innerHTML = `
-          html.dark-mode iframe, body.dark-mode iframe {
-            color-scheme: dark !important;
-          }
-          
-          html.dark-mode #disqus_thread, body.dark-mode #disqus_thread {
-            background-color: #1e1e1e !important;
-            color: #f0f2f5 !important;
-            margin-top: 20px;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.1) !important;
-          }
-        `;
-        document.head.appendChild(disqusStyle);
-        
-        // Check for Disqus iframe and inject dark styles if needed
-        const checkForDisqus = setInterval(() => {
-          const disqusThread = document.getElementById('disqus_thread');
-          const disqusIframes = document.querySelectorAll('iframe[src*="disqus.com"]');
-          
-          if (disqusThread || disqusIframes.length > 0) {
-            clearInterval(checkForDisqus);
-            
-            if (isDarkMode) {
-              // Try to signal Disqus to use dark theme
-              if (window.DISQUS) {
-                try {
-                  window.DISQUS.host._loadEmbed({
-                    color: 'dark',
-                  });
-                } catch (e) {
-                  console.log('Could not set Disqus theme via API');
-                }
-              }
-              
-              // Direct CSS approach to all iframes
-              disqusIframes.forEach(iframe => {
-                try {
-                  // Try to access the iframe document
-                  const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-                  
-                  // Add dark mode classes and styles
-                  if (iframeDocument.body) {
-                    iframeDocument.body.classList.add('dark-mode');
-                    
-                    const darkStyle = iframeDocument.createElement('style');
-                    darkStyle.textContent = `
-                      body { background-color: #1e1e1e !important; color: #f0f2f5 !important; }
-                      .textarea-wrapper, .post-actions, .alert { background-color: #2a2d31 !important; }
-                      .wysiwyg__placeholder, input, textarea { color: #f0f2f5 !important; }
-                      .publisher-background-color { background-color: #1e1e1e !important; }
-                      .publisher-border-color { border-color: rgba(255, 255, 255, 0.1) !important; }
-                      .publisher-anchor-color, a { color: #5c9eff !important; }
-                    `;
-                    iframeDocument.head.appendChild(darkStyle);
-                  }
-                } catch (e) {
-                  console.log('Could not modify Disqus iframe due to CORS policy');
-                  
-                  // Add a fallback with filter approach
-                  if (isDarkMode) {
-                    // Apply a CSS filter to invert the colors
-                    iframe.style.filter = 'invert(92%) hue-rotate(180deg)';
-                  }
-                }
-              });
-            }
-          }
-        }, 500);
-      }
-      
-      // Run setup when DOM is loaded and after any content changes
-      document.addEventListener('DOMContentLoaded', setupDisqusDarkMode);
-      document.addEventListener('ajaxComplete', setupDisqusDarkMode);
-      
-      // Also run after a delay in case Disqus loads later
-      setTimeout(setupDisqusDarkMode, 2000);
-      setTimeout(setupDisqusDarkMode, 5000);
-    </script>
-    
-    <!-- Dedicated Disqus dark mode handler -->
-    <script src="/js/disqus-dark.js"></script>
-
-    <!-- Dark Mode Script -->
-    <script>
-      function detectColorScheme() {
-        // Check saved preference first
-        const savedTheme = localStorage.getItem('theme');
-        const prefersDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        
-        // Apply theme based on saved preference or system preference
-        if (savedTheme === 'dark' || (savedTheme === null && prefersDarkMode)) {
-          document.body.classList.add('dark-mode');
-          document.documentElement.classList.add('dark-mode');
-          if (darkModeToggle) darkModeToggle.checked = true;
-          console.log('Dark mode applied on initial load');
-        } else {
-          document.body.classList.remove('dark-mode');
-          document.documentElement.classList.remove('dark-mode');
-          if (darkModeToggle) darkModeToggle.checked = false;
-          console.log('Light mode applied on initial load');
-        }
-        
-        // Listen for changes in the OS color scheme only if no saved preference
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-          // Only apply system preference if user hasn't manually chosen a theme
-          if (localStorage.getItem('theme') === null) {
-            const newColorScheme = e.matches ? 'dark' : 'light';
-            if (newColorScheme === 'dark') {
-              document.body.classList.add('dark-mode');
-              document.documentElement.classList.add('dark-mode');
-              if (darkModeToggle) darkModeToggle.checked = true;
-              console.log('Dark mode applied from system preference change');
-            } else {
-              document.body.classList.remove('dark-mode');
-              document.documentElement.classList.remove('dark-mode');
-              if (darkModeToggle) darkModeToggle.checked = false;
-              console.log('Light mode applied from system preference change');
-            }
-          }
-        });
-      }
-
-      // Initialize dark mode immediately before DOM content is fully loaded
-      detectColorScheme();
-      
-      // Initialize when DOM is loaded
-      document.addEventListener('DOMContentLoaded', function() {
-        detectColorScheme();
-      });
-    </script>
+    <!-- Dedicated scripts -->
   </body>
 </html>
 
